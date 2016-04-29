@@ -18,3 +18,12 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+
+// Customers
+Route::get('/clientes', 'CustomerController@index');
+Route::get('/clientes/registrar', 'CustomerController@create');
+Route::post('/clientes/registrar', 'CustomerController@store');
+// Customer types
+Route::get('/clientes/tipos', 'CustomerTypeController@create');
+
+// Providers
