@@ -30,4 +30,8 @@ class OutputController extends Controller
     {
         return view('salida.alquiler');
     }
+    public function getBaja()
+    {
+        return view('salida.baja');
+    }
 }

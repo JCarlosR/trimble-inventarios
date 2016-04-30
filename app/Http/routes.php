@@ -20,15 +20,16 @@ Route::auth();
 Route::get('/home', 'HomeController@index');
 
 
-//Ingresos a almacen
+// Ingresos
 Route::get('/ingreso/retorno', 'EntryController@getRetorno');
 Route::get('/ingreso/compra', 'EntryController@getCompra');
 Route::get('/ingreso/reutilizacion', 'EntryController@getReutilizacion');
 
-//Salidas de almacen
+// Salidas
 Route::get('/salida/venta', 'OutputController@getVenta');
 Route::get('/salida/alquiler', 'OutputController@getAlquiler');
 Route::get('/salida/baja', 'OutputController@getBaja');
+
 
 // Customers
 Route::get('/clientes', 'CustomerController@index');
@@ -40,7 +41,7 @@ Route::get('/clientes/tipos', 'CustomerTypeController@create');
 // Providers
 
 
-//Productos
+// Products
 Route::get('/productos/categorias', 'ProductoController@categorias');
 Route::get('/productos/subcategorias', 'ProductoController@subcategorias');
 Route::get('/productos/marcas', 'ProductoController@marcas');

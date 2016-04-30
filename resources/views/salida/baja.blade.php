@@ -7,7 +7,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Salida por venta</h2>
+                    <h2>Salida por baja</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -32,22 +32,6 @@
                     <div class="x_content">
                         <br>
                         <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Buscar cliente
-                                </label>
-                                <div class="input-group col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="cliente" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
-                            {{--
-                            <div class="form-group">
-                                <div class="input-group col-md-3 col-md-offset-3" >
-                                    <input type="radio" id="last-name"  name="retorno" value="1" checked >No devueltos
-                                    <input type="radio" id="last-name"  name="retorno" value="0" >Devueltos
-                                </div>
-                            </div>
-                            --}}
 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="date">Fecha
@@ -137,86 +121,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Cantidad">Cantidad
-                                </label>
-                                <div class=" input-group col-md-6 col-sm-6 col-xs-12">
-                                    <input type="number" min="0" step="1" id="observacion" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-md-4 col-md-offset-4">
-                                    <button type="button" class="btn-primary form-control col-md-7 col-xs-12">Agregar a la lista</button>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Lista</label>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-8 col-md-offset-2">
-                                    <table class="table table-hover table-condensed">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Producto/Paquete</th>
-                                            <th>Serie</th>
-                                            <th>Cantidad</th>
-                                            <th>Precio</th>
-                                            <th>Subtotal</th>
-                                            <th>Acción</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>1000001</td>
-                                            <td>256314</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>
-                                                <button type="button" class="btn-danger">Quitar</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>1000002</td>
-                                            <td>256314</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>
-                                                <button type="button" class="btn-danger">Quitar</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>1000003</td>
-                                            <td>256314</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>
-                                                <button type="button" class="btn-danger">Quitar</button>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Total
-                                </label>
-                                <div class="col-md-3 col-sm-6 col-xs-12">
-                                    <input type="text" id="total" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
-                                    <button type="submit" class="btn btn-primary">Grabar</button>
+                                    <button type="submit" class="btn btn-primary">Dar de baja</button>
                                     <button type="submit" class="btn btn-danger">Cancelar</button>
                                 </div>
                             </div>

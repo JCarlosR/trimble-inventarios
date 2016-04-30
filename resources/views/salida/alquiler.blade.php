@@ -7,7 +7,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Salida por venta</h2>
+                    <h2>Salida por alquiler</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -51,6 +51,15 @@
 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="date">Fecha
+                                </label>
+                                <div class=" input-group col-md-6 col-sm-6 col-xs-12">
+                                    <input type="date" id="date" name="date" class="form-control col-md-7 col-xs-12">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="date">Fecha de retorno
                                 </label>
                                 <div class=" input-group col-md-6 col-sm-6 col-xs-12">
                                     <input type="date" id="date" name="date" class="form-control col-md-7 col-xs-12">
@@ -139,7 +148,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Cantidad">Cantidad
                                 </label>
-                                <div class=" input-group col-md-6 col-sm-6 col-xs-12">
+                                <div class="input-group col-md-6 col-sm-6 col-xs-12">
                                     <input type="number" min="0" step="1" id="observacion" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>

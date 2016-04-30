@@ -31,30 +31,21 @@
 
                     <div class="x_content">
                         <br>
-                        <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                        <form id="demo-form2" class="form-horizontal form-label-left" novalidate>
 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Buscar proveedor
                                 </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="input-group col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="proveedor" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
-                            {{--
-                            <div class="form-group">
-                                <div class="input-group col-md-3 col-md-offset-3" >
-                                    <input type="radio" id="last-name"  name="retorno" value="1" checked >No devueltos
-                                    <input type="radio" id="last-name"  name="retorno" value="0" >Devueltos
-                                </div>
-                            </div>
-                            --}}
 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Fecha
                                 </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class=" input-group col-md-6 col-sm-6 col-xs-12">
                                     <input type="date" id="date" name="date" class="form-control col-md-7 col-xs-12">
-
                                 </div>
                             </div>
 
@@ -64,14 +55,14 @@
 
                                 <div class="input-group col-md-3 col-md-offset-3" >
                                     <input type="radio" id="last-name"  name="tipo" value="1" checked >Local
-                                    <input type="radio" id="last-name"  name="tipo" value="0" >Extrangero
+                                    <input type="radio" id="last-name"  name="tipo" value="0" >Extranjero
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Observación
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">ObservaciÃ³n
                                 </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class=" input-group col-md-6 col-sm-6 col-xs-12">
                                     <textarea id="observacion" class="form-control col-md-7 col-xs-12" rows="3"></textarea>
                                 </div>
                             </div>
@@ -79,29 +70,27 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Producto
                                 </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class=" input-group col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="observacion" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Cantidad
                                 </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="input-group col-md-6 col-sm-6 col-xs-12">
                                     <input type="number" min="0" step="1" id="observacion" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="col-md-4 col-md-offset-4">
-                                    <button type="button" class="btn-primary form-control col-md-7 col-xs-12">Agregar a la lista</button>
+                                    <button type="button" class="btn btn-primary btn-block">Agregar a la lista</button>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Lista</label>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-8 col-md-offset-2">
+                                <div class="col-md-8 col-md-offset-2 col-sm-12">
+                                    <p>Lista de productos</p>
                                     <table class="table table-hover table-condensed">
                                         <thead>
                                         <tr>
@@ -111,7 +100,7 @@
                                             <th>Cantidad</th>
                                             <th>Precio</th>
                                             <th>Subtotal</th>
-                                            <th>Acción</th>
+                                            <th>AcciÃ³n</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -123,7 +112,7 @@
                                             <td>1</td>
                                             <td>1</td>
                                             <td>
-                                                <button type="button" class="btn-danger">Quitar</button>
+                                                <button type="button" class="btn btn-danger">Quitar</button>
                                             </td>
                                         </tr>
                                         <tr>
@@ -134,7 +123,7 @@
                                             <td>1</td>
                                             <td>1</td>
                                             <td>
-                                                <button type="button" class="btn-danger">Quitar</button>
+                                                <button type="button" class="btn btn-danger">Quitar</button>
                                             </td>
                                         </tr>
                                         <tr>
@@ -145,7 +134,7 @@
                                             <td>1</td>
                                             <td>1</td>
                                             <td>
-                                                <button type="button" class="btn-danger">Quitar</button>
+                                                <button type="button" class="btn btn-danger">Quitar</button>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -154,9 +143,9 @@
 
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Total
+                                <label class="control-label col-md-3 col-xs-12" for="cliente">Total
                                 </label>
-                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                <div class="input-group col-md-6 col-xs-12">
                                     <input type="text" id="total" class="form-control">
                                 </div>
                             </div>
@@ -164,7 +153,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
                                     <button type="submit" class="btn btn-primary">Grabar</button>
-                                    <button type="submit" class="btn btn-danger">Cancelar</button>
+                                    <button type="reset" class="btn btn-danger">Cancelar</button>
                                 </div>
                             </div>
                         </form>
