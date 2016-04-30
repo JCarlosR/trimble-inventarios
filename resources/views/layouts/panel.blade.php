@@ -47,13 +47,23 @@
                     <div class="menu_section">
                         <h3>General</h3>
                         <ul class="nav side-menu">
-                            <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                            <li><a><i class="fa fa-table"></i> Ingresos <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="index.html">Dashboard</a>
+                                    <li><a href="{{ url('/ingreso/retorno') }}">Retorno</a>
                                     </li>
-                                    <li><a href="index2.html">Dashboard2</a>
+                                    <li><a href="{{ url('/ingreso/compra') }}">Compra</a>
                                     </li>
-                                    <li><a href="index3.html">Dashboard3</a>
+                                    <li><a href="{{ url('/ingreso/reutilizacion') }}">Reutilizacion</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-table"></i> Salidas <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="{{ url('/salida/venta') }}">Venta</a>
+                                    </li>
+                                    <li><a href="{{ url('/salida/alquiler') }}">Alquiler</a>
+                                    </li>
+                                    <li><a href="{{ url('/salida/baja') }}">Por baja</a>
                                     </li>
                                 </ul>
                             </li>
@@ -70,6 +80,7 @@
                                             <li><a href="{{ url('/proveedores') }}">Ver proveedores</a></li>
                                             <li><a href="{{ url('/proveedores/tipos') }}">Tipos de proveedor</a></li>
                                         </ul>
+
                                     </li>
 
                                 </ul>
