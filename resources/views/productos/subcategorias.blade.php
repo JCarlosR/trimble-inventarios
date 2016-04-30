@@ -42,7 +42,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Categorías <span class="required">*</span>
                             </label>
                             <div class="radio col-md-6 col-sm-6 col-xs-12">
-                                <select name="" id="">
+                                <select name="" id="" class="form-control">
                                     <option value="1">Categoría ABCD1</option>
                                     <option value="2">Categoría ABCD2</option>
                                     <option value="3">Categoría ABCD3</option>

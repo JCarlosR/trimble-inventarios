@@ -67,8 +67,8 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Marca <span class="required">*</span>
                             </label>
-                            <div class="radio col-md-6 col-sm-6 col-xs-12">
-                                <select name="" id="">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select name="" id="" class="form-control">
                                     <option value="1">Marca ABCD1</option>
                                     <option value="2">Marca ABCD2</option>
                                     <option value="3">Marca ABCD3</option>
@@ -80,7 +80,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Modelo <span class="required">*</span>
                             </label>
                             <div class="radio col-md-6 col-sm-6 col-xs-12">
-                                <select name="" id="">
+                                <select name="" id="" class="form-control">
                                     <option value="1">Modelo ABCD2</option>
                                     <option value="2">Modelo ABCD3</option>
                                     <option value="3">Modelo ABCD4</option>
@@ -108,7 +108,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Categoría <span class="required">*</span>
                             </label>
                             <div class="radio col-md-6 col-sm-6 col-xs-12">
-                                <select name="" id="">
+                                <select name="" id="" class="form-control">
                                     <option value="1">Marca XYZW1</option>
                                     <option value="2">Marca XYZW2</option>
                                     <option value="3">Marca XYZW3</option>
@@ -120,7 +120,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Subcategoría <span class="required">*</span>
                             </label>
                             <div class="radio col-md-6 col-sm-6 col-xs-12">
-                                <select name="" id="">
+                                <select name="" id="" class="form-control">
                                     <option value="1">Subcategoría XYZW2</option>
                                     <option value="2">Subcategoría XYZW3</option>
                                     <option value="3">Subcategoría XYZW4</option>
@@ -308,7 +308,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Marca <span class="required">*</span>
                                 </label>
                                 <div class="radio col-md-6 col-sm-6 col-xs-12">
-                                    <select name="" id="">
+                                    <select name="" id="" class="form-control">
                                         <option value="1">Marca ABCD1</option>
                                         <option value="2">Marca ABCD2</option>
                                         <option value="3">Marca ABCD3</option>
@@ -320,7 +320,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Modelo <span class="required">*</span>
                                 </label>
                                 <div class="radio col-md-6 col-sm-6 col-xs-12">
-                                    <select name="" id="">
+                                    <select name="" id="" class="form-control">
                                         <option value="1">Modelo ABCD2</option>
                                         <option value="2">Modelo ABCD3</option>
                                         <option value="3">Modelo ABCD4</option>
