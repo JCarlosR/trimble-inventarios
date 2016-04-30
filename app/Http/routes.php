@@ -39,3 +39,11 @@ Route::get('/clientes/tipos', 'CustomerTypeController@create');
 
 // Providers
 
+
+//Productos
+Route::get('/productos/categorias', 'ProductoController@categorias');
+Route::get('/productos/subcategorias', 'ProductoController@subcategorias');
+Route::get('/productos/marcas', 'ProductoController@marcas');
+Route::get('/productos/modelos', 'ProductoController@modelos');
+Route::get('/productos/productos', 'ProductoController@productos');
+Route::get('/productos/paquetes', 'ProductoController@paquetes');

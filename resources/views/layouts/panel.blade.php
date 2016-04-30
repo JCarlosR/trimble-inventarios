@@ -85,6 +85,27 @@
 
                                 </ul>
                             </li>
+
+                            <li><a><i class="fa fa-edit"></i> Mantenedor de Productos <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a>Productos<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="{{ url('/productos/categorias') }}">Categorías</a></li>
+                                            <li><a href="{{ url('/productos/subcategorias') }}">Subcategorías</a></li>
+                                            <li><a href="{{ url('/productos/marcas') }}">Marcas</a></li>
+                                            <li><a href="{{ url('/productos/modelos') }}">Modelos</a></li>
+                                            <li><a href="{{ url('/productos/productos') }}">Productos</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a>Paquetes<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="{{ url('/productos/paquetes') }}">Paquetes</a></li>
+                                        </ul>
+                                    </li>
+
+                                </ul>
+                            </li>
+
                             <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="general_elements.html">General Elements</a>
