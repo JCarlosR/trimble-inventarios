@@ -39,6 +39,15 @@
                             </div>
                         </div>
 
+
+                        <div class="form-group form-inline">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Precio <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="number" placeholder="0.00" step="0.01"  id="last-name" name="last-name" required="required" class="form-control col-md-4 col-xs-12">
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Serie <span class="required">*</span>
                             </label>
@@ -165,7 +174,7 @@
                             <th>#</th>
                             <th>Producto</th>
                             <th>Nombre</th>
-                            <th>Descripción</th>
+                            <th>Precio</th>
                             <th>Serie</th>
                             <th>Marca</th>
                             <th>Modelo</th>
@@ -181,7 +190,7 @@
                             <th scope="row">1</th>
                             <td>00001</td>
                             <td>Producto X</td>
-                            <td>Descripción</td>
+                            <th>10.00</th>
                             <td></td>
                             <td>ZBC</td>
                             <td>XYZ</td>
@@ -200,7 +209,7 @@
                             <th scope="row">1</th>
                             <td>00001</td>
                             <td>Producto X</td>
-                            <td>Descripción</td>
+                            <th>120.00</th>
                             <td></td>
                             <td>ZBC</td>
                             <td>XYZ</td>
@@ -219,7 +228,7 @@
                             <th scope="row">1</th>
                             <td>00001</td>
                             <td>Producto X</td>
-                            <td>Descripción</td>
+                            <th>16.50</th>
                             <td>002</td>
                             <td>ZBC</td>
                             <td>XYZ</td>
@@ -269,6 +278,15 @@
                                     <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
+
+                            <div class="form-group form-inline">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Precio <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="number" placeholder="0.00" step="0.01"  id="last-name" name="last-name" required="required" class="form-control col-md-4 col-xs-12">
+                                </div>
+                            </div>
+
 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Serie <span class="required">*</span>

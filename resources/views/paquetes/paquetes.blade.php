@@ -90,7 +90,7 @@
                                             <th>#</th>
                                             <th>Producto</th>
                                             <th>Nombre</th>
-                                            <th>Descripción</th>
+                                            <th>Precio</th>
                                             <th>Serie</th>
                                             <th>Marca</th>
                                             <th>Modelo</th>
@@ -106,7 +106,7 @@
                                             <th scope="row">1</th>
                                             <td>00001</td>
                                             <td>Producto X</td>
-                                            <td>Descripción</td>
+                                            <td>120.00</td>
                                             <td></td>
                                             <td>ZBC</td>
                                             <td>XYZ</td>
@@ -121,7 +121,7 @@
                                             <th scope="row">1</th>
                                             <td>00001</td>
                                             <td>Producto X</td>
-                                            <td>Descripción</td>
+                                            <td>15.00</td>
                                             <td></td>
                                             <td>ZBC</td>
                                             <td>XYZ</td>
@@ -136,7 +136,7 @@
                                             <th scope="row">1</th>
                                             <td>00001</td>
                                             <td>Producto X</td>
-                                            <td>Descripción</td>
+                                            <td>20.80</td>
                                             <td>002</td>
                                             <td>ZBC</td>
                                             <td>XYZ</td>
@@ -189,7 +189,7 @@
                                         <th>#</th>
                                         <th>Producto</th>
                                         <th>Nombre</th>
-                                        <th>Descripción</th>
+                                        <th>Precio</th>
                                         <th>Serie</th>
                                         <th>Marca</th>
                                         <th>Modelo</th>
@@ -201,7 +201,7 @@
                                         <th scope="row">1</th>
                                         <td>00001</td>
                                         <td>Producto X</td>
-                                        <td>Descripción</td>
+                                        <td>12.80</td>
                                         <td></td>
                                         <td>ZBC</td>
                                         <td>XYZ</td>
@@ -212,7 +212,7 @@
                                         <th scope="row">1</th>
                                         <td>00001</td>
                                         <td>Producto X</td>
-                                        <td>Descripción</td>
+                                        <td>14.60</td>
                                         <td></td>
                                         <td>ZBC</td>
                                         <td>XYZ</td>
@@ -223,7 +223,7 @@
                                         <th scope="row">1</th>
                                         <td>00001</td>
                                         <td>Producto X</td>
-                                        <td>Descripción</td>
+                                        <td>20.00</td>
                                         <td>002</td>
                                         <td>ZBC</td>
                                         <td>XYZ</td>
