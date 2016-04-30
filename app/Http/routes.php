@@ -18,3 +18,13 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+
+//Ingresos a almacen
+Route::get('/ingreso/retorno', 'EntryController@getRetorno');
+Route::get('/ingreso/compra', 'EntryController@getCompra');
+Route::get('/ingreso/reutilizacion', 'EntryController@getReutilizacion');
+
+//Salidas de almacen
+Route::get('/salida/venta', 'OutputController@getVenta');
+Route::get('/salida/alquiler', 'OutputController@getAlquiler');
+Route::get('/salida/baja', 'OutputController@getBaja');
