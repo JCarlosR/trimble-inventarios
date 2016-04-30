@@ -53,7 +53,7 @@
                                     </li>
                                     <li><a href="{{ url('/ingreso/compra') }}">Compra</a>
                                     </li>
-                                    <li><a href="{{ url('/ingreso/reutilizacion') }}">Reutilizacion</a>
+                                    <li><a href="{{ url('/ingreso/reutilizacion') }}">Reutilización</a>
                                     </li>
                                 </ul>
                             </li>
@@ -67,7 +67,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><a><i class="fa fa-edit"></i> Cadena de suministros <span class="fa fa-chevron-down"></span></a>
+                            <li><a><i class="fa fa-edit"></i> Clientes y Proveedores <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a>Clientes<span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
@@ -86,7 +86,7 @@
                                 </ul>
                             </li>
 
-                            <li><a><i class="fa fa-edit"></i> Mantenedor de Productos <span class="fa fa-chevron-down"></span></a>
+                            <li><a><i class="fa fa-edit"></i> Productos y paquetes <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a>Productos<span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
