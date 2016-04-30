@@ -36,7 +36,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Buscar proveedor
                                 </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="input-group col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="proveedor" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Fecha
                                 </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class=" input-group col-md-6 col-sm-6 col-xs-12">
                                     <input type="date" id="date" name="date" class="form-control col-md-7 col-xs-12">
 
                                 </div>
@@ -71,7 +71,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Observación
                                 </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class=" input-group col-md-6 col-sm-6 col-xs-12">
                                     <textarea id="observacion" class="form-control col-md-7 col-xs-12" rows="3"></textarea>
                                 </div>
                             </div>
@@ -79,14 +79,14 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Producto
                                 </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class=" input-group col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="observacion" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Cantidad
                                 </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="input-group col-md-6 col-sm-6 col-xs-12">
                                     <input type="number" min="0" step="1" id="observacion" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
@@ -156,7 +156,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Total
                                 </label>
-                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                <div class=" input-group col-md-3 col-sm-6 col-xs-12">
                                     <input type="text" id="total" class="form-control">
                                 </div>
                             </div>
