@@ -19,6 +19,17 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
+
+//Ingresos a almacen
+Route::get('/ingreso/retorno', 'EntryController@getRetorno');
+Route::get('/ingreso/compra', 'EntryController@getCompra');
+Route::get('/ingreso/reutilizacion', 'EntryController@getReutilizacion');
+
+//Salidas de almacen
+Route::get('/salida/venta', 'OutputController@getVenta');
+Route::get('/salida/alquiler', 'OutputController@getAlquiler');
+Route::get('/salida/baja', 'OutputController@getBaja');
+
 // Customers
 Route::get('/clientes', 'CustomerController@index');
 Route::get('/clientes/registrar', 'CustomerController@create');
@@ -27,3 +38,12 @@ Route::post('/clientes/registrar', 'CustomerController@store');
 Route::get('/clientes/tipos', 'CustomerTypeController@create');
 
 // Providers
+
+
+//Productos
+Route::get('/productos/categorias', 'ProductoController@categorias');
+Route::get('/productos/subcategorias', 'ProductoController@subcategorias');
+Route::get('/productos/marcas', 'ProductoController@marcas');
+Route::get('/productos/modelos', 'ProductoController@modelos');
+Route::get('/productos/productos', 'ProductoController@productos');
+Route::get('/productos/paquetes', 'ProductoController@paquetes');
