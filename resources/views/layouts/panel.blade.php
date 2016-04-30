@@ -215,7 +215,7 @@
                                 <li>
                                     <a>
                         <span class="image">
-                                          <img src="images/img.jpg" alt="Profile Image" />
+                                          <img src="{{ asset('images/img.jpg') }}" alt="Profile Image" />
                                       </span>
                         <span>
                                           <span>John Smith</span>
@@ -229,7 +229,7 @@
                                 <li>
                                     <a>
                         <span class="image">
-                                          <img src="images/img.jpg" alt="Profile Image" />
+                                          <img src="{{ asset('images/img.jpg') }}" alt="Profile Image" />
                                       </span>
                         <span>
                                           <span>John Smith</span>
@@ -243,7 +243,7 @@
                                 <li>
                                     <a>
                         <span class="image">
-                                          <img src="images/img.jpg" alt="Profile Image" />
+                                          <img src="{{ asset('images/img.jpg') }}" alt="Profile Image" />
                                       </span>
                         <span>
                                           <span>John Smith</span>
@@ -257,7 +257,7 @@
                                 <li>
                                     <a>
                         <span class="image">
-                                          <img src="images/img.jpg" alt="Profile Image" />
+                                          <img src="{{ asset('images/img.jpg') }}" alt="Profile Image" />
                                       </span>
                         <span>
                                           <span>John Smith</span>
