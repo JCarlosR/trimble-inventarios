@@ -31,7 +31,7 @@
                 <!-- menu profile quick info -->
                 <div class="profile">
                     <div class="profile_pic">
-                        <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                        <img src="{{ asset('images/img.jpg') }}" alt="..." class="img-circle profile_img">
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
@@ -65,6 +65,24 @@
                                     </li>
                                     <li><a href="{{ url('/salida/baja') }}">Por baja</a>
                                     </li>
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-edit"></i> Cadena de suministros <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a>Clientes<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="{{ url('/clientes') }}">Ver clientes</a></li>
+                                            <li><a href="{{ url('/clientes/tipos') }}">Tipos de cliente</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a>Proveedores<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="{{ url('/proveedores') }}">Ver proveedores</a></li>
+                                            <li><a href="{{ url('/proveedores/tipos') }}">Tipos de proveedor</a></li>
+                                        </ul>
+
+                                    </li>
+
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
@@ -132,32 +150,11 @@
                             </li>
                             <li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="page_404.html">404 Error</a>
-                                    </li>
-                                    <li><a href="page_500.html">500 Error</a>
-                                    </li>
                                     <li><a href="plain_page.html">Plain Page</a>
                                     </li>
                                     <li><a href="login.html">Login Page</a>
                                     </li>
                                     <li><a href="pricing_tables.html">Pricing Tables</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a><i class="fa fa-sitemap"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="#level1_1">Level One</a>
-                                    <li><a>Level One<span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li class="sub_menu"><a href="level2.html">Level Two</a>
-                                            </li>
-                                            <li><a href="#level2_1">Level Two</a>
-                                            </li>
-                                            <li><a href="#level2_2">Level Two</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#level1_2">Level One</a>
                                     </li>
                                 </ul>
                             </li>
@@ -200,7 +197,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <img src="images/img.jpg" alt="">John Doe
+                                <img src="{{ asset('images/img.jpg') }}" alt="">John Doe
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -307,6 +304,8 @@
                     <div class="title_left">
                         <h3>@yield('title')</h3>
                     </div>
+
+                    @yield('title-right')
                 </div>
 
                 <div class="clearfix"></div>
