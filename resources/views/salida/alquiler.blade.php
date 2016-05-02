@@ -34,57 +34,62 @@
                         <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Buscar cliente
-                                </label>
-                                <div class="input-group col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="cliente" class="form-control col-md-7 col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Cliente
+                                        </label>
+                                        <div class="input-group col-md-9 col-sm-6 col-xs-12">
+                                            <input type="text" id="cliente" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="control-label col-md-5 col-sm-3 col-xs-12" for="date">Fecha
+                                        </label>
+                                        <div class=" input-group col-md-7 col-sm-6 col-xs-12">
+                                            <input type="date" id="date" name="date" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="control-label col-md-5 col-sm-3 col-xs-12" for="date">Fecha de retorno
+                                        </label>
+                                        <div class=" input-group col-md-7 col-sm-6 col-xs-12">
+                                            <input type="date" id="date" name="date" class="form-control col-md-7 col-xs-12">
+
+                                        </div>
+                                    </div>
                                 </div>
+
                             </div>
-                            {{--
                             <div class="form-group">
-                                <div class="input-group col-md-3 col-md-offset-3" >
-                                    <input type="radio" id="last-name"  name="retorno" value="1" checked >No devueltos
-                                    <input type="radio" id="last-name"  name="retorno" value="0" >Devueltos
-                                </div>
-                            </div>
-                            --}}
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Tipo
+                                        </label>
 
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="date">Fecha
-                                </label>
-                                <div class=" input-group col-md-6 col-sm-6 col-xs-12">
-                                    <input type="date" id="date" name="date" class="form-control col-md-7 col-xs-12">
+                                        <div class="input-group col-md-8 col-md-offset-3" >
+                                            <input type="radio" id="last-name"  name="tipo" value="1" checked >Producto
+                                            <input type="radio" id="last-name"  name="tipo" value="0" >Paquete
+                                        </div>
+                                    </div>
 
-                                </div>
-                            </div>
+                                    <div class="col-md-6">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Producto
+                                        </label>
+                                        <div class="input-group col-md-9 col-sm-6 col-xs-12">
+                                            <input type="text" class="form-control " placeholder="Buscar producto ...">
+                                        <span class="input-group-btn">
+                                          <button class="btn btn-default" data-toggle="modal" data-target="#myModal" type="button">Ver series</button>
+                                        </span>
+                                        </div>
+                                    </div>
 
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="date">Fecha de retorno
-                                </label>
-                                <div class=" input-group col-md-6 col-sm-6 col-xs-12">
-                                    <input type="date" id="date" name="date" class="form-control col-md-7 col-xs-12">
-
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Tipo
-                                </label>
-
-                                <div class="input-group col-md-3 col-md-offset-3" >
-                                    <input type="radio" id="last-name"  name="tipo" value="1" checked >Producto
-                                    <input type="radio" id="last-name"  name="tipo" value="0" >Paquete
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Producto
-                                </label>
-                                <div class="input-group col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" class="form-control " placeholder="Buscar producto ...">
-                                    <span class="input-group-btn">
-                                      <button class="btn btn-default" data-toggle="modal" data-target="#myModal" type="button">Ver series</button>
-                                    </span>
+                                    <div class="col-md-3">
+                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="Cantidad">Cantidad
+                                        </label>
+                                        <div class="input-group col-md-8 col-sm-6 col-xs-12">
+                                            <input type="number" min="0" step="1" id="Cantidad" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
@@ -145,13 +150,6 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Cantidad">Cantidad
-                                </label>
-                                <div class="input-group col-md-6 col-sm-6 col-xs-12">
-                                    <input type="number" min="0" step="1" id="observacion" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
 
                             <div class="form-group">
                                 <div class="col-md-4 col-md-offset-4">

@@ -90,7 +90,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-4 col-md-offset-4">
-                                    <button class="btn btn-block btn-dark" type="button">Ingresar Series</button>
+                                    <button class="btn btn-block btn-dark" data-toggle="modal" data-target="#myModal" type="button">Ingresar Series</button>
                                 </div>
                             </div>
 
@@ -170,6 +170,42 @@
                                 </div>
                             </div>
                         </form>
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Ingrese las series</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2 col-xs-12" for="serie">Serie 1:
+                                            </label>
+                                            <div class="input-group col-md-5 col-xs-12">
+                                                <input type="text" id="serie" class="form-control">
+                                            </div>
+                                            <label class="control-label col-md-2 col-xs-12" for="serie">Serie 2:
+                                            </label>
+                                            <div class="input-group col-md-5 col-xs-12">
+                                                <input type="text" id="serie" class="form-control">
+                                            </div>
+                                            <label class="control-label col-md-2 col-xs-12" for="serie">Serie 3:
+                                            </label>
+                                            <div class="input-group col-md-5 col-xs-12">
+                                                <input type="text" id="serie" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

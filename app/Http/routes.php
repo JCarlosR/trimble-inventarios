@@ -26,8 +26,11 @@ Route::get('/ingreso/reutilizacion', 'EntryController@getReutilizacion');
 
 // Salidas
 Route::get('/salida/venta', 'OutputController@getVenta');
+Route::get('/salida/listar/venta', 'OutputController@getListaVenta');
 Route::get('/salida/alquiler', 'OutputController@getAlquiler');
+Route::get('/salida/listar/alquiler', 'OutputController@getListaAlquiler');
 Route::get('/salida/baja', 'OutputController@getBaja');
+Route::get('/salida/listar/baja', 'OutputController@getListaBaja');
 
 
 // Customers

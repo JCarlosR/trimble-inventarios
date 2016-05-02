@@ -69,11 +69,22 @@
                             </li>
                             <li><a><i class="fa fa-rocket"></i> Salidas <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="{{ url('/salida/venta') }}">Venta</a>
+                                    <li><a>Venta<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="{{ url('/salida/listar/venta') }}">Ver ventas</a></li>
+                                            <li><a href="{{ url('/salida/venta') }}">Ingresar venta</a></li>
+                                        </ul>
                                     </li>
-                                    <li><a href="{{ url('/salida/alquiler') }}">Alquiler</a>
+                                    <li><a>Alquiler<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="{{ url('/salida/listar/alquiler') }}">Ver alquileres</a></li>
+                                            <li><a href="{{ url('/salida/alquiler') }}">Ingresar alquiler</a></li>
+                                        </ul>
                                     </li>
-                                    <li><a href="{{ url('/salida/baja') }}">Por baja</a>
+                                    <li><a>Por baja<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="{{ url('/salida/baja') }}">Ingresar baja</a></li>
+                                        </ul>
                                     </li>
                                 </ul>
                             </li>
