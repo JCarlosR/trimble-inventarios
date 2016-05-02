@@ -34,20 +34,18 @@
                         <img src="{{ asset('images/img.jpg') }}" alt="..." class="img-circle profile_img">
                     </div>
                     <div class="profile_info">
-                        <span>Welcome,</span>
-                        <h2>John Doe</h2>
+                        <span>Bienvenido,</span>
+                        <h2>{{ Auth::user()->name }}</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
-
-                <br />
 
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section">
                         <h3>General</h3>
                         <ul class="nav side-menu">
-                            <li><a><i class="fa fa-table"></i> Ingresos <span class="fa fa-chevron-down"></span></a>
+                            <li><a><i class="fa fa-cubes"></i> Ingresos <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="{{ url('/ingreso/retorno') }}">Retorno</a>
                                     </li>
@@ -57,7 +55,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><a><i class="fa fa-table"></i> Salidas <span class="fa fa-chevron-down"></span></a>
+                            <li><a><i class="fa fa-rocket"></i> Salidas <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="{{ url('/salida/venta') }}">Venta</a>
                                     </li>
@@ -67,7 +65,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><a><i class="fa fa-edit"></i> Clientes y Proveedores <span class="fa fa-chevron-down"></span></a>
+                            <li><a><i class="fa fa-user"></i> Clientes y Proveedores <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a>Clientes<span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
@@ -106,81 +104,21 @@
                                 </ul>
                             </li>
 
-                            <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
+                            <li><a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="general_elements.html">General Elements</a>
-                                    </li>
-                                    <li><a href="media_gallery.html">Media Gallery</a>
-                                    </li>
-                                    <li><a href="typography.html">Typography</a>
-                                    </li>
-                                    <li><a href="icons.html">Icons</a>
-                                    </li>
-                                    <li><a href="glyphicons.html">Glyphicons</a>
-                                    </li>
-                                    <li><a href="widgets.html">Widgets</a>
-                                    </li>
-                                    <li><a href="invoice.html">Invoice</a>
-                                    </li>
-                                    <li><a href="inbox.html">Inbox</a>
-                                    </li>
-                                    <li><a href="calendar.html">Calendar</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="tables.html">Tables</a>
-                                    </li>
-                                    <li><a href="tables_dynamic.html">Table Dynamic</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="chartjs.html">Chart JS</a>
-                                    </li>
-                                    <li><a href="chartjs2.html">Chart JS2</a>
-                                    </li>
-                                    <li><a href="morisjs.html">Moris JS</a>
-                                    </li>
-                                    <li><a href="echarts.html">ECharts </a>
-                                    </li>
-                                    <li><a href="other_charts.html">Other Charts </a>
-                                    </li>
+                                    <li><a href="chartjs.html">Chart JS</a></li>
+                                    <li><a href="chartjs2.html">Chart JS2</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </div>
                     <div class="menu_section">
-                        <h3>Live On</h3>
+                        <h3>Más</h3>
                         <ul class="nav side-menu">
-                            <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="e_commerce.html">E-commerce</a>
-                                    </li>
-                                    <li><a href="projects.html">Projects</a>
-                                    </li>
-                                    <li><a href="project_detail.html">Project Detail</a>
-                                    </li>
-                                    <li><a href="contacts.html">Contacts</a>
-                                    </li>
-                                    <li><a href="profile.html">Profile</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="plain_page.html">Plain Page</a>
-                                    </li>
-                                    <li><a href="login.html">Login Page</a>
-                                    </li>
-                                    <li><a href="pricing_tables.html">Pricing Tables</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a>
-                            </li>
+                            <li><a><i class="fa fa-bug"></i> Reportar error</a></li>
+                            <li><a href="{{ url('/logout') }}">
+                                    <i class="fa fa-plug"></i> Desconectar
+                            </a></li>
                         </ul>
                     </div>
 
@@ -218,7 +156,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <img src="{{ asset('images/img.jpg') }}" alt="">John Doe
+                                <img src="{{ asset('images/img.jpg') }}" alt="">{{ Auth::user()->name }}
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
