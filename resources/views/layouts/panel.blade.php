@@ -94,12 +94,12 @@
                                             <li><a href="{{ url('/productos/subcategorias') }}">Subcategorías</a></li>
                                             <li><a href="{{ url('/productos/marcas') }}">Marcas</a></li>
                                             <li><a href="{{ url('/productos/modelos') }}">Modelos</a></li>
-                                            <li><a href="{{ url('/productos/productos') }}">Productos</a></li>
+                                            <li><a href="{{ url('/productos/leerProductos') }}">Productos</a></li>
                                         </ul>
                                     </li>
                                     <li><a>Paquetes<span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
-                                            <li><a href="{{ url('/productos/paquetes') }}">Paquetes</a></li>
+                                            <li><a href="{{ url('/productos/leerPaquetes') }}">Paquetes</a></li>
                                         </ul>
                                     </li>
 
