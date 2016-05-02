@@ -41,9 +41,11 @@ Route::get('/clientes/tipos', 'CustomerTypeController@create');
 
 
 // Products
-Route::get('/productos/categorias', 'ProductoController@categorias');
-Route::get('/productos/subcategorias', 'ProductoController@subcategorias');
-Route::get('/productos/marcas', 'ProductoController@marcas');
-Route::get('/productos/modelos', 'ProductoController@modelos');
-Route::get('/productos/productos', 'ProductoController@productos');
-Route::get('/productos/paquetes', 'ProductoController@paquetes');
+Route::get('/productos/categorias', 'ProductController@categorias');
+Route::get('/productos/subcategorias', 'ProductController@subcategorias');
+Route::get('/productos/marcas', 'ProductController@marcas');
+Route::get('/productos/modelos', 'ProductController@modelos');
+Route::get('/productos/leerProductos', 'ProductController@leerProductos');
+Route::get('/productos/productos', 'ProductController@productos');
+Route::get('/productos/leerPaquetes', 'ProductController@leerPaquetes');
+Route::get('/productos/paquetes', 'ProductController@paquetes');

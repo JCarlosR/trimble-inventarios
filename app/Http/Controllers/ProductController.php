@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class ProductoController extends Controller
+class ProductController extends Controller
 {
     public function categorias()
     {
@@ -33,8 +33,18 @@ class ProductoController extends Controller
         return view('productos.productos');
     }
 
+    public function leerProductos()
+    {
+        return view('productos.leerProductos');
+    }
+
     public function paquetes()
     {
         return view('paquetes.paquetes');
+    }
+
+    public function leerPaquetes()
+    {
+        return view('paquetes.leerPaquetes');
     }
 }
