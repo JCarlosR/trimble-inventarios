@@ -17,8 +17,11 @@ Route::get('/', 'HomeController@index');
 
 
 // Ingresos
+Route::get('/ingreso/listar/retorno', 'EntryController@getListaRetorno');
 Route::get('/ingreso/retorno', 'EntryController@getRetorno');
+Route::get('/ingreso/listar/compra', 'EntryController@getListaCompra');
 Route::get('/ingreso/compra', 'EntryController@getCompra');
+Route::get('/ingreso/listar/reutilizacion', 'EntryController@getListaReutilizacion');
 Route::get('/ingreso/reutilizacion', 'EntryController@getReutilizacion');
 
 // Salidas

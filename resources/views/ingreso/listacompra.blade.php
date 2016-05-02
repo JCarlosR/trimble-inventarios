@@ -7,7 +7,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Ingreso por retorno</h2>
+                    <h2>Ingreso por compras</h2>
 
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
@@ -18,24 +18,27 @@
 
                     <div class="x_content">
                         <br>
+                        <div class="input-group">
+                            <button type="button" id="NvoIngreso" class="btn btn-success"><i class="fa fa-plus-square-o"></i>  Nuevo Ingreso</button>
+                        </div>
                         <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
 
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <label class="control-label col-md-4" for="cliente">
-                                            Cliente:
+                                        <label class="control-label col-md-4" for="proveedor">
+                                            Proveedor:
                                         </label>
                                         <div class="input-group col-md-8">
-                                            <input type="text" id="cliente" class="form-control">
+                                            <input type="text" id="proveedor" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="control-label col-md-4" for="cliente">
+                                        <label class="control-label col-md-4" for="fecha">
                                             Desde:
                                         </label>
                                         <div class="input-group col-md-8">
-                                            <input type="date" id="cliente" class="form-control">
+                                            <input type="date" id="fecha" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -49,23 +52,13 @@
 
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="observacion">
-                                    Observaciones:
-                                </label>
-                                <div class="input-group col-md-6 col-sm-6 col-xs-12">
-                                    <input  id="observacion" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
-
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-2 col-sm-12">
                                     <table class="table table-hover table-condensed">
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Salidas</th>
+                                            <th>Ingresos</th>
                                             <th>Otro campo</th>
                                             <th>Fecha</th>
                                         </tr>
@@ -135,14 +128,14 @@
                                 </div>
 
                             </div>
-
+                            {{--
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
                                     <button type="submit" class="btn btn-primary">Retornar</button>
                                     <button type="submit" class="btn btn-danger">Cancelar</button>
                                 </div>
                             </div>
-
+                            --}}
 
                             
                         </form>

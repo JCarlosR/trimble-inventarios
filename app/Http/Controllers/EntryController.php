@@ -17,15 +17,30 @@ class EntryController extends Controller
     {
         return view('ingreso.retorno');
     }
+    public function getListaRetorno()
+    {
+        return view('ingreso.listaretorno');
+    }
 
     public function getCompra()
     {
         return view('ingreso.compra');
     }
 
+    public function getListaCompra()
+    {
+        return view('ingreso.listacompra');
+    }
+
     public function getReutilizacion()
     {
         return view('ingreso.reutilizacion');
     }
+
+    public function getListaReutilizacion()
+    {
+        return view('ingreso.listareutilizacion');
+    }
+
 
 }

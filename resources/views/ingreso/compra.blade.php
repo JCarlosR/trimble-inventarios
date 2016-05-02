@@ -34,53 +34,66 @@
                         <form id="demo-form2" class="form-horizontal form-label-left" novalidate>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Buscar proveedor
-                                </label>
-                                <div class="input-group col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="proveedor" class="form-control col-md-7 col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="control-label col-md-5 col-sm-3 col-xs-12" for="proveedor">Buscar proveedor:
+                                        </label>
+                                        <div class="input-group col-md-7 col-sm-6 col-xs-12">
+                                            <input type="text" id="proveedor" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="cliente">Fecha:
+                                        </label>
+                                        <div class=" input-group col-md-8 col-sm-6 col-xs-12">
+                                            <input type="date" id="date" name="date" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Tipo:
+                                        </label>
+
+                                        <div class="input-group col-md-9 col-md-offset-3" >
+                                            <input type="radio" id="last-name"  name="tipo" value="1" checked >Local
+                                            <input type="radio" id="last-name"  name="tipo" value="0" >Extranjero
+                                        </div>
+                                    </div>
                                 </div>
+
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Fecha
-                                </label>
-                                <div class=" input-group col-md-6 col-sm-6 col-xs-12">
-                                    <input type="date" id="date" name="date" class="form-control col-md-7 col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="observacion">Observación:
+                                        </label>
+                                        <div class=" input-group col-md-8 col-sm-6 col-xs-12">
+                                            <input id="observacion" class="form-control col-md-7 col-xs-12" rows="3">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="cliente">Producto:
+                                        </label>
+                                        <div class=" input-group col-md-8 col-sm-6 col-xs-12">
+                                            <input type="text" id="observacion" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="cliente">Cantidad:
+                                        </label>
+                                        <div class="input-group col-md-8 col-sm-6 col-xs-12">
+                                            <input type="number" min="0" step="1" id="observacion" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-4 col-md-offset-4">
+                                    <button class="btn btn-block btn-dark" type="button">Ingresar Series</button>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Tipo
-                                </label>
-
-                                <div class="input-group col-md-3 col-md-offset-3" >
-                                    <input type="radio" id="last-name"  name="tipo" value="1" checked >Local
-                                    <input type="radio" id="last-name"  name="tipo" value="0" >Extranjero
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Observación
-                                </label>
-                                <div class=" input-group col-md-6 col-sm-6 col-xs-12">
-                                    <textarea id="observacion" class="form-control col-md-7 col-xs-12" rows="3"></textarea>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Producto
-                                </label>
-                                <div class=" input-group col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="observacion" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Cantidad
-                                </label>
-                                <div class="input-group col-md-6 col-sm-6 col-xs-12">
-                                    <input type="number" min="0" step="1" id="observacion" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
 
                             <div class="form-group">
                                 <div class="col-md-4 col-md-offset-4">

@@ -47,11 +47,23 @@
                         <ul class="nav side-menu">
                             <li><a><i class="fa fa-cubes"></i> Ingresos <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="{{ url('/ingreso/retorno') }}">Retorno</a>
+                                    <li><a>Retorno<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="{{ url('/ingreso/listar/retorno') }}">Ver retornos</a></li>
+                                            <li><a href="{{ url('/ingreso/retorno') }}">Ingresar retorno</a></li>
+                                        </ul>
                                     </li>
-                                    <li><a href="{{ url('/ingreso/compra') }}">Compra</a>
+                                    <li><a>Compra<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="{{ url('/ingreso/listar/compra') }}">Ver compras</a></li>
+                                            <li><a href="{{ url('/ingreso/compra') }}">Ingresar compra</a></li>
+                                        </ul>
                                     </li>
-                                    <li><a href="{{ url('/ingreso/reutilizacion') }}">Reutilización</a>
+                                    <li><a>Reutilización<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="{{ url('/ingreso/listar/reutilizacion') }}">Ver reutilizaciones</a></li>
+                                            <li><a href="{{ url('/ingreso/reutilizacion') }}">Ingresar reutilizacion</a></li>
+                                        </ul>
                                     </li>
                                 </ul>
                             </li>
