@@ -47,21 +47,44 @@
                         <ul class="nav side-menu">
                             <li><a><i class="fa fa-cubes"></i> Ingresos <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="{{ url('/ingreso/retorno') }}">Retorno</a>
+                                    <li><a>Retorno<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="{{ url('/ingreso/listar/retorno') }}">Ver retornos</a></li>
+                                            <li><a href="{{ url('/ingreso/retorno') }}">Ingresar retorno</a></li>
+                                        </ul>
                                     </li>
-                                    <li><a href="{{ url('/ingreso/compra') }}">Compra</a>
+                                    <li><a>Compra<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="{{ url('/ingreso/listar/compra') }}">Ver compras</a></li>
+                                            <li><a href="{{ url('/ingreso/compra') }}">Ingresar compra</a></li>
+                                        </ul>
                                     </li>
-                                    <li><a href="{{ url('/ingreso/reutilizacion') }}">Reutilización</a>
+                                    <li><a>Reutilización<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="{{ url('/ingreso/listar/reutilizacion') }}">Ver reutilizaciones</a></li>
+                                            <li><a href="{{ url('/ingreso/reutilizacion') }}">Ingresar reutilizacion</a></li>
+                                        </ul>
                                     </li>
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-rocket"></i> Salidas <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="{{ url('/salida/venta') }}">Venta</a>
+                                    <li><a>Venta<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="{{ url('/salida/listar/venta') }}">Ver ventas</a></li>
+                                            <li><a href="{{ url('/salida/venta') }}">Ingresar venta</a></li>
+                                        </ul>
                                     </li>
-                                    <li><a href="{{ url('/salida/alquiler') }}">Alquiler</a>
+                                    <li><a>Alquiler<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="{{ url('/salida/listar/alquiler') }}">Ver alquileres</a></li>
+                                            <li><a href="{{ url('/salida/alquiler') }}">Ingresar alquiler</a></li>
+                                        </ul>
                                     </li>
-                                    <li><a href="{{ url('/salida/baja') }}">Por baja</a>
+                                    <li><a>Por baja<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="{{ url('/salida/baja') }}">Ingresar baja</a></li>
+                                        </ul>
                                     </li>
                                 </ul>
                             </li>

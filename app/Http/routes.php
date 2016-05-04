@@ -17,14 +17,20 @@ Route::get('/', 'HomeController@index');
 
 
 // Ingresos
+Route::get('/ingreso/listar/retorno', 'EntryController@getListaRetorno');
 Route::get('/ingreso/retorno', 'EntryController@getRetorno');
+Route::get('/ingreso/listar/compra', 'EntryController@getListaCompra');
 Route::get('/ingreso/compra', 'EntryController@getCompra');
+Route::get('/ingreso/listar/reutilizacion', 'EntryController@getListaReutilizacion');
 Route::get('/ingreso/reutilizacion', 'EntryController@getReutilizacion');
 
 // Salidas
 Route::get('/salida/venta', 'OutputController@getVenta');
+Route::get('/salida/listar/venta', 'OutputController@getListaVenta');
 Route::get('/salida/alquiler', 'OutputController@getAlquiler');
+Route::get('/salida/listar/alquiler', 'OutputController@getListaAlquiler');
 Route::get('/salida/baja', 'OutputController@getBaja');
+Route::get('/salida/listar/baja', 'OutputController@getListaBaja');
 
 
 // Customers

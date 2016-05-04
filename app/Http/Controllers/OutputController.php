@@ -26,12 +26,24 @@ class OutputController extends Controller
     {
         return view('salida.venta');
     }
+    public function getListaVenta()
+    {
+        return view('salida.listaventa');
+    }
     public function getAlquiler()
     {
         return view('salida.alquiler');
     }
+    public function getListaAlquiler()
+    {
+        return view('salida.listaalquiler');
+    }
     public function getBaja()
     {
         return view('salida.baja');
+    }
+    public function getListaBaja()
+    {
+        return view('salida.listabaja');
     }
 }
