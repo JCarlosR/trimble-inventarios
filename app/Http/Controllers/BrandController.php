@@ -6,15 +6,15 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class ProductController extends Controller
+class BrandController extends Controller
 {
     public function index()
     {
-        return view('product.product.index');
+        return view('product.brand.index');
     }
 
     public function create()
     {
-        return view('product.product.create');
+        return view('product.brand.create');
     }
 }

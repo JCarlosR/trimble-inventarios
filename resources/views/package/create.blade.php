@@ -1,6 +1,6 @@
 @extends('layouts.panel')
 
-@section('title', 'Creación de paquetes')
+@section('title', 'package')
 
 @section('content')
     <div class="row">

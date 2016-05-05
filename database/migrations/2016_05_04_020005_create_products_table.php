@@ -13,21 +13,20 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
+            $table->increments('id');            $table->string('name');
             $table->string('description');
-            $table->decimal('price', 6,3);
-            $table->integer('serie');
+            $table->decimal('price', 9,2);
+            $table->string('serie');
             $table->integer('brand_id')->unsigned();
             $table->foreign('brand_id')->references('id')->on('brands');
             $table->integer('model_id')->unsigned();
             $table->foreign('model_id')->references('id')->on('models');
-            $table->string('numParte');
+            $table->string('part_number');
             $table->string('color');
-            $table->integer('categorie_id')->unsigned();
-            $table->foreign('categorie_id')->references('id')->on('subCategories');
-            $table->integer('subCategorie_id')->unsigned();
-            $table->foreign('subCategorie_id')->references('id')->on('subCategories');
+            $table->integer('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('categories');
+            $table->integer('subcategory_id')->unsigned();
+            $table->foreign('subcategory_id')->references('id')->on('subcategories');
             $table->string('comment');
             $table->timestamps();
         });

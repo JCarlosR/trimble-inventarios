@@ -111,19 +111,14 @@
                                 <ul class="nav child_menu">
                                     <li><a>Productos<span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
-                                            <li><a href="{{ url('/productos/categorias') }}">Categorías</a></li>
-                                            <li><a href="{{ url('/productos/subcategorias') }}">Subcategorías</a></li>
-                                            <li><a href="{{ url('/productos/marcas') }}">Marcas</a></li>
-                                            <li><a href="{{ url('/productos/modelos') }}">Modelos</a></li>
-                                            <li><a href="{{ url('/productos/leerProductos') }}">Productos</a></li>
+                                            <li><a href="{{ url('/product/category/index') }}">Categorías</a></li>
+                                            <li><a href="{{ url('product/subcategory/index') }}">Subcategorías</a></li>
+                                            <li><a href="{{ url('product/brand/index') }}">Marcas</a></li>
+                                            <li><a href="{{ url('/product/model/index') }}">Modelos</a></li>
+                                            <li><a href="{{ url('product/product/index') }}">Productos</a></li>
                                         </ul>
                                     </li>
-                                    <li><a>Paquetes<span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a href="{{ url('/productos/leerPaquetes') }}">Paquetes</a></li>
-                                        </ul>
-                                    </li>
-
+                                    <li><a href="{{ url('/package/index') }}">Paquetes</a></li>
                                 </ul>
                             </li>
 

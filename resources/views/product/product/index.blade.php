@@ -1,6 +1,6 @@
 @extends('layouts.panel')
 
-@section('title', 'Listado de productos')
+@section('title', 'product')
 
 @section('content')
     <div class="row">
@@ -8,7 +8,7 @@
             <div class="x_panel">
 
                 <div class="x_title col-md-offset-5">
-                    <h2><a href="{{ url('/productos/productos') }}">Nuevo Producto</a></h2>
+                    <h2><a href="{{ url('product/product/create') }}">Nuevo Producto</a></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
