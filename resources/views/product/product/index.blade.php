@@ -1,14 +1,14 @@
 @extends('layouts.panel')
 
-@section('title', 'Listado de productos')
+@section('title', 'Productos')
 
 @section('content')
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
 
-                <div class="x_title col-md-offset-5">
-                    <h2><a href="{{ url('/productos/productos') }}">Nuevo Producto</a></h2>
+                <div class="x_title">
+                    <h2>Listado de productos</a></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -19,6 +19,11 @@
 
                 <div class="x_content">
                     <br>
+                    <div class="input-group">
+                        <h2><a href="{{ url('/producto/registrar') }}" class="btn btn-success"><i class="fa fa-plus-square-o"></i> Nuevo producto</a></h2>
+                    </div>
+                    <br>
+
                     <table class="table table-hover">
                         <thead>
                         <tr>

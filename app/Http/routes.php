@@ -44,11 +44,15 @@ Route::get('/clientes/tipos', 'CustomerTypeController@create');
 
 
 // Products
-Route::get('/productos/categorias', 'ProductController@categorias');
-Route::get('/productos/subcategorias', 'ProductController@subcategorias');
-Route::get('/productos/marcas', 'ProductController@marcas');
-Route::get('/productos/modelos', 'ProductController@modelos');
-Route::get('/productos/leerProductos', 'ProductController@leerProductos');
-Route::get('/productos/productos', 'ProductController@productos');
-Route::get('/productos/leerPaquetes', 'ProductController@leerPaquetes');
-Route::get('/productos/paquetes', 'ProductController@paquetes');
+Route::get('/categoria', 'CategoryController@index');
+Route::get('/categoria/registrar', 'CategoryController@create');
+Route::get('/subcategoria', 'SubcategoryController@index');
+Route::get('/subcategoria/registrar', 'SubcategoryController@create');
+Route::get('/marca', 'BrandController@index');
+Route::get('/marca/registrar', 'BrandController@create');
+Route::get('/modelo', 'ModelController@index');
+Route::get('/modelo/registrar', 'ModelController@create');
+Route::get('/producto', 'ProductController@index');
+Route::get('/producto/registrar', 'ProductController@create');
+Route::get('/paquete', 'PackageController@index');
+Route::get('/paquete/registrar', 'PackageController@create');

@@ -6,15 +6,15 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class ProductController extends Controller
+class SubcategoryController extends Controller
 {
     public function index()
     {
-        return view('product.product.index');
+        return view('product.subcategory.index');
     }
 
     public function create()
     {
-        return view('product.product.create');
+        return view('product.subcategory.create');
     }
 }
