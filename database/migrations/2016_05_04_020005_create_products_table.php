@@ -20,8 +20,8 @@ class CreateProductsTable extends Migration
             $table->boolean('series');
             $table->integer('brand_id')->unsigned();
             $table->foreign('brand_id')->references('id')->on('brands');
-            $table->integer('model_id')->unsigned();
-            $table->foreign('model_id')->references('id')->on('models');
+            $table->integer('exemplar_id')->unsigned();
+            $table->foreign('exemplar_id')->references('id')->on('exemplars');
             $table->string('part_number');
             $table->string('color');
             $table->integer('category_id')->unsigned();
