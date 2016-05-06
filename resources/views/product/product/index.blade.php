@@ -8,7 +8,7 @@
             <div class="x_panel">
 
                 <div class="x_title">
-                    <h2>Listado de productos</a></h2>
+                    <h2>Listado de productos</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -20,15 +20,14 @@
                 <div class="x_content">
                     <br>
                     <div class="input-group">
-                        <h2><a href="{{ url('/producto/registrar') }}" class="btn btn-success"><i class="fa fa-plus-square-o"></i> Nuevo producto</a></h2>
+                        <h2><a href="{{ url('/producto/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nuevo producto</a></h2>
                     </div>
                     <br>
 
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Producto</th>
+                            <th>Código</th>
                             <th>Nombre</th>
                             <th>Precio</th>
                             <th>Serie</th>
@@ -41,63 +40,26 @@
                             <th>Observación</th>
                         </tr>
                         </thead>
+                        @foreach($products as $product)
                         <tbody>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>00001</td>
-                            <td>Producto X</td>
-                            <th>10.00</th>
-                            <td></td>
-                            <td>ZBC</td>
-                            <td>XYZ</td>
-                            <td>2</td>
-                            <td>Azul</td>
-                            <td>A</td>
-                            <td>AB</td>
-                            <td>Observación</td>
+                            <td>{{$product->id}}</td>
+                            <td>{{$product->name}}</td>
+                            <td>{{$product->price}}</td>
+                            <td>{{$product->series}}</td>
+                            <td>{{$product->brand->name}}</td>
+                            <td>{{$product->exemplar->name}}</td>
+                            <td>{{$product->part_number}}</td>
+                            <td>{{$product->color}}</td>
+                            <td>{{$product->category->name}}</td>
+                            <td>{{$product->subcategory->name}}</td>
+                            <td>{{$product->comment}}</td>
                             <td>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Editar</button>
                                 <button type="button" class="btn btn-danger">Eliminar</button>
                             </td>
                         </tr>
-
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>00001</td>
-                            <td>Producto X</td>
-                            <th>120.00</th>
-                            <td></td>
-                            <td>ZBC</td>
-                            <td>XYZ</td>
-                            <td>2</td>
-                            <td>Azul</td>
-                            <td>A</td>
-                            <td>AB</td>
-                            <td>Observación</td>
-                            <td>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Editar</button>
-                                <button type="button" class="btn btn-danger">Eliminar</button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>00001</td>
-                            <td>Producto X</td>
-                            <th>16.50</th>
-                            <td>002</td>
-                            <td>ZBC</td>
-                            <td>XYZ</td>
-                            <td>2</td>
-                            <td>Azul</td>
-                            <td>A</td>
-                            <td>AB</td>
-                            <td>Observación</td>
-                            <td>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Editar</button>
-                                <button type="button" class="btn btn-danger">Eliminar</button>
-                            </td>
-                        </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -125,14 +87,14 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nombre <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="nombre" required="required" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Descripción <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="descripcion" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
 
@@ -140,7 +102,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Precio <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="number" placeholder="0.00" step="0.01"  id="last-name" name="last-name" required="required" class="form-control col-md-4 col-xs-12">
+                                    <input type="number" placeholder="0.00" step="0.01"  id="precio" name="last-name" required="required" class="form-control col-md-4 col-xs-12">
                                 </div>
                             </div>
 
@@ -149,15 +111,15 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Serie <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <label class="checkbox-inline"><input type="checkbox" value=""> Check </label>
+                                    <label class="checkbox-inline"><input type="checkbox" name="serie" value=""> Check </label>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Marca <span class="required">*</span>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="marca">Marca <span class="required">*</span>
                                 </label>
                                 <div class="radio col-md-6 col-sm-6 col-xs-12">
-                                    <select name="" id="" class="form-control">
+                                    <select name="marca" id="" class="form-control">
                                         <option value="1">Marca ABCD1</option>
                                         <option value="2">Marca ABCD2</option>
                                         <option value="3">Marca ABCD3</option>
@@ -166,10 +128,10 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Modelo <span class="required">*</span>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nodelo">Modelo <span class="required">*</span>
                                 </label>
                                 <div class="radio col-md-6 col-sm-6 col-xs-12">
-                                    <select name="" id="" class="form-control">
+                                    <select name="modelo" id="" class="form-control">
                                         <option value="1">Modelo ABCD2</option>
                                         <option value="2">Modelo ABCD3</option>
                                         <option value="3">Modelo ABCD4</option>
@@ -181,7 +143,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Número de parte <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-4 col-xs-12">
+                                    <input type="text" id="numParte" name="last-name" required="required" class="form-control col-md-4 col-xs-12">
                                 </div>
                             </div>
 
@@ -189,7 +151,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Color <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-4 col-xs-12">
+                                    <input type="text" id="last-name" name="color" required="required" class="form-control col-md-4 col-xs-12">
                                 </div>
                             </div>
 
@@ -197,7 +159,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Categoría <span class="required">*</span>
                                 </label>
                                 <div class="radio col-md-6 col-sm-6 col-xs-12">
-                                    <select name="" id="" class="form-control">
+                                    <select name="categoria" id="" class="form-control">
                                         <option value="1">Marca XYZW1</option>
                                         <option value="2">Marca XYZW2</option>
                                         <option value="3">Marca XYZW3</option>
@@ -209,7 +171,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Subcategoría <span class="required">*</span>
                                 </label>
                                 <div class="radio col-md-6 col-sm-6 col-xs-12">
-                                    <select name="" id="" class="form-control">
+                                    <select name="subcategoria" id="" class="form-control">
                                         <option value="1">Subcategoría XYZW2</option>
                                         <option value="2">Subcategoría XYZW3</option>
                                         <option value="3">Subcategoría XYZW4</option>
@@ -221,15 +183,15 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Observación<span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="observacion" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
 
-                            <div class="from-group">
-                                <button type="button" class="btn btn-primary form-control">Guardar</button>
-                                <button type="button" class="btn btn-danger form-control"" data-dismiss="modal">Cancelar</button>
+                            <div class="from-group btn-group col-md-offset-4">
+                                <button type="button" class="btn btn-primary btn-lg">Guardar</button>
+                                <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Cancelar</button>
                             </div>
-                            </form>
+                        </form>
                   </div>
             </div>
         </div>
