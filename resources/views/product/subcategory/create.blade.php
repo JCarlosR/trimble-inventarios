@@ -1,6 +1,6 @@
 @extends('layouts.panel')
 
-@section('title', 'Mantendedor de Subcategorías')
+@section('title', 'Subcategorías')
 
 @section('content')
     <div class="row">
@@ -8,7 +8,7 @@
             <div class="x_panel">
 
                 <div class="x_title">
-                    <h2>Registrar nueva subcategorías</h2>
+                    <h2>Registrar subcategoría</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>

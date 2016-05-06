@@ -1,6 +1,6 @@
 @extends('layouts.panel')
 
-@section('title', 'package')
+@section('title', 'Paquetes')
 
 @section('content')
     <div class="row">
@@ -8,7 +8,7 @@
             <div class="x_panel">
 
                 <div class="x_title">
-                    <h2>Paquete</h2>
+                    <h2>Registrar paquete</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
