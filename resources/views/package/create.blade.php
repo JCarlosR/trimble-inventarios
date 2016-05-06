@@ -25,7 +25,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nombre <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="text" id="nombre" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
 
@@ -34,15 +34,15 @@
                             </label>
 
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+                                <textarea name="descripcion" rows="2" class="form-control"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Producto<span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Existencia<span class="required">*</span>
                             </label>
                             <div class="input-group col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" class="form-control " placeholder="Buscar producto ...">
+                                <input type="text" name="existencia" class="form-control" placeholder="Buscar producto ...">
                                     <span class="input-group-btn">
                                       <button class="btn btn-default" data-toggle="modal" data-target="#myModal" type="button">Ver series</button>
                                     </span>
@@ -50,7 +50,7 @@
 
                         </div>
 
-                        <div class="form-group pull-right form-inline">
+                        <div class=" btn-group col-md-6 col-md-offset-5">
                                 <button type="submit" class="btn btn-success">Agregar</button>
                                 <button type="reset" class="btn btn-danger">Eliminar</button>
                         </div>
@@ -129,12 +129,11 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class=" col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <button type="submit" class="btn btn-success form-control">Registrar</button>
-                                <button type="reset" class="btn btn-primary form-control">Cancelar</button>
-                            </div>
+                        <div class=" col-md-6 btn-group col-md-offset-5">
+                            <button type="submit" class="btn btn-success btn-lg">Registrar</button>
+                            <button type="reset" class="btn btn-danger btn-lg">Cancelar</button>
                         </div>
+
 
                     </form>
                 </div>
@@ -142,7 +141,7 @@
             </div>
         </div>
 
-        <!-- Modal -->
+
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
 
@@ -154,11 +153,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="x_panel">
-                            <div class="x_content">
-                                <br>
-                                <table class="table table-hover">
+                    <table class="table table-hover">
                                     <thead>
                                     <tr>
                                         <th>#</th>
@@ -206,15 +201,12 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary form-control">Seleccionar</button>
-                    <button type="button" class="btn btn-danger form-control" data-dismiss="modal">Cancelar</button>
+
+                <div class="modal-footer btn-group">
+                    <button type="button" class="btn btn-primary btn-lg">Seleccionar</button>
+                    <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Cancelar</button>
                 </div>
-            </div>
             </div>
         </div>
 

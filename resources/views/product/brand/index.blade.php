@@ -20,7 +20,7 @@
 
                     <br>
                     <div class="input-group">
-                        <h2><a href="{{ url('/marca/registrar') }}" class="btn btn-success"><i class="fa fa-plus-square-o"></i> Nueva marca</a></h2>
+                        <h2><a href="{{ url('/marca/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nueva marca</a></h2>
                     </div>
                     <br>
 
