@@ -16,9 +16,7 @@ class CreatePackagesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('description');
-            $table->integer('product_id')->unsigned();
-            $table->foreign('product_id')->references('id')->on('products');
-            $table->string('state');
+            $table->enum('state', ['low', 'sold', 'rented', 'available']);
             $table->timestamps();
         });
     }
