@@ -14,7 +14,7 @@ class CreateEntriesTable extends Migration
     {
         Schema::create('entries', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('provider_id')->unsigned();
+            $table->integer('provider_id')->unsigned()->nullable();
             $table->foreign('provider_id')->references('id')->on('providers');
             $table->enum('type', ['local', 'foreign']);
             $table->string('comment');

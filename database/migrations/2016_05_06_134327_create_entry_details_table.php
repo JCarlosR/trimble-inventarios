@@ -16,8 +16,10 @@ class CreateEntryDetailsTable extends Migration
             $table->increments('id');
             $table->integer('entry_id')->unsigned();
             $table->foreign('entry_id')->references('id')->on('entries');
-            $table->integer('item_id')->unsigned();
-            $table->foreign('item_id')->references('id')->on('items');
+            $table->integer('product_id')->unsigned();
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->string('series');
+            $table->integer('quantity');
             $table->decimal('price', 9,2);
             $table->timestamps();
         });

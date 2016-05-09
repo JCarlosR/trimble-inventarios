@@ -14,19 +14,33 @@ class EntryDetailsTableSeeder extends Seeder
     {
         EntryDetail::create([
             'entry_id' => 1,
-            'item_id' => 1,
+            'product_id' => 1,
+            'series' => 'S/S',
+            'quantity' => 10,
             'price' => 15.2,
         ]);
 
         EntryDetail::create([
             'entry_id' => 1,
-            'item_id' => 2,
-            'price' => 16.4,
+            'product_id' => 3,
+            'series' => 'CO1',
+            'quantity' => 1,
+            'price' => 20.1,
         ]);
 
         EntryDetail::create([
             'entry_id' => 1,
-            'item_id' => 3,
+            'product_id' => 3,
+            'series' => 'CO2',
+            'quantity' => 1,
+            'price' => 20.1,
+        ]);
+
+        EntryDetail::create([
+            'entry_id' => 1,
+            'product_id' => 3,
+            'series' => 'CO3',
+            'quantity' => 1,
             'price' => 20.1,
         ]);
     }

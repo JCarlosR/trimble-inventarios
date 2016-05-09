@@ -19,8 +19,10 @@ Route::get('/', 'HomeController@index');
 // Ingresos
 Route::get('/ingreso/listar/retorno', 'EntryController@getListaRetorno');
 Route::get('/ingreso/retorno', 'EntryController@getRetorno');
-Route::get('/ingreso/listar/compra', 'EntryController@getListaCompra');
-Route::get('/ingreso/compra', 'EntryController@getCompra');
+Route::get('/ingreso/listar/compra', 'EntryController@getCompras');
+Route::get('/ingreso/listar/compra/{proveedor}/{inicio}/{fin}', 'EntryController@getComprasFiltro');
+Route::get('/ingreso/listar/detalles/{id}', 'EntryController@getCompraDetalles');
+Route::get('/ingreso/compra', 'EntryController@getRegistroCompra');
 Route::get('/ingreso/listar/reutilizacion', 'EntryController@getListaReutilizacion');
 Route::get('/ingreso/reutilizacion', 'EntryController@getReutilizacion');
 
@@ -56,3 +58,6 @@ Route::get('/producto', 'ProductController@index');
 Route::get('/producto/registrar', 'ProductController@create');
 Route::get('/paquete', 'PackageController@index');
 Route::get('/paquete/registrar', 'PackageController@create');
+
+// Search
+Route::get('/producto/buscar/{name}', 'ProductController@search');

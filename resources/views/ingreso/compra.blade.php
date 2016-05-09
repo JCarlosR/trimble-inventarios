@@ -2,6 +2,59 @@
 
 @section('title', 'Ingresos')
 
+@section('styles')
+    <style>
+        .typeahead,
+        .tt-query,
+        .tt-hint {
+            line-height: 30px;
+            -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+            outline: none;
+        }
+        .typeahead:focus {
+            border: 1px solid #0097cf;
+        }
+        .tt-query {
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        }
+        .tt-hint {
+            color: #bdbdbd;
+        }
+        .tt-menu {
+            margin: 12px 0;
+            padding: 8px 0;
+            background-color: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+            border-radius: 4px;
+            -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+            -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+            box-shadow: 0 5px 10px rgba(0,0,0,.2);
+            color: #000;
+        }
+        .tt-suggestion {
+            padding: 3px 20px;
+            line-height: 24px;
+        }
+        .tt-suggestion:hover {
+            cursor: pointer;
+            color: #fff;
+            background-color: #0097cf;
+        }
+        .tt-suggestion.tt-cursor {
+            color: #fff;
+            background-color: #0097cf;
+        }
+        .tt-suggestion p {
+            margin: 0;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -36,20 +89,20 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label class="control-label col-md-5 col-sm-3 col-xs-12" for="proveedor">Buscar proveedor:
+                                        <label class="control-label col-md-3" for="proveedor">
+                                            Proveedor:
                                         </label>
-                                        <div class="input-group col-md-7 col-sm-6 col-xs-12">
-                                            <input type="text" id="proveedor" class="form-control col-md-7 col-xs-12">
+                                        <div class="input-group col-md-9">
+                                            <input id="proveedor" class="typeahead form-control" type="text">
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="tipo">Tipo:
-                                        </label>
+                                        <label class="control-label col-md-3" for="tipo">Tipo:</label>
 
-                                        <div class="input-group col-md-9 col-md-offset-3" >
-                                            <input type="radio" id="last-name"  name="tipo" value="1" checked >Local
-                                            <input type="radio" id="last-name"  name="tipo" value="0" >Extranjero
+                                        <div class="input-group col-md-9">
+                                            <input type="radio" name="tipo" value="1" checked>Local
+                                            <input type="radio" name="tipo" value="0">Extranjero
                                         </div>
                                     </div>
                                 </div>
@@ -59,25 +112,25 @@
                             <div class="form-group">
                                 <div class="row">
 
-                                    <div class="col-md-4">
-                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="producto">Producto:
+                                    <div class="col-md-6">
+                                        <label class="control-label col-md-3" for="producto">Producto:
                                         </label>
-                                        <div class=" input-group col-md-8 col-sm-6 col-xs-12">
-                                            <input type="text" id="producto" class="form-control col-md-7 col-xs-12">
+                                        <div class="input-group col-md-9">
+                                            <input type="text" id="producto" class="typeahead form-control">
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="cantidad">Cantidad:
+                                    <div class="col-md-3">
+                                        <label class="control-label col-md-4" for="cantidad">Cantidad:
                                         </label>
-                                        <div class="input-group col-md-8 col-sm-6 col-xs-12">
-                                            <input type="number" min="0" step="1" id="cantidad" class="form-control col-md-7 col-xs-12">
+                                        <div class="input-group col-md-8">
+                                            <input type="number" min="1" step="1" id="cantidad" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="precio">Precio:
+                                    <div class="col-md-3">
+                                        <label class="control-label col-md-4" for="precio">Precio:
                                         </label>
-                                        <div class="input-group col-md-8 col-sm-6 col-xs-12">
-                                            <input type="number" min="0" step="1" id="precio" class="form-control col-md-7 col-xs-12">
+                                        <div class="input-group col-md-8">
+                                            <input type="number" min="0" step="0.01" id="precio" class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
                                 </div>
@@ -85,14 +138,10 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6 col-md-offset-3">
-                                        <div class="col-md-6">
-                                            <button class="btn btn-block btn-dark" data-toggle="modal" data-target="#myModal" type="button">Ingresar Series</button>
-                                        </div>
+                                    <div class="col-md-4 col-md-offset-4">
 
-                                        <div class="col-md-6">
-                                            <button type="button" class="btn btn-primary btn-block">Agregar a la lista</button>
-                                        </div>
+                                        <button type="button" id="btnAdd" class="btn btn-primary btn-block">Agregar a la lista</button>
+
                                     </div>
 
                                 </div>
@@ -106,7 +155,7 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Producto/Paquete</th>
+                                            <th>Producto</th>
                                             <th>Serie</th>
                                             <th>Cantidad</th>
                                             <th>Precio</th>
@@ -114,40 +163,22 @@
                                             <th>Acción</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>1000001</td>
-                                            <td>256314</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>
-                                                <button type="button" class="btn btn-danger">Quitar</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>1000002</td>
-                                            <td>256314</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>
-                                                <button type="button" class="btn btn-danger">Quitar</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>1000003</td>
-                                            <td>256314</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>
-                                                <button type="button" class="btn btn-danger">Quitar</button>
-                                            </td>
-                                        </tr>
+                                        <tbody id="table-items">
+                                        <template id="template-item">
+                                            <tr>
+                                                <th data-i scope="row">1</th>
+                                                <td data-name>1000001</td>
+                                                <td data-series>256314</td>
+                                                <td data-quantity>1</td>
+                                                <td data-price>1</td>
+                                                <td data-sub>1</td>
+                                                <td>
+                                                    <button data-delete type="button" class="btn btn-danger">Quitar</button>
+                                                </td>
+                                            </tr>
+                                        </template>
+
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -157,7 +188,7 @@
                                 <label class="control-label col-md-3 col-xs-12" for="cliente">Total
                                 </label>
                                 <div class="input-group col-md-6 col-xs-12">
-                                    <input type="text" id="total" class="form-control">
+                                    <input type="text" id="total" class="form-control" readonly value="0">
                                 </div>
                             </div>
 
@@ -174,14 +205,21 @@
 
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
-                                    <button type="submit" class="btn btn-primary">Grabar</button>
-                                    <button type="reset" class="btn btn-danger">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary">Registrar compra</button>
+                                    <button type="reset" class="btn btn-danger">Cancelar compra</button>
                                 </div>
                             </div>
                         </form>
+
                         <!-- Modal -->
-                        <div class="modal fade" id="myModal" role="dialog">
-                            <div class="modal-dialog">
+                        <template id="template-series">
+                            <div class="form-group">
+                                <label for="serie">Ingrese serie:</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </template>
+                        <div class="modal fade" id="modalSeries" role="dialog">
+                            <div class="modal-dialog modal-sm">
 
                                 <!-- Modal content-->
                                 <div class="modal-content">
@@ -189,29 +227,15 @@
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         <h4 class="modal-title">Ingrese las series</h4>
                                     </div>
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label class="control-label col-md-2 col-xs-12" for="serie">Serie 1:
-                                            </label>
-                                            <div class="input-group col-md-5 col-xs-12">
-                                                <input type="text" id="serie1" class="form-control">
-                                            </div>
-                                            <label class="control-label col-md-2 col-xs-12" for="serie">Serie 2:
-                                            </label>
-                                            <div class="input-group col-md-5 col-xs-12">
-                                                <input type="text" id="serie2" class="form-control">
-                                            </div>
-                                            <label class="control-label col-md-2 col-xs-12" for="serie">Serie 3:
-                                            </label>
-                                            <div class="input-group col-md-5 col-xs-12">
-                                                <input type="text" id="serie3" class="form-control">
-                                            </div>
+                                    <div class="modal-body" id="bodySeries">
 
-                                        </div>
+
 
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-success" id="btnAccept">Aceptar</button>
+
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                     </div>
                                 </div>
 
@@ -223,27 +247,60 @@
         </div>
     </div>
 @endsection
-<script src="{{ asset('vendors/jquery/dist/jquery.min.js') }}"></script>
-<script src="{{ asset('js/entry/entry.js') }}"></script>
-<script>
-    $(function(){
-        var autocompletar = new Array();
-        //Esto es un poco de php para obtener lo que necesitamos
-        @foreach($productos as $producto)
-           autocompletar.push('{{ $producto->name }}');
-        @endforeach
-        $("#producto").autocomplete({ //Usamos el ID de la caja de texto donde lo queremos
-                    source: autocompletar //Le decimos que nuestra fuente es el arreglo
-                });
 
-        var autocompletarPRov = new Array();
-        //Esto es un poco de php para obtener lo que necesitamos
-        @foreach($proveedores as $proveedor)
-           autocompletarPRov.push('{{ $proveedor->name }}');
-        @endforeach
-        $("#proveedor").autocomplete({ //Usamos el ID de la caja de texto donde lo queremos
-                    source: autocompletarPRov //Le decimos que nuestra fuente es el arreglo
-                });
+@section('scripts')
+    <script src="{{ asset('js/typeahead.bundle.js') }}"></script>
+    <script src="{{ asset('js/entry/compra.js') }}"></script>
+    <script>
+        $(document).on('ready', function () {
+            var substringMatcher = function(strs) {
+                return function findMatches(q, cb) {
+                    var matches, substringRegex;
 
-    });
-</script>
+                    // an array that will be populated with substring matches
+                    matches = [];
+
+                    // regex used to determine if a string contains the substring `q`
+                    substrRegex = new RegExp(q, 'i');
+
+                    // iterate through the pool of strings and for any string that
+                    // contains the substring `q`, add it to the `matches` array
+                    $.each(strs, function(i, str) {
+                        if (substrRegex.test(str)) {
+                            matches.push(str);
+                        }
+                    });
+
+                    cb(matches);
+                };
+            };
+
+            var providers = {!! $proveedores !!};
+            var products = {!! $productos !!};
+
+            $('#proveedor').typeahead(
+                    {
+                        hint: true,
+                        highlight: true,
+                        minLength: 1
+                    },
+                    {
+                        name: 'providers',
+                        source: substringMatcher(providers)
+                    }
+            );
+
+            $('#producto').typeahead(
+                    {
+                        hint: true,
+                        highlight: true,
+                        minLength: 1
+                    },
+                    {
+                        name: 'products',
+                        source: substringMatcher(products)
+                    }
+            );
+        });
+    </script>
+@endsection
