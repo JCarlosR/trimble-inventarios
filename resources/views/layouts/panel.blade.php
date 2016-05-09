@@ -312,6 +312,8 @@
 <!-- NProgress -->
 <script src="{{ asset('vendors/nprogress/nprogress.js') }}"></script>
 
+<script src="{{ asset('vendors/jquery/dist/jquery-ui.min.js') }}"></script>
+
 <!-- Custom Theme Scripts -->
 <script src="{{ asset('js/custom.js') }}"></script>
 </body>

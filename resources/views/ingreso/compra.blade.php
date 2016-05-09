@@ -44,7 +44,7 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Tipo:
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="tipo">Tipo:
                                         </label>
 
                                         <div class="input-group col-md-9 col-md-offset-3" >
@@ -60,24 +60,24 @@
                                 <div class="row">
 
                                     <div class="col-md-4">
-                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="cliente">Producto:
+                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="producto">Producto:
                                         </label>
                                         <div class=" input-group col-md-8 col-sm-6 col-xs-12">
-                                            <input type="text" id="observacion" class="form-control col-md-7 col-xs-12">
+                                            <input type="text" id="producto" class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="cliente">Cantidad:
+                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="cantidad">Cantidad:
                                         </label>
                                         <div class="input-group col-md-8 col-sm-6 col-xs-12">
-                                            <input type="number" min="0" step="1" id="observacion" class="form-control col-md-7 col-xs-12">
+                                            <input type="number" min="0" step="1" id="cantidad" class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="cliente">Precio:
+                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="precio">Precio:
                                         </label>
                                         <div class="input-group col-md-8 col-sm-6 col-xs-12">
-                                            <input type="number" min="0" step="1" id="observacion" class="form-control col-md-7 col-xs-12">
+                                            <input type="number" min="0" step="1" id="precio" class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
                                 </div>
@@ -194,19 +194,21 @@
                                             <label class="control-label col-md-2 col-xs-12" for="serie">Serie 1:
                                             </label>
                                             <div class="input-group col-md-5 col-xs-12">
-                                                <input type="text" id="serie" class="form-control">
+                                                <input type="text" id="serie1" class="form-control">
                                             </div>
                                             <label class="control-label col-md-2 col-xs-12" for="serie">Serie 2:
                                             </label>
                                             <div class="input-group col-md-5 col-xs-12">
-                                                <input type="text" id="serie" class="form-control">
+                                                <input type="text" id="serie2" class="form-control">
                                             </div>
                                             <label class="control-label col-md-2 col-xs-12" for="serie">Serie 3:
                                             </label>
                                             <div class="input-group col-md-5 col-xs-12">
-                                                <input type="text" id="serie" class="form-control">
+                                                <input type="text" id="serie3" class="form-control">
                                             </div>
+
                                         </div>
+
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -221,3 +223,27 @@
         </div>
     </div>
 @endsection
+<script src="{{ asset('vendors/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ asset('js/entry/entry.js') }}"></script>
+<script>
+    $(function(){
+        var autocompletar = new Array();
+        //Esto es un poco de php para obtener lo que necesitamos
+        @foreach($productos as $producto)
+           autocompletar.push('{{ $producto->name }}');
+        @endforeach
+        $("#producto").autocomplete({ //Usamos el ID de la caja de texto donde lo queremos
+                    source: autocompletar //Le decimos que nuestra fuente es el arreglo
+                });
+
+        var autocompletarPRov = new Array();
+        //Esto es un poco de php para obtener lo que necesitamos
+        @foreach($proveedores as $proveedor)
+           autocompletarPRov.push('{{ $proveedor->name }}');
+        @endforeach
+        $("#proveedor").autocomplete({ //Usamos el ID de la caja de texto donde lo queremos
+                    source: autocompletarPRov //Le decimos que nuestra fuente es el arreglo
+                });
+
+    });
+</script>

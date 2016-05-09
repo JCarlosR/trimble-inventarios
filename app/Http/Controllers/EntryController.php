@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Product;
+use App\Provider;
 use Illuminate\Http\Request;
 
 class EntryController extends Controller
@@ -24,11 +26,14 @@ class EntryController extends Controller
 
     public function getCompra()
     {
-        return view('ingreso.compra');
+        $productos = Product::all();
+        $proveedores = Provider::all();
+        return view('ingreso.compra')->with(compact('productos', 'proveedores'));
     }
 
     public function getListaCompra()
     {
+
         return view('ingreso.listacompra');
     }
 
