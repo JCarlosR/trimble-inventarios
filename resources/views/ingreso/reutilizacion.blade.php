@@ -84,7 +84,8 @@
 
                     <div class="x_content">
                         <br>
-                        <form id="demo-form2" class="form-horizontal form-label-left" novalidate>
+                        <form id="form" class="form-horizontal form-label-left" novalidate>
+                            {{ csrf_field() }}
 
                             <div class="form-group">
                                 <div class="row">
@@ -148,7 +149,7 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Producto/Paquete</th>
+                                            <th>Producto</th>
                                             <th>Serie</th>
                                             <th>Cantidad</th>
                                             <th>Precio</th>
@@ -189,22 +190,22 @@
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="observacion">Observación:
                                     </label>
                                     <div class=" input-group col-md-8 col-sm-6 col-xs-12">
-                                        <textarea id="observacion" class="form-control col-md-7 col-xs-12" rows="3"></textarea>
+                                        <textarea name="observacion" class="form-control col-md-7 col-xs-12" rows="3"></textarea>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
-                                    <button type="submit" class="btn btn-primary">Grabar</button>
-                                    <button type="reset" class="btn btn-danger">Cancelar</button>
+                                <div class="col-md-6 col-md-offset-3">
+                                    <button type="submit" class="btn btn-primary">Registrar reutilizacion</button>
+                                    <button type="reset" class="btn btn-danger">Cancelar reutilizacion </button>
                                 </div>
                             </div>
                         </form>
                         <!-- Modal -->
                         <template id="template-series">
                             <div class="form-group">
-                                <label for="serie">Ingrese serie:</label>
+                                <label for="serie">Ingrese las series:</label>
                                 <input type="text" class="form-control">
                             </div>
                         </template>

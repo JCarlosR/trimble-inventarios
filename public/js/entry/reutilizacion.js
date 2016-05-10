@@ -8,7 +8,32 @@ $(document).on('ready', function () {
     $('#btnAdd').on('click', addItem);
     $(document).on('click', '[data-delete]', deleteItem);
     $('#btnAccept').on('click', addItemsSeries);
+    $('#form').on('submit', registerEntry);
 });
+
+function registerEntry() {
+    event.preventDefault();
+
+    var _token = $(this).find('[name=_token]');
+    var data = $(this).serializeArray();
+    data.push({name: 'items', value: JSON.stringify(items)});
+    $.ajax({
+        url: 'reutilizacion',
+        data: data,
+        method: 'POST',
+        headers: { 'X-CSRF-TOKEN': _token }
+    })
+        .done(function( response ) {
+            if(response.error)
+                alert(response.message);
+            else{
+                alert('Reutilizacion registrada correctamente.');
+                location.reload();
+            }
+
+        });
+}
+
 
 function addItem() {
     // Validate the product name

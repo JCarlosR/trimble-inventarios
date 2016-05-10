@@ -84,7 +84,8 @@
 
                     <div class="x_content">
                         <br>
-                        <form id="demo-form2" class="form-horizontal form-label-left" novalidate>
+                        <form id="form" class="form-horizontal form-label-left" novalidate>
+                            {{ csrf_field() }}
 
                             <div class="form-group">
                                 <div class="row">
@@ -93,7 +94,7 @@
                                             Proveedor:
                                         </label>
                                         <div class="input-group col-md-9">
-                                            <input id="proveedor" class="typeahead form-control" type="text">
+                                            <input id="proveedor" name="proveedor" class="typeahead form-control" type="text">
                                         </div>
                                     </div>
 
@@ -101,8 +102,8 @@
                                         <label class="control-label col-md-3" for="tipo">Tipo:</label>
 
                                         <div class="input-group col-md-9">
-                                            <input type="radio" name="tipo" value="1" checked>Local
-                                            <input type="radio" name="tipo" value="0">Extranjero
+                                            <input type="radio" name="tipo" value="local" checked>Local
+                                            <input type="radio" name="tipo" value="foreign">Extranjero
                                         </div>
                                     </div>
                                 </div>
@@ -193,7 +194,7 @@
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="observacion">Observación:
                                     </label>
                                     <div class=" input-group col-md-8 col-sm-6 col-xs-12">
-                                        <textarea id="observacion" class="form-control col-md-7 col-xs-12" rows="3"></textarea>
+                                        <textarea name="observacion" class="form-control col-md-7 col-xs-12" rows="3"></textarea>
                                     </div>
                                 </div>
                             </div>

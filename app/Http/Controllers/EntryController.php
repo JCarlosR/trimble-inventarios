@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Entry;
 use App\EntryDetail;
 use App\Http\Requests;
+use App\Item;
 use App\Product;
 use App\Provider;
 use Illuminate\Http\Request;
@@ -81,5 +82,112 @@ class EntryController extends Controller
         return view('ingreso.listareutilizacion')->with(compact(['entries']));
     }
 
+
+    public function postRegistroReutilizacion(Request $request)
+    {
+        //dd($items->all());
+        $items = json_decode($request->get('items'));
+
+        $proveedor = $request->get('proveedor');
+        $tipo = $request->get('tipo');
+        $observacion = $request->get('observacion');
+
+        if (sizeof($items) == 0)
+        {
+            return response()->json(['error' => true, 'message' => 'Es necesario ingresar detalles para la compra.']);
+        }
+
+        // Create Entry Header
+
+        $entry = Entry::create([
+            'provider_id' => null,
+            'type' => $tipo,
+            'comment' => $observacion
+        ]);
+
+
+        foreach($items as $item)
+        {
+            // Create Entry Details
+            EntryDetail::create([
+                'entry_id' => $entry->id,
+                'product_id' => $item->id,
+                'series' => $item->series,
+                'quantity' => $item->quantity,
+                'price' => $item->price
+            ]);
+
+            // Create Items
+            for ($i = 0; $i<$item->quantity; ++$i)
+                Item::create([
+                    'product_id' => $item->id,
+                    'series' => ($item->series == 'S/S'? null:$item->series),
+                    'state' => 'available',
+                    'package_id' => null
+                ]);
+        }
+
+        // Update Stock product
+
+        return response()->json(['error' => false]);
+    }
+
+    public function postRegistroCompra(Request $request)
+    {
+        //dd($items->all());
+        $items = json_decode($request->get('items'));
+
+        $proveedor = $request->get('proveedor');
+        $tipo = $request->get('tipo');
+        $observacion = $request->get('observacion');
+
+        $provider = Provider::where('name', $proveedor)->first();
+
+        if(!$provider)
+        {
+            return response()->json(['error' => true, 'message' => 'Proveedor indicado no existe.']);
+        }
+
+        if (sizeof($items) == 0)
+        {
+            return response()->json(['error' => true, 'message' => 'Es necesario ingresar detalles para la compra.']);
+        }
+
+        // Create Entry Header
+
+        $providerId = $provider->id;
+        $entry = Entry::create([
+            'provider_id' => $providerId,
+            'type' => $tipo,
+            'comment' => $observacion
+        ]);
+
+
+        foreach($items as $item)
+        {
+            // Create Entry Details
+            EntryDetail::create([
+                'entry_id' => $entry->id,
+                'product_id' => $item->id,
+                'series' => $item->series,
+                'quantity' => $item->quantity,
+                'price' => $item->price
+            ]);
+
+            // Create Items
+            for ($i = 0; $i<$item->quantity; ++$i)
+                Item::create([
+                    'product_id' => $item->id,
+                    'series' => ($item->series == 'S/S'? null:$item->series),
+                    'state' => 'available',
+                    'package_id' => null
+                ]);
+        }
+
+        // Update Stock product
+
+        return response()->json(['error' => false]);
+
+    }
 
 }

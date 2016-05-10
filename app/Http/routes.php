@@ -27,6 +27,9 @@ Route::get('/ingreso/listar/reutilizacion', 'EntryController@getReutilizacion');
 Route::get('/ingreso/listar/reutilizacion/{inicio}/{fin}', 'EntryController@getReutilizacionFiltro');
 Route::get('/ingreso/reutilizacion', 'EntryController@getRegistroReutilizacion');
 
+Route::post('/ingreso/compra', 'EntryController@postRegistroCompra');
+Route::post('/ingreso/reutilizacion', 'EntryController@postRegistroReutilizacion');
+
 // Salidas
 Route::get('/salida/venta', 'OutputController@getVenta');
 Route::get('/salida/listar/venta', 'OutputController@getListaVenta');
