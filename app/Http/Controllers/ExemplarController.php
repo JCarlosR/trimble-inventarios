@@ -2,26 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-use App\Subcategory;
+use App\Brand;
+use App\Exemplar;
 use Illuminate\Http\Request;
+
 use App\Http\Requests;
 use Illuminate\Support\Facades\Validator;
 
-
-class SubcategoryController extends Controller
+class ExemplarController extends Controller
 {
     public function index()
     {
-        $subcategories = Subcategory::all();
-        $categories = Category::all();
-        return view('product.subcategory.index')->with(compact(['subcategories','categories']));
+        $exemplars = Exemplar::all();
+        return view('product.exemplar.index')->with(compact(['exemplars']));
     }
 
     public function create()
     {
-        $categories = Category::all();
-        return view('product.subcategory.create')->with(compact(['categories']));
+        $brands = Brand::all();
+        return view('product.exemplar.create')->with(compact(['brands']));
     }
 
     public function created( Request $request)
@@ -30,20 +29,21 @@ class SubcategoryController extends Controller
             'name' => 'required|min:3|max:50',
         ]);
 
-        $name = Subcategory::where( 'name',$request->get('name') )->first();
-        $category = Subcategory::where( 'category_id',$request->get('category') )->first();
+        $name = Exemplar::where( 'name',$request->get('name') )->first();
+        $category = Exemplar::where( 'category_id',$request->get('category') )->first();
 
         if( $name == null or  $category == null )
         {
-            $subcategory = Subcategory::create([
+            $exemplar = Exemplar::create([
                 'name'	  => $request->get('name'),
                 'description' => $request->get('description'),
-                'category_id' => $request->get('category')
+                'brand_id' => $request->get('marca')
             ]);
-            $subcategory->save();
+
+            $exemplar->save();
         }
 
-        return redirect('subcategoria');
+        return redirect('modelo');
     }
 
     public function edit( Request $request )
@@ -58,17 +58,17 @@ class SubcategoryController extends Controller
         $subcategory->category_id = $request->get('category');
         $subcategory->save();
 
-        return redirect('subcategoria');
+        return redirect('modelo');
     }
     public function delete( Request $request )
     {
         $validator = Validator::make($request->all(), [
-            'id' => 'exists:subcategories,id'
+            'id' => 'exists:exemplars,id'
         ]);
 
-        $subcategory = Subcategory::find( $request->get('id') );
-        $subcategory->delete();
+        $exemplar = Exemplar::find( $request->get('id') );
+        $exemplar->delete();
 
-        return redirect('subcategoria');
+        return redirect('modelo');
     }
 }

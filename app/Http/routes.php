@@ -43,16 +43,39 @@ Route::get('/clientes/tipos', 'CustomerTypeController@create');
 // Providers
 
 
-// Products
+                    // Products
+//Categorías
 Route::get('/categoria', 'CategoryController@index');
 Route::get('/categoria/registrar', 'CategoryController@create');
+Route::post('/categoria/registrar', 'CategoryController@created');
+Route::post('categoria/modificar','CategoryController@edit');
+Route::post('categoria/eliminar','CategoryController@delete');
+//Subcategorías
 Route::get('/subcategoria', 'SubcategoryController@index');
 Route::get('/subcategoria/registrar', 'SubcategoryController@create');
+Route::post('/subcategoria/registrar', 'SubcategoryController@created');
+Route::post('subcategoria/modificar','SubcategoryController@edit');
+Route::post('subcategoria/eliminar','SubcategoryController@delete');
+//Marcas
 Route::get('/marca', 'BrandController@index');
 Route::get('/marca/registrar', 'BrandController@create');
-Route::get('/modelo', 'ModelController@index');
-Route::get('/modelo/registrar', 'ModelController@create');
+Route::post('/marca/registrar', 'BrandController@created');
+Route::post('marca/modificar','BrandController@edit');
+Route::post('marca/eliminar','BrandController@delete');
+//Modelos
+Route::get('/modelo', 'ExemplarController@index');
+Route::get('/modelo/registrar', 'ExemplarController@create');
+Route::post('/modelo/registrar', 'ExemplarController@created');
+Route::post('modelo/modificar','ExemplarController@edit');
+Route::post('modelo/eliminar','ExemplarController@delete');
+//Productos
 Route::get('/producto', 'ProductController@index');
 Route::get('/producto/registrar', 'ProductController@create');
+Route::post('/producto/registrar', 'ProductController@created');
+Route::get('/producto/registrar/{marca}/{categoria}', 'ProductController@product');
+
+Route::post('producto/modificar','ProductController@edit');
+Route::post('producto/eliminar','ProductController@delete');
+//Paquetes
 Route::get('/paquete', 'PackageController@index');
 Route::get('/paquete/registrar', 'PackageController@create');

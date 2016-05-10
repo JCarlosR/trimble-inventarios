@@ -1,51 +1,50 @@
 @extends('layouts.panel')
 
-@section('title', 'Subcategorías')
+@section('title', 'Modelos')
 
 @section('content')
     <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Listado de subcategorías</h2>
+
+                    <h2>Listado de modelos</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </li>
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                     </ul>
 
                     <div class="clearfix"></div>
 
                     <div class="x_content">
+
                         <br>
                         <div class="input-group">
-                            <h2><a href="{{ url('subcategoria/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nueva subcategoría</a></h2>
+                            <h2><a href="{{ url('modelo/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nuevo modelo </a></h2>
                         </div>
                         <br>
+
                         <table class="table table-hover">
                             <thead>
                             <tr>
                                 <th>Código</th>
-                                <th>Subcategoría</th>
+                                <th>Modelo</th>
                                 <th>Descripción</th>
-                                <th>Categoría</th>
+                                <th>Marca</th>
                                 <th>Opciones</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($subcategories as $subcategory)
+                            @foreach($exemplars as $exemplar)
                                 <tr>
-
-                                    <td>{{$subcategory->id}}</td>
-                                    <td>{{$subcategory->name}}</td>
-                                    <td>{{$subcategory->description}}</td>
-                                    <td>{{$subcategory->category->name}}</td>
+                                    <td>{{$exemplar->id}}</td>
+                                    <td>{{$exemplar->name}}</td>
+                                    <td>{{$exemplar->description}}</td>
+                                    <td>{{$exemplar->brand->name}}</td>
                                     <td>
-                                        <button type="submit" class="btn btn-success" data-id="{{ $subcategory->id }}" data-name="{{ $subcategory ->name }}"
-                                                data-description="{{ $subcategory->description }}" data-category="{{ $subcategory->category_id }} ">
-                                            <i class="fa fa-pencil"></i>Editar
+                                        <button type="submit" class="btn btn-success" data-id="{{ $exemplar->id }}" data-name="{{ $exemplar->name }}"
+                                                data-description="{{ $exemplar->description }} "> <i class="fa fa-pencil"></i>Editar
                                         </button>
-
-                                        <button type="submit" class="btn btn-danger"  data-delete="{{ $subcategory->id }}" data-name="{{ $subcategory->name }}">
+                                        <button type="submit" class="btn btn-danger"  data-delete="{{ $exemplar->id }}" data-name="{{ $exemplar->name }}">
                                             <i class="fa fa-trash"></i>Eliminar
                                         </button>
                                     </td>
@@ -58,31 +57,25 @@
             </div>
         </div>
 
+
         <div id="modalEditar" class="modal fade in">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Editar subcategoría</h4>
+                        <h4 class="modal-title">Editar marca</h4>
                     </div>
-                    <form action="{{ url('subcategoria/modificar') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ url('modelo/modificar') }}" method="POST" enctype="multipart/form-data">
                         <div class="modal-body">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                             <input type="hidden" name="id" />
 
                             <div class="form-group">
-                                <label for="nombres">Nuevo nombre</label>
+                                <label for="nombres">Nueva marca</label>
                                 <input type="text" class="form-control" name="name" required/>
                             </div>
                             <div class="form-group">
                                 <label for="apellidos">Nueva descripción</label>
-                                <input type="text" class="form-control" name="description" />
-                            </div>
-                            <div class="form-group">
-                                <select name="categories" id="categories" class="form-control">
-                                    @foreach( $categories as $category )
-                                        <option value="{{$category->id}}">{{$category->name}}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" class="form-control" name="description" required/>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -102,15 +95,15 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Eliminar subcategoría</h4>
+                        <h4 class="modal-title">Eliminar modelo</h4>
                     </div>
-                    <form action="{{ url('subcategoria/eliminar') }}" method="POST">
+                    <form action="{{ url('modelo/eliminar') }}" method="POST">
                         <div class="modal-body">
 
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                             <input type="hidden" name="id" />
                             <div class="form-group">
-                                <label for="nombreEliminar">¿Desea eliminar la siguiente categoría?</label>
+                                <label for="nombreEliminar">¿Desea eliminar el siguiente modelo?</label>
                                 <input type="text" readonly class="form-control" name="nombreEliminar"/>
                             </div>
                         </div>
@@ -126,8 +119,7 @@
                 </div>
             </div>
         </div>
-
     </div>
 @endsection
 <script src="{{ asset('js/products/jquery-1.7.min.js') }}"></script>
-<script src="{{ asset('js/products/subcategories.js')}}"></script>
+<script src="{{ asset('js/products/exemplars.js')}}"></script>

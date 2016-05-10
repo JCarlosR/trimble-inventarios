@@ -16,5 +16,13 @@ class BrandsTableSeeder extends Seeder
             'name' => 'TRIMBLE',
             'description' => ''
         ]);
+        Brand::create([
+            'name' => 'GENÉRICO',
+            'description' => ''
+        ]);
+        Brand::create([
+            'name' => 'STAINLESS',
+            'description' => ''
+        ]);
     }
 }
