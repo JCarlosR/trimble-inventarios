@@ -23,8 +23,9 @@ Route::get('/ingreso/listar/compra', 'EntryController@getCompras');
 Route::get('/ingreso/listar/compra/{proveedor}/{inicio}/{fin}', 'EntryController@getComprasFiltro');
 Route::get('/ingreso/listar/detalles/{id}', 'EntryController@getCompraDetalles');
 Route::get('/ingreso/compra', 'EntryController@getRegistroCompra');
-Route::get('/ingreso/listar/reutilizacion', 'EntryController@getListaReutilizacion');
-Route::get('/ingreso/reutilizacion', 'EntryController@getReutilizacion');
+Route::get('/ingreso/listar/reutilizacion', 'EntryController@getReutilizacion');
+Route::get('/ingreso/listar/reutilizacion/{inicio}/{fin}', 'EntryController@getReutilizacionFiltro');
+Route::get('/ingreso/reutilizacion', 'EntryController@getRegistroReutilizacion');
 
 // Salidas
 Route::get('/salida/venta', 'OutputController@getVenta');

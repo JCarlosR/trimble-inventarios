@@ -36,7 +36,7 @@ class EntryController extends Controller
     public function getCompras()
     {
         $providers = Provider::select('name')->lists('name')->toJson();
-        $entries = Entry::all();
+        $entries = Entry::whereNotNull('provider_id')->get();
         return view('ingreso.listacompra')->with(compact(['entries', 'providers']));
     }
 
@@ -47,7 +47,7 @@ class EntryController extends Controller
         if (!$provider)
             return back();
         $id = $provider->id;
-        $entries = Entry::where('provider_id', $id)->get();
+        $entries = Entry::where('provider_id', $id)->whereBetween('created_at', [$inicio, $fin])->get();
          return view('ingreso.listacompra')->with(compact(['entries', 'providers']));
     }
 
@@ -63,14 +63,22 @@ class EntryController extends Controller
         return $array;
     }
 
-    public function getReutilizacion()
+    public function getRegistroReutilizacion()
     {
-        return view('ingreso.reutilizacion');
+        $productos = Product::select('name')->lists('name')->toJson();
+        return view('ingreso.reutilizacion')->with(compact('productos'));
     }
 
-    public function getListaReutilizacion()
+    public function getReutilizacion()
     {
-        return view('ingreso.listareutilizacion');
+        $entries = Entry::whereNull('provider_id')->get();
+        return view('ingreso.listareutilizacion')->with(compact(['entries']));
+    }
+
+    public function getReutilizacionFiltro($inicio, $fin)
+    {
+        $entries = Entry::whereNull('provider_id')->whereBetween('created_at', [$inicio, $fin])->get();
+        return view('ingreso.listareutilizacion')->with(compact(['entries']));
     }
 
 

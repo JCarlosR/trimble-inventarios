@@ -19,37 +19,34 @@
                     <div class="x_content">
                         <br>
                         <div class="input-group">
-                            <button type="button" id="NvoIngreso" class="btn btn-success"><i class="fa fa-plus-square-o"></i>  Nuevo Ingreso</button>
+                            <a id="NvoIngreso" class="btn btn-success" href="{{ url('/ingreso/reutilizacion') }}"><i class="fa fa-plus-square-o"></i>  Nuevo Ingreso</a>
                         </div>
                         <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
 
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <label class="control-label col-md-4" for="proveedor">
-                                            Proveedor:
-                                        </label>
-                                        <div class="input-group col-md-8">
-                                            <input type="text" id="proveedor" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="control-label col-md-4" for="fecha">
+                                    <div class="col-md-6">
+                                        <label class="control-label col-md-4" for="inicio">
                                             Desde:
                                         </label>
-                                        <div class="input-group col-md-8">
-                                            <input type="date" id="fecha" class="form-control">
+                                        <div class="input-group col-md-4">
+                                            <input type="date" id="inicio" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <label class="control-label col-md-4" for="cliente">
+                                    <div class="col-md-6">
+                                        <label class="control-label col-md-4" for="fin">
                                             Hasta:
                                         </label>
-                                        <div class="input-group col-md-8">
-                                            <input type="date" id="cliente" class="form-control">
+                                        <div class="input-group col-md-4">
+                                            <input type="date" id="fin" class="form-control">
                                         </div>
                                     </div>
 
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 col-md-offset-5" >
+                                    <button data-href="{{ url('/ingreso/listar/reutilizacion/{inicio}/{fin}') }}" type="button" class="btn btn-primary btn-block" id="btnShowEntries">Buscar compras</button>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -58,30 +55,22 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Ingresos</th>
-                                            <th>Otro campo</th>
+                                            <th>Ingreso</th>
+                                            <th>Tipo</th>
                                             <th>Fecha</th>
+                                            <th>Observacion</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>1000001</td>
-                                            <td>otro campo</td>
-                                            <td>14/05/2016</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>1000002</td>
-                                            <td>otro campo</td>
-                                            <td>14/05/2016</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>1000003</td>
-                                            <td>otro campo</td>
-                                            <td>14/05/2016</td>
-                                        </tr>
+                                        <tbody id="bodyEntries" data-href="{{ url('/ingreso/listar/detalles/{id}') }}">
+                                        @foreach($entries as $entry)
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td data-id="{{ $entry->id }}">{{ $entry->id+10000 }}</td>
+                                                <td>{{ ($entry->type=='local'?'Local':'Extranjero') }}</td>
+                                                <td>{{ $entry->created_at }}</td>
+                                                <td>{{ $entry->comment }}</td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -91,38 +80,29 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-2">
+                                    <template id="template-detail">
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td data-name></td>
+                                            <td data-series>256314</td>
+                                            <td data-quantity>1</td>
+                                            <td data-price>1</td>
+                                            <td data-sub>1</td>
+                                        </tr>
+                                    </template>
                                     <table class="table table-hover table-condensed">
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Producto/Paquete</th>
+                                            <th>Producto</th>
                                             <th>Serie</th>
                                             <th>Cantidad</th>
-                                            
+                                            <th>Precio</th>
+                                            <th>Sub Total</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>1000001</td>
-                                            <td>256314</td>
-                                            <td>1</td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>1000002</td>
-                                            <td>256314</td>
-                                            <td>1</td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>1000003</td>
-                                            <td>256314</td>
-                                            <td>1</td>
-                                            
-                                        </tr>
+                                        <tbody id="bodyDetails">
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -144,4 +124,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/entry/listareutilizacion.js') }}"></script>
 @endsection

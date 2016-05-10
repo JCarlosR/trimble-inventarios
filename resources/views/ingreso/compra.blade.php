@@ -139,13 +139,9 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-4 col-md-offset-4">
-
                                         <button type="button" id="btnAdd" class="btn btn-primary btn-block">Agregar a la lista</button>
-
                                     </div>
-
                                 </div>
-
                             </div>
 
                             <div class="form-group">
