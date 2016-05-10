@@ -19,10 +19,12 @@ Route::get('/', 'HomeController@index');
 // Ingresos
 Route::get('/ingreso/listar/retorno', 'EntryController@getListaRetorno');
 Route::get('/ingreso/retorno', 'EntryController@getRetorno');
+
 Route::get('/ingreso/listar/compra', 'EntryController@getCompras');
 Route::get('/ingreso/listar/compra/{proveedor}/{inicio}/{fin}', 'EntryController@getComprasFiltro');
 Route::get('/ingreso/listar/detalles/{id}', 'EntryController@getCompraDetalles');
 Route::get('/ingreso/compra', 'EntryController@getRegistroCompra');
+
 Route::get('/ingreso/listar/reutilizacion', 'EntryController@getReutilizacion');
 Route::get('/ingreso/listar/reutilizacion/{inicio}/{fin}', 'EntryController@getReutilizacionFiltro');
 Route::get('/ingreso/reutilizacion', 'EntryController@getRegistroReutilizacion');
@@ -31,8 +33,9 @@ Route::post('/ingreso/compra', 'EntryController@postRegistroCompra');
 Route::post('/ingreso/reutilizacion', 'EntryController@postRegistroReutilizacion');
 
 // Salidas
-Route::get('/salida/venta', 'OutputController@getVenta');
+Route::get('/salida/venta', 'OutputController@getRegistroVenta');
 Route::get('/salida/listar/venta', 'OutputController@getListaVenta');
+
 Route::get('/salida/alquiler', 'OutputController@getAlquiler');
 Route::get('/salida/listar/alquiler', 'OutputController@getListaAlquiler');
 Route::get('/salida/baja', 'OutputController@getBaja');
@@ -65,3 +68,5 @@ Route::get('/paquete/registrar', 'PackageController@create');
 
 // Search
 Route::get('/producto/buscar/{name}', 'ProductController@search');
+
+Route::get('/items/producto/{id}', 'ItemController@searchItems');

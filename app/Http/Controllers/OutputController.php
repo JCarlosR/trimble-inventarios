@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
 use App\Http\Requests;
+use App\Product;
+use App\Provider;
 use Illuminate\Http\Request;
 
 class OutputController extends Controller
@@ -22,9 +25,11 @@ class OutputController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getVenta()
+    public function getRegistroVenta()
     {
-        return view('salida.venta');
+        $productos = Product::select('name')->lists('name')->toJson();
+        $clientes = Customer::select('name')->lists('name')->toJson();
+        return view('salida.venta')->with(compact('productos', 'clientes'));
     }
     public function getListaVenta()
     {
