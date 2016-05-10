@@ -73,4 +73,10 @@ class ProductController extends Controller
 
         return redirect('producto');
     }
+
+    public function search($name)
+    {
+        $product = Product::where('name', $name)->first(['id', 'name', 'series']);
+        return $product;
+    }
 }

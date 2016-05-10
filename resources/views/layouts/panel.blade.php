@@ -15,6 +15,8 @@
 
     <!-- Custom Theme Style -->
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+
+    @yield('styles')
 </head>
 
 <body class="nav-md">
@@ -314,5 +316,8 @@
 
 <!-- Custom Theme Scripts -->
 <script src="{{ asset('js/custom.js') }}"></script>
+
+@yield('scripts')
+
 </body>
 </html>
