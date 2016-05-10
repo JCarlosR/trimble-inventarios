@@ -18,45 +18,106 @@
 
                      <div class="x_content">
 
-                    <br>
-                    <div class="input-group">
-                        <h2><a href="{{ url('/marca/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nueva marca</a></h2>
-                    </div>
-                    <br>
+                        <br>
+                        <div class="input-group">
+                            <h2><a href="{{ url('/marca/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nueva marca</a></h2>
+                        </div>
+                        <br>
 
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Marca</th>
-                            <th>Descripción</th>
-                            <th>Opciones</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Marca 1</td>
-                            <td>Descripción 1</td>
-                            <td>
-                                <button type="button" class="btn btn-primary">Editar</button>
-                                <button type="button" class="btn btn-danger">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Marca 2</td>
-                            <td>Descripción 2</td>
-                            <td>
-                                <button type="button" class="btn btn-primary">Editar</button>
-                                <button type="button" class="btn btn-danger">Eliminar</button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Marca</th>
+                                <th>Descripción</th>
+                                <th>Opciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($brands as $brand)
+                                <tr>
+                                    <td>{{ $brand->id }}</td>
+                                    <td>{{ $brand->name }}</td>
+                                    <td>{{ $brand->description}}</td>
+                                    <td>
+                                        <button type="submit" class="btn btn-success" data-id="{{ $brand->id }}" data-name="{{ $brand->name }}"
+                                                data-description="{{ $brand->description }} "> <i class="fa fa-pencil"></i>Editar
+                                        </button>
+                                        <button type="submit" class="btn btn-danger"  data-delete="{{ $brand->id }}" data-name="{{ $brand->name }}">
+                                            <i class="fa fa-trash"></i>Eliminar
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div id="modalEditar" class="modal fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Editar marca</h4>
+                </div>
+                <form action="{{ url('marca/modificar') }}" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                        <input type="hidden" name="id" />
+
+                        <div class="form-group">
+                            <label for="nombres">Nueva marca</label>
+                            <input type="text" class="form-control" name="name" required/>
+                        </div>
+                        <div class="form-group">
+                            <label for="apellidos">Nueva descripción</label>
+                            <input type="text" class="form-control" name="description" required/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btn-group pull-left">
+                            <button class="btn btn-danger pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-menu-up"></span> Salir</button>
+                        </div>
+                        <div class="btn-group pull-right">
+                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Guardar Categoría</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+        <div id="modalEliminar" class="modal fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Eliminar categoría</h4>
+                </div>
+                <form action="{{ url('marca/eliminar') }}" method="POST">
+                    <div class="modal-body">
+
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                        <input type="hidden" name="id" />
+                        <div class="form-group">
+                            <label for="nombreEliminar">¿Desea eliminar la siguiente marca?</label>
+                            <input type="text" readonly class="form-control" name="nombreEliminar"/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btn-group pull-left">
+                            <button class="btn btn-danger pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-menu-up"></span> Cancelar</button>
+                        </div>
+                        <div class="btn-group pull-right">
+                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Aceptar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     </div>
 @endsection
+<script src="{{ asset('js/products/jquery-1.7.min.js') }}"></script>
+<script src="{{ asset('js/products/brands.js')}}"></script>
