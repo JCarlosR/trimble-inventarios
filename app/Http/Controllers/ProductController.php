@@ -26,26 +26,57 @@ class ProductController extends Controller
         $subcategories = Subcategory::where('category_id', '1')->get();
         $brands = Brand::all();
         $exemplars = Exemplar::where('brand_id', '1')->get();
-        $marca = 1;
-        $categoria = 1;
 
-        return view('product.product.create')->with(compact(['categories', 'subcategories', 'brands', 'exemplars', 'marca', 'categoria']));
+        return view('product.product.create')->with(compact(['categories', 'subcategories', 'brands', 'exemplars']));
     }
 
-    public function created()
+    public function created( Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|min:3|max:50',
+            'price'=>'min:0',
+            'brand_id'=>'exists:brands,id',
+            'exemplar_id'=>'exists:exemplars,id',
+            'color'=>'required',
+            'category_id'=>'exists:categories,id',
+            'subcategory_id'=>'exists:subcategories,id',
+        ]);
 
+        $serie = 0;
+        if ( $request->get('series') == 1)
+            $serie=1;
+
+        $product = Product::create([
+            'name'	  => $request->get('name'),
+            'description' => $request->get('description'),
+            'price'=>$request->get('price'),
+            'series'=>$serie,
+            'brand_id'=>$request->get('brands'),
+            'exemplar_id'=>$request->get('exemplars'),
+            'part_number'=>$request->get('part_number'),
+            'color'=>$request->get('color'),
+            'category_id'=>$request->get('categories'),
+            'subcategory_id'=>$request->get('subcategories'),
+            'comment'=>$request->get('comment')
+        ]);
+
+        $product->save();
+
+        return redirect('producto');
     }
 
 
-    public function product($marca, $categoria)
+    public function subcategoria( $categoria )
     {
-        $categories = Category::all();
-        $subcategories = Subcategory::where('category_id', $categoria)->get();
-        $brands = Brand::all();
-        $exemplars = Exemplar::where('brand_id', $marca)->get();
+        $subcategories = Subcategory::where('category_id',$categoria)->get();
 
-        return view ('product.product.create')->with(compact(['categories', 'subcategories', 'brands', 'exemplars', 'marca', 'categoria']));
+        return response()->json($subcategories);
+
+    }
+    public function modelo( $marca )
+    {
+        $exemplares = Exemplar::where('brand_id',$marca)->get();
+        return response()->json($exemplares);
     }
 
     public function edit( Request $request )

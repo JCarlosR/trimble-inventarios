@@ -20,7 +20,7 @@
                         <div class="input-group">
                             <h2><a href="{{ url('subcategoria/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nueva subcategoría</a></h2>
                         </div>
-                        <br>
+
                         <table class="table table-hover">
                             <thead>
                             <tr>
@@ -64,7 +64,7 @@
                     <div class="modal-header">
                         <h4 class="modal-title">Editar subcategoría</h4>
                     </div>
-                    <form action="{{ url('subcategoria/modificar') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ url('subcategoria/modificar') }}" class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">
                         <div class="modal-body">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                             <input type="hidden" name="id" />
@@ -75,13 +75,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="apellidos">Nueva descripción</label>
-                                <input type="text" class="form-control" name="description" />
+                                <textarea class="form-control" name="description"></textarea>
                             </div>
                             <div class="form-group">
                                 <select name="categories" id="categories" class="form-control">
-                                    @foreach( $categories as $category )
-                                        <option value="{{$category->id}}">{{$category->name}}</option>
-                                    @endforeach
+
                                 </select>
                             </div>
                         </div>
@@ -90,7 +88,7 @@
                                 <button class="btn btn-danger pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-menu-up"></span> Salir</button>
                             </div>
                             <div class="btn-group pull-right">
-                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Guardar Categoría</button>
+                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Guardar subcategoría</button>
                             </div>
                         </div>
                     </form>

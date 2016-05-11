@@ -30,14 +30,14 @@ class ExemplarController extends Controller
         ]);
 
         $name = Exemplar::where( 'name',$request->get('name') )->first();
-        $category = Exemplar::where( 'category_id',$request->get('category') )->first();
+        $brand = Exemplar::where( 'brand_id',$request->get('brand') )->first();
 
-        if( $name == null or  $category == null )
+        if( $name == null or  $brand == null )
         {
             $exemplar = Exemplar::create([
                 'name'	  => $request->get('name'),
                 'description' => $request->get('description'),
-                'brand_id' => $request->get('marca')
+                'brand_id' => $request->get('brand')
             ]);
 
             $exemplar->save();
@@ -46,17 +46,23 @@ class ExemplarController extends Controller
         return redirect('modelo');
     }
 
+    public function dropdown()
+    {
+        $brands = Brand::all();
+        return response()->json($brands);
+    }
+
     public function edit( Request $request )
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3|max:50'
         ]);
 
-        $subcategory = Subcategory::find( $request->get('id') );
-        $subcategory->name = $request->get('name');
-        $subcategory->description = $request->get('description');
-        $subcategory->category_id = $request->get('category');
-        $subcategory->save();
+        $exemplar = Exemplar::find( $request->get('id') );
+        $exemplar->name = $request->get('name');
+        $exemplar->description = $request->get('description');
+        $exemplar->brand_id = $request->get('brands');
+        $exemplar->save();
 
         return redirect('modelo');
     }

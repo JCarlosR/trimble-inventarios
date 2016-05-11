@@ -60,6 +60,7 @@ Route::post('categoria/eliminar','CategoryController@delete');
 Route::get('/subcategoria', 'SubcategoryController@index');
 Route::get('/subcategoria/registrar', 'SubcategoryController@create');
 Route::post('/subcategoria/registrar', 'SubcategoryController@created');
+Route::get('subcategoria/dropdown','SubcategoryController@dropdown');
 Route::post('subcategoria/modificar','SubcategoryController@edit');
 Route::post('subcategoria/eliminar','SubcategoryController@delete');
 //Marcas
@@ -72,13 +73,17 @@ Route::post('marca/eliminar','BrandController@delete');
 Route::get('/modelo', 'ExemplarController@index');
 Route::get('/modelo/registrar', 'ExemplarController@create');
 Route::post('/modelo/registrar', 'ExemplarController@created');
+Route::get('modelo/dropdown','ExemplarController@dropdown');
 Route::post('modelo/modificar','ExemplarController@edit');
 Route::post('modelo/eliminar','ExemplarController@delete');
 //Productos
 Route::get('/producto', 'ProductController@index');
 Route::get('/producto/registrar', 'ProductController@create');
 Route::post('/producto/registrar', 'ProductController@created');
-Route::get('/producto/registrar/{marca}/{categoria}', 'ProductController@product');
+Route::get('producto/subcategoria/{categoria}','ProductController@subcategoria');
+Route::get('producto/modelo/{marca}','ProductController@modelo');
+Route::post('modelo/modificar','ProductController@edit');
+Route::post('modelo/eliminar','ProductController@delete');
 
 Route::post('producto/modificar','ProductController@edit');
 Route::post('producto/eliminar','ProductController@delete');

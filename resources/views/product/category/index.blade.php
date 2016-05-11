@@ -20,7 +20,7 @@
                         <div class="input-group">
                             <h2><a href="{{ url('categoria/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nueva categoría</a></h2>
                         </div>
-                        <br>
+
                         @if( $errors->count() > 0 )
                             <div class="row">
                                 <div class="col-sm-12">
@@ -84,7 +84,7 @@
                     <div class="modal-header">
                         <h4 class="modal-title">Editar categoría</h4>
                     </div>
-                    <form action="{{ url('categoria/modificar') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ url('categoria/modificar') }}" class="form-horizontal form-label-left"  method="POST" enctype="multipart/form-data">
                         <div class="modal-body">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                             <input type="hidden" name="id" />
@@ -95,7 +95,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="apellidos">Nueva descripción</label>
-                                <input type="text" class="form-control" name="description" required/>
+                                <textarea class="form-control" name="description"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -103,7 +103,7 @@
                                 <button class="btn btn-danger pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-menu-up"></span> Salir</button>
                             </div>
                             <div class="btn-group pull-right">
-                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Guardar Categoría</button>
+                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Guardar categoría</button>
                             </div>
                         </div>
                     </form>

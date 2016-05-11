@@ -22,8 +22,17 @@ function mostrarEditar() {
     $modalEditar.find('[name="description"]').val(description);
 
     var category = $(this).data('category');
-    
-    $modalEditar.find('[name="categories"]').attr('selectedIndex', category)
+
+    $.getJSON("subcategoria/dropdown",function(data)
+    {
+        $.each(data,function(key,value)
+        {
+            if( value.id == category )
+                $("#categories").append(" <option value='" + value.id+"' selected='selected'>" + value.name  + "</option> ");
+            else
+                $("#categories").append(" <option value='" + value.id+"' >" + value.name  + "</option> ");
+        });
+    });
 
     $modalEditar.modal('show');
 }
