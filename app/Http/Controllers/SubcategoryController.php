@@ -50,7 +50,6 @@ class SubcategoryController extends Controller
     {
         $categories = Category::all();
         return response()->json($categories);
-
     }
 
     public function edit( Request $request )

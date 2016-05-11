@@ -83,6 +83,8 @@ Route::post('modelo/eliminar','ExemplarController@delete');
 Route::get('/producto', 'ProductController@index');
 Route::get('/producto/registrar', 'ProductController@create');
 Route::post('/producto/registrar', 'ProductController@created');
+Route::get('/producto/categoria', 'ProductController@categoria');
+Route::get('/producto/marca', 'ProductController@marca');
 Route::get('producto/subcategoria/{categoria}','ProductController@subcategoria');
 Route::get('producto/modelo/{marca}','ProductController@modelo');
 Route::post('modelo/modificar','ProductController@edit');
