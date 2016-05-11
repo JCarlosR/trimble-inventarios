@@ -25,6 +25,7 @@ function mostrarEditar() {
 
     $.getJSON("subcategoria/dropdown",function(data)
     {
+        $("#categories").empty();
         $.each(data,function(key,value)
         {
             if( value.id == category )

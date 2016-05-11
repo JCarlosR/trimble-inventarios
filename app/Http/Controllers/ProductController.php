@@ -64,14 +64,21 @@ class ProductController extends Controller
 
         return redirect('producto');
     }
-
+    public function categoria()
+    {
+        $categories = Category::all();
+        return response()->json($categories);
+    }
+    public function marca()
+    {
+        $brands = Brand::all();
+        return response()->json($brands);
+    }
 
     public function subcategoria( $categoria )
     {
         $subcategories = Subcategory::where('category_id',$categoria)->get();
-
         return response()->json($subcategories);
-
     }
     public function modelo( $marca )
     {
@@ -85,13 +92,22 @@ class ProductController extends Controller
             'name' => 'required|min:3|max:50'
         ]);
 
-        $subcategory = Subcategory::find( $request->get('id') );
-        $subcategory->name = $request->get('name');
-        $subcategory->description = $request->get('description');
-        $subcategory->category_id = $request->get('category');
-        $subcategory->save();
+        $product = Product::find( $request->get('id') );
+        $product->name = $request->get('name');
+        $product->description = $request->get('description');
+        $product->price = $request->get('price');
+        $product->series = $request->get('series');
+        $product->brand_id = $request->get('brands');
+        $product->exemplar_id = $request->get('exemplars');
+        $product->part_number = $request->get('part_number');
+        $product->color = $request->get('color');
+        $product->category_id = $request->get('categories');
+        $product->subcategory_id = $request->get('subcategories');
+        $product->comment = $request->get('comment');
 
-        return redirect('subcategoria');
+        $product->save();
+
+        return redirect('producto');
     }
     public function delete( Request $request )
     {

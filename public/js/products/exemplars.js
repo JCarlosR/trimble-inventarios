@@ -25,6 +25,7 @@ function mostrarEditar() {
 
     $.getJSON("modelo/dropdown",function(data)
     {
+        $("#brands").empty();
         $.each(data,function(key,value)
         {
             if( value.id == brand )

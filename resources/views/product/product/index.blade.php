@@ -35,7 +35,6 @@
                             <th>Color</th>
                             <th>Categoría</th>
                             <th>SubCategoría</th>
-
                         </tr>
                         </thead>
                         @foreach($products as $product)
@@ -55,12 +54,13 @@
                             <td>{{$product->color}}</td>
                             <td>{{$product->category->name}}</td>
                             <td>{{$product->subcategory->name}}</td>
-
                             <td>
                                 <button type="submit" class="btn btn-success" data-id="{{ $product->id }}" data-name="{{ $product ->name }}"
-                                        data-description="{{ $product->description }}  data-price="{{ $product->price }} data-series="{{ $product->series }}
-                                        data-brand="{{ $product->brand_id }} data-exemplar="{{ $product->exemplar_id }} data-part="{{ $product->part_number }}
-                                        data-color="{{ $product->color }}" data-category="{{ $product->category_id }}" data-subcategory="{{ $product->subcategory_id }}">
+                                        data-description="{{ $product->description }}"  data-price="{{ $product->price }}" data-series="{{ $product->series }}"
+                                        data-brand="{{ $product->brand_id }}" data-exemplar="{{ $product->exemplar_id }}" data-part="{{ $product->part_number }}"
+                                        data-color="{{ $product->color }}" data-category="{{ $product->category_id }}" data-subcategory="{{ $product->subcategory_id }}"
+                                        data-comment="{{ $product->comment }}">
+
                                     <i class="fa fa-pencil"></i>Editar
                                 </button>
                                 <button type="submit" class="btn btn-danger"  data-delete="{{ $product->id }}" data-name="{{ $product->name }}">
@@ -157,7 +157,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-1" for="last-name">Subcategoría <span class="required"></span></label>
+                                    <label class="control-label col-md-1" for="last-name">Subcatego</label>
                                     <div class="col-md-2">
                                         <select name="subcategories" id="subcategories" class="form-control">
 
@@ -173,7 +173,7 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+
                         <div class="modal-footer">
                             <div class="btn-group pull-left">
                                 <button class="btn btn-danger pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-menu-up"></span> Salir</button>
@@ -182,6 +182,7 @@
                                 <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Guardar producto</button>
                             </div>
                         </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -218,4 +219,4 @@
     </div>
 @endsection
 <script src="{{ asset('js/products/jquery-1.7.min.js') }}"></script>
-<script src="{{ asset('js/products/products.js')}}"></script>
+<script src="{{ asset('js/products/products_dropdown.js')}}"></script>

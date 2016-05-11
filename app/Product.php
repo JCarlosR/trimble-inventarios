@@ -11,7 +11,7 @@ class Product extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['name','description','price','series','brand_id','exemplar_id','color','category_id','subcategory_id','comment'];
+    protected $fillable = ['name','description','price','series','part_number','brand_id','exemplar_id','color','category_id','subcategory_id','comment'];
 
     public function category()
     {
