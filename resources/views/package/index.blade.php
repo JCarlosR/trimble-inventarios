@@ -97,13 +97,6 @@
 
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <div class=" col-md-6 btn-group col-md-offset-5">
-                            <button type="submit" class="btn btn-success btn-lg">Registrar</button>
-                            <button type="reset" class="btn btn-danger btn-lg">Cancelar</button>
-                        </div>
-                    </div>
                 </div>
 
             </div>

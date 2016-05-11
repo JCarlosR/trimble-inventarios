@@ -46,16 +46,25 @@ class SubcategoryController extends Controller
         return redirect('subcategoria');
     }
 
+    public function dropdown()
+    {
+        $categories = Category::all();
+        return response()->json($categories);
+
+    }
+
     public function edit( Request $request )
     {
         $validator = Validator::make($request->all(), [
+            'id'=> 'exists:subcategories,id',
             'name' => 'required|min:3|max:50'
         ]);
 
         $subcategory = Subcategory::find( $request->get('id') );
         $subcategory->name = $request->get('name');
         $subcategory->description = $request->get('description');
-        $subcategory->category_id = $request->get('category');
+        $subcategory->category_id = $request->get('categories');
+
         $subcategory->save();
 
         return redirect('subcategoria');

@@ -41,7 +41,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Marcas <span class="required">*</span>
                             </label>
                             <div class="col-md-3 col-sm-6 col-xs-12">
-                                <select name="marca" id="" class="form-control">
+                                <select name="brand" id="" class="form-control">
                                     @foreach($brands as $brand)
                                         <option value="{{$brand->id}}">{{$brand->name}}</option>
                                     @endforeach

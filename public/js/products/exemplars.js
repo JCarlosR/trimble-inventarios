@@ -21,6 +21,19 @@ function mostrarEditar() {
     var description = $(this).data('description');
     $modalEditar.find('[name="description"]').val(description);
 
+    var brand = $(this).data('brand');
+
+    $.getJSON("modelo/dropdown",function(data)
+    {
+        $.each(data,function(key,value)
+        {
+            if( value.id == brand )
+                $("#brands").append(" <option value='" + value.id+"' selected='selected'>" + value.name  + "</option> ");
+            else
+                $("#brands").append(" <option value='" + value.id+"' >" + value.name  + "</option> ");
+        });
+    });
+
     $modalEditar.modal('show');
 }
 

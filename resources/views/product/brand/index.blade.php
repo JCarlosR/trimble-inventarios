@@ -22,7 +22,7 @@
                         <div class="input-group">
                             <h2><a href="{{ url('/marca/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nueva marca</a></h2>
                         </div>
-                        <br>
+
 
                         <table class="table table-hover">
                             <thead>
@@ -62,7 +62,8 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Editar marca</h4>
                 </div>
-                <form action="{{ url('marca/modificar') }}" method="POST" enctype="multipart/form-data">
+
+                <form action="{{ url('marca/modificar') }}"  class="form-horizontal form-label-left"  method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <input type="hidden" name="id" />
@@ -73,20 +74,25 @@
                         </div>
                         <div class="form-group">
                             <label for="apellidos">Nueva descripción</label>
-                            <input type="text" class="form-control" name="description" required/>
+                            <textarea class="form-control" name="description"></textarea>
                         </div>
                     </div>
+
                     <div class="modal-footer">
                         <div class="btn-group pull-left">
                             <button class="btn btn-danger pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-menu-up"></span> Salir</button>
                         </div>
                         <div class="btn-group pull-right">
-                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Guardar Categoría</button>
+                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Guardar marca</button>
                         </div>
                     </div>
+
                 </form>
+
             </div>
+
         </div>
+
     </div>
 
         <div id="modalEliminar" class="modal fade in">

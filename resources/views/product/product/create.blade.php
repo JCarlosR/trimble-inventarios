@@ -18,8 +18,8 @@
 
                 <div class="x_content">
                     <br>
-                    <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
-
+                    <form id="demo-form2" class="form-horizontal form-label-left" method="post" action="{{url('producto/registrar')}}" >
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <div class="form-group">
                             <label class="control-label col-md-3c col-sm-3 col-xs-12" for="first-name">Nombre <span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -43,7 +43,7 @@
                             <div class="form-group form-inline">
                                 <label class="control-label col-md-1" for="last-name">Serie <span class="required">*</span></label>
                                 <div class="col-md-3 checkbox">
-                                    <input type="checkbox" id="series" name="series" value="">
+                                    <input type="checkbox" id="series" name="series" value="1" checked>
                                 </div>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                             <div class="col-md-3">
                                 <select id="brands" name="brands" class="form-control">
                                     @foreach($brands as $brand)
-                                        <option value="{{$brand->id}}" {{ $brand->id == $marca ? "selected" : '' }}>{{$brand->name}}</option>
+                                        <option value="{{$brand->id}}">{{$brand->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -74,7 +74,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Número de parte <span class="required">*</span></label>
                             <div class="col-md-3 col-sm-6 col-xs-12">
-                                <input type="text" id="part_number" name="part_number" required="required" class="form-control col-md-4 col-xs-12">
+                                <input type="text" id="part_number" name="part_number" class="form-control col-md-4 col-xs-12">
                             </div>
 
                             <div class="form-group">
@@ -90,7 +90,7 @@
                             <div class="col-md-3">
                                 <select name="categories" id="categories" class="form-control">
                                     @foreach($categories as $category)
-                                        <option value="{{$category->id}}" {{ $category->id == $categoria ? "selected" : '' }}>{{$category->name}}</option>
+                                        <option value="{{$category->id}}">{{$category->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
