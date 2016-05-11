@@ -14,7 +14,7 @@ class ItemController extends Controller
 
     public function searchItems($id)
     {
-        $items = Item::where('product_id', $id)->where('state', 'available')->lists('series')->toJson();
+        $items = Item::where('product_id', $id)->where('state', 'available')->where('package_id', null)->lists('series')->toJson();
         //dd($items);
 
         return $items;

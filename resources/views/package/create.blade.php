@@ -75,18 +75,24 @@
                     <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
 
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nombre </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="nombre" required="required" class="form-control col-md-7 col-xs-12">
-                            </div>
-                        </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="control-label col-md-3" for="nombre">Nombre:
+                                    </label>
+                                    <div class="input-group col-md-9">
+                                        <input type="text" name="nombre" class="form-control">
+                                    </div>
+                                </div>
 
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Descripción</label>
 
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <textarea name="descripcion" rows="2" class="form-control"></textarea>
+                                <div class="col-md-6 ">
+                                    <label class="col-md-3" for="descripcion">Descripción</label>
+                                    <div class="input-group col-md-9">
+                                        <textarea name="descripcion" rows="2" class="form-control"></textarea>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
 
                         <div class="form-group">
@@ -97,11 +103,9 @@
 
                         </div>
 
-                        <div class=" btn-group col-md-6 col-md-offset-5">
-                                <button type="submit" class="btn btn-success">Agregar</button>
-                                <button type="reset" class="btn btn-danger">Eliminar</button>
+                        <div class="col-md-4 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary btn-block">Agregar</button>
                         </div>
-
 
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
@@ -131,36 +135,6 @@
                                             <td>Producto X</td>
                                             <td>120.00</td>
                                             <td></td>
-                                            <td>ZBC</td>
-                                            <td>XYZ</td>
-                                            <td>2</td>
-                                            <td>Azul</td>
-                                            <td>A</td>
-                                            <td>AB</td>
-                                            <td>Observación</td>
-                                        </tr>
-
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>00001</td>
-                                            <td>Producto X</td>
-                                            <td>15.00</td>
-                                            <td></td>
-                                            <td>ZBC</td>
-                                            <td>XYZ</td>
-                                            <td>2</td>
-                                            <td>Azul</td>
-                                            <td>A</td>
-                                            <td>AB</td>
-                                            <td>Observación</td>
-                                        </tr>
-
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>00001</td>
-                                            <td>Producto X</td>
-                                            <td>20.80</td>
-                                            <td>002</td>
                                             <td>ZBC</td>
                                             <td>XYZ</td>
                                             <td>2</td>

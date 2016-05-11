@@ -49,34 +49,14 @@
                         <ul class="nav side-menu">
                             <li><a><i class="fa fa-cubes"></i> Ingresos <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a>Retorno<span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a href="{{ url('/ingreso/listar/retorno') }}">Ver retornos</a></li>
-                                            <li><a href="{{ url('/ingreso/retorno') }}">Ingresar retorno</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a>Compra<span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a href="{{ url('/ingreso/listar/compra') }}">Ver compras</a></li>
-                                            <li><a href="{{ url('/ingreso/compra') }}">Ingresar compra</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a>Reutilización<span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a href="{{ url('/ingreso/listar/reutilizacion') }}">Ver reutilizaciones</a></li>
-                                            <li><a href="{{ url('/ingreso/reutilizacion') }}">Ingresar reutilizacion</a></li>
-                                        </ul>
-                                    </li>
+                                    <li><a href="{{ url('/ingreso/listar/retorno') }}">Retorno</a></li>
+                                    <li><a href="{{ url('/ingreso/listar/compra') }}">Compra</a></li>
+                                    <li><a href="{{ url('/ingreso/listar/reutilizacion') }}">Reutilización</a></li>
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-rocket"></i> Salidas <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a>Venta<span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a href="{{ url('/salida/listar/venta') }}">Ver ventas</a></li>
-                                            <li><a href="{{ url('/salida/venta') }}">Ingresar venta</a></li>
-                                        </ul>
-                                    </li>
+                                    <li><a href="{{ url('/salida/listar/venta') }}">Venta</a></li>
                                     <li><a>Alquiler<span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
                                             <li><a href="{{ url('/salida/listar/alquiler') }}">Ver alquileres</a></li>

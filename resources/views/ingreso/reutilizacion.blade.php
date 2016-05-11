@@ -197,8 +197,8 @@
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-3">
-                                    <button type="submit" class="btn btn-primary">Registrar reutilizacion</button>
-                                    <button type="reset" class="btn btn-danger">Cancelar reutilizacion </button>
+                                    <button type="submit" class="btn btn-primary">Registrar reutilización</button>
+                                    <a href="{{ url('/ingreso/listar/reutilizacion') }}" class="btn btn-danger">Cancelar reutilización </a>
                                 </div>
                             </div>
                         </form>

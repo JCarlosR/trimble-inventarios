@@ -19,7 +19,7 @@
                     <div class="x_content">
                         <br>
                         <div class="input-group">
-                            <button type="button" id="NvoIngreso" class="btn btn-success"><i class="fa fa-plus-square-o"></i>  Nuevo Ingreso</button>
+                            <a href="{{ url('/ingreso/retorno') }}" id="NvoIngreso" class="btn btn-success"><i class="fa fa-plus-square-o"></i>  Nuevo Ingreso</a>
                         </div>
                         <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
 

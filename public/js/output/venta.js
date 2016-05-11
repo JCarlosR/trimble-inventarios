@@ -8,17 +8,17 @@ $(document).on('ready', function () {
     $('#btnAdd').on('click', addItem);
     $(document).on('click', '[data-delete]', deleteItem);
     $('#btnAccept').on('click', addItemsSeries);
-    $('#form').on('submit', registerEntry);
+    $('#form').on('submit', registerOutput);
 });
 
-function registerEntry() {
+function registerOutput() {
     event.preventDefault();
 
     var _token = $(this).find('[name=_token]');
     var data = $(this).serializeArray();
     data.push({name: 'items', value: JSON.stringify(items)});
     $.ajax({
-        url: 'compra',
+        url: 'venta',
         data: data,
         method: 'POST',
         headers: { 'X-CSRF-TOKEN': _token }
@@ -27,7 +27,7 @@ function registerEntry() {
         if(response.error)
             alert(response.message);
         else{
-            alert('Compra registrada correctamente.');
+            alert('Venta registrada correctamente.');
             location.reload();
         }
 
@@ -94,7 +94,7 @@ function loadAutoCompleteItems(data) {
 
     })
         .done(function(datos){
-            console.log(JSON.parse(datos));
+            //console.log(JSON.parse(datos));
             $('[data-search]').typeahead(
                 {
                     hint: true,
@@ -110,19 +110,38 @@ function loadAutoCompleteItems(data) {
 }
 
 function addItemsSeries() {
+    var series_array = [];
     $('#bodySeries').find('input').each(function (i, element) {
         var series = $(element).val();
         if(series != "")
-        {
-            items.push({ id: selectedProduct.id, series: series, quantity: 1, price: selectedProduct.price });
-            renderTemplateItem(selectedProduct.id, selectedProduct.name, series, 1, selectedProduct.price, selectedProduct.price);
-
-        }
+            series_array.push(series);
     });
 
-    updateTotal();
-    $('#modalSeries').modal('hide');
-    console.log(items);
+    if( dontRepeat(series_array) ) {
+        for ( var i=0; i<series_array.length; ++i) {
+            items.push({ id: selectedProduct.id, series: series_array[i], quantity: 1, price: selectedProduct.price });
+            renderTemplateItem(selectedProduct.id, selectedProduct.name, series_array[i], 1, selectedProduct.price, selectedProduct.price);
+        }
+
+        updateTotal();
+        $('#modalSeries').modal('hide');
+
+    } else {
+        alert('Existen series repetidas.');
+    }
+}
+
+function dontRepeat(series_array) {
+    var series_total = series_array.slice(0);
+    for (var i = 0; i<items.length; ++i)
+        series_total.push(items[i].series);
+    console.log(series_total);
+    for (var i = 0; i<series_array.length; ++i) {
+        for (var j = i+1; j<series_total.length; ++j)
+            if (series_array[i] == series_total[j])
+                return false;
+    }
+    return true;
 }
 
 function deleteItem() {

@@ -34,7 +34,10 @@ Route::post('/ingreso/reutilizacion', 'EntryController@postRegistroReutilizacion
 
 // Salidas
 Route::get('/salida/venta', 'OutputController@getRegistroVenta');
-Route::get('/salida/listar/venta', 'OutputController@getListaVenta');
+Route::get('/salida/listar/venta', 'OutputController@getVentas');
+Route::get('/salida/listar/venta/{cliente}/{inicio}/{fin}', 'OutputController@getVentasFiltro');
+Route::post('/salida/venta', 'OutputController@postRegistroVenta');
+Route::get('/salida/listar/detalles/{id}', 'OutputController@getVentaDetalles');
 
 Route::get('/salida/alquiler', 'OutputController@getAlquiler');
 Route::get('/salida/listar/alquiler', 'OutputController@getListaAlquiler');

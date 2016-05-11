@@ -184,7 +184,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-xs-12" for="cliente">Total
                                 </label>
-                                <div class="input-group col-md-6 col-xs-12">
+                                <div class="input-group col-md-3">
                                     <input type="text" id="total" class="form-control" readonly value="0">
                                 </div>
                             </div>
@@ -203,7 +203,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
                                     <button type="submit" class="btn btn-primary">Registrar compra</button>
-                                    <button type="reset" class="btn btn-danger">Cancelar compra</button>
+                                    <a href="{{ url('/ingreso/listar/compra') }}" class="btn btn-danger">Cancelar compra</a>
                                 </div>
                             </div>
                         </form>

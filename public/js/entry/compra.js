@@ -86,14 +86,38 @@ function addItem() {
 }
 
 function addItemsSeries() {
+    var series_array = [];
     $('#bodySeries').find('input').each(function (i, element) {
         var series = $(element).val();
-        items.push({ id: selectedProduct.id, series: series, quantity: 1, price: selectedProduct.price });
-        renderTemplateItem(selectedProduct.id, selectedProduct.name, series, 1, selectedProduct.price, selectedProduct.price);
+        if(series != "")
+            series_array.push(series);
     });
 
-    updateTotal();
-    $('#modalSeries').modal('hide');
+    if( dontRepeat(series_array) ) {
+        for ( var i=0; i<series_array.length; ++i) {
+            items.push({ id: selectedProduct.id, series: series_array[i], quantity: 1, price: selectedProduct.price });
+            renderTemplateItem(selectedProduct.id, selectedProduct.name, series_array[i], 1, selectedProduct.price, selectedProduct.price);
+        }
+
+        updateTotal();
+        $('#modalSeries').modal('hide');
+
+    } else {
+        alert('Existen series repetidas.');
+    }
+}
+
+function dontRepeat(series_array) {
+    var series_total = series_array.slice(0);
+    for (var i = 0; i<items.length; ++i)
+        series_total.push(items[i].series);
+    console.log(series_total);
+    for (var i = 0; i<series_array.length; ++i) {
+        for (var j = i+1; j<series_total.length; ++j)
+            if (series_array[i] == series_total[j])
+                return false;
+    }
+    return true;
 }
 
 function deleteItem() {

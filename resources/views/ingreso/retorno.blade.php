@@ -139,7 +139,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
                                     <button type="submit" class="btn btn-primary">Retornar</button>
-                                    <button type="submit" class="btn btn-danger">Cancelar</button>
+                                    <a href="{{ url('/ingreso/listar/retorno') }}" class="btn btn-danger">Cancelar</a>
                                 </div>
                             </div>
 

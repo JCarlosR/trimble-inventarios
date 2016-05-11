@@ -84,8 +84,8 @@
 
                     <div class="x_content">
                         <br>
-                        <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
-
+                        <form id="form" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                            {{ csrf_field() }}
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -101,8 +101,8 @@
                                         <label class="control-label col-md-3" for="tipo">Tipo:</label>
 
                                         <div class="input-group col-md-9">
-                                            <input type="radio" name="tipo" value="local" checked>Producto
-                                            <input type="radio" name="tipo" value="foreign">Paquete
+                                            <input type="radio" name="tipo" value="product" checked>Producto
+                                            <input type="radio" name="tipo" value="package">Paquete
                                         </div>
                                     </div>
 
@@ -190,7 +190,7 @@
                                             <th>Cantidad</th>
                                             <th>Precio</th>
                                             <th>Subtotal</th>
-                                            <th>Acci�n</th>
+                                            <th>Acción</th>
                                         </tr>
                                         </thead>
                                         <tbody id="table-items">
@@ -215,17 +215,26 @@
 
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Total
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="total">Total
                                 </label>
-                                <div class="col-md-3 col-sm-6 col-xs-12">
-                                    <input type="text" id="total" class="form-control">
+                                <div class="input-group col-md-3">
+                                    <input type="text" id="total" class="form-control" readonly value="0">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-8 col-md-offset-2">
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="observacion">Observación:
+                                    </label>
+                                    <div class=" input-group col-md-8 col-sm-6 col-xs-12">
+                                        <textarea name="observacion" class="form-control col-md-7 col-xs-12" rows="3"></textarea>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
-                                    <button type="submit" class="btn btn-primary">Registrar venta </button>
-                                    <button type="submit" class="btn btn-danger">Cancelar venta </button>
+                                    <button class="btn btn-primary">Registrar venta </button>
+                                    <a href="{{ url('/salida/listar/venta') }}" class="btn btn-danger">Cancelar venta </a>
                                 </div>
                             </div>
                         </form>
