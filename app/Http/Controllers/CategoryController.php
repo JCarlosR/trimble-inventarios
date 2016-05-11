@@ -25,19 +25,20 @@ class CategoryController extends Controller
     public function created( Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|min:3|max:50',
+            'name' => 'unique:categories|required|min:3|max:50',
         ]);
 
-        $name = Category::where('name',$request->get('name'))->first();
-
-        if( $name == null )
-        {
-            $category = Category::create([
-                'name'	  => $request->get('name'),
-                'description' => $request->get('description'),
-            ]);
-            $category->save();
+        if ($validator->fails()) {
+            $data['errors'] = $validator->errors();
+            return redirect('categoria')
+                ->with($data);
         }
+
+        $category = Category::create([
+            'name'	  => $request->get('name'),
+            'description' => $request->get('description'),
+        ]);
+        $category->save();
 
         return redirect('categoria');
     }
@@ -45,7 +46,7 @@ class CategoryController extends Controller
     public function edit( Request $request )
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:categories,name|min:3|max:50'
+            'name' => 'required|unique:categories|min:3|max:50'
         ]);
 
         if ($validator->fails()) {
@@ -59,8 +60,7 @@ class CategoryController extends Controller
         $category->description = $request->get('description');
         $category->save();
 
-        $data['notif'] =('Categoría modificada correctamente');
-        return redirect('categoria')->with($data);
+        return redirect('categoria');
     }
 
     public function delete( Request $request )

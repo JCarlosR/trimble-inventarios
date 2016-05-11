@@ -27,20 +27,21 @@ class BrandController extends Controller
     public function created( Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|min:3|max:50',
+            'name' => 'unique:brands|required|min:3|max:50',
         ]);
 
-        $name = Brand::where('name',$request->get('name'))->first();
-
-        if( $name == null )
-        {
-            $brand = Brand::create([
-                'name'	  => $request->get('name'),
-                'description' => $request->get('description'),
-            ]);
-
-            $brand->save();
+        if ($validator->fails()) {
+            $data['errors'] = $validator->errors();
+            return redirect('marca')
+                ->with($data);
         }
+
+        $brand = Brand::create([
+            'name'	  => $request->get('name'),
+            'description' => $request->get('description'),
+        ]);
+
+        $brand->save();
 
         return redirect('marca');
     }
@@ -48,12 +49,12 @@ class BrandController extends Controller
     public function edit( Request $request )
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|min:3|max:50'
+            'name' => 'unique:brands|required|min:3|max:50'
         ]);
 
         if ($validator->fails()) {
             $data['errors'] = $validator->errors();
-            return redirect('producto')
+            return redirect('marca')
                 ->with($data);
         }
 

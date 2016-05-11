@@ -33,7 +33,7 @@ class ProductController extends Controller
     public function created( Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|min:3|max:50',
+            'name' => 'unique:products|required|min:3|max:50',
             'price'=>'min:0',
             'brand_id'=>'exists:brands,id',
             'exemplar_id'=>'exists:exemplars,id',
@@ -41,6 +41,12 @@ class ProductController extends Controller
             'category_id'=>'exists:categories,id',
             'subcategory_id'=>'exists:subcategories,id',
         ]);
+
+        if ($validator->fails()) {
+            $data['errors'] = $validator->errors();
+            return redirect('producto')
+                ->with($data);
+        }
 
         $serie = 0;
         if ( $request->get('series') == 1)
@@ -89,8 +95,20 @@ class ProductController extends Controller
     public function edit( Request $request )
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|min:3|max:50'
+            'name' => 'unique:products|required|min:3|max:50',
+            'price'=>'min:0',
+            'brand_id'=>'exists:brands,id',
+            'exemplar_id'=>'exists:exemplars,id',
+            'color'=>'required',
+            'category_id'=>'exists:categories,id',
+            'subcategory_id'=>'exists:subcategories,id',
         ]);
+
+        if ($validator->fails()) {
+            $data['errors'] = $validator->errors();
+            return redirect('producto')
+                ->with($data);
+        }
 
         $product = Product::find( $request->get('id') );
         $product->name = $request->get('name');

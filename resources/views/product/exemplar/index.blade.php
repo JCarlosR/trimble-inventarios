@@ -20,6 +20,19 @@
                     <div class="input-group">
                         <h2><a href="{{ url('modelo/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nuevo modelo </a></h2>
                     </div>
+
+                    @if( $errors->count() > 0 )
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Lo sentimos!</strong> Por favor revise los siguientes errores.
+                                    @foreach($errors->all() as $message)
+                                        <p>{{ $message }}</p>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                     <br>
 
                     <table class="table table-hover">

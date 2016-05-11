@@ -36,12 +36,6 @@ function mostrarEditar() {
     else
         $modalEditar.find('[name="series"]').val(series);
 
-    $('#series').change( function() {
-        var marca = $(this).val();
-        series = series==1?0:1;
-
-    });
-
     var brand = $(this).data('brand');
     $modalEditar.find('[name="brand"]').val(brand);
 

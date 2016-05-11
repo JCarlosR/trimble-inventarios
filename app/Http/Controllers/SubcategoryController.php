@@ -27,21 +27,21 @@ class SubcategoryController extends Controller
     public function created( Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|min:3|max:50',
+            'name' => 'unique:subcategories|required|min:3|max:50',
         ]);
 
-        $name = Subcategory::where( 'name',$request->get('name') )->first();
-        $category = Subcategory::where( 'category_id',$request->get('category') )->first();
-
-        if( $name == null or  $category == null )
-        {
-            $subcategory = Subcategory::create([
-                'name'	  => $request->get('name'),
-                'description' => $request->get('description'),
-                'category_id' => $request->get('category')
-            ]);
-            $subcategory->save();
+        if ($validator->fails()) {
+            $data['errors'] = $validator->errors();
+            return redirect('subcategoria')
+                ->with($data);
         }
+
+        $subcategory = Subcategory::create([
+            'name'	  => $request->get('name'),
+            'description' => $request->get('description'),
+            'category_id' => $request->get('category')
+        ]);
+        $subcategory->save();
 
         return redirect('subcategoria');
     }
@@ -56,8 +56,14 @@ class SubcategoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id'=> 'exists:subcategories,id',
-            'name' => 'required|min:3|max:50'
+            'name' => 'unique:subcategories|required|min:3|max:50'
         ]);
+
+        if ($validator->fails()) {
+            $data['errors'] = $validator->errors();
+            return redirect('subcategoria')
+                ->with($data);
+        }
 
         $subcategory = Subcategory::find( $request->get('id') );
         $subcategory->name = $request->get('name');
