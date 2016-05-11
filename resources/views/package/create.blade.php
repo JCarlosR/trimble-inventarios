@@ -2,6 +2,59 @@
 
 @section('title', 'Paquetes')
 
+@section('styles')
+    <style>
+        .typeahead,
+        .tt-query,
+        .tt-hint {
+            line-height: 30px;
+            -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+            outline: none;
+        }
+        .typeahead:focus {
+            border: 1px solid #0097cf;
+        }
+        .tt-query {
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        }
+        .tt-hint {
+            color: #bdbdbd;
+        }
+        .tt-menu {
+            margin: 12px 0;
+            padding: 8px 0;
+            background-color: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+            border-radius: 4px;
+            -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+            -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+            box-shadow: 0 5px 10px rgba(0,0,0,.2);
+            color: #000;
+        }
+        .tt-suggestion {
+            padding: 3px 20px;
+            line-height: 24px;
+        }
+        .tt-suggestion:hover {
+            cursor: pointer;
+            color: #fff;
+            background-color: #0097cf;
+        }
+        .tt-suggestion.tt-cursor {
+            color: #fff;
+            background-color: #0097cf;
+        }
+        .tt-suggestion p {
+            margin: 0;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -22,16 +75,14 @@
                     <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
 
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nombre <span class="required">*</span>
-                            </label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nombre </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input type="text" id="nombre" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Descripción <span class="required">*</span>
-                            </label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Descripción</label>
 
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <textarea name="descripcion" rows="2" class="form-control"></textarea>
@@ -39,13 +90,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Existencia<span class="required">*</span>
-                            </label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Producto: </label>
                             <div class="input-group col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" name="existencia" class="form-control" placeholder="Buscar producto ...">
-                                    <span class="input-group-btn">
-                                      <button class="btn btn-default" data-toggle="modal" data-target="#myModal" type="button">Ver series</button>
-                                    </span>
+                                <input type="text" id="producto" class="typeahead form-control">
                             </div>
 
                         </div>
@@ -211,4 +258,49 @@
         </div>
 
     </div>
+@endsection
+@section('scripts')
+    <script src="{{ asset('js/typeahead.bundle.js') }}"></script>
+
+    <script>
+
+        var substringMatcher = function(strs) {
+            return function findMatches(q, cb) {
+                var matches, substringRegex;
+
+                // an array that will be populated with substring matches
+                matches = [];
+
+                // regex used to determine if a string contains the substring `q`
+                substrRegex = new RegExp(q, 'i');
+
+                // iterate through the pool of strings and for any string that
+                // contains the substring `q`, add it to the `matches` array
+                $.each(strs, function(i, str) {
+                    if (substrRegex.test(str)) {
+                        matches.push(str);
+                    }
+                });
+
+                cb(matches);
+            };
+        };
+        var products = {!! $productos !!};
+
+        $('#producto').typeahead(
+                {
+                    hint: true,
+                    highlight: true,
+                    minLength: 1
+                },
+                {
+                    name: 'products',
+                    source: substringMatcher(products)
+                }
+        );
+
+
+
+    </script>
+
 @endsection
