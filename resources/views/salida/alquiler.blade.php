@@ -35,63 +35,61 @@
 
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Cliente
+                                    <div class="col-md-6">
+                                        <label class="control-label col-md-3" for="cliente">
+                                            Cliente:
                                         </label>
-                                        <div class="input-group col-md-9 col-sm-6 col-xs-12">
-                                            <input type="text" id="cliente" class="form-control col-md-7 col-xs-12">
+                                        <div class="input-group col-md-9">
+                                            <input id="cliente" name="cliente" class="typeahead form-control" type="text">
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <label class="control-label col-md-5 col-sm-3 col-xs-12" for="date">Fecha
-                                        </label>
-                                        <div class=" input-group col-md-7 col-sm-6 col-xs-12">
-                                            <input type="date" id="date" name="date" class="form-control col-md-7 col-xs-12">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="control-label col-md-5 col-sm-3 col-xs-12" for="date">Fecha de retorno
-                                        </label>
-                                        <div class=" input-group col-md-7 col-sm-6 col-xs-12">
-                                            <input type="date" id="date" name="date" class="form-control col-md-7 col-xs-12">
 
+                                    <div class="col-md-3">
+                                        <label class="control-label col-md-3" for="tipo">Tipo:</label>
+
+                                        <div class="input-group col-md-9">
+                                            <input type="radio" name="tipo" value="local" checked>Local
+                                            <input type="radio" name="tipo" value="foreign">Extranjero
                                         </div>
                                     </div>
+
+                                    <div class="col-md-3">
+                                        <label class="control-label col-md-3" for="fecha">Retorno:</label>
+
+                                        <div class="input-group col-md-9">
+                                            <input type="date" name="fecha" class="form-control">
+                                        </div>
+                                    </div>
+
                                 </div>
 
                             </div>
+
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-3">
-                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="last-name">Tipo
-                                        </label>
-
-                                        <div class="input-group col-md-8 col-md-offset-3" >
-                                            <input type="radio" id="last-name"  name="tipo" value="1" checked >Producto
-                                            <input type="radio" id="last-name"  name="tipo" value="0" >Paquete
-                                        </div>
-                                    </div>
 
                                     <div class="col-md-6">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Producto
+                                        <label class="control-label col-md-3" for="producto">Producto:
                                         </label>
-                                        <div class="input-group col-md-9 col-sm-6 col-xs-12">
-                                            <input type="text" class="form-control " placeholder="Buscar producto ...">
-                                        <span class="input-group-btn">
-                                          <button class="btn btn-default" data-toggle="modal" data-target="#myModal" type="button">Ver series</button>
-                                        </span>
+                                        <div class="input-group col-md-9">
+                                            <input type="text" id="producto" class="typeahead form-control">
                                         </div>
                                     </div>
-
                                     <div class="col-md-3">
-                                        <label class="control-label col-md-4 col-sm-3 col-xs-12" for="Cantidad">Cantidad
+                                        <label class="control-label col-md-4" for="cantidad">Cantidad:
                                         </label>
-                                        <div class="input-group col-md-8 col-sm-6 col-xs-12">
-                                            <input type="number" min="0" step="1" id="Cantidad" class="form-control col-md-7 col-xs-12">
+                                        <div class="input-group col-md-8">
+                                            <input type="number" min="1" step="1" id="cantidad" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="control-label col-md-4" for="precio">Precio:
+                                        </label>
+                                        <div class="input-group col-md-8">
+                                            <input type="number" min="0" step="0.01" id="precio" class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
 
                             <!-- Modal -->
