@@ -33,16 +33,6 @@
                                 </div>
                             </div>
                         @endif
-                        @if( isset($notif) )
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="alert alert-success" role="alert">
-                                        <strong>Éxito! </strong> {{ $notif }}
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-
                         <br>
                         <table class="table table-hover">
                             <thead>

@@ -90,9 +90,6 @@ Route::get('/producto/categoria', 'ProductController@categoria');
 Route::get('/producto/marca', 'ProductController@marca');
 Route::get('producto/subcategoria/{categoria}','ProductController@subcategoria');
 Route::get('producto/modelo/{marca}','ProductController@modelo');
-Route::post('modelo/modificar','ProductController@edit');
-Route::post('modelo/eliminar','ProductController@delete');
-
 Route::post('producto/modificar','ProductController@edit');
 Route::post('producto/eliminar','ProductController@delete');
 //Paquetes

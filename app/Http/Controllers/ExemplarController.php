@@ -26,22 +26,23 @@ class ExemplarController extends Controller
     public function created( Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|min:3|max:50',
+            'name' => 'unique:exemplars|required|min:3|max:50',
         ]);
 
-        $name = Exemplar::where( 'name',$request->get('name') )->first();
-        $brand = Exemplar::where( 'brand_id',$request->get('brand') )->first();
-
-        if( $name == null or  $brand == null )
-        {
-            $exemplar = Exemplar::create([
-                'name'	  => $request->get('name'),
-                'description' => $request->get('description'),
-                'brand_id' => $request->get('brand')
-            ]);
-
-            $exemplar->save();
+        if ($validator->fails()) {
+            $data['errors'] = $validator->errors();
+            return redirect('modelo')
+                ->with($data);
         }
+
+        $exemplar = Exemplar::create([
+            'name'	  => $request->get('name'),
+            'description' => $request->get('description'),
+            'brand_id' => $request->get('brand')
+        ]);
+
+        $exemplar->save();
+
 
         return redirect('modelo');
     }
@@ -55,8 +56,14 @@ class ExemplarController extends Controller
     public function edit( Request $request )
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|min:3|max:50'
+            'name' => 'unique:exemplars|required|min:3|max:50'
         ]);
+
+        if ($validator->fails()) {
+            $data['errors'] = $validator->errors();
+            return redirect('modelo')
+                ->with($data);
+        }
 
         $exemplar = Exemplar::find( $request->get('id') );
         $exemplar->name = $request->get('name');
