@@ -84,6 +84,7 @@
                             </tbody>
                         @endforeach
                     </table>
+                    {!! $products->render() !!}
                 </div>
             </div>
         </div>

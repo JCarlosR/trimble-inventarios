@@ -63,6 +63,7 @@
                         @endforeach
                         </tbody>
                     </table>
+                    {!! $exemplars->render() !!}
                 </div>
             </div>
         </div>

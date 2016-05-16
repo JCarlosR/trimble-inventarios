@@ -14,7 +14,7 @@ class SubcategoryController extends Controller
 {
     public function index()
     {
-        $subcategories = Subcategory::all();
+        $subcategories = Subcategory::paginate(4);
         $categories = Category::all();
         return view('product.subcategory.index')->with(compact(['subcategories','categories']));
     }

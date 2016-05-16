@@ -14,7 +14,7 @@ class ExemplarController extends Controller
 {
     public function index()
     {
-        $exemplars = Exemplar::all();
+        $exemplars = Exemplar::paginate(4);
         return view('product.exemplar.index')->with(compact(['exemplars']));
     }
 

@@ -64,6 +64,7 @@
                             @endforeach
                             </tbody>
                         </table>
+                        {!! $subcategories->render() !!}
                     </div>
                 </div>
             </div>

@@ -62,6 +62,7 @@
                             @endforeach
                             </tbody>
                         </table>
+                         {!! $brands->render() !!}
                     </div>
                 </div>
             </div>
