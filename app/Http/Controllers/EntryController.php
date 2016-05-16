@@ -56,7 +56,9 @@ class EntryController extends Controller
             return back();
         $id = $provider->id;
         $entries = Entry::where('provider_id', $id)->whereBetween('created_at', [$inicio, $fin])->get();
-         return view('ingreso.listacompra')->with(compact(['entries', 'providers']));
+        $datefin = $fin;
+        $dateinicio = $inicio;
+        return view('ingreso.listacompra')->with(compact(['entries', 'providers', 'dateinicio', 'datefin']));
     }
 
     public function getCompraDetalles($id)
@@ -90,8 +92,10 @@ class EntryController extends Controller
 
     public function getReutilizacionFiltro($inicio, $fin)
     {
-        $entries = Entry::whereNull('provider_id')->whereBetween('created_at', [$inicio, $fin])->get();
-        return view('ingreso.listareutilizacion')->with(compact(['entries']));
+        $entries = Entry::whereNull('provider_id')->whereBetween('created_at', [$inicio, $fin])->paginate(3);
+        $datefin = $fin;
+        $dateinicio = $inicio;
+        return view('ingreso.listareutilizacion')->with(compact(['entries', 'dateinicio', 'datefin']));
     }
 
 
