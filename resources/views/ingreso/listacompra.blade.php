@@ -92,7 +92,7 @@
                                             Desde:
                                         </label>
                                         <div class="input-group col-md-8">
-                                            <input type="date" id="inicio" class="form-control">
+                                            <input type="date" id="inicio" class="form-control" value="{{ $dateinicio }}">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -100,7 +100,7 @@
                                             Hasta:
                                         </label>
                                         <div class="input-group col-md-8">
-                                            <input type="date" id="fin" class="form-control">
+                                            <input type="date" id="fin" class="form-control" value="{{ $datefin }}">
                                         </div>
                                     </div>
 

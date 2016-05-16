@@ -30,7 +30,7 @@
                                             Desde:
                                         </label>
                                         <div class="input-group col-md-4">
-                                            <input type="date" id="inicio" class="form-control">
+                                            <input type="date" id="inicio" class="form-control" value="{{ $dateinicio }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -38,7 +38,7 @@
                                             Hasta:
                                         </label>
                                         <div class="input-group col-md-4">
-                                            <input type="date" id="fin" class="form-control">
+                                            <input type="date" id="fin" class="form-control" value="{{ $datefin }}">
                                         </div>
                                     </div>
 
@@ -46,7 +46,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2 col-md-offset-5" >
-                                    <button data-href="{{ url('/ingreso/listar/reutilizacion/{inicio}/{fin}') }}" type="button" class="btn btn-primary btn-block" id="btnShowEntries">Buscar compras</button>
+                                    <button data-href="{{ url('/ingreso/listar/reutilizacion/{inicio}/{fin}') }}" type="button" class="btn btn-primary btn-block" id="btnShowEntries">Buscar reutilizacion</button>
                                 </div>
                             </div>
                             <div class="form-group">

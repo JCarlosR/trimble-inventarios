@@ -9,6 +9,7 @@ use App\Item;
 use App\Product;
 use App\Provider;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class EntryController extends Controller
 {
@@ -38,7 +39,13 @@ class EntryController extends Controller
     {
         $providers = Provider::select('name')->lists('name')->toJson();
         $entries = Entry::whereNotNull('provider_id')->get();
-        return view('ingreso.listacompra')->with(compact(['entries', 'providers']));
+        $carbon = new Carbon();
+        $datefin = $carbon->now();
+        $dateinicio = $carbon->now()->subDays(7);
+        $datefin = $datefin->format('Y-m-d');
+        $dateinicio = $dateinicio->format('Y-m-d');
+       // dd($datefin);
+        return view('ingreso.listacompra')->with(compact(['entries', 'providers', 'datefin', 'dateinicio']));
     }
 
     public function getComprasFiltro($proveedor, $inicio, $fin)
@@ -49,7 +56,9 @@ class EntryController extends Controller
             return back();
         $id = $provider->id;
         $entries = Entry::where('provider_id', $id)->whereBetween('created_at', [$inicio, $fin])->get();
-         return view('ingreso.listacompra')->with(compact(['entries', 'providers']));
+        $datefin = $fin;
+        $dateinicio = $inicio;
+        return view('ingreso.listacompra')->with(compact(['entries', 'providers', 'dateinicio', 'datefin']));
     }
 
     public function getCompraDetalles($id)
@@ -73,13 +82,20 @@ class EntryController extends Controller
     public function getReutilizacion()
     {
         $entries = Entry::whereNull('provider_id')->get();
-        return view('ingreso.listareutilizacion')->with(compact(['entries']));
+        $carbon = new Carbon();
+        $datefin = $carbon->now();
+        $dateinicio = $carbon->now()->subDays(7);
+        $datefin = $datefin->format('Y-m-d');
+        $dateinicio = $dateinicio->format('Y-m-d');
+        return view('ingreso.listareutilizacion')->with(compact(['entries', 'datefin', 'dateinicio']));
     }
 
     public function getReutilizacionFiltro($inicio, $fin)
     {
-        $entries = Entry::whereNull('provider_id')->whereBetween('created_at', [$inicio, $fin])->get();
-        return view('ingreso.listareutilizacion')->with(compact(['entries']));
+        $entries = Entry::whereNull('provider_id')->whereBetween('created_at', [$inicio, $fin])->paginate(3);
+        $datefin = $fin;
+        $dateinicio = $inicio;
+        return view('ingreso.listareutilizacion')->with(compact(['entries', 'dateinicio', 'datefin']));
     }
 
 

@@ -8,6 +8,7 @@ use App\Item;
 use App\Output;
 use App\Product;
 use App\OutputDetail;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -128,8 +129,14 @@ class OutputController extends Controller
     public function getVentas()
     {
         $customers = Customer::select('name')->lists('name')->toJson();
-        $outputs = Output::whereNotNull('customer_id')->get();
-        return view('salida.listaventa')->with(compact(['customers', 'outputs']));
+        $outputs = Output::whereNotNull('customer_id')->paginate(3);
+        //dd($outputs);
+        $carbon = new Carbon();
+        $datefin = $carbon->now();
+        $dateinicio = $carbon->now()->subDays(7);
+        $datefin = $datefin->format('Y-m-d');
+        $dateinicio = $dateinicio->format('Y-m-d');
+        return view('salida.listaventa')->with(compact(['customers', 'outputs', 'datefin', 'dateinicio']));
     }
 
     public function getVentaDetalles($id)
@@ -154,11 +161,13 @@ class OutputController extends Controller
     {
         $customers = Customer::select('name')->lists('name')->toJson();
         $customer = Customer::where('name', $cliente)->first();
+        $datefin = $fin;
+        $dateinicio = $inicio;
         if (!$customer)
             return back();
         $id = $customer->id;
-        $outputs = Output::where('customer_id', $id)->whereBetween('created_at', [$inicio, $fin])->get();
-        return view('salida.listaventa')->with(compact(['outputs', 'customers']));
+        $outputs = Output::where('customer_id', $id)->whereBetween('created_at', [$inicio, $fin])->paginate(3);
+        return view('salida.listaventa')->with(compact(['outputs', 'customers', 'datefin', 'dateinicio']));
     }
 
     public function getAlquiler()
