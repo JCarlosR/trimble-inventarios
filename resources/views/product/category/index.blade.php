@@ -33,7 +33,7 @@
                                 </div>
                             </div>
                         @endif
-                        <br>
+
                         <table class="table table-hover">
                             <thead>
                             <tr>
@@ -47,8 +47,8 @@
                             @foreach($categories as $category)
                                 <tr>
                                     <th>{{$category->id}}</th>
-                                    <td>{{$category->name}}</td>
-                                    <td>{{$category->description}}</td>
+                                    <td>{{ str_limit($category->name, $limit = 10, $end = '...') }}</td>
+                                    <td>{{ str_limit($category->description, $limit = 15, $end = '...') }}</td>
                                     <td>
                                         <button type="submit" class="btn btn-success" data-id="{{ $category->id }}" data-name="{{ $category->name }}"
                                                 data-description="{{ $category->description }} ">

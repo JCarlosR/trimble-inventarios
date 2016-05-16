@@ -15,9 +15,7 @@
                     <div class="clearfix"></div>
                 </div>
 
-
-                <div class="x_content">
-                    <br>
+                <div class="x_content table-responsive">
                     <div class="input-group">
                         <h2><a href="{{ url('/producto/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nuevo producto</a></h2>
                     </div>
@@ -26,62 +24,64 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="alert alert-danger" role="alert">
-                                    <strong>Lo sentimos!</strong> Por favor revise los siguientes errores.
+                                    <strong>Lo sentimos! </strong>Por favor revise los siguientes errores.
                                     @foreach($errors->all() as $message)
-                                        <p>{{ $message }}</p>
+                                        <p>{{$message}}</p>
                                     @endforeach
                                 </div>
                             </div>
                         </div>
                     @endif
 
-                    <br>
                     <table class="table table-hover">
                         <thead>
                         <tr>
                             <th>Nombre</th>
                             <th>Precio</th>
+                            <th></th>
                             <th>Serie</th>
                             <th>Marca</th>
                             <th>Modelo</th>
-                            <th>NumParte</th>
+                            <th>Num_Parte</th>
                             <th>Color</th>
                             <th>Categoría</th>
-                            <th>SubCategoría</th>
+                            <th>Subcategoría</th>
+                            <th>Funcionalidad</th>
                         </tr>
                         </thead>
+
                         @foreach($products as $product)
                         <tbody>
-                        <tr>
-                            <td>{{$product->name}}</td>
-                            <td>{{$product->price}}</td>
-                            <td>@if($product->series ==1)
-                                    Sí
-                                @else
-                                    No
-                                @endif
-                            </td>
-                            <td>{{$product->brand->name}}</td>
-                            <td>{{$product->exemplar->name}}</td>
-                            <td>{{$product->part_number}}</td>
-                            <td>{{$product->color}}</td>
-                            <td>{{$product->category->name}}</td>
-                            <td>{{$product->subcategory->name}}</td>
-                            <td>
-                                <button type="submit" class="btn btn-success" data-id="{{ $product->id }}" data-name="{{ $product ->name }}"
-                                        data-description="{{ $product->description }}"  data-price="{{ $product->price }}" data-series="{{ $product->series }}"
-                                        data-brand="{{ $product->brand_id }}" data-exemplar="{{ $product->exemplar_id }}" data-part="{{ $product->part_number }}"
-                                        data-color="{{ $product->color }}" data-category="{{ $product->category_id }}" data-subcategory="{{ $product->subcategory_id }}"
-                                        data-comment="{{ $product->comment }}">
+                            <tr>
+                                <td class="col-md-3">{{ str_limit($product->name, $limit = 10, $end = '...') }}</td>
+                                <td>{{$product->price}}</td>
+                                <td>@if($product->money ==1) S/.  @else $ @endif </td>
+                                <td>@if($product->series ==1) Sí  @else No @endif </td>
+                                <td>{{ str_limit($product->brand->name, $limit = 5, $end = '...') }}</td>
+                                <td class="col-md-2"> {{ str_limit($product->exemplar->name, $limit = 6, $end = '...') }}</td>
+                                <td>{{$product->part_number}}</td>
+                                <td>{{$product->color}}</td>
+                                <td>{{ str_limit($product->category->name, $limit = 7, $end = '...') }}</td>
+                                <td>{{ str_limit($product->subcategory->name, $limit = 7, $end = '...') }}</td>
+                                <td>
+                                    <span title="Editar">
+                                        <button type="submit" class="btn btn-success" data-id="{{ $product->id }}" data-name="{{ $product ->name }}"
+                                                data-description="{{ $product->description }}"  data-price="{{ $product->price }}" data-money="{{ $product->money }}"  data-series="{{ $product->series }}"
+                                                data-brand="{{ $product->brand_id }}" data-exemplar="{{ $product->exemplar_id }}" data-part="{{ $product->part_number }}"
+                                                data-color="{{ $product->color }}" data-category="{{ $product->category_id }}" data-subcategory="{{ $product->subcategory_id }}"
+                                                data-comment="{{ $product->comment }}">
 
-                                    <i class="fa fa-pencil"></i>Editar
-                                </button>
-                                <button type="submit" class="btn btn-danger"  data-delete="{{ $product->id }}" data-name="{{ $product->name }}">
-                                    <i class="fa fa-trash"></i>Eliminar
-                                </button>
-                            </td>
-                        </tr>
-                        </tbody>
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                    </span>
+                                    <span title="Eliminar">
+                                        <button type="submit" class="btn btn-danger"  data-delete="{{ $product->id }}" data-name="{{ $product->name }}">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </span>
+                                </td>
+                            </tr>
+                            </tbody>
                         @endforeach
                     </table>
                 </div>
@@ -117,14 +117,21 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3" for="last-name">Precio <span class="required">*</span></label>
                                 <div class="col-md-3">
-                                    <input type="number" placeholder="0.00" step="0.01"  id="price" name="price" required="required" class="form-control col-md-4 col-xs-12">
+                                    <input type="number" placeholder="0.00" step="0.01"  min="0" id="price" name="price" required="required" class="form-control col-md-4 col-xs-12">
                                 </div>
-
                                 <div class="form-group form-inline">
                                     <label class="control-label col-md-1" for="last-name">Serie <span class="required">*</span></label>
                                     <div class="col-md-3 checkbox">
-                                        <input type="checkbox" id="series" name="series" value="">
+                                        <input type="checkbox" id="series" name="series">
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3" for="">Moneda<span class="required">*</span></label>
+                                <div class="col-md-6">
+                                    <input type="radio" id="soles" name="money" value="1" >Soles
+                                    <input type="radio" id="dollar" name="money" value="2" >Dólares</label>
                                 </div>
                             </div>
 
@@ -232,4 +239,5 @@
     </div>
 @endsection
 <script src="{{ asset('js/products/jquery-1.7.min.js') }}"></script>
-<script src="{{ asset('js/products/products_dropdown.js')}}"></script>
+<script src="{{ asset('js/products/productsmodal.js') }}"></script>
+

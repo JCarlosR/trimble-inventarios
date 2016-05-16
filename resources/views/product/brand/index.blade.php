@@ -22,14 +22,13 @@
                         <div class="input-group">
                             <h2><a href="{{ url('/marca/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nueva marca</a></h2>
                         </div>
-
                          @if( $errors->count() > 0 )
                              <div class="row">
                                  <div class="col-sm-12">
                                      <div class="alert alert-danger" role="alert">
-                                         <strong>Lo sentimos!</strong> Por favor revise los siguientes errores.
+                                         <strong>Lo sentimos! </strong>Por favor revise los siguientes errores.
                                          @foreach($errors->all() as $message)
-                                             <p>{{ $message }}</p>
+                                             <p>{{$message}}</p>
                                          @endforeach
                                      </div>
                                  </div>
@@ -49,8 +48,8 @@
                             @foreach($brands as $brand)
                                 <tr>
                                     <td>{{ $brand->id }}</td>
-                                    <td>{{ $brand->name }}</td>
-                                    <td>{{ $brand->description}}</td>
+                                    <td>{{ str_limit($brand->name, $limit = 10, $end = '...') }}</td>
+                                    <td>{{ str_limit($brand->description, $limit = 15, $end = '...') }}</td>
                                     <td>
                                         <button type="submit" class="btn btn-success" data-id="{{ $brand->id }}" data-name="{{ $brand->name }}"
                                                 data-description="{{ $brand->description }} "> <i class="fa fa-pencil"></i>Editar
