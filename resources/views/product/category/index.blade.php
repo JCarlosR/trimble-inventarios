@@ -26,17 +26,6 @@
 
                 <div class="x_content table-responsive">
 
-                    <div class="form-inline">
-                        <div class="col-md-4">
-                            <h2><a href="{{ url('categoria/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nueva categoría</a></h2>
-                        </div>
-
-                        <div class="col-md-8 input-group margen">
-                            <span class="input-group-addon">Categoría</span>
-                            <input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
-                        </div>
-                    </div>
-
                     @if( $errors->count() > 0 )
                         <div class="row">
                             <div class="col-sm-12">
@@ -49,6 +38,17 @@
                             </div>
                         </div>
                     @endif
+
+                    <div class="form-inline">
+                        <div class="col-md-4">
+                            <h2><a href="{{ url('categoria/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nueva categoría</a></h2>
+                        </div>
+
+                        <div class="col-md-8 input-group margen">
+                            <span class="input-group-addon">Categoría</span>
+                            <input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
+                        </div>
+                    </div>
 
                     <table class="table table-hover">
                         <thead>

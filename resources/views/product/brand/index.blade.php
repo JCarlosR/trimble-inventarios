@@ -24,60 +24,59 @@
                 </div>
                 <div class="x_content table-responsive">
 
-                         <div class="form-inline">
-                             <div class="col-md-4">
-                                 <h2><a href="{{ url('/marca/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nueva marca</a></h2>
-                             </div>
+                    @if( $errors->count() > 0 )
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Lo sentimos!</strong> Por favor revise los siguientes errores.
+                                    @foreach($errors->all() as $message)
+                                        <p>{{ $message }}</p>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    @endif
 
-                             <div class="col-md-8 input-group margen">
-                                 <span class="input-group-addon">Marca</span>
-                                 <input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
-                             </div>
+                     <div class="form-inline">
+                         <div class="col-md-4">
+                             <h2><a href="{{ url('/marca/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nueva marca</a></h2>
                          </div>
 
-                         @if( $errors->count() > 0 )
-                             <div class="row">
-                                 <div class="col-sm-12">
-                                     <div class="alert alert-danger" role="alert">
-                                         <strong>Lo sentimos! </strong>Por favor revise los siguientes errores.
-                                         @foreach($errors->all() as $message)
-                                             <p>{{$message}}</p>
-                                         @endforeach
-                                     </div>
-                                 </div>
-                             </div>
-                         @endif
+                         <div class="col-md-8 input-group margen">
+                             <span class="input-group-addon">Marca</span>
+                             <input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
+                         </div>
+                     </div>
 
-                        <table class="table table-hover">
-                            <thead>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Marca</th>
+                                <th>Descripción</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla">
+                            @foreach($brands as $brand)
                                 <tr>
-                                    <th>Código</th>
-                                    <th>Marca</th>
-                                    <th>Descripción</th>
-                                    <th>Opciones</th>
+                                    <td>{{ $brand->id }}</td>
+                                    <td>{{ str_limit($brand->name, $limit = 10, $end = '...') }}</td>
+                                    <td>{{ str_limit($brand->description, $limit = 25, $end = '...') }}</td>
+                                    <td>
+                                        <button type="submit" class="btn btn-success" data-id="{{ $brand->id }}" data-name="{{ $brand->name }}"
+                                                data-description="{{ $brand->description }} "> <i class="fa fa-pencil"></i>Editar
+                                        </button>
+                                        <button type="submit" class="btn btn-danger"  data-delete="{{ $brand->id }}" data-name="{{ $brand->name }}">
+                                            <i class="fa fa-trash"></i>Eliminar
+                                        </button>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody id="tabla">
-                                @foreach($brands as $brand)
-                                    <tr>
-                                        <td>{{ $brand->id }}</td>
-                                        <td>{{ str_limit($brand->name, $limit = 10, $end = '...') }}</td>
-                                        <td>{{ str_limit($brand->description, $limit = 25, $end = '...') }}</td>
-                                        <td>
-                                            <button type="submit" class="btn btn-success" data-id="{{ $brand->id }}" data-name="{{ $brand->name }}"
-                                                    data-description="{{ $brand->description }} "> <i class="fa fa-pencil"></i>Editar
-                                            </button>
-                                            <button type="submit" class="btn btn-danger"  data-delete="{{ $brand->id }}" data-name="{{ $brand->name }}">
-                                                <i class="fa fa-trash"></i>Eliminar
-                                            </button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        {!! $brands->render() !!}
-                    </div>
-
+                            @endforeach
+                        </tbody>
+                    </table>
+                    {!! $brands->render() !!}
+                </div>
             </div>
         </div>
 
