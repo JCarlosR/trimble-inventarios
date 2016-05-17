@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="x_content">
-                    <br>
+
                     <div class="input-group">
                         <h2><a href="{{ url('modelo/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nuevo modelo </a></h2>
                     </div>
@@ -33,7 +33,6 @@
                             </div>
                         </div>
                     @endif
-                    <br>
 
                     <table class="table table-hover">
                         <thead>
@@ -49,9 +48,9 @@
                         @foreach($exemplars as $exemplar)
                             <tr>
                                 <td>{{$exemplar->id}}</td>
-                                <td>{{$exemplar->name}}</td>
-                                <td>{{$exemplar->description}}</td>
-                                <td>{{$exemplar->brand->name}}</td>
+                                <td>{{str_limit($exemplar->name, $limit = 10, $end = '...') }}</td>
+                                <td>{{ str_limit($exemplar->description, $limit = 20, $end = '...') }}</td>
+                                <td>{{str_limit($exemplar->brand->name, $limit = 20, $end = '...') }}</td>
                                 <td>
                                     <button type="submit" class="btn btn-success" data-id="{{ $exemplar->id }}" data-name="{{ $exemplar->name }}"
                                             data-description="{{ $exemplar->description }}" data-brand="{{ $exemplar->brand_id }}"> <i class="fa fa-pencil"></i>Editar
@@ -64,6 +63,7 @@
                         @endforeach
                         </tbody>
                     </table>
+                    {!! $exemplars->render() !!}
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Editar marca</h4>
+                        <h4 class="modal-title">Editar modelo</h4>
                     </div>
                     <form action="{{ url('modelo/modificar') }}" class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">
                         <div class="modal-body">
@@ -138,5 +138,6 @@
         </div>
     </div>
 @endsection
-<script src="{{ asset('js/products/jquery-1.7.min.js') }}"></script>
-<script src="{{ asset('js/products/exemplars.js')}}"></script>
+@section('scripts')
+    <script src="{{ asset('js/products/exemplars.js')}}"></script>
+@endsection

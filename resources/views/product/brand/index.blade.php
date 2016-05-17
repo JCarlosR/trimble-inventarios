@@ -22,14 +22,13 @@
                         <div class="input-group">
                             <h2><a href="{{ url('/marca/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nueva marca</a></h2>
                         </div>
-
                          @if( $errors->count() > 0 )
                              <div class="row">
                                  <div class="col-sm-12">
                                      <div class="alert alert-danger" role="alert">
-                                         <strong>Lo sentimos!</strong> Por favor revise los siguientes errores.
+                                         <strong>Lo sentimos! </strong>Por favor revise los siguientes errores.
                                          @foreach($errors->all() as $message)
-                                             <p>{{ $message }}</p>
+                                             <p>{{$message}}</p>
                                          @endforeach
                                      </div>
                                  </div>
@@ -49,8 +48,8 @@
                             @foreach($brands as $brand)
                                 <tr>
                                     <td>{{ $brand->id }}</td>
-                                    <td>{{ $brand->name }}</td>
-                                    <td>{{ $brand->description}}</td>
+                                    <td>{{ str_limit($brand->name, $limit = 10, $end = '...') }}</td>
+                                    <td>{{ str_limit($brand->description, $limit = 25, $end = '...') }}</td>
                                     <td>
                                         <button type="submit" class="btn btn-success" data-id="{{ $brand->id }}" data-name="{{ $brand->name }}"
                                                 data-description="{{ $brand->description }} "> <i class="fa fa-pencil"></i>Editar
@@ -63,6 +62,7 @@
                             @endforeach
                             </tbody>
                         </table>
+                         {!! $brands->render() !!}
                     </div>
                 </div>
             </div>
@@ -111,7 +111,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Eliminar categoría</h4>
+                    <h4 class="modal-title">Eliminar marca</h4>
                 </div>
                 <form action="{{ url('marca/eliminar') }}" method="POST">
                     <div class="modal-body">
@@ -137,5 +137,7 @@
     </div>
     </div>
 @endsection
-<script src="{{ asset('js/products/jquery-1.7.min.js') }}"></script>
-<script src="{{ asset('js/products/brands.js')}}"></script>
+
+@section('scripts')
+    <script src="{{ asset('js/products/brands.js')}}"></script>
+@endsection

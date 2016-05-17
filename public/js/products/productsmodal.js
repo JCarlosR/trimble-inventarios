@@ -2,6 +2,9 @@ $(document).on('ready', principal);
 
 function principal()
 {
+    //Datatable
+    $('#myTable').DataTable;
+
     $modalEditar = $('#modalEditar');
     $modalEliminar = $('#modalEliminar');
 
@@ -26,15 +29,18 @@ function mostrarEditar() {
     var price = $(this).data('price');
     $modalEditar.find('[name="price"]').val(price);
 
+    var money = $(this).data('money');
+
+
+    if( money ==1 )
+        $("#soles").prop("checked", true);
+    else
+        $("#dollar").prop("checked", true);
+
     var series = $(this).data('series');
 
     if( series ==1 )
-    {
-        $modalEditar.find('[name="series"]').val(series);
         $("#series").prop("checked", true);
-    }
-    else
-        $modalEditar.find('[name="series"]').val(series);
 
     var brand = $(this).data('brand');
     $modalEditar.find('[name="brand"]').val(brand);
