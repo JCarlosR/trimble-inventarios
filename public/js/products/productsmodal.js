@@ -43,10 +43,10 @@ function mostrarEditar() {
         $("#series").prop("checked", true);
 
     var brand = $(this).data('brand');
-    $modalEditar.find('[name="brand"]').val(brand);
+    $modalEditar.find('[name="brands"]').val(brand);
 
     var exemplar = $(this).data('exemplar');
-    $modalEditar.find('[name="exemplar"]').val(exemplar);
+    $modalEditar.find('[name="exemplars"]').val(exemplar);
 
     var part_number = $(this).data('part');
     $modalEditar.find('[name="part_number"]').val(part_number);
@@ -55,10 +55,10 @@ function mostrarEditar() {
     $modalEditar.find('[name="color"]').val(color);
 
     var category = $(this).data('category');
-    $modalEditar.find('[name="category"]').val(category);
+    $modalEditar.find('[name="categories"]').val(category);
 
     var subcategory = $(this).data('subcategory');
-    $modalEditar.find('[name="subcategory"]').val(subcategory);
+    $modalEditar.find('[name="subcategories"]').val(subcategory);
 
     var comment = $(this).data('comment');
     $modalEditar.find('[name="comment"]').val(comment);

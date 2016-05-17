@@ -2,69 +2,84 @@
 
 @section('title', 'Categorías')
 
+@section('styles')
+    <style>
+        .margen
+        {
+            margin-top:16px;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-
                     <h2>Listado de categorías</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                     </ul>
 
                     <div class="clearfix"></div>
+                </div>
 
-                    <div class="x_content">
-                        <br>
-                        <div class="input-group">
+                <div class="x_content table-responsive">
+
+                    <div class="form-inline">
+                        <div class="col-md-4">
                             <h2><a href="{{ url('categoria/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nueva categoría</a></h2>
                         </div>
 
-                        @if( $errors->count() > 0 )
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="alert alert-danger" role="alert">
-                                        <strong>Lo sentimos!</strong> Por favor revise los siguientes errores.
-                                        @foreach($errors->all() as $message)
-                                            <p>{{ $message }}</p>
-                                        @endforeach
-                                    </div>
+                        <div class="col-md-8 input-group margen">
+                            <span class="input-group-addon">Categoría</span>
+                            <input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
+                        </div>
+                    </div>
+
+                    @if( $errors->count() > 0 )
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Lo sentimos!</strong> Por favor revise los siguientes errores.
+                                    @foreach($errors->all() as $message)
+                                        <p>{{ $message }}</p>
+                                    @endforeach
                                 </div>
                             </div>
-                        @endif
+                        </div>
+                    @endif
 
-                        <table class="table table-hover">
-                            <thead>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Categoría</th>
+                            <th>Descripción</th>
+                            <th>Opciones</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tabla">
+                        @foreach($categories as $category)
                             <tr>
-                                <th>Código</th>
-                                <th>Categoría</th>
-                                <th>Descripción</th>
-                                <th>Opciones</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($categories as $category)
-                                <tr>
-                                    <th>{{$category->id}}</th>
-                                    <td>{{ str_limit($category->name, $limit = 20, $end = '...') }}</td>
-                                    <td>{{ str_limit($category->description, $limit = 30, $end = '...') }}</td>
-                                    <td>
-                                        <button type="submit" class="btn btn-success" data-id="{{ $category->id }}" data-name="{{ $category->name }}"
-                                                data-description="{{ $category->description }} ">
-                                            <i class="fa fa-pencil"></i>Editar
-                                        </button>
+                                <th>{{$category->id}}</th>
+                                <td>{{ str_limit($category->name, $limit = 20, $end = '...') }}</td>
+                                <td>{{ str_limit($category->description, $limit = 30, $end = '...') }}</td>
+                                <td>
+                                    <button type="submit" class="btn btn-success" data-id="{{ $category->id }}" data-name="{{ $category->name }}"
+                                            data-description="{{ $category->description }} ">
+                                        <i class="fa fa-pencil"></i>Editar
+                                    </button>
 
-                                        <button type="submit" class="btn btn-danger"  data-delete="{{ $category->id }}" data-name="{{ $category->name }}">
-                                            <i class="fa fa-trash"></i>Eliminar
-                                        </button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                        {!! $categories->render() !!}
-                    </div>
+                                    <button type="submit" class="btn btn-danger"  data-delete="{{ $category->id }}" data-name="{{ $category->name }}">
+                                        <i class="fa fa-trash"></i>Eliminar
+                                    </button>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                    {!! $categories->render() !!}
                 </div>
             </div>
         </div>
@@ -81,11 +96,11 @@
                             <input type="hidden" name="id" />
 
                             <div class="form-group">
-                                <label for="nombres">Nuevo nombre</label>
+                                <label for="name">Nuevo nombre</label>
                                 <input type="text" class="form-control" name="name" required/>
                             </div>
                             <div class="form-group">
-                                <label for="apellidos">Nueva descripción</label>
+                                <label for="description">Nueva descripción</label>
                                 <textarea class="form-control" name="description"></textarea>
                             </div>
                         </div>
@@ -135,4 +150,5 @@
 
 @section('scripts')
     <script src="{{ asset('js/products/categories.js')}}"></script>
+    <script src="{{ asset('js/products/search.js') }}"></script>
 @endsection

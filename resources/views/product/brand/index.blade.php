@@ -2,26 +2,39 @@
 
 @section('title', 'Marcas')
 
+@section('styles')
+    <style>
+        .margen
+        {
+            margin-top:16px;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-
                     <h2>Listado de marcas</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </li>
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                     </ul>
-
                     <div class="clearfix"></div>
+                </div>
+                <div class="x_content table-responsive">
 
-                     <div class="x_content">
+                         <div class="form-inline">
+                             <div class="col-md-4">
+                                 <h2><a href="{{ url('/marca/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nueva marca</a></h2>
+                             </div>
 
-                        <br>
-                        <div class="input-group">
-                            <h2><a href="{{ url('/marca/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nueva marca</a></h2>
-                        </div>
+                             <div class="col-md-8 input-group margen">
+                                 <span class="input-group-addon">Marca</span>
+                                 <input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
+                             </div>
+                         </div>
+
                          @if( $errors->count() > 0 )
                              <div class="row">
                                  <div class="col-sm-12">
@@ -37,34 +50,34 @@
 
                         <table class="table table-hover">
                             <thead>
-                            <tr>
-                                <th>Código</th>
-                                <th>Marca</th>
-                                <th>Descripción</th>
-                                <th>Opciones</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($brands as $brand)
                                 <tr>
-                                    <td>{{ $brand->id }}</td>
-                                    <td>{{ str_limit($brand->name, $limit = 10, $end = '...') }}</td>
-                                    <td>{{ str_limit($brand->description, $limit = 25, $end = '...') }}</td>
-                                    <td>
-                                        <button type="submit" class="btn btn-success" data-id="{{ $brand->id }}" data-name="{{ $brand->name }}"
-                                                data-description="{{ $brand->description }} "> <i class="fa fa-pencil"></i>Editar
-                                        </button>
-                                        <button type="submit" class="btn btn-danger"  data-delete="{{ $brand->id }}" data-name="{{ $brand->name }}">
-                                            <i class="fa fa-trash"></i>Eliminar
-                                        </button>
-                                    </td>
+                                    <th>Código</th>
+                                    <th>Marca</th>
+                                    <th>Descripción</th>
+                                    <th>Opciones</th>
                                 </tr>
-                            @endforeach
+                            </thead>
+                            <tbody id="tabla">
+                                @foreach($brands as $brand)
+                                    <tr>
+                                        <td>{{ $brand->id }}</td>
+                                        <td>{{ str_limit($brand->name, $limit = 10, $end = '...') }}</td>
+                                        <td>{{ str_limit($brand->description, $limit = 25, $end = '...') }}</td>
+                                        <td>
+                                            <button type="submit" class="btn btn-success" data-id="{{ $brand->id }}" data-name="{{ $brand->name }}"
+                                                    data-description="{{ $brand->description }} "> <i class="fa fa-pencil"></i>Editar
+                                            </button>
+                                            <button type="submit" class="btn btn-danger"  data-delete="{{ $brand->id }}" data-name="{{ $brand->name }}">
+                                                <i class="fa fa-trash"></i>Eliminar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
-                         {!! $brands->render() !!}
+                        {!! $brands->render() !!}
                     </div>
-                </div>
+
             </div>
         </div>
 
@@ -140,4 +153,5 @@
 
 @section('scripts')
     <script src="{{ asset('js/products/brands.js')}}"></script>
+    <script src="{{ asset('js/products/search.js') }}"></script>
 @endsection
