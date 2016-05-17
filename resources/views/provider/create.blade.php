@@ -1,6 +1,6 @@
 @extends('layouts.panel')
 
-@section('title', 'Clientes')
+@section('title', 'Proveedores')
 
 @section('content')
     <div class="row">
@@ -8,7 +8,7 @@
             <div class="x_panel">
 
                 <div class="x_title">
-                    <h2>Registrar nuevo cliente</h2>
+                    <h2>Registrar nuevo proveedor</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -16,7 +16,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <a href="{{ url('/clientes') }}">Ver listado</a>
+                                    <a href="{{ url('/proveedores') }}">Ver listado</a>
                                 </li>
                             </ul>
                         </li>
@@ -108,7 +108,7 @@
                                 <button type="submit" class="btn btn-success btn-block">Registrar</button>
                             </div>
                             <div class="col-md-3">
-                                <a href="{{ url('/clientes') }}" class="btn btn-danger btn-block">Cancelar</a>
+                                <a href="{{ url('/proveedores') }}" class="btn btn-danger btn-block">Cancelar</a>
                             </div>
                         </div>
 

@@ -57,17 +57,8 @@
                             <li><a><i class="fa fa-rocket"></i> Salidas <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="{{ url('/salida/listar/venta') }}">Venta</a></li>
-                                    <li><a>Alquiler<span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a href="{{ url('/salida/listar/alquiler') }}">Ver alquileres</a></li>
-                                            <li><a href="{{ url('/salida/alquiler') }}">Ingresar alquiler</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a>Por baja<span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a href="{{ url('/salida/baja') }}">Ingresar baja</a></li>
-                                        </ul>
-                                    </li>
+                                    <li><a href="{{ url('/salida/listar/alquiler') }}">Alquiler</a></li>
+                                    <li><a href="{{ url('/salida/baja') }}">Por baja</a></li>
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-user"></i> Clientes y Proveedores <span class="fa fa-chevron-down"></span></a>

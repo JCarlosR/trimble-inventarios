@@ -1,6 +1,6 @@
 @extends('layouts.panel')
 
-@section('title', 'Tipos de cliente')
+@section('title', 'Tipos de proveedor')
 
 @section('content')
     <div class="row">
@@ -8,7 +8,7 @@
             <div class="x_panel">
 
                 <div class="x_title">
-                    <h2>Registrar nuevo tipo de cliente</h2>
+                    <h2>Registrar nuevo tipo de proveedor</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -49,7 +49,7 @@
                                 <button type="submit" class="btn btn-success btn-block">Registrar</button>
                             </div>
                             <div class="col-md-3">
-                                <a href="{{ url('/clientes') }}" class="btn btn-danger btn-block">Cancelar</a>
+                                <a href="{{ url('/proveedores') }}" class="btn btn-danger btn-block">Cancelar</a>
                             </div>
                         </div>
 
@@ -63,7 +63,7 @@
             <div class="x_panel">
 
                 <div class="x_title">
-                    <h2>Tipos de cliente</h2>
+                    <h2>Tipos de proveedor</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -81,7 +81,7 @@
                     <div class="row">
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-2 col-sm-12">
-                                <p>Listado de tipos de cliente</p>
+                                <p>Listado de tipos de proveedor</p>
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
@@ -92,16 +92,16 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach( $customerTypes as $customerType)
+                                    @foreach( $providerTypes as $providerType)
                                         <tr>
                                             <th scope="row">1</th>
-                                            <td>{{ $customerType->name }}</td>
-                                            <td>{{ $customerType->description }}</td>
+                                            <td>{{ $providerType->name }}</td>
+                                            <td>{{ $providerType->description }}</td>
                                             <td>
-                                                <button type="button" class="btn btn-primary" data-id="{{ $customerType->id }}"
-                                                        data-name="{{ $customerType->name }}"
-                                                        data-description="{{ $customerType->description }}"><i class="fa fa-pencil"></i></button>
-                                                <button type="button"  class="btn btn-danger" data-delete="{{ $customerType->id }}" data-name="{{ $customerType->name }}"><i class="fa fa-trash"></i></button>
+                                                <button type="button" class="btn btn-primary" data-id="{{ $providerType->id }}"
+                                                        data-name="{{ $providerType->name }}"
+                                                        data-description="{{ $providerType->description }}"><i class="fa fa-pencil"></i></button>
+                                                <button type="button"  class="btn btn-danger" data-delete="{{ $providerType->id }}" data-name="{{ $providerType->name }}"><i class="fa fa-trash"></i></button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -120,7 +120,7 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Editar cliente</h4>
+                    <h4 class="modal-title">Editar proveedor</h4>
                 </div>
 
                 <form action="{{ url('') }}" class="form-horizontal form-label-left"  method="POST" enctype="multipart/form-data">
@@ -149,7 +149,7 @@
                             <button class="btn btn-danger pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-menu-up"></span> Salir</button>
                         </div>
                         <div class="btn-group pull-right">
-                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Guardar producto</button>
+                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Guardar proveedor</button>
                         </div>
                     </div>
                 </form>
@@ -161,7 +161,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Eliminar cliente</h4>
+                    <h4 class="modal-title">Eliminar proveedor</h4>
                 </div>
                 <form action="{{ url('') }}" method="POST">
                     <div class="modal-body">
@@ -169,7 +169,7 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <input type="hidden" name="id" />
                         <div class="form-group">
-                            <label for="nombreEliminar">¿Desea eliminar el siguiente cliente?</label>
+                            <label for="nombreEliminar">¿Desea eliminar el siguiente proveedor?</label>
                             <input type="text" readonly class="form-control" id="nombreEliminar" name="nombreEliminar"/>
                         </div>
                     </div>
@@ -188,5 +188,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/customer-type/customer-type.js')}}"></script>
+    <script src="{{ asset('js/provider-type/provider-type.js')}}"></script>
 @endsection

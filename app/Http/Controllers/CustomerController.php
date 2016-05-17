@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
+use App\CustomerType;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -11,12 +13,15 @@ class CustomerController extends Controller
 
     public function index()
     {
-        return view('customer.index');
+        $clientes = Customer::all();
+
+        return view('customer.index')->with(compact(['clientes']));
     }
 
     public function create()
     {
-        return view('customer.create');
+        $types = CustomerType::all();
+        return view('customer.create')->with(compact(['types']));
     }
 
 }
