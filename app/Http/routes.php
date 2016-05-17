@@ -17,7 +17,7 @@ Route::get('/', 'HomeController@index');
 
 
 // Ingresos
-Route::get('/ingreso/listar/retorno', 'EntryController@getListaRetorno');
+Route::get('/ingreso/listar/retorno', 'EntryController@getRetornos');
 Route::get('/ingreso/retorno', 'EntryController@getRetorno');
 
 Route::get('/ingreso/listar/compra', 'EntryController@getCompras');
@@ -41,6 +41,7 @@ Route::get('/salida/listar/detalles/{id}', 'OutputController@getVentaDetalles');
 
 Route::get('/salida/alquiler', 'OutputController@getAlquiler');
 Route::get('/salida/listar/alquiler', 'OutputController@getListaAlquiler');
+
 Route::get('/salida/baja', 'OutputController@getBaja');
 Route::get('/salida/listar/baja', 'OutputController@getListaBaja');
 
@@ -53,7 +54,12 @@ Route::post('/clientes/registrar', 'CustomerController@store');
 Route::get('/clientes/tipos', 'CustomerTypeController@create');
 
 // Providers
+Route::get('/proveedores', 'ProviderController@index');
+Route::get('/proveedores/registrar', 'ProviderController@create');
+Route::post('/proveedores/registrar', 'ProviderController@store');
 
+// Provider types
+Route::get('/proveedores/tipos', 'ProviderTypeController@create');
 
                     // Products
 //Categorías

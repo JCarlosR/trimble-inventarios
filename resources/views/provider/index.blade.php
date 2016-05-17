@@ -20,7 +20,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Clientes</h2>
+                    <h2>Proveedores</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -28,7 +28,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <a href="{{ url('/clientes/registrar') }}">Nuevo cliente</a>
+                                    <a href="{{ url('/proveedores/registrar') }}">Nuevo proveedor</a>
                                 </li>
                             </ul>
                         </li>
@@ -40,7 +40,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="input-group">
-                    <a href="{{ url('/clientes/registrar') }}" id="NvoIngreso" class="btn btn-success"><i class="fa fa-plus-square-o"></i>  Nuevo cliente</a>
+                    <a href="{{ url('/proveedores/registrar') }}" id="NvoIngreso" class="btn btn-success"><i class="fa fa-plus-square-o"></i>  Nuevo proveedor</a>
                 </div>
                 <div class="x_content">
 
@@ -60,22 +60,24 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach( $clientes as $cliente)
+                                    @foreach( $proveedores as $proveedor)
                                         <tr>
                                             <th scope="row">1</th>
-                                            <td>{{ $cliente->name }}</td>
-                                            <td>{{ $cliente->address }}</td>
-                                            <td>{{ $cliente->phone }}</td>
-                                            <td>{{ $cliente->customer_type->name }}</td>
-                                            <td>{{ $cliente->comments }}</td>
+                                            <td>{{ $proveedor->name }}</td>
+                                            <td>{{ $proveedor->address }}</td>
+                                            <td>{{ $proveedor->phone }}</td>
+                                            <td>{{ $proveedor->provider_type->name }}</td>
+                                            <td>{{ $proveedor->comments }}</td>
                                             <td>
-                                                <button type="button" class="btn btn-primary" data-id="{{ $cliente->id }}"
-                                                        data-name="{{ $cliente->name }}"
-                                                        data-address="{{ $cliente->address }}"
-                                                        data-phone="{{ $cliente->phone }}"
-                                                        data-typeId="{{ $cliente->customer_type->id }}"
-                                                        data-comments="{{ $cliente->comments }}"><i class="fa fa-pencil"></i></button>
-                                                <button type="button"  class="btn btn-danger" data-delete="{{ $cliente->id }}" data-name="{{ $cliente->name }}"><i class="fa fa-trash"></i></button>
+
+                                                <button type="button" class="btn btn-primary" data-id="{{ $proveedor->id }}"
+                                                        data-name="{{ $proveedor->name }}"
+                                                        data-address="{{ $proveedor->address }}"
+                                                        data-phone="{{ $proveedor->phone }}"
+                                                        data-typeId="{{ $proveedor->provider_type->id }}"
+                                                        data-comments="{{ $proveedor->comments }}"><i class="fa fa-pencil"></i></button>
+                                                <button type="button"  class="btn btn-danger" data-delete="{{ $proveedor->id }}" data-name="{{ $proveedor->name }}"><i class="fa fa-trash"></i></button>
+
                                             </td>
                                         </tr>
                                     @endforeach
@@ -94,7 +96,7 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Editar cliente</h4>
+                    <h4 class="modal-title">Editar proveedor</h4>
                 </div>
 
                 <form action="{{ url('') }}" class="form-horizontal form-label-left"  method="POST" enctype="multipart/form-data">
@@ -143,7 +145,7 @@
                             <button class="btn btn-danger pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-menu-up"></span> Salir</button>
                         </div>
                         <div class="btn-group pull-right">
-                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Guardar cliente</button>
+                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Guardar producto</button>
                         </div>
                     </div>
                 </form>
@@ -155,7 +157,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Eliminar cliente</h4>
+                    <h4 class="modal-title">Eliminar proveedor</h4>
                 </div>
                 <form action="{{ url('') }}" method="POST">
                     <div class="modal-body">
@@ -163,7 +165,7 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <input type="hidden" name="id" />
                         <div class="form-group">
-                            <label for="nombreEliminar">¿Desea eliminar el siguiente cliente?</label>
+                            <label for="nombreEliminar">¿Desea eliminar el siguiente proveedor?</label>
                             <input type="text" readonly class="form-control" id="nombreEliminar" name="nombreEliminar"/>
                         </div>
                     </div>
@@ -182,5 +184,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/customer/customer-index.js')}}"></script>
+    <script src="{{ asset('js/provider/provider-index.js')}}"></script>
 @endsection

@@ -17,6 +17,7 @@ class CreateOutputsTable extends Migration
             $table->integer('customer_id')->unsigned()->nullable();
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->enum('type', ['local', 'foreign']);
+            $table->enum('type', ['local', 'foreign']);
             $table->string('comment');
             $table->timestamps();
         });

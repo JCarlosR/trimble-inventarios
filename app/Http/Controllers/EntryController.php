@@ -6,6 +6,7 @@ use App\Entry;
 use App\EntryDetail;
 use App\Http\Requests;
 use App\Item;
+use App\Output;
 use App\Product;
 use App\Provider;
 use Illuminate\Http\Request;
@@ -19,9 +20,11 @@ class EntryController extends Controller
         $this->middleware('auth');
     }
 
-    public function getRetorno()
+    public function getRetornos()
     {
-        return view('ingreso.retorno');
+        $clientes = Provider::select('name')->lists('name')->toJson();
+        //$outputs = Output::
+        return view('ingreso.retorno')->with(compact(['entries', 'clientes', 'datefin', 'dateinicio']));;
     }
     public function getListaRetorno()
     {
