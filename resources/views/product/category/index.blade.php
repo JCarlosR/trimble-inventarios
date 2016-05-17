@@ -47,8 +47,8 @@
                             @foreach($categories as $category)
                                 <tr>
                                     <th>{{$category->id}}</th>
-                                    <td>{{ str_limit($category->name, $limit = 10, $end = '...') }}</td>
-                                    <td>{{ str_limit($category->description, $limit = 15, $end = '...') }}</td>
+                                    <td>{{ str_limit($category->name, $limit = 20, $end = '...') }}</td>
+                                    <td>{{ str_limit($category->description, $limit = 30, $end = '...') }}</td>
                                     <td>
                                         <button type="submit" class="btn btn-success" data-id="{{ $category->id }}" data-name="{{ $category->name }}"
                                                 data-description="{{ $category->description }} ">
@@ -132,5 +132,7 @@
         </div>
     </div>
 @endsection
-<script src="{{ asset('js/products/jquery-1.7.min.js') }}"></script>
-<script src="{{ asset('js/products/categories.js')}}"></script>
+
+@section('scripts')
+    <script src="{{ asset('js/products/categories.js')}}"></script>
+@endsection

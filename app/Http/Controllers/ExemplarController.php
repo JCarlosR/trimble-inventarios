@@ -14,13 +14,13 @@ class ExemplarController extends Controller
 {
     public function index()
     {
-        $exemplars = Exemplar::paginate(4);
+        $exemplars = Exemplar::orderBy('name', 'asc')->paginate(4);
         return view('product.exemplar.index')->with(compact(['exemplars']));
     }
 
     public function create()
     {
-        $brands = Brand::all();
+        $brands = Brand::orderBy('name', 'asc')->get();
         return view('product.exemplar.create')->with(compact(['brands']));
     }
 
@@ -30,20 +30,32 @@ class ExemplarController extends Controller
             'name' => 'required|max:50',
         ]);
 
-        $exemplar_ = Exemplar::where( 'name',$request->get('name') )->first();
-        $name="";
+        $name=""; $exemplar_repeated="";
+
+        $exemplar_ = Exemplar::where( 'name',$request->get('name') )->get();
+
+        if( $exemplar_ != null)
+        {
+            foreach( $exemplar_ as $item )
+            {
+                if ( $item->brand_id == $request->get('brands') )
+                {
+                    $exemplar_repeated = "errorRepeated";
+                }
+            }
+        }
 
         if( strlen( $request->get('name') ) <4 )
             $name = "errorName";
 
-        if ( $validator->fails() OR $name == "errorName" OR $exemplar_ != null )
+        if ( $validator->fails() OR $name == "errorName" OR $exemplar_repeated == "errorRepeated" )
         {
             $data['errors'] = $validator->errors();
 
             if( $name == "errorName" )
                 $data['errors']->add("name", "El nombre del modelo  debe tener por lo menos 3 caracteres ");
-            else if( $exemplar_ != null )
-                $data['errors']->add("name", "No puede registrar 2  modelos con el mismo nombre");
+            else if( $exemplar_repeated == "errorRepeated" )
+                $data['errors']->add("name", "No puede registrar 2  modelos con el mismo nombre y que pertenecen a la misma marca");
 
             return redirect('modelo/registrar')
                 ->withInput($request->all())
@@ -53,7 +65,7 @@ class ExemplarController extends Controller
         $exemplar = Exemplar::create([
             'name'	  => $request->get('name'),
             'description' => $request->get('description'),
-            'brand_id' => $request->get('brand')
+            'brand_id' => $request->get('brands')
         ]);
 
         $exemplar->save();
@@ -63,7 +75,7 @@ class ExemplarController extends Controller
 
     public function dropdown()
     {
-        $brands = Brand::all();
+        $brands = Brand::orderBy('name', 'asc')->get();
         return response()->json($brands);
     }
 
@@ -73,26 +85,35 @@ class ExemplarController extends Controller
             'name' => 'required|max:50'
         ]);
 
-        $exemplar_ = Exemplar::where( 'name',$request->get('name') )->first();
-        $name="";$exemplar_id  ="";$exemplar_repeated="";
+        $name = "";$exemplar_repeated = "";
+
+        $exemplar_ = Exemplar::where( 'name',$request->get('name') )->get();
 
         if( $exemplar_ != null )
         {
-            $exemplar_id = $exemplar_->id;
-            if( $exemplar_id != $request->get('id') )
-                $exemplar_repeated = "errorRepeated";
+            foreach( $exemplar_ as $item )
+            {
+                if( $item->brand_id == $request->get('brands') )
+                {
+                    if( $item->id != $request->get('id') )
+                    {
+                        $exemplar_repeated = "errorRepeated";
+                    }
+                }
+            }
         }
+
         if( strlen( $request->get('name') ) <4 )
             $name = "errorName";
 
-        if ( $validator->fails() OR $name == "errorName" OR $exemplar_repeated != null )
+        if ( $validator->fails() OR $name == "errorName" OR $exemplar_repeated == "errorRepeated" )
         {
             $data['errors'] = $validator->errors();
 
             if( $name == "errorName" )
                 $data['errors']->add("name", "El nombre del modelo debe tener por lo menos 3 caracteres ");
-            else if( $exemplar_repeated != null )
-                $data['errors']->add("name", "No puede registrar 2  modelos con el mismo nombre");
+            else if( $exemplar_repeated == "errorRepeated" )
+                $data['errors']->add("name", "No puede registrar 2  modelos con el mismo nombre y que pertenecen a la misma marca");
 
             return redirect('modelo')
                 ->withInput($request->all())

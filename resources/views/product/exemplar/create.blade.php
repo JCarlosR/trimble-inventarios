@@ -53,9 +53,9 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Marcas <span class="required">*</span>
                             </label>
                             <div class="col-md-3 col-sm-6 col-xs-12">
-                                <select name="brand" id="" class="form-control">
+                                <select name="brands" id="" class="form-control">
                                     @foreach($brands as $brand)
-                                        @if( old('brand') == $brand->id )
+                                        @if( old('brands') == $brand->id )
                                             <option value="{{$brand->id}}" selected>{{$brand->name}}</option>
                                         @else
                                             <option value="{{$brand->id}}">{{$brand->name}}</option>

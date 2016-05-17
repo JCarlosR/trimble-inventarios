@@ -51,9 +51,9 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Categorías <span class="required">*</span>
                             </label>
                             <div class="col-md-4 col-sm-6 col-xs-12">
-                                <select name="category" id="" class="form-control">
+                                <select name="categories" id="" class="form-control">
                                     @foreach($categories as $category)
-                                        @if( old('category') == $category->id )
+                                        @if( old('categories') == $category->id )
                                             <option value="{{$category->id}}" selected>{{$category->name}}</option>
                                         @else
                                             <option value="{{$category->id}}">{{$category->name}}</option>

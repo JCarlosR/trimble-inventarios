@@ -239,6 +239,9 @@
 
     </div>
 @endsection
-<script src="{{ asset('js/products/jquery-1.7.min.js') }}"></script>
-<script src="{{ asset('js/products/productsmodal.js') }}"></script>
+
+@section('scripts')
+    <script src="{{ asset('js/products/productsmodal.js') }}"></script>
+@endsection
+
 

@@ -157,6 +157,6 @@
         </div>
     </div>
 @endsection
-
-<script src="{{ asset('js/products/jquery-1.7.min.js') }}"></script>
-<script src="{{ asset('js/products/products.js') }}"></script>
+@section('scripts')
+    <script src="{{ asset('js/products/products.js') }}"></script>
+@endsection

@@ -49,7 +49,7 @@
                                 <tr>
                                     <td>{{ $brand->id }}</td>
                                     <td>{{ str_limit($brand->name, $limit = 10, $end = '...') }}</td>
-                                    <td>{{ str_limit($brand->description, $limit = 15, $end = '...') }}</td>
+                                    <td>{{ str_limit($brand->description, $limit = 25, $end = '...') }}</td>
                                     <td>
                                         <button type="submit" class="btn btn-success" data-id="{{ $brand->id }}" data-name="{{ $brand->name }}"
                                                 data-description="{{ $brand->description }} "> <i class="fa fa-pencil"></i>Editar
@@ -111,7 +111,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Eliminar categoría</h4>
+                    <h4 class="modal-title">Eliminar marca</h4>
                 </div>
                 <form action="{{ url('marca/eliminar') }}" method="POST">
                     <div class="modal-body">
@@ -137,5 +137,7 @@
     </div>
     </div>
 @endsection
-<script src="{{ asset('js/products/jquery-1.7.min.js') }}"></script>
-<script src="{{ asset('js/products/brands.js')}}"></script>
+
+@section('scripts')
+    <script src="{{ asset('js/products/brands.js')}}"></script>
+@endsection

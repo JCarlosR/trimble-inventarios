@@ -25,8 +25,8 @@ class ProductController extends Controller
 
     public function create()
     {
-        $categories = Category::all();
-        $brands = Brand::all();
+        $categories = Category::orderBy('name', 'asc')->get();
+        $brands = Brand::orderBy('name', 'asc')->get();
 
         return view('product.product.create')->with(compact(['categories', 'brands']));
     }
@@ -95,23 +95,23 @@ class ProductController extends Controller
     }
     public function categoria()
     {
-        $categories = Category::all();
+        $categories = Category::orderBy('name', 'asc')->get();
         return response()->json($categories);
     }
     public function marca()
     {
-        $brands = Brand::all();
+        $brands = Brand::orderBy('name', 'asc')->get();
         return response()->json($brands);
     }
 
     public function subcategoria( $categoria )
     {
-        $subcategories = Subcategory::where('category_id',$categoria)->get();
+        $subcategories = Subcategory::where('category_id',$categoria)->orderBy('name', 'asc')->get();
         return response()->json($subcategories);
     }
     public function modelo( $marca )
     {
-        $exemplares = Exemplar::where('brand_id',$marca)->get();
+        $exemplares = Exemplar::where('brand_id',$marca)->orderBy('name', 'asc')->get();
         return response()->json($exemplares);
     }
 

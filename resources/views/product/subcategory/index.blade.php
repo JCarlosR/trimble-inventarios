@@ -49,7 +49,7 @@
                                     <td>{{$subcategory->id}}</td>
                                     <td>{{str_limit($subcategory->name, $limit = 10, $end = '...') }}</td>
                                     <td>{{str_limit($subcategory->description, $limit = 15, $end = '...') }}</td>
-                                    <td>{{str_limit($subcategory->category->name, $limit = 10, $end = '...') }}</td>
+                                    <td>{{str_limit($subcategory->category->name, $limit = 20, $end = '...') }}</td>
                                     <td>
                                         <button type="submit" class="btn btn-success" data-id="{{ $subcategory->id }}" data-name="{{ $subcategory ->name }}"
                                                 data-description="{{ $subcategory->description }}" data-category="{{ $subcategory->category_id }} ">
@@ -120,7 +120,7 @@
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                             <input type="hidden" name="id" />
                             <div class="form-group">
-                                <label for="nombreEliminar">¿Desea eliminar la siguiente categoría?</label>
+                                <label for="nombreEliminar">¿Desea eliminar la siguiente subcategoría?</label>
                                 <input type="text" readonly class="form-control" name="nombreEliminar"/>
                             </div>
                         </div>
@@ -139,5 +139,7 @@
 
     </div>
 @endsection
-<script src="{{ asset('js/products/jquery-1.7.min.js') }}"></script>
-<script src="{{ asset('js/products/subcategories.js')}}"></script>
+
+@section('scripts')
+    <script src="{{ asset('js/products/subcategories.js')}}"></script>
+@endsection

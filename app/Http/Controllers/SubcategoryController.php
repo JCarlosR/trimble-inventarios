@@ -14,14 +14,13 @@ class SubcategoryController extends Controller
 {
     public function index()
     {
-        $subcategories = Subcategory::paginate(4);
-        $categories = Category::all();
-        return view('product.subcategory.index')->with(compact(['subcategories','categories']));
+        $subcategories = Subcategory::orderBy('name', 'asc')->paginate(4);
+        return view('product.subcategory.index')->with(compact(['subcategories']));
     }
 
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::orderBy('name', 'asc')->get();
         return view('product.subcategory.create')->with(compact(['categories']));
     }
 
@@ -31,20 +30,33 @@ class SubcategoryController extends Controller
             'name' => 'required|max:50',
         ]);
 
-        $subcategory_ = Subcategory::where( 'name',$request->get('name') )->first();
-        $name="";
+        $name=""; $subcategory_repeated="";
+
+        $subcategory_ = Subcategory::where( 'name',$request->get('name') )->get();
+
+        if( $subcategory_ != null)
+        {
+            foreach ($subcategory_ as $item)
+            {
+                $subcategory_category_id = $item->category_id;
+                if ($subcategory_category_id == $request->get('categories'))
+                {
+                    $subcategory_repeated = "errorRepeated";
+                }
+            }
+        }
 
         if( strlen( $request->get('name') ) <4 )
             $name = "errorName";
 
-        if ( $validator->fails() OR $name == "errorName" OR $subcategory_ != null )
+        if ( $validator->fails() OR $name == "errorName" OR $subcategory_repeated == "errorRepeated" )
         {
             $data['errors'] = $validator->errors();
 
             if( $name == "errorName" )
                 $data['errors']->add("name", "El nombre de la subcategoría debe tener por lo menos 3 caracteres ");
-            else if( $subcategory_ != null )
-                $data['errors']->add("name", "No puede registrar 2  subcategorías con el mismo nombre");
+            else if( $subcategory_repeated == "errorRepeated" )
+                $data['errors']->add("name", "No puede registrar 2  subcategorías con el mismo nombre y que pertence a la misma categoría");
 
             return redirect('subcategoria/registrar')
                 ->withInput($request->all())
@@ -54,7 +66,7 @@ class SubcategoryController extends Controller
         $subcategory = Subcategory::create([
             'name'	  => $request->get('name'),
             'description' => $request->get('description'),
-            'category_id' => $request->get('category')
+            'category_id' => $request->get('categories')
         ]);
         $subcategory->save();
 
@@ -63,37 +75,45 @@ class SubcategoryController extends Controller
 
     public function dropdown()
     {
-        $categories = Category::all();
+        $categories = Category::orderBy('name', 'asc')->get();
         return response()->json($categories);
     }
 
     public function edit( Request $request )
     {
         $validator = Validator::make($request->all(), [
-            'id'=> 'exists:subcategories,id',
+            'id' => 'exists:subcategories,id',
             'name' => 'required|max:50'
         ]);
 
-        $subcategory_ = Subcategory::where( 'name',$request->get('name') )->first();
-        $name="";$subcategory_id  ="";$subcategory_repeated="";
+        $name = "";$subcategory_repeated = "";
+
+        $subcategory_ = Subcategory::where('name', $request->get('name'))->get();
 
         if( $subcategory_ != null )
         {
-            $subcategory_id = $subcategory_->id;
-            if( $subcategory_id != $request->get('id') )
-                $subcategory_repeated = "errorRepeated";
+            foreach( $subcategory_ as $item )
+            {
+                if( $item->category_id == $request->get('categories') )
+                {
+                    if( $item->id != $request->get('id') )
+                    {
+                        $subcategory_repeated = "errorRepeated";
+                    }
+                }
+            }
         }
 
         if( strlen( $request->get('name') ) <4 )
             $name = "errorName";
 
-        if ( $validator->fails() OR $name == "errorName" OR $subcategory_repeated != null )
+        if ( $validator->fails() OR $name == "errorName" OR $subcategory_repeated == "errorRepeated" )
         {
             $data['errors'] = $validator->errors();
 
             if( $name == "errorName" )
                 $data['errors']->add("name", "El nombre de la subcategoría debe tener por lo menos 3 caracteres ");
-            else if( $subcategory_repeated != null )
+            else if( $subcategory_repeated == "errorRepeated" )
                 $data['errors']->add("name", "No puede registrar 2  subcategorías con el mismo nombre");
 
             return redirect('subcategoria')
