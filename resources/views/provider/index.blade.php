@@ -69,6 +69,7 @@
                                             <td>{{ $proveedor->provider_type->name }}</td>
                                             <td>{{ $proveedor->comments }}</td>
                                             <td>
+
                                                 <button type="button" class="btn btn-primary" data-id="{{ $proveedor->id }}"
                                                         data-name="{{ $proveedor->name }}"
                                                         data-address="{{ $proveedor->address }}"
@@ -76,6 +77,7 @@
                                                         data-typeId="{{ $proveedor->provider_type->id }}"
                                                         data-comments="{{ $proveedor->comments }}"><i class="fa fa-pencil"></i></button>
                                                 <button type="button"  class="btn btn-danger" data-delete="{{ $proveedor->id }}" data-name="{{ $proveedor->name }}"><i class="fa fa-trash"></i></button>
+
                                             </td>
                                         </tr>
                                     @endforeach
