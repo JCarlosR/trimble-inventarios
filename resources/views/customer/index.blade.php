@@ -42,6 +42,18 @@
                 <div class="input-group">
                     <a href="{{ url('/clientes/registrar') }}" id="NvoIngreso" class="btn btn-success"><i class="fa fa-plus-square-o"></i>  Nuevo cliente</a>
                 </div>
+                @if( $errors->count() > 0 )
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Lo sentimos! </strong>Por favor revise los siguientes errores.
+                                @foreach($errors->all() as $message)
+                                    <p>{{$message}}</p>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 <div class="x_content">
 
                     <div class="row">
@@ -73,7 +85,7 @@
                                                         data-name="{{ $cliente->name }}"
                                                         data-address="{{ $cliente->address }}"
                                                         data-phone="{{ $cliente->phone }}"
-                                                        data-typeId="{{ $cliente->customer_type->id }}"
+                                                        data-typeid="{{ $cliente->customer_type_id }}"
                                                         data-comments="{{ $cliente->comments }}"><i class="fa fa-pencil"></i></button>
                                                 <button type="button"  class="btn btn-danger" data-delete="{{ $cliente->id }}" data-name="{{ $cliente->name }}"><i class="fa fa-trash"></i></button>
                                             </td>
@@ -97,7 +109,7 @@
                     <h4 class="modal-title">Editar cliente</h4>
                 </div>
 
-                <form action="{{ url('') }}" class="form-horizontal form-label-left"  method="POST" enctype="multipart/form-data">
+                <form action="{{ url('clientes/modificar') }}" class="form-horizontal form-label-left"  method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <input type="hidden" name="id" />
@@ -131,7 +143,9 @@
                             <label for="last-name">Tipo <span class="required">*</span></label>
                             <div>
                                 <select id="types" name="types" class="form-control">
-
+                                    @foreach($tipos as $tipo)
+                                        <option id="{{ $tipo->id }}" value="{{ $tipo->id }}">{{ $tipo->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

@@ -50,8 +50,13 @@ Route::get('/salida/listar/baja', 'OutputController@getListaBaja');
 Route::get('/clientes', 'CustomerController@index');
 Route::get('/clientes/registrar', 'CustomerController@create');
 Route::post('/clientes/registrar', 'CustomerController@store');
+Route::post('/clientes/modificar', 'CustomerController@edit');
+
 // Customer types
 Route::get('/clientes/tipos', 'CustomerTypeController@create');
+Route::post('/clientes/tipos/modificar', 'CustomerTypeController@edit');
+Route::post('/clientes/tipos/registrar', 'CustomerTypeController@created');
+Route::post('/clientes/tipos/eliminar', 'CustomerTypeController@delete');
 
 // Providers
 Route::get('/proveedores', 'ProviderController@index');
@@ -60,6 +65,9 @@ Route::post('/proveedores/registrar', 'ProviderController@store');
 
 // Provider types
 Route::get('/proveedores/tipos', 'ProviderTypeController@create');
+Route::post('/proveedores/tipos/modificar', 'ProviderTypeController@edit');
+Route::post('/proveedores/tipos/registrar', 'ProviderTypeController@created');
+Route::post('/proveedores/tipos/eliminar', 'ProviderTypeController@delete');
 
                     // Products
 //Categorías

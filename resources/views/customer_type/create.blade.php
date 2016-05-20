@@ -21,15 +21,27 @@
                 </div>
 
                 <div class="x_content">
+                    @if( $errors->count() > 0 )
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Lo sentimos! </strong>Por favor revise los siguientes errores.
+                                    @foreach($errors->all() as $message)
+                                        <p>{{$message}}</p>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                     <br>
-                    <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
-
+                    <form  method="post" action="{{url('/clientes/tipos/registrar')}}" id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <div class="row">
                             <div class="col-md-5 col-md-offset-1">
                                 <div class="form-group">
                                     <label for="first-name">Nombre <span class="required">*</span>
                                     </label>
-                                    <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12">
 
                                 </div>
                             </div>
@@ -37,7 +49,7 @@
                                 <div class="form-group">
                                     <label for="last-name" >Descripción <span class="required">*</span>
                                     </label>
-                                    <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="description" name="description" required="required" class="form-control col-md-7 col-xs-12">
 
                                 </div>
                             </div>
@@ -120,10 +132,10 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Editar cliente</h4>
+                    <h4 class="modal-title">Editar tipo cliente</h4>
                 </div>
 
-                <form action="{{ url('') }}" class="form-horizontal form-label-left"  method="POST" enctype="multipart/form-data">
+                <form action="{{ url('/clientes/tipos/modificar') }}" class="form-horizontal form-label-left"  method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <input type="hidden" name="id" />
@@ -136,9 +148,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="descripcion">Descripción <span class="required">*</span></label>
+                            <label for="description">Descripción <span class="required">*</span></label>
                             <div>
-                                <input type="text" id="descripcion" name="descripcion" class="form-control">
+                                <input type="text" id="description" name="description" class="form-control">
                             </div>
                         </div>
 
@@ -163,7 +175,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Eliminar cliente</h4>
                 </div>
-                <form action="{{ url('') }}" method="POST">
+                <form action="{{ url('/clientes/tipos/eliminar') }}" method="POST">
                     <div class="modal-body">
 
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
