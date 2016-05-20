@@ -14,7 +14,7 @@ class SubcategoryController extends Controller
 {
     public function index()
     {
-        $subcategories = Subcategory::orderBy('name', 'asc')->paginate(4);
+        $subcategories = Subcategory::orderBy('name', 'asc')->paginate(5);
         return view('product.subcategory.index')->with(compact(['subcategories']));
     }
 

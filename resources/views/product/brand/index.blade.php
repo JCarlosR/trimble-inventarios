@@ -2,49 +2,62 @@
 
 @section('title', 'Marcas')
 
+@section('styles')
+    <style>
+        .margen
+        {
+            margin-top:16px;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-
                     <h2>Listado de marcas</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </li>
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                     </ul>
-
                     <div class="clearfix"></div>
+                </div>
+                <div class="x_content table-responsive">
 
-                     <div class="x_content">
-
-                        <br>
-                        <div class="input-group">
-                            <h2><a href="{{ url('/marca/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nueva marca</a></h2>
+                    @if( $errors->count() > 0 )
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Lo sentimos!</strong> Por favor revise los siguientes errores.
+                                    @foreach($errors->all() as $message)
+                                        <p>{{ $message }}</p>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
-                         @if( $errors->count() > 0 )
-                             <div class="row">
-                                 <div class="col-sm-12">
-                                     <div class="alert alert-danger" role="alert">
-                                         <strong>Lo sentimos! </strong>Por favor revise los siguientes errores.
-                                         @foreach($errors->all() as $message)
-                                             <p>{{$message}}</p>
-                                         @endforeach
-                                     </div>
-                                 </div>
-                             </div>
-                         @endif
+                    @endif
 
-                        <table class="table table-hover">
-                            <thead>
+                     <div class="form-inline">
+                         <div class="col-md-4">
+                             <h2><a href="{{ url('/marca/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nueva marca</a></h2>
+                         </div>
+
+                         <div class="col-md-8 input-group margen">
+                             <span class="input-group-addon">Marca</span>
+                             <input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
+                         </div>
+                     </div>
+
+                    <table class="table table-hover">
+                        <thead>
                             <tr>
                                 <th>Código</th>
                                 <th>Marca</th>
                                 <th>Descripción</th>
                                 <th>Opciones</th>
                             </tr>
-                            </thead>
-                            <tbody>
+                        </thead>
+                        <tbody id="tabla">
                             @foreach($brands as $brand)
                                 <tr>
                                     <td>{{ $brand->id }}</td>
@@ -60,10 +73,9 @@
                                     </td>
                                 </tr>
                             @endforeach
-                            </tbody>
-                        </table>
-                         {!! $brands->render() !!}
-                    </div>
+                        </tbody>
+                    </table>
+                    {!! $brands->render() !!}
                 </div>
             </div>
         </div>
@@ -140,4 +152,5 @@
 
 @section('scripts')
     <script src="{{ asset('js/products/brands.js')}}"></script>
+    <script src="{{ asset('js/products/search.js') }}"></script>
 @endsection

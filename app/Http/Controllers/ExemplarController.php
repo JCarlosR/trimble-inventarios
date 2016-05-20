@@ -14,7 +14,7 @@ class ExemplarController extends Controller
 {
     public function index()
     {
-        $exemplars = Exemplar::orderBy('name', 'asc')->paginate(4);
+        $exemplars = Exemplar::orderBy('name', 'asc')->paginate(5);
         return view('product.exemplar.index')->with(compact(['exemplars']));
     }
 

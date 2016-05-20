@@ -2,6 +2,15 @@
 
 @section('title', 'Modelos')
 
+@section('styles')
+    <style>
+        .margen
+        {
+            margin-top:16px;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -15,11 +24,7 @@
                     <div class="clearfix"></div>
                 </div>
 
-                <div class="x_content">
-
-                    <div class="input-group">
-                        <h2><a href="{{ url('modelo/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nuevo modelo </a></h2>
-                    </div>
+                <div class="x_content table-responsive">
 
                     @if( $errors->count() > 0 )
                         <div class="row">
@@ -34,6 +39,17 @@
                         </div>
                     @endif
 
+                    <div class="form-inline">
+                        <div class="col-md-4">
+                            <h2><a href="{{ url('modelo/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nuevo modelo </a></h2>
+                        </div>
+
+                        <div class="col-md-8 input-group margen">
+                            <span class="input-group-addon">Modelo</span>
+                            <input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
+                        </div>
+                    </div>
+
                     <table class="table table-hover">
                         <thead>
                         <tr>
@@ -44,7 +60,7 @@
                             <th>Opciones</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tabla">
                         @foreach($exemplars as $exemplar)
                             <tr>
                                 <td>{{$exemplar->id}}</td>
@@ -140,4 +156,5 @@
 @endsection
 @section('scripts')
     <script src="{{ asset('js/products/exemplars.js')}}"></script>
+    <script src="{{ asset('js/products/search.js') }}"></script>
 @endsection

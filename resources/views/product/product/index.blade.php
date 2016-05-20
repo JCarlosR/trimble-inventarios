@@ -2,6 +2,15 @@
 
 @section('title', 'Productos')
 
+@section('styles')
+    <style>
+        .margen
+        {
+            margin-top:16px;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -16,9 +25,6 @@
                 </div>
 
                 <div class="x_content table-responsive">
-                    <div class="input-group">
-                        <h2><a href="{{ url('/producto/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nuevo producto</a></h2>
-                    </div>
 
                     @if( $errors->count() > 0 )
                         <div class="row">
@@ -32,6 +38,19 @@
                             </div>
                         </div>
                     @endif
+
+                    <div class="form-inline">
+                        <div class="col-md-4">
+                            <h2><a href="{{ url('/producto/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nuevo producto</a></h2>
+                        </div>
+
+                        <div class="col-md-8 input-group margen">
+                                <span class="input-group-addon">Producto</span>
+                                <input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
+                        </div>
+                    </div>
+
+
 
                     <table class="table table-hover">
                         <thead>
@@ -51,14 +70,14 @@
                         </thead>
 
                         @foreach($products as $product)
-                        <tbody>
+                        <tbody id="tabla">
                             <tr>
-                                <td class="col-md-3">{{ str_limit($product->name, $limit = 10, $end = '...') }}</td>
+                                <td>{{ str_limit($product->name, $limit = 20, $end = '...') }}</td>
                                 <td>{{$product->price}}</td>
                                 <td>@if($product->money ==1) S/.  @else $ @endif </td>
                                 <td>@if($product->series ==1) Sí  @else No @endif </td>
                                 <td>{{ str_limit($product->brand->name, $limit = 5, $end = '...') }}</td>
-                                <td class="col-md-2"> {{ str_limit($product->exemplar->name, $limit = 6, $end = '...') }}</td>
+                                <td> {{ str_limit($product->exemplar->name, $limit = 6, $end = '...') }}</td>
                                 <td>{{$product->part_number}}</td>
                                 <td>{{$product->color}}</td>
                                 <td>{{ str_limit($product->category->name, $limit = 7, $end = '...') }}</td>
@@ -242,6 +261,5 @@
 
 @section('scripts')
     <script src="{{ asset('js/products/productsmodal.js') }}"></script>
+    <script src="{{ asset('js/products/search.js') }}"></script>
 @endsection
-
-

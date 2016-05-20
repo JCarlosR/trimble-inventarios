@@ -110,17 +110,17 @@ class SubcategoriesTableSeeder extends Seeder
 
         Subcategory::create([
             'name' => 'MUEBLES',
-            'description' => 'Equipos - BIENES DE OFICINA',
+            'description' => 'Muebles - BIENES DE OFICINA',
             'category_id'=>'7'
         ]);
         Subcategory::create([
             'name' => 'CÓMPUTO',
-            'description' => 'Equipos - BIENES DE OFICINA',
+            'description' => 'Cómputo - BIENES DE OFICINA',
             'category_id'=>'7'
         ]);
         Subcategory::create([
             'name' => 'ÚTILES DE ESCRITORIO',
-            'description' => 'Equipos - BIENES DE OFICINA',
+            'description' => 'Útiles de escritorio - BIENES DE OFICINA',
             'category_id'=>'7'
         ]);
         Subcategory::create([

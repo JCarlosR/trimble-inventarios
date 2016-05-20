@@ -2,6 +2,15 @@
 
 @section('title', 'Subcategorías')
 
+@section('styles')
+    <style>
+        .margen
+        {
+            margin-top:16px;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
@@ -14,58 +23,65 @@
                     </ul>
 
                     <div class="clearfix"></div>
+                </div>
+                <div class="x_content table-responsive">
 
-                    <div class="x_content">
-                        <br>
-                        <div class="input-group">
+                    @if( $errors->count() > 0 )
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Lo sentimos!</strong> Por favor revise los siguientes errores.
+                                    @foreach($errors->all() as $message)
+                                        <p>{{ $message }}</p>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    <div class="form-inline">
+                        <div class="col-md-4">
                             <h2><a href="{{ url('subcategoria/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nueva subcategoría</a></h2>
                         </div>
 
-                        @if( $errors->count() > 0 )
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="alert alert-danger" role="alert">
-                                        <strong>Lo sentimos!</strong> Por favor revise los siguientes errores.
-                                        @foreach($errors->all() as $message)
-                                            <p>{{ $message }}</p>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                </div>
-                        @endif
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th>Código</th>
-                                <th>Subcategoría</th>
-                                <th>Descripción</th>
-                                <th>Categoría</th>
-                                <th>Opciones</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($subcategories as $subcategory)
-                                <tr>
-                                    <td>{{$subcategory->id}}</td>
-                                    <td>{{str_limit($subcategory->name, $limit = 10, $end = '...') }}</td>
-                                    <td>{{str_limit($subcategory->description, $limit = 15, $end = '...') }}</td>
-                                    <td>{{str_limit($subcategory->category->name, $limit = 20, $end = '...') }}</td>
-                                    <td>
-                                        <button type="submit" class="btn btn-success" data-id="{{ $subcategory->id }}" data-name="{{ $subcategory ->name }}"
-                                                data-description="{{ $subcategory->description }}" data-category="{{ $subcategory->category_id }} ">
-                                            <i class="fa fa-pencil"></i>Editar
-                                        </button>
-
-                                        <button type="submit" class="btn btn-danger"  data-delete="{{ $subcategory->id }}" data-name="{{ $subcategory->name }}">
-                                            <i class="fa fa-trash"></i>Eliminar
-                                        </button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                        {!! $subcategories->render() !!}
+                        <div class="col-md-8 input-group margen">
+                            <span class="input-group-addon">Subcategoría</span>
+                            <input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
+                        </div>
                     </div>
+
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Subcategoría</th>
+                            <th>Descripción</th>
+                            <th>Categoría</th>
+                            <th>Opciones</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tabla">
+                        @foreach($subcategories as $subcategory)
+                            <tr>
+                                <td>{{$subcategory->id}}</td>
+                                <td>{{str_limit($subcategory->name, $limit = 10, $end = '...') }}</td>
+                                <td>{{str_limit($subcategory->description, $limit = 15, $end = '...') }}</td>
+                                <td>{{str_limit($subcategory->category->name, $limit = 20, $end = '...') }}</td>
+                                <td>
+                                    <button type="submit" class="btn btn-success" data-id="{{ $subcategory->id }}" data-name="{{ $subcategory ->name }}"
+                                            data-description="{{ $subcategory->description }}" data-category="{{ $subcategory->category_id }} ">
+                                        <i class="fa fa-pencil"></i>Editar
+                                    </button>
+
+                                    <button type="submit" class="btn btn-danger"  data-delete="{{ $subcategory->id }}" data-name="{{ $subcategory->name }}">
+                                        <i class="fa fa-trash"></i>Eliminar
+                                    </button>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                    {!! $subcategories->render() !!}
                 </div>
             </div>
         </div>
@@ -142,4 +158,5 @@
 
 @section('scripts')
     <script src="{{ asset('js/products/subcategories.js')}}"></script>
+    <script src="{{ asset('js/products/search.js') }}"></script>
 @endsection
