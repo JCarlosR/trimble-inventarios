@@ -80,11 +80,11 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <label class="control-label col-md-4" for="cliente">
+                                        <label class=" control-label col-md-4 " for="cliente">
                                             cliente:
                                         </label>
                                         <div class="input-group col-md-8">
-                                            <input type="text" id="clientes" class="form-control">
+                                            <input type="text" id="clientes" class="typeahead form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -116,17 +116,15 @@
                                     <table class="table table-hover table-condensed">
                                         <thead>
                                         <tr>
-                                            <th>#</th>
                                             <th>Venta</th>
                                             <th>Tipo</th>
                                             <th>Fecha</th>
-                                            <th>Observacion</th>
+                                            <th>Observación</th>
                                         </tr>
                                         </thead>
                                         <tbody id="bodyOutput" data-href="{{ url('/salida/listar/detalles/{id}') }}">
                                         @foreach($outputs as $output)
                                             <tr>
-                                                <th scope="row">1</th>
                                                 <td data-id="{{ $output->id }}">{{ $output->id+10000 }}</td>
                                                 <td>{{ ($output->type=='local'?'Local':'Extranjero') }}</td>
                                                 <td>{{ $output->created_at }}</td>
@@ -145,7 +143,6 @@
                                 <div class="col-md-8 col-md-offset-2">
                                     <template id="template-detail">
                                         <tr>
-                                            <th scope="row">1</th>
                                             <td data-name></td>
                                             <td data-series>256314</td>
                                             <td data-quantity>1</td>
@@ -156,7 +153,6 @@
                                     <table class="table table-hover table-condensed">
                                         <thead>
                                         <tr>
-                                            <th>#</th>
                                             <th>Producto</th>
                                             <th>Serie</th>
                                             <th>Cantidad</th>

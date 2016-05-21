@@ -34,41 +34,23 @@ class CustomerTypeController extends Controller
     public function created( Request $request )
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|min:3',
+            'name' => 'required|min:3|unique:customer_types',
             'description'=>'required|min:3',
+        ], [
+            'name.required' => 'Es necesario ingresar un nombre para el tipo de cliente.',
+            'name.min' => 'El nombre debe tener al menos 3 caracteres.',
+            'description.required'=> 'Es necesario ingresar una descripcion para el tipo de cliente.',
+            'description.min'=> 'La descripción debe tener al menos 3 caracteres.',
+            'name.unique'=> 'El tipo de cliente debe tener un nombre único.'
         ]);
 
-        $customer_type_ = CustomerType::where('name',$request->get('name') )->first();
+        if ($validator->fails())
+            return back()->withErrors($validator)->withInput();
 
-        $name="";$descripcion="";
-
-        if( strlen( $request->get('name') ) <4 )
-            $name = "errorName";
-        if( strlen( $request->get('description') ) <4 )
-            $descripcion = "errorDescription";
-
-        if ($validator->fails() OR $name == "errorName" OR $descripcion == "errorDescription" OR $customer_type_ != null)
-        {
-            $data['errors'] = $validator->errors();
-
-            if( $name == "errorName" )
-                $data['errors']->add("name", "El nombre del tipo de cliente debe tener por lo menos 3 caracteres ");
-            else if (  $descripcion == "errorDescription" )
-                $data['errors']->add("errorDescription", "La descripcion del tipo de cliente debe tener por lo menos 3 caracteres ");
-            else if( $customer_type_ != null )
-                $data['errors']->add("name", "No puede registrar 2  tipos con el mismo nombre");
-
-            return redirect('/clientes/tipos')
-                ->withInput($request->all())
-                ->with($data);
-        }
-
-        $customer_type = CustomerType::create([
+        CustomerType::create([
             'name' => $request->get('name'),
             'description' => $request->get('description')
         ]);
-
-        $customer_type->save();
 
         return redirect('/clientes/tipos');
     }

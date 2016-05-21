@@ -21,7 +21,7 @@
 
                     <br>
                     <div class="input-group">
-                        <h2><a href="{{ url('/paquete/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nuevo paquete</a></h2>
+                        <h2><a href="{{ url('/paquete/registrar') }}" class="btn btn-success"><i class="fa fa-plus-square-o"></i> Nuevo paquete</a></h2>
                     </div>
                     <br>
                     <div class="col-md-12 col-sm-12 col-xs-12">

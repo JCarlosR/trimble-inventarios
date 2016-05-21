@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
 use App\ProviderType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -35,41 +36,23 @@ class ProviderTypeController extends Controller
     public function created( Request $request )
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|min:3',
+            'name' => 'required|min:3|unique:provider_types',
             'description'=>'required|min:3',
+        ], [
+            'name.required' => 'Es necesario ingresar un nombre para el tipo de proveedor.',
+            'name.min' => 'El nombre debe tener al menos 3 caracteres.',
+            'description.required'=> 'Es necesario ingresar una descripcion para el tipo de proveedor.',
+            'description.min'=> 'La descripción debe tener al menos 3 caracteres.',
+            'name.unique'=> 'El tipo de proveedor debe tener un nombre único.'
         ]);
 
-        $provider_type_ = ProviderType::where('name',$request->get('name') )->first();
+        if ($validator->fails())
+            return back()->withErrors($validator)->withInput();
 
-        $name="";$descripcion="";
-
-        if( strlen( $request->get('name') ) <4 )
-            $name = "errorName";
-        if( strlen( $request->get('description') ) <4 )
-            $descripcion = "errorDescription";
-
-        if ($validator->fails() OR $name == "errorName" OR $descripcion == "errorDescription" OR $provider_type_ != null)
-        {
-            $data['errors'] = $validator->errors();
-
-            if( $name == "errorName" )
-                $data['errors']->add("name", "El nombre del tipo de proveedor debe tener por lo menos 3 caracteres ");
-            else if (  $descripcion == "errorDescription" )
-                $data['errors']->add("errorDescription", "La descripcion del tipo de proveedor debe tener por lo menos 3 caracteres ");
-            else if( $provider_type_ != null )
-                $data['errors']->add("name", "No puede registrar 2  tipos con el mismo nombre");
-
-            return redirect('/proveedores/tipos')
-                ->withInput($request->all())
-                ->with($data);
-        }
-
-        $provider_type = ProviderType::create([
+        ProviderType::create([
             'name' => $request->get('name'),
             'description' => $request->get('description')
         ]);
-
-        $provider_type->save();
 
         return redirect('/proveedores/tipos');
     }
@@ -77,8 +60,9 @@ class ProviderTypeController extends Controller
     public function delete( Request $request )
     {
         $validator = Validator::make($request->all(), [
-            'id' => 'exists:provider_types,id'
+            'id' => 'exists:provider,id'
         ]);
+        //$type_id = Customer::
         $provider_type = ProviderType::find( $request->get('id') );
         $provider_type->delete();
 

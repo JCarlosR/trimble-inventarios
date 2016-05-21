@@ -7,7 +7,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Ingresos por reutilizacion</h2>
+                    <h2>Ingresos por reutilización</h2>
 
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
@@ -19,7 +19,7 @@
                     <div class="x_content">
                         <br>
                         <div class="input-group">
-                            <a id="NvoIngreso" class="btn btn-success" href="{{ url('/ingreso/reutilizacion') }}"><i class="fa fa-plus-square-o"></i>  Nuevo Ingreso</a>
+                            <a id="NvoIngreso" class="btn btn-success" href="{{ url('/ingreso/reutilizacion') }}"><i class="fa fa-plus-square-o"></i>  Nueva reutilización</a>
                         </div>
                         <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
 
@@ -46,7 +46,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2 col-md-offset-5" >
-                                    <button data-href="{{ url('/ingreso/listar/reutilizacion/{inicio}/{fin}') }}" type="button" class="btn btn-primary btn-block" id="btnShowEntries">Buscar reutilizacion</button>
+                                    <button data-href="{{ url('/ingreso/listar/reutilizacion/{inicio}/{fin}') }}" type="button" class="btn btn-primary btn-block" id="btnShowEntries">Buscar reutilización</button>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -54,17 +54,15 @@
                                     <table class="table table-hover table-condensed">
                                         <thead>
                                         <tr>
-                                            <th>#</th>
                                             <th>Ingreso</th>
                                             <th>Tipo</th>
                                             <th>Fecha</th>
-                                            <th>Observacion</th>
+                                            <th>Observación</th>
                                         </tr>
                                         </thead>
                                         <tbody id="bodyEntries" data-href="{{ url('/ingreso/listar/detalles/{id}') }}">
                                         @foreach($entries as $entry)
                                             <tr>
-                                                <th scope="row">1</th>
                                                 <td data-id="{{ $entry->id }}">{{ $entry->id+10000 }}</td>
                                                 <td>{{ ($entry->type=='local'?'Local':'Extranjero') }}</td>
                                                 <td>{{ $entry->created_at }}</td>
@@ -82,7 +80,6 @@
                                 <div class="col-md-8 col-md-offset-2">
                                     <template id="template-detail">
                                         <tr>
-                                            <th scope="row">1</th>
                                             <td data-name></td>
                                             <td data-series>256314</td>
                                             <td data-quantity>1</td>
@@ -93,7 +90,6 @@
                                     <table class="table table-hover table-condensed">
                                         <thead>
                                         <tr>
-                                            <th>#</th>
                                             <th>Producto</th>
                                             <th>Serie</th>
                                             <th>Cantidad</th>
@@ -108,16 +104,6 @@
                                 </div>
 
                             </div>
-                            {{--
-                            <div class="form-group">
-                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
-                                    <button type="submit" class="btn btn-primary">Retornar</button>
-                                    <button type="submit" class="btn btn-danger">Cancelar</button>
-                                </div>
-                            </div>
-                            --}}
-
-                            
                         </form>
                     </div>
                 </div>

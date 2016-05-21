@@ -1,6 +1,6 @@
 @extends('layouts.panel')
 
-@section('title', 'Ingresos')
+@section('title', 'Salidas')
 
 @section('content')
     <div class="row">
@@ -19,7 +19,9 @@
                     <div class="x_content">
                         <br>
                         <div class="input-group">
-                            <a href="{{ url('/salida/alquiler') }}" id="NvoIngreso" class="btn btn-success"><i class="fa fa-plus-square-o"></i>  Nueva Alquiler</a>
+                            <a href="{{ url('/salida/alquiler') }}" id="NvoIngreso" class="btn btn-success">
+                                <i class="fa fa-plus-square-o"></i>  Nuevo alquiler
+                            </a>
                         </div>
                         <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
 

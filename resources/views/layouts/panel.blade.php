@@ -25,7 +25,7 @@
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="{{ url('/home') }}" class="site_title"><i class="fa fa-battery-full"></i> <span>Trimble Perú</span></a>
+                    <a href="{{ url('/') }}" class="site_title"><i class="fa fa-battery-full"></i> <span>Trimble Perú</span></a>
                 </div>
 
                 <div class="clearfix"></div>
@@ -49,8 +49,8 @@
                         <ul class="nav side-menu">
                             <li><a><i class="fa fa-cubes"></i> Ingresos <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="{{ url('/ingreso/listar/retorno') }}">Retorno</a></li>
                                     <li><a href="{{ url('/ingreso/listar/compra') }}">Compra</a></li>
+                                    <li><a href="{{ url('/ingreso/listar/retorno') }}">Retorno</a></li>
                                     <li><a href="{{ url('/ingreso/listar/reutilizacion') }}">Reutilización</a></li>
                                 </ul>
                             </li>
@@ -97,8 +97,8 @@
 
                             <li><a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="chartjs.html">Chart JS</a></li>
-                                    <li><a href="chartjs2.html">Chart JS2</a></li>
+                                    <li><a href="{{ url('/') }}">Reporte 1</a></li>
+                                    <li><a href="{{ url('/') }}">Reporte 2</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -151,91 +151,15 @@
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <li><a href="javascript:;">  Profile</a>
+                                <li><a href="#">  Perfil</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:;">
-                                        <span class="badge bg-red pull-right">50%</span>
-                                        <span>Settings</span>
-                                    </a>
+                                    <a href="#"> Configuración</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:;">Help</a>
+                                    <a href="#">Ayuda</a>
                                 </li>
-                                <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li role="presentation" class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-envelope-o"></i>
-                                <span class="badge bg-green">6</span>
-                            </a>
-                            <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                                <li>
-                                    <a>
-                        <span class="image">
-                                          <img src="{{ asset('images/img.jpg') }}" alt="Profile Image" />
-                                      </span>
-                        <span>
-                                          <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                                      </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                        <span class="image">
-                                          <img src="{{ asset('images/img.jpg') }}" alt="Profile Image" />
-                                      </span>
-                        <span>
-                                          <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                                      </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                        <span class="image">
-                                          <img src="{{ asset('images/img.jpg') }}" alt="Profile Image" />
-                                      </span>
-                        <span>
-                                          <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                                      </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                        <span class="image">
-                                          <img src="{{ asset('images/img.jpg') }}" alt="Profile Image" />
-                                      </span>
-                        <span>
-                                          <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                                      </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="text-center">
-                                        <a>
-                                            <strong>See All Alerts</strong>
-                                            <i class="fa fa-angle-right"></i>
-                                        </a>
-                                    </div>
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-sign-out pull-right"></i> Salir</a>
                                 </li>
                             </ul>
                         </li>

@@ -73,7 +73,7 @@
                     <div class="x_content">
                         <br>
                         <div class="input-group">
-                            <a id="NvoIngreso" class="btn btn-success" href="{{ url('/ingreso/compra') }}"><i class="fa fa-plus-square-o"></i>  Nuevo Ingreso</a>
+                            <a id="NvoIngreso" class="btn btn-success" href="{{ url('/ingreso/compra') }}"><i class="fa fa-plus-square-o"></i>  Nueva compra</a>
                         </div>
                         <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
 
@@ -84,7 +84,7 @@
                                             Proveedor:
                                         </label>
                                         <div class="input-group col-md-8">
-                                            <input type="text" id="proveedores" class="form-control">
+                                            <input type="text" id="proveedores" class="typeahead form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -116,17 +116,15 @@
                                     <table class="table table-hover table-condensed">
                                         <thead>
                                         <tr>
-                                            <th>#</th>
                                             <th>Ingreso</th>
                                             <th>Tipo</th>
                                             <th>Fecha</th>
-                                            <th>Observacion</th>
+                                            <th>Observación</th>
                                         </tr>
                                         </thead>
                                         <tbody id="bodyEntries" data-href="{{ url('/ingreso/listar/detalles/{id}') }}">
                                         @foreach($entries as $entry)
                                         <tr>
-                                            <th scope="row">1</th>
                                             <td data-id="{{ $entry->id }}">{{ $entry->id+10000 }}</td>
                                             <td>{{ ($entry->type=='local'?'Local':'Extranjero') }}</td>
                                             <td>{{ $entry->created_at }}</td>
@@ -144,7 +142,6 @@
                                 <div class="col-md-8 col-md-offset-2">
                                     <template id="template-detail">
                                         <tr>
-                                            <th scope="row">1</th>
                                             <td data-name></td>
                                             <td data-series>256314</td>
                                             <td data-quantity>1</td>
@@ -155,7 +152,6 @@
                                     <table class="table table-hover table-condensed">
                                         <thead>
                                         <tr>
-                                            <th>#</th>
                                             <th>Producto</th>
                                             <th>Serie</th>
                                             <th>Cantidad</th>

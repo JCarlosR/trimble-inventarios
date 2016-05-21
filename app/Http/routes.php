@@ -15,102 +15,106 @@ Route::auth();
 
 Route::get('/', 'HomeController@index');
 
+Route::group(['middleware' => 'auth'], function () {
+    // Ingresos
+    Route::get('/ingreso/listar/retorno', 'EntryController@getRetornos');
+    Route::get('/ingreso/retorno', 'EntryController@getRetorno');
 
-// Ingresos
-Route::get('/ingreso/listar/retorno', 'EntryController@getRetornos');
-Route::get('/ingreso/retorno', 'EntryController@getRetorno');
+    Route::get('/ingreso/listar/compra', 'EntryController@getCompras');
+    Route::get('/ingreso/listar/compra/{proveedor}/{inicio}/{fin}', 'EntryController@getComprasFiltro');
+    Route::get('/ingreso/listar/detalles/{id}', 'EntryController@getCompraDetalles');
+    Route::get('/ingreso/compra', 'EntryController@getRegistroCompra');
 
-Route::get('/ingreso/listar/compra', 'EntryController@getCompras');
-Route::get('/ingreso/listar/compra/{proveedor}/{inicio}/{fin}', 'EntryController@getComprasFiltro');
-Route::get('/ingreso/listar/detalles/{id}', 'EntryController@getCompraDetalles');
-Route::get('/ingreso/compra', 'EntryController@getRegistroCompra');
+    Route::get('/ingreso/listar/reutilizacion', 'EntryController@getReutilizacion');
+    Route::get('/ingreso/listar/reutilizacion/{inicio}/{fin}', 'EntryController@getReutilizacionFiltro');
+    Route::get('/ingreso/reutilizacion', 'EntryController@getRegistroReutilizacion');
 
-Route::get('/ingreso/listar/reutilizacion', 'EntryController@getReutilizacion');
-Route::get('/ingreso/listar/reutilizacion/{inicio}/{fin}', 'EntryController@getReutilizacionFiltro');
-Route::get('/ingreso/reutilizacion', 'EntryController@getRegistroReutilizacion');
-
-Route::post('/ingreso/compra', 'EntryController@postRegistroCompra');
-Route::post('/ingreso/reutilizacion', 'EntryController@postRegistroReutilizacion');
+    Route::post('/ingreso/compra', 'EntryController@postRegistroCompra');
+    Route::post('/ingreso/reutilizacion', 'EntryController@postRegistroReutilizacion');
 
 // Salidas
-Route::get('/salida/venta', 'OutputController@getRegistroVenta');
-Route::get('/salida/listar/venta', 'OutputController@getVentas');
-Route::get('/salida/listar/venta/{cliente}/{inicio}/{fin}', 'OutputController@getVentasFiltro');
-Route::post('/salida/venta', 'OutputController@postRegistroVenta');
-Route::get('/salida/listar/detalles/{id}', 'OutputController@getVentaDetalles');
+    Route::get('/salida/venta', 'OutputController@getRegistroVenta');
+    Route::get('/salida/listar/venta', 'OutputController@getVentas');
+    Route::get('/salida/listar/venta/{cliente}/{inicio}/{fin}', 'OutputController@getVentasFiltro');
+    Route::post('/salida/venta', 'OutputController@postRegistroVenta');
+    Route::get('/salida/listar/detalles/{id}', 'OutputController@getVentaDetalles');
 
-Route::get('/salida/alquiler', 'OutputController@getAlquiler');
-Route::get('/salida/listar/alquiler', 'OutputController@getListaAlquiler');
+    Route::get('/salida/alquiler', 'OutputController@getAlquiler');
+    Route::get('/salida/listar/alquiler', 'OutputController@getListaAlquiler');
 
-Route::get('/salida/baja', 'OutputController@getBaja');
-Route::get('/salida/listar/baja', 'OutputController@getListaBaja');
+    Route::get('/salida/baja', 'OutputController@getBaja');
+    Route::get('/salida/listar/baja', 'OutputController@getListaBaja');
 
 
 // Customers
-Route::get('/clientes', 'CustomerController@index');
-Route::get('/clientes/registrar', 'CustomerController@create');
-Route::post('/clientes/registrar', 'CustomerController@store');
-Route::post('/clientes/modificar', 'CustomerController@edit');
+    Route::get('/clientes', 'CustomerController@index');
+    Route::get('/clientes/registrar', 'CustomerController@create');
+    Route::post('/clientes/registrar', 'CustomerController@store');
+    Route::post('/clientes/modificar', 'CustomerController@edit');
 
 // Customer types
-Route::get('/clientes/tipos', 'CustomerTypeController@create');
-Route::post('/clientes/tipos/modificar', 'CustomerTypeController@edit');
-Route::post('/clientes/tipos/registrar', 'CustomerTypeController@created');
-Route::post('/clientes/tipos/eliminar', 'CustomerTypeController@delete');
+    Route::get('/clientes/tipos', 'CustomerTypeController@create');
+    Route::post('/clientes/tipos/modificar', 'CustomerTypeController@edit');
+    Route::post('/clientes/tipos/registrar', 'CustomerTypeController@created');
+    Route::post('/clientes/tipos/eliminar', 'CustomerTypeController@delete');
 
 // Providers
-Route::get('/proveedores', 'ProviderController@index');
-Route::get('/proveedores/registrar', 'ProviderController@create');
-Route::post('/proveedores/registrar', 'ProviderController@store');
+    Route::get('/proveedores', 'ProviderController@index');
+    Route::get('/proveedores/registrar', 'ProviderController@create');
+    Route::post('/proveedores/registrar', 'ProviderController@store');
 
 // Provider types
-Route::get('/proveedores/tipos', 'ProviderTypeController@create');
-Route::post('/proveedores/tipos/modificar', 'ProviderTypeController@edit');
-Route::post('/proveedores/tipos/registrar', 'ProviderTypeController@created');
-Route::post('/proveedores/tipos/eliminar', 'ProviderTypeController@delete');
+    Route::get('/proveedores/tipos', 'ProviderTypeController@create');
+    Route::post('/proveedores/tipos/modificar', 'ProviderTypeController@edit');
+    Route::post('/proveedores/tipos/registrar', 'ProviderTypeController@created');
+    Route::post('/proveedores/tipos/eliminar', 'ProviderTypeController@delete');
 
-                    // Products
+    // Products
 //Categorías
-Route::get('/categoria', 'CategoryController@index');
-Route::get('/categoria/registrar', 'CategoryController@create');
-Route::post('/categoria/registrar', 'CategoryController@created');
-Route::post('categoria/modificar','CategoryController@edit');
-Route::post('categoria/eliminar','CategoryController@delete');
+    Route::get('/categoria', 'CategoryController@index');
+    Route::get('/categoria/registrar', 'CategoryController@create');
+    Route::post('/categoria/registrar', 'CategoryController@created');
+    Route::post('categoria/modificar','CategoryController@edit');
+    Route::post('categoria/eliminar','CategoryController@delete');
 //Subcategorías
-Route::get('/subcategoria', 'SubcategoryController@index');
-Route::get('/subcategoria/registrar', 'SubcategoryController@create');
-Route::post('/subcategoria/registrar', 'SubcategoryController@created');
-Route::get('subcategoria/dropdown','SubcategoryController@dropdown');
-Route::post('subcategoria/modificar','SubcategoryController@edit');
-Route::post('subcategoria/eliminar','SubcategoryController@delete');
+    Route::get('/subcategoria', 'SubcategoryController@index');
+    Route::get('/subcategoria/registrar', 'SubcategoryController@create');
+    Route::post('/subcategoria/registrar', 'SubcategoryController@created');
+    Route::get('subcategoria/dropdown','SubcategoryController@dropdown');
+    Route::post('subcategoria/modificar','SubcategoryController@edit');
+    Route::post('subcategoria/eliminar','SubcategoryController@delete');
 //Marcas
-Route::get('/marca', 'BrandController@index');
-Route::get('/marca/registrar', 'BrandController@create');
-Route::post('/marca/registrar', 'BrandController@created');
-Route::post('marca/modificar','BrandController@edit');
-Route::post('marca/eliminar','BrandController@delete');
+    Route::get('/marca', 'BrandController@index');
+    Route::get('/marca/registrar', 'BrandController@create');
+    Route::post('/marca/registrar', 'BrandController@created');
+    Route::post('marca/modificar','BrandController@edit');
+    Route::post('marca/eliminar','BrandController@delete');
 //Modelos
-Route::get('/modelo', 'ExemplarController@index');
-Route::get('/modelo/registrar', 'ExemplarController@create');
-Route::post('/modelo/registrar', 'ExemplarController@created');
-Route::get('modelo/dropdown','ExemplarController@dropdown');
-Route::post('modelo/modificar','ExemplarController@edit');
-Route::post('modelo/eliminar','ExemplarController@delete');
+    Route::get('/modelo', 'ExemplarController@index');
+    Route::get('/modelo/registrar', 'ExemplarController@create');
+    Route::post('/modelo/registrar', 'ExemplarController@created');
+    Route::get('modelo/dropdown','ExemplarController@dropdown');
+    Route::post('modelo/modificar','ExemplarController@edit');
+    Route::post('modelo/eliminar','ExemplarController@delete');
 //Productos
-Route::get('/producto', 'ProductController@index');
-Route::get('/producto/registrar', 'ProductController@create');
-Route::post('/producto/registrar', 'ProductController@created');
-Route::get('/producto/categoria', 'ProductController@categoria');
-Route::get('/producto/marca', 'ProductController@marca');
-Route::get('producto/subcategoria/{categoria}','ProductController@subcategoria');
-Route::get('producto/modelo/{marca}','ProductController@modelo');
-Route::post('producto/modificar','ProductController@edit');
-Route::post('producto/eliminar','ProductController@delete');
+    Route::get('/producto', 'ProductController@index');
+    Route::get('/producto/registrar', 'ProductController@create');
+    Route::post('/producto/registrar', 'ProductController@created');
+    Route::get('/producto/categoria', 'ProductController@categoria');
+    Route::get('/producto/marca', 'ProductController@marca');
+    Route::get('producto/subcategoria/{categoria}','ProductController@subcategoria');
+    Route::get('producto/modelo/{marca}','ProductController@modelo');
+    Route::post('producto/modificar','ProductController@edit');
+    Route::post('producto/eliminar','ProductController@delete');
 //Paquetes
-Route::get('/paquete', 'PackageController@index');
-Route::get('/paquete/registrar', 'PackageController@create');
+    Route::get('/paquete', 'PackageController@index');
+    Route::get('/paquete/registrar', 'PackageController@create');
 
 // Search
-Route::get('/producto/buscar/{name}', 'ProductController@search');
+    Route::get('/producto/buscar/{name}', 'ProductController@search');
 
-Route::get('/items/producto/{id}', 'ItemController@searchItems');
+    Route::get('/items/producto/{id}', 'ItemController@searchItems');
+
+});
+
+
