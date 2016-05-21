@@ -62,31 +62,32 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Nombre</th>
+                                            <th>Nombres</th>
+                                            <th>Apellidos</th>
                                             <th>Direccion</th>
+                                            <th>Género</th>
                                             <th>Teléfono</th>
                                             <th>Tipo</th>
-                                            <th>Comentario</th>
                                             <th>Acción</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     @foreach( $clientes as $cliente)
                                         <tr>
-                                            <th scope="row">1</th>
                                             <td>{{ $cliente->name }}</td>
+                                            <td>{{ $cliente->surname }}</td>
                                             <td>{{ $cliente->address }}</td>
+                                            <td>{{ $cliente->gender }}</td>
                                             <td>{{ $cliente->phone }}</td>
                                             <td>{{ $cliente->customer_type->name }}</td>
-                                            <td>{{ $cliente->comments }}</td>
                                             <td>
                                                 <button type="button" class="btn btn-primary" data-id="{{ $cliente->id }}"
                                                         data-name="{{ $cliente->name }}"
+                                                        data-surname="{{ $cliente->surname }}"
                                                         data-address="{{ $cliente->address }}"
+                                                        data-gender="{{ $cliente->gender }}"
                                                         data-phone="{{ $cliente->phone }}"
-                                                        data-typeid="{{ $cliente->customer_type_id }}"
-                                                        data-comments="{{ $cliente->comments }}"><i class="fa fa-pencil"></i></button>
+                                                        data-typeid="{{ $cliente->customer_type_id }}"><i class="fa fa-pencil"></i></button>
                                                 <button type="button"  class="btn btn-danger" data-delete="{{ $cliente->id }}" data-name="{{ $cliente->name }}"><i class="fa fa-trash"></i></button>
                                             </td>
                                         </tr>
@@ -120,6 +121,12 @@
                                 <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="surname">Apellidos <span class="required">*</span></label>
+                            <div>
+                                <input type="text" id="surname" name="surname" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label for="address">Dirección <span class="required">*</span></label>
@@ -133,9 +140,19 @@
                             <div>
                                 <input type="text" id="phone" name="phone" value="" class="form-control">
                             </div>
-                            <label for="comments">Comentario <span class="required">*</span></label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender">Género</label>
                             <div>
-                                <input type="text" id="comments" name="comments" value="" class="form-control">
+                                <div id="gender" class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-default">
+                                        <input type="radio" name="gender" id="Masculino" value="Masculino" checked> Hombre
+                                    </label>
+                                    <label class="btn btn-default">
+                                        <input type="radio" name="gender" id="Femenino" value="Femenino"> &nbsp;Mujer
+                                    </label>
+                                </div>
                             </div>
                         </div>
 
@@ -171,7 +188,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Eliminar cliente</h4>
                 </div>
-                <form action="{{ url('') }}" method="POST">
+                <form action="{{ url('/clientes/eliminar') }}" method="POST">
                     <div class="modal-body">
 
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />

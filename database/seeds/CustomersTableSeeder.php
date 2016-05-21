@@ -13,15 +13,19 @@ class CustomersTableSeeder extends Seeder
     public function run()
     {
         Customer::create([
-            'name' => 'Juan Perez Perez',
+            'name' => 'Juan',
+            'surname' => 'Perez Perez',
             'address' => 'Las fatimas 222',
+            'gender' => 'Masculino',
             'phone' => '958654512',
             'customer_type_id' => 1
         ]);
 
         Customer::create([
-            'name' => 'Pablo Perez Perez',
+            'name' => 'Pablo',
+            'surname' => 'Perez Perez',
             'address' => 'Las fatimas 224',
+            'gender' => 'Masculino',
             'phone' => '958654514',
             'customer_type_id' => 1
         ]);

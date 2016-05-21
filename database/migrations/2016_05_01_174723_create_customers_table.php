@@ -16,10 +16,10 @@ class CreateCustomersTable extends Migration
             $table->increments('id');
 
             $table->string('name');
+            $table->string('surname');
             $table->string('address');
+            $table->enum('gender', ['Masculino', 'Femenino']);
             $table->string('phone');
-
-            $table->string('comments');
 
             $table->integer('customer_type_id')->unsigned();
             $table->foreign('customer_type_id')->references('id')->on('customer_types');

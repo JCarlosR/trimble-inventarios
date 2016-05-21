@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
 use App\CustomerType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -19,9 +20,18 @@ class CustomerTypeController extends Controller
     public function edit( Request $request )
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|min:3',
+            'name' => 'required|min:3|unique:customer_types',
             'description'=>'required|min:3',
+        ], [
+            'name.required' => 'Es necesario ingresar un nombre para el tipo de cliente.',
+            'name.min' => 'El nombre debe tener al menos 3 caracteres.',
+            'description.required'=> 'Es necesario ingresar una descripcion para el tipo de cliente.',
+            'description.min'=> 'La descripción debe tener al menos 3 caracteres.',
+            'name.unique'=> 'El tipo de cliente debe tener un nombre único.'
         ]);
+
+        if ($validator->fails())
+            return back()->withErrors($validator)->withInput();
 
         $customer_type = CustomerType::find( $request->get('id') );
         $customer_type->name = $request->get('name');
@@ -60,7 +70,19 @@ class CustomerTypeController extends Controller
         $validator = Validator::make($request->all(), [
             'id' => 'exists:customer_types,id'
         ]);
-        $customer_type = CustomerType::find( $request->get('id') );
+        $customer = Customer::where( 'customer_type_id', $request->get('id') )->first();
+
+        if ($validator->fails() OR $customer != null)
+        {
+            $data['errors'] = $validator->errors();
+            if( $customer != null )
+                $data['errors']->add("id", "No puede eliminar el tipo de cliente seleccionado, porque existen clientes asignados a ese tipo.");
+
+            return redirect('/clientes/tipos')
+                ->withInput($request->all())
+                ->with($data);
+        }
+        $customer_type = CustomerType::find($request->get('id'));
         $customer_type->delete();
 
         return redirect('/clientes/tipos');

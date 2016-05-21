@@ -29,22 +29,35 @@
                 </div>
 
                 <div class="x_content">
+                    @if( $errors->count() > 0 )
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Lo sentimos! </strong>Por favor revise los siguientes errores.
+                                    @foreach($errors->all() as $message)
+                                        <p>{{$message}}</p>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                     <br>
-                    <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                    <form action="{{ url('/clientes/registrar') }}" method="post" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <div class="row">
                             <div class="col-md-5 col-md-offset-1">
                                 <div class="form-group">
-                                    <label for="first-name">Nombres <span class="required">*</span>
+                                    <label for="name">Nombres <span class="required">*</span>
                                     </label>
-                                    <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12">
 
                                 </div>
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-5 ">
                                 <div class="form-group">
-                                    <label for="last-name" >Apellidos <span class="required">*</span>
+                                    <label for="surname">Apellidos <span class="required">*</span>
                                     </label>
-                                    <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="surname" name="surname" required="required" class="form-control col-md-7 col-xs-12">
 
                                 </div>
                             </div>
@@ -53,9 +66,9 @@
                         <div class="row">
                             <div class="col-md-5 col-md-offset-1">
                                 <div class="form-group">
-                                    <label for="middle-name">Dirección</label>
+                                    <label for="address">Dirección</label>
 
-                                    <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">
+                                    <input id="address"  class="form-control col-md-7 col-xs-12" type="text" name="address">
                                 </div>
                             </div>
                             <div class="col-md-5">
@@ -64,10 +77,10 @@
                                     <div>
                                         <div id="gender" class="btn-group" data-toggle="buttons">
                                             <label class="btn btn-default">
-                                                <input type="radio" name="gender" value="male"> Hombre
+                                                <input type="radio" name="gender" value="Masculino"> Hombre
                                             </label>
                                             <label class="btn btn-default">
-                                                <input type="radio" name="gender" value="female"> &nbsp;Mujer
+                                                <input type="radio" name="gender" value="Femenino"> &nbsp;Mujer
                                             </label>
                                         </div>
                                     </div>
@@ -91,7 +104,7 @@
                                         Tipo de cliente <span class="required">*</span>
                                     </label>
                                     <div>
-                                        <select name="" class="form-control col-md-7 col-xs-12" required="required">
+                                        <select name="types" class="form-control col-md-7 col-xs-12" required="required">
                                             @foreach($types as $type)
                                                 <option value="{{$type->id}}">{{ $type->name }}</option>
                                             @endforeach

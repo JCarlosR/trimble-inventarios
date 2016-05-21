@@ -26,8 +26,11 @@ function mostrarEditar() {
     var phone = $(this).data('phone');
     $modalEditar.find('[name="phone"]').val(phone);
 
-    var comments = $(this).data('comments');
-    $modalEditar.find('[name="comments"]').val(comments);
+    var surname = $(this).data('surname');
+    $modalEditar.find('[name="surname"]').val(surname);
+
+    var gender = $(this).data('gender');
+    document.getElementById(gender).checked  = true;
 
     var typeid = $(this).data('typeid');
     document.getElementById(typeid).selected = true;

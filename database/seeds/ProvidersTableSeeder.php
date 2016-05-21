@@ -18,10 +18,11 @@ class ProvidersTableSeeder extends Seeder
         ]);
 
         Provider::create([
-            'name' => 'Proveedor ejemplo',
-            'address' => 'Dirección de ejemplo',
-            'phone' => '333666999',
-            'comments' => 'Este proveedor es solo para motivos de testing.',
+            'name' => 'Proveedor de prueba',
+            'surname' => 'Perez Perez',
+            'address' => 'Las fatimas 222',
+            'gender' => 'Masculino',
+            'phone' => '958654512',
             'provider_type_id' => 1
         ]);
     }

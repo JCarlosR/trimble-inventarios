@@ -16,10 +16,10 @@ class CreateProvidersTable extends Migration
             $table->increments('id');
 
             $table->string('name');
+            $table->string('surname');
             $table->string('address');
+            $table->enum('gender', ['Masculino', 'Femenino']);
             $table->string('phone');
-
-            $table->string('comments');
 
             $table->integer('provider_type_id')->unsigned();
             $table->foreign('provider_type_id')->references('id')->on('provider_types');

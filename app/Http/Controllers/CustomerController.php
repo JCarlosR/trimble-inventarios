@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Customer;
 use App\CustomerType;
+use App\Output;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests;
@@ -27,56 +28,92 @@ class CustomerController extends Controller
     public function edit( Request $request )
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|min:5',
+            'name' => 'required|min:3',
+            'surname' => 'required|min:3',
             'types'=>'exists:customer_types,id',
             'address'=>'min:5',
+        ], [
+            'name.required' => 'Es nesecario ingresar el nombre del cliente.',
+            'name.min' => 'El nombre del cliente debe tener 3 letras como mínimo',
+            'surname.required' => 'Es necesario ingresar los apellidos del cliente',
+            'surname.min' => 'Es necesario ingresar por lo menos 3 caracteres.',
+            'types.exists' => 'El tipo de cliente no existe.',
+            'address.min' => 'La dirección debe contener por lo menos 5 letras.'
         ]);
 
-        $name="";$types="";$address="";$customer_repeated="";$customer_id  ="";
-        $customer_ = Customer::where('name',$request->get('name') )->first();
+        if ($validator->fails())
+            return back()->withErrors($validator)->withInput();
 
-        if( $customer_ != null )
-        {
-            $customer_id = $customer_->id;
-            if( $customer_id != $request->get('id') )
-                $customer_repeated = "errorRepeated";
-        }
+        $customer = Customer::find( $request->get('id') );
+        $customer->name = $request->get('name');
+        $customer->surname = $request->get('surname');
+        $customer->address = $request->get('address');
+        $customer->gender = $request->get('gender');
+        $customer->phone = $request->get('phone');
+        $customer->customer_type_id = $request->get('types');
 
-        if( strlen( $request->get('name') ) <5 )
-            $name = "errorName";
-        if( strlen($request->get('address') ) <5 )
-            $address = "errorAddress";
-        $customer_type = CustomerType::find($request->get('types'));
-        if( $customer_type = null )
-        {
-            $types = "errorType";
-        }
+        $customer->save();
 
-        if ($validator->fails() OR $name == "errorName" OR $address == "errorAddress" OR $types == "errorType" OR $customer_repeated == "errorRepeated" )
+        return redirect('clientes');
+    }
+
+    public function store( Request $request)
+    {
+        //dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|min:3|unique:customers',
+            'surname' => 'required|min:3',
+            'types'=>'exists:customer_types,id',
+            'address'=>'required|min:5',
+        ], [
+            'name.required' => 'Es nesecario ingresar el nombre del cliente.',
+            'name.min' => 'El nombre del cliente debe tener 3 letras como mínimo',
+            'name.unique' => 'El nombre del cliente se ha repetido. Ingrese otro nuevo',
+            'surname.required' => 'Es necesario ingresar los apellidos del cliente',
+            'surname.min' => 'Es necesario ingresar por lo menos 3 caracteres.',
+            'types.exists' => 'El tipo de cliente no existe.',
+            'address.min' => 'La dirección debe contener por lo menos 5 letras.',
+            'address.required' => 'Es nesecario ingresar la direccion del cliente.',
+        ]);
+
+        if ($validator->fails())
+            return back()->withErrors($validator)->withInput();
+
+        Customer::create([
+            'name' => $request->get('name'),
+            'surname' => $request->get('surname'),
+            'address' => $request->get('address'),
+            'gender' => $request->get('gender'),
+            'phone' => $request->get('phone'),
+            'comments' => $request->get('comments'),
+            'customer_type_id' => $request->get('types'),
+        ]);
+
+        return redirect('clientes');
+
+    }
+
+    public function delete( Request $request )
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'exists:customers,id'
+        ],[
+            'id.exists' => 'El cliente no puede ser eliminado porque no existe.'
+        ]);
+        $customer_ = Output::where('customer_id', $request->get('id'));
+        //dd($customer);
+        if ($validator->fails() OR $customer_ != null)
         {
             $data['errors'] = $validator->errors();
-            if( $name == "errorName" )
-                $data['errors']->add("name", "El nombre del cliente debe tener por lo menos 5 caracteres ");
-            else if (  $address == "errorAddress" )
-                $data['errors']->add("address", "La direcci�n del cliente debe tener por lo menos 5 caracteres ");
-            else if (  $types == "errorType")
-                $data['errors']->add("types", "Debe ingresar un tipo de cliente valido ");
-            else if( $customer_repeated == "errorRepeated" )
-                $data['errors']->add("name", "Ya existe un cliente con el mismo nombre");
+            if( $customer_ != null )
+                $data['errors']->add("id", "No puede eliminar el cliente seleccionado, porque tiene salidas registradase.");
 
             return redirect('clientes')
                 ->withInput($request->all())
                 ->with($data);
         }
-
-        $customer = Customer::find( $request->get('id') );
-        $customer->name = $request->get('name');
-        $customer->address = $request->get('address');
-        $customer->phone = $request->get('phone');
-        $customer->comments = $request->get('comments');
-        $customer->customer_type_id = $request->get('types');
-
-        $customer->save();
+        $customer = Customer::find($request->get('id'));
+        $customer->delete();
 
         return redirect('clientes');
     }
