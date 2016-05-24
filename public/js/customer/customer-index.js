@@ -14,6 +14,8 @@ var $modalEditar;
 var $modalEliminar;
 
 function mostrarEditar() {
+    $('[data-clase]').removeClass('active');
+
     var id = $(this).data('id');
     $modalEditar.find('[name="id"]').val(id);
 
@@ -26,14 +28,15 @@ function mostrarEditar() {
     var phone = $(this).data('phone');
     $modalEditar.find('[name="phone"]').val(phone);
 
-    var surname = $(this).data('surname');
-    $modalEditar.find('[name="surname"]').val(surname);
+    var document = $(this).data('document');
+    $modalEditar.find('[name="document"]').val(document);
 
-    var gender = $(this).data('gender');
-    document.getElementById(gender).checked  = true;
-
+    var persona = $(this).data('persona');
+    $('#'+persona).prop('checked', true);
+    $('#'+persona).parent().addClass('active');
+    
     var typeid = $(this).data('typeid');
-    document.getElementById(typeid).selected = true;
+    $('#'+typeid).prop('selected', true);
 
     $modalEditar.modal('show');
 }
