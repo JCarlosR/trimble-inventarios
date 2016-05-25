@@ -14,9 +14,12 @@ class CreatePackagesTable extends Migration
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->increments('id');
+
             $table->string('name');
             $table->string('description');
+
             $table->enum('state', ['low', 'sold', 'rented', 'available']);
+
             $table->timestamps();
         });
     }
