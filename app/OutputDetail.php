@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class OutputDetail extends Model
 {
-    //
+
     protected $fillable = [
         'output_id', 'item_id', 'price'
     ];
@@ -19,6 +19,11 @@ class OutputDetail extends Model
     public function item()
     {
         return $this->belongsTo('App\Item');
+    }
+
+    public function devolution()
+    {
+        return $this->hasOne('App\Devolution');
     }
 
 }

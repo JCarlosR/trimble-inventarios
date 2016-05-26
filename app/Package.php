@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Package extends Model
 {
-    //
+
+    public function details()
+    {
+        return $this->hasMany('App\PackageDetail');
+    }
+
 }

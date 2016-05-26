@@ -14,10 +14,21 @@ class CreateOutputsTable extends Migration
     {
         Schema::create('outputs', function (Blueprint $table) {
             $table->increments('id');
+
+            // Customer
             $table->integer('customer_id')->unsigned()->nullable();
             $table->foreign('customer_id')->references('id')->on('customers');
+
+            // Employee who registered the output
+            $table->enum('reason', ['sale', 'rental']);
+
+            // For rentals, this indicates the status of the devolution
+            $table->boolean('completed')->default(true);
+
+            // Simple data
             $table->enum('type', ['local', 'foreign']);
             $table->string('comment');
+
             $table->timestamps();
         });
     }
