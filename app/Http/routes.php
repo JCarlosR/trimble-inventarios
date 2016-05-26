@@ -67,6 +67,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/proveedores/registrar', 'ProviderController@store');
     Route::post('/proveedores/modificar', 'ProviderController@edit');
     Route::post('/proveedores/eliminar', 'ProviderController@delete');
+    Route::get('/proveedores/eliminados', 'ProviderController@back');
+    Route::post('/proveedores/restablecer', 'ProviderController@giveBack');
 
 // Provider types
     Route::get('/proveedores/tipos', 'ProviderTypeController@create');

@@ -6,7 +6,7 @@
     <div class="title_right">
         <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Buscar clientes ...">
+                <input type="text" class="form-control" placeholder="Buscar proveedores ...">
                     <span class="input-group-btn">
                       <button class="btn btn-default" type="button">Go!</button>
                     </span>
@@ -20,7 +20,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Clientes</h2>
+                    <h2>Proveedores</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -28,7 +28,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <a href="{{ url('/clientes') }}">Clientes activos</a>
+                                    <a href="{{ url('/proveedores') }}">Proveedores activos</a>
                                 </li>
                             </ul>
                         </li>
@@ -40,7 +40,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="input-group">
-                    <a href="{{ url('/clientes') }}" class="btn btn-success"><i class="fa fa-thumbs-o-up"></i>  Clientes activos</a>
+                    <a href="{{ url('/proveedores') }}" class="btn btn-success"><i class="fa fa-thumbs-o-up"></i>  Proveedores activos</a>
                 </div>
 
                 <div class="x_content">
@@ -50,7 +50,7 @@
                             <div class="col-md-10 col-md-offset-1 col-sm-12">
                                 <div class="form-inline col-md-8">
                                     <div class="col-md-8 input-group margen">
-                                        <span class="input-group-addon">Cliente</span>
+                                        <span class="input-group-addon">Proveedor</span>
                                         <input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
                                     </div>
 
@@ -69,22 +69,22 @@
                                         </tr>
                                     </thead>
                                     <tbody id="table">
-                                    @foreach( $clientes as $cliente)
+                                    @foreach( $proveedores as $proveedor)
                                         <tr>
-                                            <td>{{ $cliente->name }}</td>
-                                            <td>{{ $cliente->document }}</td>
-                                            <td>{{ $cliente->address }}</td>
-                                            <td>{{ $cliente->type }}</td>
-                                            <td>{{ $cliente->phone }}</td>
-                                            <td>{{ $cliente->customer_type->name }}</td>
+                                            <td>{{ $proveedor->name }}</td>
+                                            <td>{{ $proveedor->document }}</td>
+                                            <td>{{ $proveedor->address }}</td>
+                                            <td>{{ $proveedor->type }}</td>
+                                            <td>{{ $proveedor->phone }}</td>
+                                            <td>{{ $proveedor->provider_type->name }}</td>
                                             <td>
-                                                <button type="button"  class="btn btn-primary" data-back="{{ $cliente->id }}" data-name="{{ $cliente->name }}"><i class="fa fa-repeat"></i></button>
+                                                <button type="button"  class="btn btn-primary" data-back="{{ $proveedor->id }}" data-name="{{ $proveedor->name }}"><i class="fa fa-repeat"></i></button>
                                             </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
                                 </table>
-                                {!! $clientes->render() !!}
+                                {!! $proveedores->render() !!}
 
                             </div>
                         </div>
@@ -100,15 +100,15 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Retornar cliente</h4>
+                    <h4 class="modal-title">Retornar proveedor</h4>
                 </div>
-                <form action="{{ url('clientes/restablecer') }}" method="POST">
+                <form action="{{ url('proveedores/restablecer') }}" method="POST">
                     <div class="modal-body">
 
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <input type="hidden" name="id" />
                         <div class="form-group">
-                            <label for="nombreRetornar">¿Desea restablecer el siguiente cliente?</label>
+                            <label for="nombreRetornar">¿Desea restablecer el siguiente proveedor?</label>
                             <input type="text" readonly class="form-control" id="nombreRetornar" name="nombreRetornar"/>
                         </div>
                     </div>
@@ -127,6 +127,6 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/customer/search.js') }}"></script>
-    <script src="{{ asset('js/customer/customer-back.js') }}"></script>
+    <script src="{{ asset('js/provider/search.js') }}"></script>
+    <script src="{{ asset('js/provider/provider-back.js') }}"></script>
 @endsection

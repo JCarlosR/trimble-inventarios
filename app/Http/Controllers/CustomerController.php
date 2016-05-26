@@ -16,7 +16,6 @@ class CustomerController extends Controller
     public function index()
     {
         $clientes = Customer::where('enable', 1)->paginate(3);
-        //$clientes = Customer::all();
         $tipos = CustomerType::all();
         return view('customer.index')->with(compact(['clientes', 'tipos']));
     }
@@ -29,7 +28,7 @@ class CustomerController extends Controller
 
     public function edit( Request $request )
     {
-        dd($request->all());
+        //dd($request->all());
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
             'document' => 'required',
@@ -79,7 +78,7 @@ class CustomerController extends Controller
 
     public function store( Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3|unique:customers',
             'document' => 'required',
@@ -165,10 +164,11 @@ class CustomerController extends Controller
 
     public function giveBack( Request $request )
     {
+        //dd($request->all());
         $validator = Validator::make($request->all(), [
             'id' => 'exists:customers,id'
         ],[
-            'id.exists' => 'El cliente no puede ser eliminado porque no existe.'
+            'id.exists' => 'El cliente no puede ser reestablecer porque no existe.'
         ]);
 
         if ($validator->fails())
