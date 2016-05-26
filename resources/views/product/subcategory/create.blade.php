@@ -50,7 +50,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Categorías <span class="required">*</span>
                             </label>
-                            <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select name="categories" id="" class="form-control">
                                     @foreach($categories as $category)
                                         @if( old('categories') == $category->id )

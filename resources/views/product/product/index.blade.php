@@ -8,6 +8,18 @@
         {
             margin-top:16px;
         }
+        .no-resize
+        {
+            resize: none;
+        }
+        .inside:focus{
+            border: 1px solid #0097cf;
+        }
+        .image
+        {
+            height: 40px;
+            width: 40px;
+        }
     </style>
 @endsection
 
@@ -62,9 +74,9 @@
                             <th>Marca</th>
                             <th>Modelo</th>
                             <th>Num_Parte</th>
-                            <th>Color</th>
                             <th>Categoría</th>
                             <th>Subcategoría</th>
+                            <th>Imagen</th>
                             <th>Funcionalidad</th>
                         </tr>
                         </thead>
@@ -79,9 +91,9 @@
                                 <td>{{ str_limit($product->brand->name, $limit = 5, $end = '...') }}</td>
                                 <td> {{ str_limit($product->exemplar->name, $limit = 6, $end = '...') }}</td>
                                 <td>{{$product->part_number}}</td>
-                                <td>{{$product->color}}</td>
                                 <td>{{ str_limit($product->category->name, $limit = 7, $end = '...') }}</td>
                                 <td>{{ str_limit($product->subcategory->name, $limit = 7, $end = '...') }}</td>
+                                <td><img src="{{ asset('images/products') }}/{{ $product->image }} " class="img-responsive image"></td>
                                 <td>
                                     <span title="Editar">
                                         <button type="submit" class="btn btn-success" data-id="{{ $product->id }}" data-name="{{ $product ->name }}"
@@ -121,23 +133,23 @@
                             <input type="hidden" name="id" />
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nombre <span class="required">*</span></label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12">
+                                <label class="control-label col-md-3" for="name">Nombre <span class="required">*</span></label>
+                                <div class="col-md-7">
+                                    <input type="text" id="name" name="name" required="required" class="form-control inside">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Descripción <span class="required">*</span></label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <textarea id="description" name="description" rows="2" class="form-control"></textarea>
+                                <label class="control-label col-md-3" for="last-name">Descripción <span class="required">*</span></label>
+                                <div class="col-md-7 col-sm-6 col-xs-12">
+                                    <textarea id="description" name="description" rows="2" class="form-control no-resize inside"></textarea>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label col-md-3" for="last-name">Precio <span class="required">*</span></label>
                                 <div class="col-md-3">
-                                    <input type="number" placeholder="0.00" step="0.01"  min="0" id="price" name="price" required="required" class="form-control col-md-4 col-xs-12">
+                                    <input type="number" placeholder="0.00" step="0.01"  min="0" id="price" name="price" required="required" class="form-control inside">
                                 </div>
                                 <div class="form-group form-inline">
                                     <label class="control-label col-md-1" for="last-name">Serie <span class="required">*</span></label>
@@ -156,18 +168,17 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3" for="last-name">Marca <span class="required">*</span></label>
+                                <label class="control-label col-md-3" for="last-name">Marca</label>
                                 <div class="col-md-3">
-                                    <select id="brands" name="brands" class="form-control">
+                                    <select id="brands" name="brands" class="form-control inside">
 
                                     </select>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-1" for="last-name">Modelo <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-2">
-                                        <select name="exemplars" id="exemplars" class="form-control">
+                                    <label class="control-label col-md-1" for="last-name">Modelo</label>
+                                    <div class="col-md-3">
+                                        <select name="exemplars" id="exemplars" class="form-control inside">
 
                                         </select>
                                     </div>
@@ -177,29 +188,29 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Número de parte <span class="required">*</span></label>
                                 <div class="col-md-3 col-sm-6 col-xs-12">
-                                    <input type="text" id="part_number" name="part_number" class="form-control col-md-4 col-xs-12">
+                                    <input type="text" id="part_number" name="part_number" class="form-control inside">
                                 </div>
 
                                 <div class="form-group">
                                     <label class="control-label col-md-1 col-sm-3 col-xs-12" for="last-name">Color <span class="required">*</span></label>
-                                    <div class="col-md-2">
-                                        <input type="text" id="color" name="color" required="required" class="form-control col-md-4 col-xs-12">
+                                    <div class="col-md-3">
+                                        <input type="text" id="color" name="color" required="required" class="form-control inside">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3" for="last-name">Categoría <span class="required">*</span></label>
+                                <label class="control-label col-md-3" for="last-name">Categoría</label>
                                 <div class="col-md-3">
-                                    <select name="categories" id="categories" class="form-control">
+                                    <select name="categories" id="categories" class="form-control inside">
 
                                     </select>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-1" for="last-name">Subcatego</label>
-                                    <div class="col-md-2">
-                                        <select name="subcategories" id="subcategories" class="form-control">
+                                    <label class="control-label col-md-1" for="last-name">Subcategory</label>
+                                    <div class="col-md-3">
+                                        <select name="subcategories" id="subcategories" class="form-control insisde">
 
                                         </select>
                                     </div>
@@ -207,9 +218,16 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Observación<span class="required">*</span></label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <textarea name="comment" id="comment" rows="2" class="form-control"></textarea>
+                                <label class="control-label col-md-3"  for="image">Imagen</label>
+                                <div class="col-md-7">
+                                    <input type="file" class="form-control inside" accept="image/*">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3" for="last-name">Observación<span class="required">*</span></label>
+                                <div class="col-md-7">
+                                    <textarea name="comment" id="comment" rows="2" class="form-control no-resize inside"></textarea>
                                 </div>
                             </div>
                         </div>

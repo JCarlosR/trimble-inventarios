@@ -12,6 +12,7 @@ use App\Subcategory;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -31,7 +32,7 @@ class ProductController extends Controller
         return view('product.product.create')->with(compact(['categories', 'brands']));
     }
 
-    public function created( Request $request)
+    public function created( Request $request )
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:50',
@@ -39,6 +40,9 @@ class ProductController extends Controller
             'exemplar_id'=>'exists:exemplars,id',
             'category_id'=>'exists:categories,id',
             'subcategory_id'=>'exists:subcategories,id',
+            'image'=>'image'
+        ],[
+            'image.image'=>'Solo se permiten imágenes'
         ]);
 
         $product_ = Product::where('name',$request->get('name') )->first();
@@ -88,6 +92,17 @@ class ProductController extends Controller
             'subcategory_id'=>$request->get('subcategories'),
             'comment'=>$request->get('comment')
         ]);
+
+        if( $request->file('image') )
+        {
+            $path = public_path().'/images/products';
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $fileName = $product->id . '.' . $extension;
+            $request->file('image')->move($path, $fileName);
+            $product->image = $fileName;
+        }
+        else
+            $product->image = '0.jpg';
 
         $product->save();
 

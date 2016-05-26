@@ -29,6 +29,7 @@ class CreateProductsTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
             $table->integer('subcategory_id')->unsigned();
             $table->foreign('subcategory_id')->references('id')->on('subcategories');
+            $table->string('image');
             $table->string('comment');
             $table->timestamps();
         });
