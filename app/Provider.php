@@ -8,7 +8,7 @@ class Provider extends Model
 {
     //
     protected $fillable = [
-        'name', 'surname', 'address', 'phone', 'gender', 'provider_type_id',
+        'name', 'document', 'address', 'phone', 'type', 'provider_type_id', 'enable',
     ];
 
     public function provider_type()

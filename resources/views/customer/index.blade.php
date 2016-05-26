@@ -6,10 +6,7 @@
     <div class="title_right">
         <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Buscar clientes ...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
+
             </div>
         </div>
     </div>
@@ -40,7 +37,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="input-group">
-                    <a href="{{ url('/clientes/registrar') }}" id="NvoIngreso" class="btn btn-success"><i class="fa fa-plus-square-o"></i>  Nuevo cliente</a>
+                    <a href="{{ url('/clientes/registrar') }}" class="btn btn-success"><i class="fa fa-plus-square-o"></i>  Nuevo cliente</a>
                 </div>
                 @if( $errors->count() > 0 )
                     <div class="row">
@@ -59,33 +56,43 @@
                     <div class="row">
                         <div class="form-group">
                             <div class="col-md-10 col-md-offset-1 col-sm-12">
-                                <table class="table table-hover">
+                                <div class="form-inline col-md-8">
+                                    <div class="col-md-8 input-group margen">
+                                        <span class="input-group-addon">Cliente</span>
+                                        <input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="{{ url('/clientes/eliminados') }}" class="btn btn-dark" type="button"><i class="fa fa-lock"></i> Restablecer eliminados</a>
+                                </div>
+                                <table  class="table table-condensed table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Nombres</th>
-                                            <th>Apellidos</th>
+                                            <th>Nombre/Raz. Soc.</th>
+                                            <th>Doc. Identidad</th>
                                             <th>Direccion</th>
-                                            <th>Género</th>
+                                            <th>Denominación</th>
                                             <th>Teléfono</th>
                                             <th>Tipo</th>
                                             <th>Acción</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="table">
                                     @foreach( $clientes as $cliente)
                                         <tr>
                                             <td>{{ $cliente->name }}</td>
-                                            <td>{{ $cliente->surname }}</td>
+                                            <td>{{ $cliente->document }}</td>
                                             <td>{{ $cliente->address }}</td>
-                                            <td>{{ $cliente->gender }}</td>
+                                            <td>{{ $cliente->type }}</td>
                                             <td>{{ $cliente->phone }}</td>
                                             <td>{{ $cliente->customer_type->name }}</td>
                                             <td>
                                                 <button type="button" class="btn btn-primary" data-id="{{ $cliente->id }}"
                                                         data-name="{{ $cliente->name }}"
-                                                        data-surname="{{ $cliente->surname }}"
+                                                        data-document="{{ $cliente->document }}"
                                                         data-address="{{ $cliente->address }}"
-                                                        data-gender="{{ $cliente->gender }}"
+                                                        data-persona="{{ $cliente->type }}"
                                                         data-phone="{{ $cliente->phone }}"
                                                         data-typeid="{{ $cliente->customer_type_id }}"><i class="fa fa-pencil"></i></button>
                                                 <button type="button"  class="btn btn-danger" data-delete="{{ $cliente->id }}" data-name="{{ $cliente->name }}"><i class="fa fa-trash"></i></button>
@@ -94,6 +101,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
+                                {!! $clientes->render() !!}
                             </div>
                         </div>
                     </div>
@@ -116,15 +124,15 @@
                         <input type="hidden" name="id" />
 
                         <div class="form-group">
-                            <label for="name">Nombre <span class="required">*</span></label>
+                            <label for="name">Nombre Completo / Razón Social <span class="required">*</span></label>
                             <div>
                                 <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="surname">Apellidos <span class="required">*</span></label>
+                            <label for="document">Documento de Identificación <span class="required">*</span></label>
                             <div>
-                                <input type="text" id="surname" name="surname" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="text" id="document" name="document" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
 
@@ -143,14 +151,14 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="gender">Género</label>
+                            <label for="persona">Denominación Legal </label>
                             <div>
-                                <div id="gender" class="btn-group" data-toggle="buttons">
-                                    <label class="btn btn-default">
-                                        <input type="radio" name="gender" id="Masculino" value="Masculino" checked> Hombre
+                                <div id="persona" class="btn-group" data-toggle="buttons">
+                                    <label data-clase class="btn btn-default">
+                                        <input type="radio" name="persona" id="Natural" value="Natural" checked> Persona Natural
                                     </label>
-                                    <label class="btn btn-default">
-                                        <input type="radio" name="gender" id="Femenino" value="Femenino"> &nbsp;Mujer
+                                    <label data-clase class="btn btn-default">
+                                        <input type="radio" name="persona" id="Juridica" value="Juridica" > &nbsp;Persona Jurídica
                                     </label>
                                 </div>
                             </div>
@@ -214,4 +222,5 @@
 
 @section('scripts')
     <script src="{{ asset('js/customer/customer-index.js')}}"></script>
+    <script src="{{ asset('js/customer/search.js') }}"></script>
 @endsection

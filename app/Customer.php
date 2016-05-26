@@ -8,7 +8,7 @@ class Customer extends Model
 {
     //
     protected $fillable = [
-        'name', 'surname', 'address', 'phone', 'gender', 'customer_type_id',
+        'name', 'document', 'address', 'phone', 'type', 'customer_type_id', 'enable',
     ];
 
     public function customer_type()

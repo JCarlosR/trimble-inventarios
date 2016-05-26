@@ -13,21 +13,81 @@ class CustomersTableSeeder extends Seeder
     public function run()
     {
         Customer::create([
-            'name' => 'Juan',
-            'surname' => 'Perez Perez',
+            'name' => 'Juan Perez Perez',
+            'document' => '48317520',
             'address' => 'Las fatimas 222',
-            'gender' => 'Masculino',
+            'type' => 'Natural',
             'phone' => '958654512',
-            'customer_type_id' => 1
+            'customer_type_id' => 1,
+            'enable' => 1,
         ]);
 
         Customer::create([
-            'name' => 'Pablo',
-            'surname' => 'Perez Perez',
-            'address' => 'Las fatimas 224',
-            'gender' => 'Masculino',
-            'phone' => '958654514',
-            'customer_type_id' => 1
+            'name' => 'Las Palmas SA',
+            'document' => '10254123659',
+            'address' => 'Las fatimas 222',
+            'type' => 'Jurídica',
+            'phone' => '958654512',
+            'customer_type_id' => 1,
+            'enable' => 1,
         ]);
+        Customer::create([
+            'name' => 'Fernando Rios Perez',
+            'document' => '48317520',
+            'address' => 'Las fatimas 222',
+            'type' => 'Natural',
+            'phone' => '958654512',
+            'customer_type_id' => 1,
+            'enable' => 0,
+        ]);
+
+        Customer::create([
+            'name' => 'Las Gaviotas SA',
+            'document' => '10254123659',
+            'address' => 'Las fatimas 222',
+            'type' => 'Jurídica',
+            'phone' => '958654512',
+            'customer_type_id' => 1,
+            'enable' => 0,
+        ]);
+        Customer::create([
+            'name' => 'Carlos Hurtado Ramirez',
+            'document' => '48317520',
+            'address' => 'Las fatimas 222',
+            'type' => 'Natural',
+            'phone' => '958654512',
+            'customer_type_id' => 1,
+            'enable' => 0,
+        ]);
+
+        Customer::create([
+            'name' => 'Asociacion Caminos del Perú',
+            'document' => '10254123659',
+            'address' => 'Las fatimas 222',
+            'type' => 'Jurídica',
+            'phone' => '958654512',
+            'customer_type_id' => 1,
+            'enable' => 0,
+        ]);
+        Customer::create([
+            'name' => 'Reina Ramirez Arellano',
+            'document' => '48317520',
+            'address' => 'Las fatimas 222',
+            'type' => 'Natural',
+            'phone' => '958654512',
+            'customer_type_id' => 1,
+            'enable' => 1,
+        ]);
+
+        Customer::create([
+            'name' => 'Central City SA',
+            'document' => '10254123659',
+            'address' => 'Las fatimas 222',
+            'type' => 'Jurídica',
+            'phone' => '958654512',
+            'customer_type_id' => 1,
+            'enable' => 1,
+        ]);
+
     }
 }

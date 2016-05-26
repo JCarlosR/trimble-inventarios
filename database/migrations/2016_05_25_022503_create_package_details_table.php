@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOutputDetailsTable extends Migration
+class CreatePackageDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,17 +12,16 @@ class CreateOutputDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('output_details', function (Blueprint $table) {
+        Schema::create('package_details', function (Blueprint $table) {
             $table->increments('id');
 
-            // Output header
-            $table->integer('output_id')->unsigned();
-            $table->foreign('output_id')->references('id')->on('outputs');
+            // Package header
+            $table->integer('package_id')->unsigned();
+            $table->foreign('package_id')->references('id')->on('packages');
 
+            // A particular item
             $table->integer('item_id')->unsigned();
             $table->foreign('item_id')->references('id')->on('items');
-
-            $table->decimal('price', 9,2);
 
             $table->timestamps();
         });
@@ -35,6 +34,6 @@ class CreateOutputDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('output_details');
+        Schema::drop('package_details');
     }
 }

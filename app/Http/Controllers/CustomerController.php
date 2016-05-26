@@ -11,10 +11,11 @@ use App\Http\Requests;
 
 class CustomerController extends Controller
 {
+    
 
     public function index()
     {
-        $clientes = Customer::all();
+        $clientes = Customer::where('enable', 1)->paginate(3);
         $tipos = CustomerType::all();
         return view('customer.index')->with(compact(['clientes', 'tipos']));
     }
@@ -27,28 +28,46 @@ class CustomerController extends Controller
 
     public function edit( Request $request )
     {
+        //dd($request->all());
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
-            'surname' => 'required|min:3',
+            'document' => 'required',
+            'persona' => 'required',
             'types'=>'exists:customer_types,id',
             'address'=>'min:5',
         ], [
             'name.required' => 'Es nesecario ingresar el nombre del cliente.',
             'name.min' => 'El nombre del cliente debe tener 3 letras como mínimo',
-            'surname.required' => 'Es necesario ingresar los apellidos del cliente',
-            'surname.min' => 'Es necesario ingresar por lo menos 3 caracteres.',
+            'persona.required' => 'Es necesario escojer un tipo de persona (Natural o Juridica)',
+            'document.required' => 'Es necesario ingresar el numero de documento de identidad del cliente',
+            'type.required' => 'Es necesario indicar si es una persona natural o jurídica.',
             'types.exists' => 'El tipo de cliente no existe.',
             'address.min' => 'La dirección debe contener por lo menos 5 letras.'
         ]);
 
-        if ($validator->fails())
-            return back()->withErrors($validator)->withInput();
+        $document="";
+
+        if($request->get('persona') == 'Natural' and strlen($request->get('document')) != 8 )
+            $document="errorDocument";
+
+        if($request->get('persona') == 'Juridica' and strlen($request->get('document')) != 11 )
+            $document="errorDocument";
+
+        if ($validator->fails() OR $document == "errorDocument")
+        {
+            $data['errors'] = $validator->errors();
+            if( $document == "errorDocument" )
+                $data['errors']->add("errorDocument", "Contradicción entre el tipo de persona(Natural y jurídica) y su número de documento ");
+            return redirect('clientes')
+                ->withInput($request->all())
+                ->with($data);
+        }
 
         $customer = Customer::find( $request->get('id') );
         $customer->name = $request->get('name');
-        $customer->surname = $request->get('surname');
+        $customer->document = $request->get('document');
         $customer->address = $request->get('address');
-        $customer->gender = $request->get('gender');
+        $customer->type = $request->get('persona');
         $customer->phone = $request->get('phone');
         $customer->customer_type_id = $request->get('types');
 
@@ -62,31 +81,48 @@ class CustomerController extends Controller
         //dd($request->all());
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3|unique:customers',
-            'surname' => 'required|min:3',
+            'document' => 'required',
+            'persona' => 'required',
             'types'=>'exists:customer_types,id',
             'address'=>'required|min:5',
         ], [
             'name.required' => 'Es nesecario ingresar el nombre del cliente.',
             'name.min' => 'El nombre del cliente debe tener 3 letras como mínimo',
             'name.unique' => 'El nombre del cliente se ha repetido. Ingrese otro nuevo',
-            'surname.required' => 'Es necesario ingresar los apellidos del cliente',
-            'surname.min' => 'Es necesario ingresar por lo menos 3 caracteres.',
+            'persona.required' => 'Es necesario escojer un tipo de persona (Natural o Juridica)',
+            'document.required' => 'Es necesario ingresar el numero de documento de identidad del cliente',
+            'type.required' => 'Es necesario indicar si es una persona natural o jurídica.',
             'types.exists' => 'El tipo de cliente no existe.',
             'address.min' => 'La dirección debe contener por lo menos 5 letras.',
             'address.required' => 'Es nesecario ingresar la direccion del cliente.',
         ]);
 
-        if ($validator->fails())
-            return back()->withErrors($validator)->withInput();
+        $document="";
+
+        if($request->get('persona') == 'Natural' and strlen($request->get('document')) != 8 )
+            $document="errorDocument";
+
+        if($request->get('persona') == 'Juridica' and strlen($request->get('document')) != 11 )
+            $document="errorDocument";
+
+        if ($validator->fails() OR $document == "errorDocument")
+        {
+            $data['errors'] = $validator->errors();
+            if( $document == "errorDocument" )
+                $data['errors']->add("errorDocument", "Contradicción entre el tipo de persona(Natural y jurídica) y su número de documento ");
+            return redirect('clientes/registrar')
+                ->withInput($request->all())
+                ->with($data);
+        }
 
         Customer::create([
             'name' => $request->get('name'),
-            'surname' => $request->get('surname'),
+            'document' => $request->get('document'),
             'address' => $request->get('address'),
-            'gender' => $request->get('gender'),
+            'type' => $request->get('persona'),
             'phone' => $request->get('phone'),
-            'comments' => $request->get('comments'),
             'customer_type_id' => $request->get('types'),
+            'enable' => 1,
         ]);
 
         return redirect('clientes');
@@ -100,8 +136,8 @@ class CustomerController extends Controller
         ],[
             'id.exists' => 'El cliente no puede ser eliminado porque no existe.'
         ]);
-        $customer_ = Output::where('customer_id', $request->get('id'));
-        //dd($customer);
+        $customer_ = Output::where('customer_id', $request->get('id'))->first();
+        //dd($customer_);
         if ($validator->fails() OR $customer_ != null)
         {
             $data['errors'] = $validator->errors();
@@ -113,9 +149,36 @@ class CustomerController extends Controller
                 ->with($data);
         }
         $customer = Customer::find($request->get('id'));
-        $customer->delete();
+        $customer->enable = 0;
 
+        $customer->save();
         return redirect('clientes');
+    }
+
+    public function back()
+    {
+        $clientes = Customer::where('enable', 0)->paginate(3);
+
+        return view('customer.back')->with(compact(['clientes']));
+    }
+
+    public function giveBack( Request $request )
+    {
+        //dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'id' => 'exists:customers,id'
+        ],[
+            'id.exists' => 'El cliente no puede ser reestablecer porque no existe.'
+        ]);
+
+        if ($validator->fails())
+            return back()->withErrors($validator)->withInput();
+
+        $customer = Customer::find($request->get('id'));
+        $customer->enable = 1;
+
+        $customer->save();
+        return redirect('clientes/eliminados');
     }
 
 }

@@ -6,10 +6,7 @@
     <div class="title_right">
         <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Buscar clientes ...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
+
             </div>
         </div>
     </div>
@@ -40,7 +37,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="input-group">
-                    <a href="{{ url('/proveedores/registrar') }}" id="NvoIngreso" class="btn btn-success"><i class="fa fa-plus-square-o"></i>  Nuevo proveedor</a>
+                    <a href="{{ url('/proveedores/registrar') }}" class="btn btn-success"><i class="fa fa-plus-square-o"></i>  Nuevo proveedor</a>
                 </div>
                 @if( $errors->count() > 0 )
                     <div class="row">
@@ -60,34 +57,44 @@
                     <div class="row">
                         <div class="form-group">
                             <div class="col-md-10 col-md-offset-1 col-sm-12">
+                                <div class="form-inline col-md-8">
+                                    <div class="col-md-8 input-group margen">
+                                        <span class="input-group-addon">Proveedor</span>
+                                        <input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="{{ url('/proveedores/eliminados') }}" class="btn btn-dark" type="button"><i class="fa fa-lock"></i> Restablecer eliminados</a>
+                                </div>
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Nombre</th>
-                                            <th>Apellidos</th>
+                                            <th>Nombre/Raz. Soc.</th>
+                                            <th>Doc. Identidad</th>
                                             <th>Direccion</th>
-                                            <th>Género</th>
+                                            <th>Denominación</th>
                                             <th>Teléfono</th>
                                             <th>Tipo</th>
                                             <th>Acción</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="table">
                                     @foreach( $proveedores as $proveedor)
                                         <tr>
                                             <td>{{ $proveedor->name }}</td>
-                                            <td>{{ $proveedor->surname }}</td>
+                                            <td>{{ $proveedor->document }}</td>
                                             <td>{{ $proveedor->address }}</td>
-                                            <td>{{ $proveedor->gender }}</td>
+                                            <td>{{ $proveedor->type }}</td>
                                             <td>{{ $proveedor->phone }}</td>
                                             <td>{{ $proveedor->provider_type->name }}</td>
                                             <td>
 
                                                 <button type="button" class="btn btn-primary" data-id="{{ $proveedor->id }}"
                                                         data-name="{{ $proveedor->name }}"
-                                                        data-surname="{{ $proveedor->surname }}"
+                                                        data-document="{{ $proveedor->document }}"
                                                         data-address="{{ $proveedor->address }}"
-                                                        data-gender="{{ $proveedor->gender }}"
+                                                        data-persona="{{ $proveedor->type }}"
                                                         data-phone="{{ $proveedor->phone }}"
                                                         data-typeId="{{ $proveedor->provider_type->id }}"><i class="fa fa-pencil"></i></button>
                                                 <button type="button"  class="btn btn-danger" data-delete="{{ $proveedor->id }}" data-name="{{ $proveedor->name }}"><i class="fa fa-trash"></i></button>
@@ -97,6 +104,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
+                                {!! $proveedores->render() !!}
                             </div>
                         </div>
                     </div>
@@ -119,15 +127,15 @@
                         <input type="hidden" name="id" />
 
                         <div class="form-group">
-                            <label for="name">Nombre <span class="required">*</span></label>
+                            <label for="name">Nombre Completo / Razón Social <span class="required">*</span></label>
                             <div>
                                 <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="surname">Apellidos <span class="required">*</span></label>
+                            <label for="document">Documento de Identificación <span class="required">*</span></label>
                             <div>
-                                <input type="text" id="surname" name="surname" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="text" id="document" name="document" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
 
@@ -146,14 +154,14 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="gender">Género</label>
+                            <label for="persona">Denominación Legal </label>
                             <div>
-                                <div id="gender" class="btn-group" data-toggle="buttons">
-                                    <label class="btn btn-default">
-                                        <input type="radio" name="gender" id="Masculino" value="Masculino" checked> Hombre
+                                <div id="persona" class="btn-group" data-toggle="buttons">
+                                    <label data-clase class="btn btn-default">
+                                        <input type="radio" name="persona" id="Natural" value="Natural" checked> Persona Natural
                                     </label>
-                                    <label class="btn btn-default">
-                                        <input type="radio" name="gender" id="Femenino" value="Femenino"> &nbsp;Mujer
+                                    <label data-clase class="btn btn-default">
+                                        <input type="radio" name="persona" id="Juridica" value="Juridica" > &nbsp;Persona Jurídica
                                     </label>
                                 </div>
                             </div>
@@ -163,8 +171,8 @@
                             <label for="last-name">Tipo <span class="required">*</span></label>
                             <div>
                                 <select id="types" name="types" class="form-control">
-                                    @foreach($types as $type)
-                                        <option id="{{ $type->id }}" value="{{ $type->id }}">{{ $type->name }}</option>
+                                    @foreach($tipos as $tipo)
+                                        <option id="{{ $tipo->id }}" value="{{ $tipo->id }}">{{ $tipo->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -217,4 +225,5 @@
 
 @section('scripts')
     <script src="{{ asset('js/provider/provider-index.js')}}"></script>
+    <script src="{{ asset('js/provider/search.js') }}"></script>
 @endsection

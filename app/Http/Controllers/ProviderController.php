@@ -16,9 +16,9 @@ class ProviderController extends Controller
     //
     public function index()
     {
-        $proveedores = Provider::all();
-        $types = ProviderType::all();
-        return view('provider.index')->with(compact(['proveedores', 'types']));
+        $proveedores = Provider::where('enable', 1)->paginate(3);
+        $tipos = ProviderType::all();
+        return view('provider.index')->with(compact(['proveedores', 'tipos']));
     }
 
     public function create()
@@ -31,26 +31,42 @@ class ProviderController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
-            'surname' => 'required|min:3',
+            'document' => 'required',
+            'persona' => 'required',
             'types'=>'exists:provider_types,id',
             'address'=>'min:5',
         ], [
             'name.required' => 'Es nesecario ingresar el nombre del proveedor.',
             'name.min' => 'El nombre del proveedor debe tener 3 letras como mínimo',
-            'surname.required' => 'Es necesario ingresar los apellidos del proveedor',
-            'surname.min' => 'Es necesario ingresar por lo menos 3 caracteres.',
+            'persona.required' => 'Es necesario escojer un tipo de persona (Natural o Juridica)',
+            'document.required' => 'Es necesario ingresar el numero de documento de identidad del proveedor',
             'types.exists' => 'El tipo de proveedor no existe.',
             'address.min' => 'La dirección debe contener por lo menos 5 letras.'
         ]);
 
-        if ($validator->fails())
-            return back()->withErrors($validator)->withInput();
+        $document="";
 
+        if($request->get('persona') == 'Natural' and strlen($request->get('document')) != 8 )
+            $document="errorDocument";
+
+        if($request->get('persona') == 'Juridica' and strlen($request->get('document')) != 11 )
+            $document="errorDocument";
+
+        if ($validator->fails() OR $document == "errorDocument")
+        {
+            $data['errors'] = $validator->errors();
+            if( $document == "errorDocument" )
+                $data['errors']->add("errorDocument", "Contradicción entre el tipo de persona(Natural y jurídica) y su número de documento ");
+            return redirect('Proveedores')
+                ->withInput($request->all())
+                ->with($data);
+        }
+        
         $provider = Provider::find( $request->get('id') );
         $provider->name = $request->get('name');
-        $provider->surname = $request->get('surname');
+        $provider->document = $request->get('document');
         $provider->address = $request->get('address');
-        $provider->gender = $request->get('gender');
+        $provider->type = $request->get('persona');
         $provider->phone = $request->get('phone');
         $provider->provider_type_id = $request->get('types');
 
@@ -61,18 +77,19 @@ class ProviderController extends Controller
 
     public function store( Request $request)
     {
-        //dd($request->all());
+        ($request->all());
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3|unique:providers',
-            'surname' => 'required|min:3',
+            'document' => 'required',
+            'persona' => 'required',
             'types'=>'exists:provider_types,id',
             'address'=>'required|min:5',
         ], [
             'name.required' => 'Es nesecario ingresar el nombre del proveedor.',
             'name.min' => 'El nombre del proveedor debe tener 3 letras como mínimo',
             'name.unique' => 'El nombre del proveedor se ha repetido. Ingrese otro nuevo',
-            'surname.required' => 'Es necesario ingresar los apellidos del proveedor',
-            'surname.min' => 'Es necesario ingresar por lo menos 3 caracteres en el apellido.',
+            'persona.required' => 'Es necesario escojer un tipo de persona (Natural o Juridica)',
+            'document.required' => 'Es necesario ingresar el numero de documento de identidad del proveedor',
             'types.exists' => 'El tipo de proveedor no existe.',
             'address.min' => 'La dirección debe contener por lo menos 5 letras.',
             'address.required' => 'Es nesecario ingresar la direccion del proveedor.',
@@ -83,11 +100,12 @@ class ProviderController extends Controller
 
         Provider::create([
             'name' => $request->get('name'),
-            'surname' => $request->get('surname'),
+            'document' => $request->get('document'),
             'address' => $request->get('address'),
-            'gender' => $request->get('gender'),
+            'type' => $request->get('persona'),
             'phone' => $request->get('phone'),
             'provider_type_id' => $request->get('types'),
+            'enable' => 1,
         ]);
 
         return redirect('proveedores');
@@ -114,9 +132,37 @@ class ProviderController extends Controller
                 ->with($data);
         }
         $provider = Provider::find($request->get('id'));
-        $provider->delete();
+        $provider->enable = 0;
+        $provider->save();
 
         return redirect('proveedores');
+    }
+
+    public function back()
+    {
+        $proveedores = Provider::where('enable', 0)->paginate(3);
+//
+        //dd($proveedores);
+        return view('provider.back')->with(compact(['proveedores']));
+    }
+
+    public function giveBack( Request $request )
+    {
+        //dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'id' => 'exists:providers,id'
+        ],[
+            'id.exists' => 'El proveedor no puede ser reestablecer porque no existe.'
+        ]);
+
+        if ($validator->fails())
+            return back()->withErrors($validator)->withInput();
+
+        $provider = Provider::find($request->get('id'));
+        $provider->enable = 1;
+
+        $provider->save();
+        return redirect('proveedores/eliminados');
     }
 
 }

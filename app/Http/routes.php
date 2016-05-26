@@ -52,6 +52,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/clientes/registrar', 'CustomerController@store');
     Route::post('/clientes/modificar', 'CustomerController@edit');
     Route::post('/clientes/eliminar', 'CustomerController@delete');
+    Route::get('/clientes/eliminados', 'CustomerController@back');
+    Route::post('/clientes/restablecer', 'CustomerController@giveBack');
 
 // Customer types
     Route::get('/clientes/tipos', 'CustomerTypeController@create');
@@ -65,6 +67,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/proveedores/registrar', 'ProviderController@store');
     Route::post('/proveedores/modificar', 'ProviderController@edit');
     Route::post('/proveedores/eliminar', 'ProviderController@delete');
+    Route::get('/proveedores/eliminados', 'ProviderController@back');
+    Route::post('/proveedores/restablecer', 'ProviderController@giveBack');
 
 // Provider types
     Route::get('/proveedores/tipos', 'ProviderTypeController@create');

@@ -47,43 +47,44 @@
                         <div class="row">
                             <div class="col-md-5 col-md-offset-1">
                                 <div class="form-group">
-                                    <label for="name">Nombres <span class="required">*</span>
-                                    </label>
-                                    <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12">
-
+                                    <label for="persona">Denominación Legal </label>
+                                    <div>
+                                        <div class="btn-group" data-toggle="buttons">
+                                            <label class="btn btn-default active">
+                                                <input type="radio" id="Natural" name="persona" value="Natural" checked> Persona Natural
+                                            </label>
+                                            <label class="btn btn-default">
+                                                <input type="radio" id="Juridica" name="persona" value="Juridica"> &nbsp;Persona Jurídica
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="form-group">
-                                    <label for="surname" >Apellidos <span class="required">*</span>
-                                    </label>
-                                    <input type="text" id="surname" name="surname" required="required" class="form-control col-md-7 col-xs-12">
+                                    <label for="address">Dirección / Dirección fiscal <span class="required">*</span></label>
 
+                                    <input id="address"  class="form-control col-md-7 col-xs-12" type="text" name="address">
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-5 col-md-offset-1">
+                            <div class="col-md-5 col-md-offset-1 ">
                                 <div class="form-group">
-                                    <label for="address">Dirección</label>
+                                    <label for="name">Nombres Completos / Razón Social <span class="required">*</span>
+                                    </label>
+                                    <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12">
 
-                                    <input id="address" class="form-control col-md-7 col-xs-12" type="text" name="address">
                                 </div>
                             </div>
-                            <div class="col-md-5">
+
+                            <div class="col-md-5 ">
                                 <div class="form-group">
-                                    <label for="gender">Género</label>
-                                    <div>
-                                        <div id="gender" class="btn-group" data-toggle="buttons">
-                                            <label class="btn btn-default">
-                                                <input type="radio" name="gender" value="Masculino"> Hombre
-                                            </label>
-                                            <label class="btn btn-default">
-                                                <input type="radio" name="gender" value="Femenino"> &nbsp;Mujer
-                                            </label>
-                                        </div>
-                                    </div>
+                                    <label for="document">DNI / RUC / RUS <span class="required">*</span>
+                                    </label>
+                                    <input type="text" id="document" name="document" required="required" class="form-control col-md-7 col-xs-12">
+
                                 </div>
                             </div>
                         </div>
@@ -92,9 +93,9 @@
                             <div class="col-md-5 col-md-offset-1">
                                 <div class="form-group">
                                     <label for="phone">
-                                        Celular <span class="required">*</span>
+                                        Teléfono / Celular
                                     </label>
-                                    <input name="phone" class="form-control col-md-7 col-xs-12" required="required" type="text">
+                                    <input name="phone" class="form-control col-md-7 col-xs-12" type="text">
                                 </div>
                             </div>
 
