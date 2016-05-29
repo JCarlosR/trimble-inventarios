@@ -32,7 +32,7 @@ class ProductController extends Controller
         return view('product.product.create')->with(compact(['categories', 'brands']));
     }
 
-    public function created( Request $request )
+    public function store( Request $request )
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:50',
@@ -199,9 +199,10 @@ class ProductController extends Controller
         if( $request->file('image') )
         {
             $path = public_path().'/images/products';
+            if($request->get('oldImage') !='0.png' )
+                File::delete($path.'/'.$request->get('oldImage'));
             $extension = $request->file('image')->getClientOriginalExtension();
             $fileName = $product->id . '.' . $extension;
-            File::delete($path.'/'.$request->get('oldImage'));
             $request->file('image')->move($path, $fileName);
             $product->image = $fileName;
         }
@@ -233,6 +234,9 @@ class ProductController extends Controller
         }
 
         $product = Product::find( $request->get('id') );
+        $path = public_path().'/images/products';
+        if( $product->image != '0.png' )
+            File::delete($path.'/'.$product->image);
         $product->delete();
 
         return redirect('producto');

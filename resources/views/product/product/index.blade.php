@@ -21,6 +21,7 @@
             width: 40px;
         }
     </style>
+    <link rel="stylesheet" href="{{asset('css/footable.bootstrap.min.css')}}">
 @endsection
 
 @section('content')
@@ -62,38 +63,40 @@
                         </div>
                     </div>
 
-
-
-                    <table class="table table-hover">
+                    <table class="table table-hover mytable">
                         <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Precio</th>
-                            <th></th>
-                            <th>Serie</th>
-                            <th>Marca</th>
-                            <th>Modelo</th>
-                            <th>Num_Parte</th>
-                            <th>Categoría</th>
-                            <th>Subcategoría</th>
-                            <th>Imagen</th>
-                            <th>Funcionalidad</th>
-                        </tr>
+                            <tr>
+                                <th>Nombre</th>
+                                <th data-type="html">Imagen</th>
+                                <th data-hide="all" data-breakpoints="all" data-title="Descripción"></th>
+                                <th>Precio</th>
+                                <th>Serie</th>
+                                <th>Marca</th>
+                                <th>Modelo</th>
+                                <th data-hide="all" data-breakpoints="all" data-title="Número de parte"></th>
+                                <th data-hide="all" data-breakpoints="all" data-title="Color"></th>
+                                <th data-breakpoints="xs sm md">Categoría</th>
+                                <th data-breakpoints="xs sm md">Subcategría</th>
+                                <th data-hide="all" data-breakpoints="all" data-title="Observación"></th>
+                                <th data-type="html">Editar | Eliminar</th>
+                            </tr>
                         </thead>
 
                         @foreach($products as $product)
                         <tbody id="tabla">
                             <tr>
-                                <td>{{ str_limit($product->name, $limit = 20, $end = '...') }}</td>
-                                <td>{{$product->price}}</td>
-                                <td>@if($product->money ==1) S/.  @else $ @endif </td>
+                                <td>{{ $product->name }}</td>
+                                <td ><img src="{{ asset('images/products') }}/{{ $product->image }} " class="img-responsive image"></td>
+                                <td>{{$product->description}}</td>
+                                <td>{{$product->price}} @if($product->money ==1) S/.  @else $ @endif </td>
                                 <td>@if($product->series ==1) Sí  @else No @endif </td>
                                 <td>{{ str_limit($product->brand->name, $limit = 5, $end = '...') }}</td>
                                 <td> {{ str_limit($product->exemplar->name, $limit = 6, $end = '...') }}</td>
                                 <td>{{$product->part_number}}</td>
+                                <td>{{$product->color}}</td>
                                 <td>{{ str_limit($product->category->name, $limit = 7, $end = '...') }}</td>
                                 <td>{{ str_limit($product->subcategory->name, $limit = 7, $end = '...') }}</td>
-                                <td><img src="{{ asset('images/products') }}/{{ $product->image }} " class="img-responsive image"></td>
+                                <td>{{$product->comment}}</td>
                                 <td>
                                     <span title="Editar">
                                         <button type="submit" class="btn btn-success" data-id="{{ $product->id }}" data-name="{{ $product ->name }}"
@@ -101,7 +104,6 @@
                                                 data-brand="{{ $product->brand_id }}" data-exemplar="{{ $product->exemplar_id }}" data-part="{{ $product->part_number }}"
                                                 data-color="{{ $product->color }}" data-category="{{ $product->category_id }}" data-subcategory="{{ $product->subcategory_id }}"
                                                 data-image="{{ $product->image }}" data-comment="{{ $product->comment }}">
-
                                             <i class="fa fa-pencil"></i>
                                         </button>
                                     </span>
@@ -112,7 +114,7 @@
                                     </span>
                                 </td>
                             </tr>
-                            </tbody>
+                        </tbody>
                         @endforeach
                     </table>
                     {!! $products->render() !!}
@@ -280,6 +282,7 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('js/footable.min.js') }}"></script>
     <script src="{{ asset('js/products/productsmodal.js') }}"></script>
     <script src="{{ asset('js/products/search.js') }}"></script>
 @endsection

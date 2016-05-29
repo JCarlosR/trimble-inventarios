@@ -106,7 +106,7 @@ Route::group(['middleware' => 'auth'], function () {
 //Productos
     Route::get('/producto', 'ProductController@index');
     Route::get('/producto/registrar', 'ProductController@create');
-    Route::post('/producto/registrar', 'ProductController@created');
+    Route::post('/producto/registrar', 'ProductController@store');
     Route::get('/producto/categoria', 'ProductController@categoria');
     Route::get('/producto/marca', 'ProductController@marca');
     Route::get('producto/subcategoria/{categoria}','ProductController@subcategoria');

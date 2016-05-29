@@ -2,8 +2,8 @@ $(document).on('ready', principal);
 
 function principal()
 {
-    //Datatable
-    $('#myTable').DataTable;
+    //FooTable
+    $('.mytable').footable();
 
     $modalEditar = $('#modalEditar');
     $modalEliminar = $('#modalEliminar');
