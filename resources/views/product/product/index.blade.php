@@ -67,7 +67,7 @@
                         <thead>
                             <tr>
                                 <th>Nombre</th>
-                                <th data-type="html">Imagen</th>
+                                <th data-type="html"> Imagen </th>
                                 <th data-hide="all" data-breakpoints="all" data-title="Descripción"></th>
                                 <th>Precio</th>
                                 <th>Serie</th>
