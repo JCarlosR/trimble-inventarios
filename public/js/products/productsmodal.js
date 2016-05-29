@@ -60,6 +60,11 @@ function mostrarEditar() {
     var subcategory = $(this).data('subcategory');
     $modalEditar.find('[name="subcategories"]').val(subcategory);
 
+    var image = $(this).data('image');
+    $modalEditar.find('[name="newImage"]').val(image);
+    var image_url = '../public/images/products/'+image;
+    $("#newImage").html('<img src="'+image_url+'" class="img-responsive image"> ');
+
     var comment = $(this).data('comment');
     $modalEditar.find('[name="comment"]').val(comment);
 

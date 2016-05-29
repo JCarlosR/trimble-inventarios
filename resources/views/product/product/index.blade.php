@@ -100,7 +100,7 @@
                                                 data-description="{{ $product->description }}"  data-price="{{ $product->price }}" data-money="{{ $product->money }}"  data-series="{{ $product->series }}"
                                                 data-brand="{{ $product->brand_id }}" data-exemplar="{{ $product->exemplar_id }}" data-part="{{ $product->part_number }}"
                                                 data-color="{{ $product->color }}" data-category="{{ $product->category_id }}" data-subcategory="{{ $product->subcategory_id }}"
-                                                data-comment="{{ $product->comment }}">
+                                                data-image="{{ $product->image }}" data-comment="{{ $product->comment }}">
 
                                             <i class="fa fa-pencil"></i>
                                         </button>
@@ -134,14 +134,14 @@
 
                             <div class="form-group">
                                 <label class="control-label col-md-3" for="name">Nombre <span class="required">*</span></label>
-                                <div class="col-md-7">
+                                <div class="col-md-8">
                                     <input type="text" id="name" name="name" required="required" class="form-control inside">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label col-md-3" for="last-name">Descripción <span class="required">*</span></label>
-                                <div class="col-md-7 col-sm-6 col-xs-12">
+                                <div class="col-md-8">
                                     <textarea id="description" name="description" rows="2" class="form-control no-resize inside"></textarea>
                                 </div>
                             </div>
@@ -152,7 +152,7 @@
                                     <input type="number" placeholder="0.00" step="0.01"  min="0" id="price" name="price" required="required" class="form-control inside">
                                 </div>
                                 <div class="form-group form-inline">
-                                    <label class="control-label col-md-1" for="last-name">Serie <span class="required">*</span></label>
+                                    <label class="control-label col-md-2" for="last-name">Serie <span class="required">*</span></label>
                                     <div class="col-md-3 checkbox">
                                         <input type="checkbox" id="series" name="series">
                                     </div>
@@ -161,7 +161,7 @@
 
                             <div class="form-group">
                                 <label class="control-label col-md-3" for="">Moneda<span class="required">*</span></label>
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <input type="radio" id="soles" name="money" value="1" >Soles
                                     <input type="radio" id="dollar" name="money" value="2" >Dólares</label>
                                 </div>
@@ -176,7 +176,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-1" for="last-name">Modelo</label>
+                                    <label class="control-label col-md-2" for="last-name">Modelo</label>
                                     <div class="col-md-3">
                                         <select name="exemplars" id="exemplars" class="form-control inside">
 
@@ -186,13 +186,13 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Número de parte <span class="required">*</span></label>
-                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                <label class="control-label col-md-3" for="last-name">Número de parte <span class="required">*</span></label>
+                                <div class="col-md-3">
                                     <input type="text" id="part_number" name="part_number" class="form-control inside">
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-1 col-sm-3 col-xs-12" for="last-name">Color <span class="required">*</span></label>
+                                    <label class="control-label col-md-2" for="last-name">Color <span class="required">*</span></label>
                                     <div class="col-md-3">
                                         <input type="text" id="color" name="color" required="required" class="form-control inside">
                                     </div>
@@ -208,7 +208,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-1" for="last-name">Subcategory</label>
+                                    <label class="control-label col-md-2" for="last-name">Subcategory</label>
                                     <div class="col-md-3">
                                         <select name="subcategories" id="subcategories" class="form-control insisde">
 
@@ -218,27 +218,29 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3"  for="image">Imagen</label>
-                                <div class="col-md-7">
-                                    <input type="file" class="form-control inside" accept="image/*">
+                                <label class="control-label col-md-3"  for="image">Nueva Imagen</label>
+                                <div class="col-md-5">
+                                    <input type="file" name="image" class="form-control inside" accept="image/*">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" for="last-name">Imagen anterior</label>
+                                    <div class="col-md-2" id="newImage">
+                                        <input type="hidden" name="oldImage">
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label col-md-3" for="last-name">Observación<span class="required">*</span></label>
-                                <div class="col-md-7">
+                                <div class="col-md-8">
                                     <textarea name="comment" id="comment" rows="2" class="form-control no-resize inside"></textarea>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="modal-footer">
-                            <div class="btn-group pull-left">
-                                <button class="btn btn-danger pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-menu-up"></span> Salir</button>
-                            </div>
-                            <div class="btn-group pull-right">
-                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Guardar producto</button>
-                            </div>
+                        <div class="form-group text-center">
+                            <button class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Guardar producto</button>
                         </div>
                     </form>
                 </div>

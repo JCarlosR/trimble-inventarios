@@ -102,7 +102,7 @@ class ProductController extends Controller
             $product->image = $fileName;
         }
         else
-            $product->image = '0.jpg';
+            $product->image = '0.png';
 
         $product->save();
 
@@ -138,6 +138,9 @@ class ProductController extends Controller
             'exemplar_id'=>'exists:exemplars,id',
             'category_id'=>'exists:categories,id',
             'subcategory_id'=>'exists:subcategories,id',
+            'image'=>'image'
+        ],[
+            'image.image'=>'Solo se permiten imágenes'
         ]);
 
         $name="";$price="";$color="";$product_repeated="";$product_id  ="";
@@ -192,6 +195,16 @@ class ProductController extends Controller
         $product->category_id = $request->get('categories');
         $product->subcategory_id = $request->get('subcategories');
         $product->comment = $request->get('comment');
+
+        if( $request->file('image') )
+        {
+            $path = public_path().'/images/products';
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $fileName = $product->id . '.' . $extension;
+            File::delete($path.'/'.$request->get('oldImage'));
+            $request->file('image')->move($path, $fileName);
+            $product->image = $fileName;
+        }
 
         $product->save();
 
