@@ -47,7 +47,7 @@
                                         <td>XYZ</td>
                                         <td>XYZ</td>
                                         <td>Observación</td>
-                                        
+
                                         <td>
                                             <button type="button" class="btn btn-success" title="Ver contenido">
                                                 <i class="fa fa-eye"></i>
