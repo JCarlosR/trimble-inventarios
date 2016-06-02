@@ -14,19 +14,19 @@ class EntriesTableSeeder extends Seeder
     {
         Entry::create([
             'provider_id' => 1,
-            'type' => 'local',
+            'destination' => 'Destino de prueba',
             'comment' => 'Comentario de prueba',
         ]);
 
         Entry::create([
             'provider_id' => null,
-            'type' => 'local',
+            'destination' => 'Destino de prueba',
             'comment' => 'Comentario de prueba 2',
         ]);
 
         Entry::create([
             'provider_id' => 1,
-            'type' => 'local',
+            'destination' => 'Destino de prueba',
             'comment' => 'Comentario de prueba 3',
         ]);
     }

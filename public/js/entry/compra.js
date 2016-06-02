@@ -51,34 +51,18 @@ function addItem() {
     if (!price || price <= 0)
         return;
 
-
     $.ajax({
         url: '../producto/buscar/' + name
     })
     .done(function( data ) {
         if (data) {
-            // if require series
-
-            if (data.series) {
-                $('#bodySeries').html('');
-                for (var i = 0; i<quantity; ++i) {
-                    renderTemplateSeries();
-                }
-
-                // Temporary variables
-                selectedProduct = { id: data.id, name: name, price: price };
-
-                $('#modalSeries').modal('show');
-            } else {
-                if (itemExists(data.id)) {
-                    alert('Este producto ya se ha cargado');
-                    return;
-                }
-
-                items.push({ id: data.id, series: 'S/S', quantity: quantity, price: price });
-                updateTotal();
-                renderTemplateItem(data.id, name, 'S/S', quantity, price, quantity*price);
+            $('#bodySeries').html('');
+            for (var i = 0; i<quantity; ++i) {
+                renderTemplateSeries();
             }
+            // Temporary variables
+            selectedProduct = { id: data.id, name: name, price: price };
+            $('#modalSeries').modal('show');
         } else {
             alert('Producto no existe');
         }
@@ -126,15 +110,6 @@ function deleteItem() {
     var series = $tr.find('[data-series]').text();
     itemDelete(id, series);
     $tr.remove();
-}
-
-function itemExists(id) {
-    for (var i = 0; i<items.length; ++i) {
-        if (items[i].id == id)
-            return true;
-    }
-
-    return false;
 }
 
 function itemDelete(id, series) {

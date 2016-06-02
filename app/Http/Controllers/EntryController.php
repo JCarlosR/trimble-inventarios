@@ -104,11 +104,9 @@ class EntryController extends Controller
 
     public function postRegistroReutilizacion(Request $request)
     {
-        //dd($items->all());
         $items = json_decode($request->get('items'));
 
-        $proveedor = $request->get('proveedor');
-        $tipo = $request->get('tipo');
+        $destino = $request->get('destino');
         $observacion = $request->get('observacion');
 
         if (sizeof($items) == 0)
@@ -120,7 +118,7 @@ class EntryController extends Controller
 
         $entry = Entry::create([
             'provider_id' => null,
-            'type' => $tipo,
+            'destination' => $destino,
             'comment' => $observacion
         ]);
 
@@ -140,7 +138,7 @@ class EntryController extends Controller
             for ($i = 0; $i<$item->quantity; ++$i)
                 Item::create([
                     'product_id' => $item->id,
-                    'series' => ($item->series == 'S/S'? null:$item->series),
+                    'series' => $item->series,
                     'state' => 'available',
                     'package_id' => null
                 ]);

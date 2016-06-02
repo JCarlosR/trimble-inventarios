@@ -96,12 +96,11 @@
                                             <input type="text" id="proveedor" class="form-control col-md-7 col-xs-12" value="Trimble Peru SAC" readonly>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="tipo">Tipo:
+                                    <div class="col-md-4">
+                                        <label class="control-label col-md-3" for="destino">Destino:
                                         </label>
-                                        <div class="input-group col-md-9 col-md-offset-3" >
-                                            <input type="radio" id="last-name"  name="tipo" value="1" checked >Local
-                                            <input type="radio" id="last-name"  name="tipo" value="0" >Extranjero
+                                        <div class="input-group col-md-9">
+                                            <input type="text" name="destino" class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
                                 </div>
