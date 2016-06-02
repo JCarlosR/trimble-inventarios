@@ -18,7 +18,6 @@ class CreateProductsTable extends Migration
             $table->string('description');
             $table->decimal('price', 9,2);
             $table->integer('money');       // 1 = Soles , 2 = Dólares
-            $table->integer('series');     // 0 = Sin serie , 1 = con serie
             $table->integer('brand_id')->unsigned();
             $table->foreign('brand_id')->references('id')->on('brands');
             $table->integer('exemplar_id')->unsigned();
