@@ -43,7 +43,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/salida/listar/alquiler', 'OutputController@getListaAlquiler');
 
     Route::get('/salida/baja', 'OutputController@getBaja');
-    Route::get('/salida/listar/baja', 'OutputController@getListaBaja');
+    Route::post('/salida/baja', 'OutputController@postBaja');
+    Route::get('productos/disponibles', 'OutputController@getProductosDisponibles');
+    Route::get('paquetes/disponibles', 'OutputController@getPaquetesDisponibles');
 
 
 // Customers

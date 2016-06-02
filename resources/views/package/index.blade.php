@@ -32,65 +32,35 @@
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Producto</th>
-                                        <th>Nombre</th>
-                                        <th>Precio</th>
-                                        <th>Serie</th>
-                                        <th>Marca</th>
-                                        <th>Modelo</th>
-                                        <th>NumParte</th>
-                                        <th>Color</th>
-                                        <th>Categoría</th>
-                                        <th>SubCategoría</th>
+                                        <th>Paquete</th>
+                                        <th>Descripción</th>
+                                        <th>Código</th>
+                                        <th>Ubicación</th>
                                         <th>Observación</th>
+                                        <th>Acciones</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <th scope="row">1</th>
                                         <td>00001</td>
-                                        <td>Producto X</td>
-                                        <td>120.00</td>
-                                        <td></td>
                                         <td>ZBC</td>
                                         <td>XYZ</td>
-                                        <td>2</td>
-                                        <td>Azul</td>
-                                        <td>A</td>
-                                        <td>AB</td>
+                                        <td>XYZ</td>
                                         <td>Observación</td>
+
+                                        <td>
+                                            <button type="button" class="btn btn-success" title="Ver contenido">
+                                                <i class="fa fa-eye"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-primary" title="Editar">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger" title="Eliminar">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </td>
                                     </tr>
 
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>00001</td>
-                                        <td>Producto X</td>
-                                        <td>15.00</td>
-                                        <td></td>
-                                        <td>ZBC</td>
-                                        <td>XYZ</td>
-                                        <td>2</td>
-                                        <td>Azul</td>
-                                        <td>A</td>
-                                        <td>AB</td>
-                                        <td>Observación</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>00001</td>
-                                        <td>Producto X</td>
-                                        <td>20.80</td>
-                                        <td>002</td>
-                                        <td>ZBC</td>
-                                        <td>XYZ</td>
-                                        <td>2</td>
-                                        <td>Azul</td>
-                                        <td>A</td>
-                                        <td>AB</td>
-                                        <td>Observación</td>
-                                    </tr>
                                     </tbody>
                                 </table>
                             </div>

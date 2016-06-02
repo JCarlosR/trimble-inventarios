@@ -6,6 +6,7 @@ use App\Customer;
 use App\Http\Requests;
 use App\Item;
 use App\Output;
+use App\Package;
 use App\Product;
 use App\OutputDetail;
 use Carbon\Carbon;
@@ -180,10 +181,61 @@ class OutputController extends Controller
     }
     public function getBaja()
     {
-        return view('salida.baja');
+        $carbon = new Carbon();
+        $date = $carbon->now();
+        $currentDate = $date->format('Y-m-d');
+        return view('salida.baja')->with(compact('currentDate'));
     }
+
+    public function postBaja( Request $request)
+    {
+        $code = $request->get('codigoDarBaja');
+        $type = $request->get('tipo');
+        if ($type == 'Product')
+        {
+            $product = Item::where('series', $code)->first();
+            if(!$product)
+                return redirect('salida/baja')->with('error', 'No existe un producto con la serie '.$code);
+            $product->state = 'low';
+            $product->save();
+        }else {
+            $package = Package::where('code', $code)->first();
+            if(! $package)
+                return redirect('salida/baja')->with('error', 'No existe un paquete con la serie '.$code);
+            $package->state = 'low';
+            $details = $package->details;
+            //dd($details);
+            $package->save();
+
+            //$details = $package->details;
+            //dd($details);
+            foreach ($details as $detail)
+            {
+                $detail->state = 'low';
+                $detail->save();
+            }
+        }
+                    
+        return redirect('salida/baja');
+    }
+
     public function getListaBaja()
     {
         return view('salida.listabaja');
+    }
+
+    public function getProductosDisponibles()
+    {
+        
+        $products = Item::where('state', 'available')->whereNotNull('series')->whereNull('package_id')->lists('series');
+        $data['products'] = $products;
+        return $data;
+    }
+
+    public function getPaquetesDisponibles()
+    {
+        $packages = Package::where('state', 'available')->lists('code');
+        $data['packages'] = $packages;
+        return $data;
     }
 }
