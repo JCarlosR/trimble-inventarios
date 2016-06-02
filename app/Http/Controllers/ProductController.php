@@ -74,16 +74,11 @@ class ProductController extends Controller
                 ->with($data);
         }
 
-        $serie = 0;
-        if ( $request->get('series') != null )
-            $serie=1;
-
         $product = Product::create([
             'name'	  => $request->get('name'),
             'description' => $request->get('description'),
             'price'=>$request->get('price'),
             'money'=>$request->get('money'),
-            'series'=>$serie,
             'brand_id'=>$request->get('brands'),
             'exemplar_id'=>$request->get('exemplars'),
             'part_number'=>$request->get('part_number'),
@@ -178,16 +173,11 @@ class ProductController extends Controller
                 ->with($data);
         }
 
-        $serie = 0;
-        if ( $request->get('series') != null )
-            $serie=1;
-
         $product = Product::find( $request->get('id') );
         $product->name = $request->get('name');
         $product->description = $request->get('description');
         $product->price = $request->get('price');
         $product->money = $request->get('money');
-        $product->series = $serie;
         $product->brand_id = $request->get('brands');
         $product->exemplar_id = $request->get('exemplars');
         $product->part_number = $request->get('part_number');
