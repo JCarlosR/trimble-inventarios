@@ -14,11 +14,15 @@ class CreateEntriesTable extends Migration
     {
         Schema::create('entries', function (Blueprint $table) {
             $table->increments('id');
+
+            $table->boolean('active')->default(true);
+
             $table->integer('provider_id')->unsigned()->nullable();
             $table->foreign('provider_id')->references('id')->on('providers');
-            $table->string('destination');
+            $table->string('type')->nullable();
+            $table->string('destination')->nullable();
             $table->string('comment');
-            $table->boolean('active')->default(true);
+
             $table->timestamps();
         });
     }

@@ -24,10 +24,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/ingreso/listar/compra/{proveedor}/{inicio}/{fin}', 'EntryController@getComprasFiltro');
     Route::get('/ingreso/listar/detalles/{id}', 'EntryController@getCompraDetalles');
     Route::get('/ingreso/compra', 'EntryController@getRegistroCompra');
+    Route::post('/ingreso/compra/anular', 'EntryController@deleteCompra');
 
     Route::get('/ingreso/listar/reutilizacion', 'EntryController@getReutilizacion');
     Route::get('/ingreso/listar/reutilizacion/{inicio}/{fin}', 'EntryController@getReutilizacionFiltro');
     Route::get('/ingreso/reutilizacion', 'EntryController@getRegistroReutilizacion');
+    Route::post('/ingreso/reutilizacion/anular', 'EntryController@delete');
 
     Route::post('/ingreso/compra', 'EntryController@postRegistroCompra');
     Route::post('/ingreso/reutilizacion', 'EntryController@postRegistroReutilizacion');

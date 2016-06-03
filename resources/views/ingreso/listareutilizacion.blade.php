@@ -116,6 +116,35 @@
             </div>
         </div>
     </div>
+
+    <div id="modalAnular" class="modal fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Anular reutlización</h4>
+                </div>
+                <form action="{{ url('/ingreso/reutilizacion/anular') }}" method="POST">
+                    <div class="modal-body">
+
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                        <input type="hidden" name="id" />
+                        <div class="form-group">
+                            <label>¿Está seguro que desea anular la reutilización seleccionada?</label>
+                            <p>Deberá ingresar nuevamente los productos anteriores desde la vista de productos</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btn-group pull-left">
+                            <button class="btn btn-danger pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-menu-up"></span> Cancelar</button>
+                        </div>
+                        <div class="btn-group pull-right">
+                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Aceptar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
