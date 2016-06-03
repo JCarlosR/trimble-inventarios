@@ -30,5 +30,10 @@ class DatabaseSeeder extends Seeder
         $this->call(EntryDetailsTableSeeder::class);
         $this->call(OutputsTableSeeder::class);
         $this->call(OutputDetailsTableSeeder::class);
+
+        $this->call(LocalsTableSeeder::class);
+        $this->call(ShelvesTableSeeder::class);
+        $this->call(LevelsTableSeeder::class);
+        $this->call(BoxesTableSeeder::class);
     }
 }
