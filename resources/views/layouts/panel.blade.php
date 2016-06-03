@@ -101,6 +101,11 @@
                                     <li><a href="{{ url('/') }}">Reporte 2</a></li>
                                 </ul>
                             </li>
+
+                            @if (Auth::user()->is_admin)
+                            <li><a href="{{ url('/usuarios') }}"><i class="fa fa-bell"></i> Usuarios</a>
+                            </li>
+                            @endif
                         </ul>
                     </div>
                     <div class="menu_section">
