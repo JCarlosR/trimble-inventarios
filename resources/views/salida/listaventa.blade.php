@@ -120,6 +120,7 @@
                                             <th>Tipo</th>
                                             <th>Fecha</th>
                                             <th>Observación</th>
+                                            <th>Acción</th>
                                         </tr>
                                         </thead>
                                         <tbody id="bodyOutput" data-href="{{ url('/salida/listar/detalles/{id}') }}">
@@ -129,6 +130,11 @@
                                                 <td>{{ ($output->type=='local'?'Local':'Extranjero') }}</td>
                                                 <td>{{ $output->created_at }}</td>
                                                 <td>{{ $output->comment }}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger" data-anular="{{ $output->id }}">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -171,6 +177,35 @@
                         </form>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalAnular" class="modal fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Anular compra</h4>
+                </div>
+                <form action="{{ url('/salida/venta/anular') }}" method="POST">
+                    <div class="modal-body">
+
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                        <input type="hidden" name="id" />
+                        <div class="form-group">
+                            <label for="nombreEliminar">¿Está seguro que desea anular la venta seleccionada?</label>
+                            <p>Deberá ingresar nuevamente los productos anteriores desde la vista de productos</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btn-group pull-left">
+                            <button class="btn btn-danger pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-menu-up"></span> Cancelar</button>
+                        </div>
+                        <div class="btn-group pull-right">
+                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Aceptar</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

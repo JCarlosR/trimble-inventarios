@@ -12,6 +12,7 @@ use App\OutputDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class OutputController extends Controller
 {
@@ -63,6 +64,7 @@ class OutputController extends Controller
             $output = Output::create([
                 'customer_id' => $customerId,
                 'type' => $tipo,
+                'reason' => 'sale',
                 'comment' => $observacion
             ]);
 
@@ -73,7 +75,7 @@ class OutputController extends Controller
                 // Sino tomamos los primeros dependiendo cantidad y lo actualizamos(crear los outputDetails correspondiente)
 
 
-                if ($item->series != 'S/S') {
+               // if ($item->series != 'S/S') {
                     // Find the specific item
                     $realItem = Item::where('product_id', $item->id)->where('state', 'available')->where('series', $item->series)->first();
 
@@ -91,31 +93,31 @@ class OutputController extends Controller
                     ]);
 
                     // Update stock product
-                } else {
-
-                    // Primeros items que han coincidido con el producto indicado
-                    $firstItems = Item::where('product_id', $item->id)->where('state', 'available')->where('package_id', null)->take($item->quantity)->get();
-
-                    if($firstItems->count() < $item->quantity) {
-                        $productName = Product::find($item->id)->name;
-                        throw new \Exception('No se cuenta con stock suficiente para el producto '. $productName);
-                    }
-
-                    // Enough stock
-                    foreach($firstItems as $selectedItem) {
-                        $selectedItem->state = 'sold';
-                        $selectedItem->save();
-
-                        // Create one Output Detail per item
-                        OutputDetail::create([
-                            'output_id' => $output->id,
-                            'item_id' => $selectedItem->id,
-                            'price' => $item->price
-                        ]);
-                    }
+//                } else {
+//
+//                    // Primeros items que han coincidido con el producto indicado
+//                    $firstItems = Item::where('product_id', $item->id)->where('state', 'available')->where('package_id', null)->take($item->quantity)->get();
+//
+//                    if($firstItems->count() < $item->quantity) {
+//                        $productName = Product::find($item->id)->name;
+//                        throw new \Exception('No se cuenta con stock suficiente para el producto '. $productName);
+//                    }
+//
+//                    // Enough stock
+//                    foreach($firstItems as $selectedItem) {
+//                        $selectedItem->state = 'sold';
+//                        $selectedItem->save();
+//
+//                        // Create one Output Detail per item
+//                        OutputDetail::create([
+//                            'output_id' => $output->id,
+//                            'item_id' => $selectedItem->id,
+//                            'price' => $item->price
+//                        ]);
+//                    }
 
                     // Update stock
-                }
+  //              }
             }
 
             DB::commit();
@@ -130,7 +132,7 @@ class OutputController extends Controller
     public function getVentas()
     {
         $customers = Customer::select('name')->lists('name')->toJson();
-        $outputs = Output::whereNotNull('customer_id')->paginate(3);
+        $outputs = Output::where('reason', 'sale')->paginate(3);
         //dd($outputs);
         $carbon = new Carbon();
         $datefin = $carbon->now();
@@ -237,5 +239,59 @@ class OutputController extends Controller
         $packages = Package::where('state', 'available')->lists('code');
         $data['packages'] = $packages;
         return $data;
+    }
+
+    public function delete( Request $request )
+    {
+        // Make validator using rules and custom messages
+        $validator = Validator::make($request->all(), [
+            'id' => 'exists:outputs,id'
+        ],[
+            'id.exists' => 'La venta no puede ser eliminada porque no existe.'
+        ]);
+
+        // Get the target entry
+        $output = Output::find($request->get('id'));
+
+        // Are all the details still available?
+        $allAvailable = true;
+        foreach($output->details as $detail)
+        {
+            $item = Item::where('series', $detail->series)->first();
+            if ($item->state != 'available')
+            {
+                $allAvailable = false;
+                break;
+            }
+        }
+
+        // If not, add an error
+        $validator->after(function($validator) use ($allAvailable) {
+            if ($allAvailable == false) {
+                $validator->errors()->add('available', 'Es imposible anular la operación porque generaría inconsistencias en el sistema.');
+            }
+        });
+
+        // Return errors if it fails
+        if ($validator->fails())
+        {
+            $data['errors'] = $validator->errors();
+
+            return back()
+                ->withInput($request->all())
+                ->with($data);
+        }
+
+        // It's OK. Let's update and undo the operation
+        $output->active = false;
+        $output->save();
+        foreach($output->details as $detail)
+        {
+            $item = Item::where('series', $detail->series)->first();
+            $item->state = 'annulled';
+            $item->save();
+        }
+
+        return back();
     }
 }
