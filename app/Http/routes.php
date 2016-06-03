@@ -24,10 +24,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/ingreso/listar/compra/{proveedor}/{inicio}/{fin}', 'EntryController@getComprasFiltro');
     Route::get('/ingreso/listar/detalles/{id}', 'EntryController@getCompraDetalles');
     Route::get('/ingreso/compra', 'EntryController@getRegistroCompra');
+    Route::post('/ingreso/compra/anular', 'EntryController@deleteCompra');
 
     Route::get('/ingreso/listar/reutilizacion', 'EntryController@getReutilizacion');
     Route::get('/ingreso/listar/reutilizacion/{inicio}/{fin}', 'EntryController@getReutilizacionFiltro');
     Route::get('/ingreso/reutilizacion', 'EntryController@getRegistroReutilizacion');
+    Route::post('/ingreso/reutilizacion/anular', 'EntryController@delete');
 
     Route::post('/ingreso/compra', 'EntryController@postRegistroCompra');
     Route::post('/ingreso/reutilizacion', 'EntryController@postRegistroReutilizacion');
@@ -38,6 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/salida/listar/venta/{cliente}/{inicio}/{fin}', 'OutputController@getVentasFiltro');
     Route::post('/salida/venta', 'OutputController@postRegistroVenta');
     Route::get('/salida/listar/detalles/{id}', 'OutputController@getVentaDetalles');
+    Route::post('/salida/venta/anular', 'OutputController@delete');
 
     Route::get('/salida/alquiler', 'OutputController@getAlquiler');
     Route::get('/salida/listar/alquiler', 'OutputController@getListaAlquiler');
@@ -78,34 +81,40 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/proveedores/tipos/registrar', 'ProviderTypeController@created');
     Route::post('/proveedores/tipos/eliminar', 'ProviderTypeController@delete');
 
-    // Products
-//Categorías
+// Users
+    Route::get('/usuarios', 'UserController@index');
+    Route::put('/usuarios/{id}', 'UserController@edit');
+    Route::post('/usuarios', 'UserController@store');
+    Route::delete('/usuarios', 'UserController@delete');
+
+// Products
+    // Categories
     Route::get('/categoria', 'CategoryController@index');
     Route::get('/categoria/registrar', 'CategoryController@create');
     Route::post('/categoria/registrar', 'CategoryController@created');
     Route::post('categoria/modificar','CategoryController@edit');
     Route::post('categoria/eliminar','CategoryController@delete');
-//Subcategorías
+    // Subcategories
     Route::get('/subcategoria', 'SubcategoryController@index');
     Route::get('/subcategoria/registrar', 'SubcategoryController@create');
     Route::post('/subcategoria/registrar', 'SubcategoryController@created');
     Route::get('subcategoria/dropdown','SubcategoryController@dropdown');
     Route::post('subcategoria/modificar','SubcategoryController@edit');
     Route::post('subcategoria/eliminar','SubcategoryController@delete');
-//Marcas
+    // Brands
     Route::get('/marca', 'BrandController@index');
     Route::get('/marca/registrar', 'BrandController@create');
     Route::post('/marca/registrar', 'BrandController@created');
     Route::post('marca/modificar','BrandController@edit');
     Route::post('marca/eliminar','BrandController@delete');
-//Modelos
+    // Models
     Route::get('/modelo', 'ExemplarController@index');
     Route::get('/modelo/registrar', 'ExemplarController@create');
     Route::post('/modelo/registrar', 'ExemplarController@created');
     Route::get('modelo/dropdown','ExemplarController@dropdown');
     Route::post('modelo/modificar','ExemplarController@edit');
     Route::post('modelo/eliminar','ExemplarController@delete');
-//Productos
+    // Products
     Route::get('/producto', 'ProductController@index');
     Route::get('/producto/inactivos', 'ProductController@show_disabled');
     Route::post('/producto/habilitar', 'ProductController@enable');
@@ -117,13 +126,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('producto/modelo/{marca}','ProductController@modelo');
     Route::post('producto/modificar','ProductController@edit');
     Route::post('producto/eliminar','ProductController@delete');
-//Paquetes
+    // Packages
     Route::get('/paquete', 'PackageController@index');
     Route::get('/paquete/registrar', 'PackageController@create');
 
 // Search
+    // Search product by name
     Route::get('/producto/buscar/{name}', 'ProductController@search');
-
+    // Search for a specific item
     Route::get('/items/producto/{id}', 'ItemController@searchItems');
 
 

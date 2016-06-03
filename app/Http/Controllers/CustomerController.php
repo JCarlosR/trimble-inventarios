@@ -16,14 +16,15 @@ class CustomerController extends Controller
     public function index()
     {
         $clientes = Customer::where('enable', 1)->paginate(3);
+        return $clientes;
         $tipos = CustomerType::all();
-        return view('customer.index')->with(compact(['clientes', 'tipos']));
+        return view('customer.index')->with(compact('clientes', 'tipos'));
     }
 
     public function create()
     {
         $types = CustomerType::all();
-        return view('customer.create')->with(compact(['types']));
+        return view('customer.create')->with(compact('types'));
     }
 
     public function edit( Request $request )

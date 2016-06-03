@@ -1,6 +1,7 @@
 <?php
 
 use App\EntryDetail;
+use App\Item;
 use Illuminate\Database\Seeder;
 
 class EntryDetailsTableSeeder extends Seeder
@@ -15,17 +16,27 @@ class EntryDetailsTableSeeder extends Seeder
         EntryDetail::create([
             'entry_id' => 1,
             'product_id' => 1,
-            'series' => 'S/S',
+            'series' => 'CO0',
             'quantity' => 10,
             'price' => 15.2,
+        ]);
+        Item::create([
+            'product_id' => 1,
+            'series' => 'CO0',
+            'package_id' => null
         ]);
 
         EntryDetail::create([
             'entry_id' => 1,
-            'product_id' => 3,
+            'product_id' => 1,
             'series' => 'CO1',
             'quantity' => 1,
             'price' => 20.1,
+        ]);
+        Item::create([
+            'product_id' => 1,
+            'series' => 'CO1',
+            'package_id' => null
         ]);
 
         EntryDetail::create([
@@ -35,6 +46,11 @@ class EntryDetailsTableSeeder extends Seeder
             'quantity' => 1,
             'price' => 20.1,
         ]);
+        Item::create([
+            'product_id' => 3,
+            'series' => 'CO2',
+            'package_id' => null
+        ]);
 
         EntryDetail::create([
             'entry_id' => 1,
@@ -43,13 +59,26 @@ class EntryDetailsTableSeeder extends Seeder
             'quantity' => 1,
             'price' => 20.1,
         ]);
+        Item::create([
+            'product_id' => 3,
+            'series' => 'CO3',
+            'package_id' => null
+        ]);
 
+
+        // Entry 2
         EntryDetail::create([
             'entry_id' => 2,
             'product_id' => 5,
             'series' => 'DGF02',
             'quantity' => 1,
             'price' => 20.1,
+        ]);
+        Item::create([
+            'product_id' => 5,
+            'series' => 'DGF02',
+            'state' => 'available',
+            'package_id' => null
         ]);
 
         EntryDetail::create([
@@ -59,14 +88,27 @@ class EntryDetailsTableSeeder extends Seeder
             'quantity' => 1,
             'price' => 20.1,
         ]);
+        Item::create([
+            'product_id' => 5,
+            'series' => 'DGF04',
+            'state' => 'available',
+            'package_id' => null
+        ]);
 
         EntryDetail::create([
             'entry_id' => 2,
             'product_id' => 4,
-            'series' => 'S/S',
+            'series' => 'XYZ03',
             'quantity' => 3,
             'price' => 20.1,
         ]);
+        Item::create([
+            'product_id' => 4,
+            'series' => 'XYZ03',
+            'state' => 'available',
+            'package_id' => null
+        ]);
+
 
         EntryDetail::create([
             'entry_id' => 3,
@@ -74,6 +116,12 @@ class EntryDetailsTableSeeder extends Seeder
             'series' => 'DGF02',
             'quantity' => 1,
             'price' => 20.1,
+        ]);
+        Item::create([
+            'product_id' => 5,
+            'series' => 'DGF02',
+            'state' => 'available',
+            'package_id' => null
         ]);
 
         EntryDetail::create([
@@ -83,13 +131,25 @@ class EntryDetailsTableSeeder extends Seeder
             'quantity' => 1,
             'price' => 20.1,
         ]);
+        Item::create([
+            'product_id' => 5,
+            'series' => 'DGF04',
+            'state' => 'available',
+            'package_id' => null
+        ]);
 
         EntryDetail::create([
             'entry_id' => 3,
             'product_id' => 4,
-            'series' => 'S/S',
+            'series' => 'ABC03',
             'quantity' => 12,
             'price' => 10.1,
+        ]);
+        Item::create([
+            'product_id' => 4,
+            'series' => 'ABC03',
+            'state' => 'available',
+            'package_id' => null
         ]);
     }
 

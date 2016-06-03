@@ -11,4 +11,9 @@ class Entry extends Model
         'provider_id', 'destination', 'comment',
     ];
 
+    public function details()
+    {
+        return $this->hasMany('App\EntryDetail');
+    }
+
 }

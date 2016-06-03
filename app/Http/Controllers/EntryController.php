@@ -11,6 +11,7 @@ use App\Product;
 use App\Provider;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class EntryController extends Controller
 {
@@ -41,7 +42,7 @@ class EntryController extends Controller
     public function getCompras()
     {
         $providers = Provider::select('name')->lists('name')->toJson();
-        $entries = Entry::whereNotNull('provider_id')->get();
+        $entries = Entry::whereNotNull('provider_id')->where('active', true)->get();
         $carbon = new Carbon();
         $datefin = $carbon->now();
         $dateinicio = $carbon->now()->subDays(7);
@@ -84,7 +85,7 @@ class EntryController extends Controller
 
     public function getReutilizacion()
     {
-        $entries = Entry::whereNull('provider_id')->get();
+        $entries = Entry::whereNull('provider_id')->where('active', true)->get();
         $carbon = new Carbon();
         $datefin = $carbon->now();
         $dateinicio = $carbon->now()->subDays(7);
@@ -205,6 +206,114 @@ class EntryController extends Controller
 
         return response()->json(['error' => false]);
 
+    }
+
+    public function delete( Request $request )
+    {
+        // Make validator using rules and custom messages
+        $validator = Validator::make($request->all(), [
+            'id' => 'exists:entries,id'
+        ],[
+            'id.exists' => 'La reutilización no puede ser eliminada porque no existe.'
+        ]);
+
+        // Get the target entry
+        $entry = Entry::find($request->get('id'));
+
+        // Are all the details still available?
+        $allAvailable = true;
+        foreach($entry->details as $detail)
+        {
+            $item = Item::where('series', $detail->series)->first();
+            if ($item->state != 'available')
+            {
+                $allAvailable = false;
+                break;
+            }
+        }
+
+        // If not, add an error
+        $validator->after(function($validator) use ($allAvailable) {
+            if ($allAvailable == false) {
+                $validator->errors()->add('available', 'Es imposible anular la operación porque generaría inconsistencias en el sistema.');
+            }
+        });
+
+        // Return errors if it fails
+        if ($validator->fails())
+        {
+            $data['errors'] = $validator->errors();
+
+            return back()
+                ->withInput($request->all())
+                ->with($data);
+        }
+
+        // It's OK. Let's update and undo the operation
+        $entry->active = false;
+        $entry->save();
+        foreach($entry->details as $detail)
+        {
+            $item = Item::where('series', $detail->series)->first();
+            $item->state = 'annulled';
+            $item->save();
+        }
+
+        return back();
+    }
+
+    public function deleteCompra( Request $request )
+    {
+        // Make validator using rules and custom messages
+        $validator = Validator::make($request->all(), [
+            'id' => 'exists:entries,id'
+        ],[
+            'id.exists' => 'La compra no puede ser eliminada porque no existe.'
+        ]);
+
+        // Get the target entry
+        $entry = Entry::find($request->get('id'));
+
+        // Are all the details still available?
+        $allAvailable = true;
+        foreach($entry->details as $detail)
+        {
+            $item = Item::where('series', $detail->series)->first();
+            if ($item->state != 'available')
+            {
+                $allAvailable = false;
+                break;
+            }
+        }
+
+        // If not, add an error
+        $validator->after(function($validator) use ($allAvailable) {
+            if ($allAvailable == false) {
+                $validator->errors()->add('available', 'Es imposible anular la operación porque generaría inconsistencias en el sistema.');
+            }
+        });
+
+        // Return errors if it fails
+        if ($validator->fails())
+        {
+            $data['errors'] = $validator->errors();
+
+            return back()
+                ->withInput($request->all())
+                ->with($data);
+        }
+
+        // It's OK. Let's update and undo the operation
+        $entry->active = false;
+        $entry->save();
+        foreach($entry->details as $detail)
+        {
+            $item = Item::where('series', $detail->series)->first();
+            $item->state = 'annulled';
+            $item->save();
+        }
+
+        return back();
     }
 
 }
