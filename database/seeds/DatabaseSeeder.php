@@ -33,7 +33,5 @@ class DatabaseSeeder extends Seeder
 
         $this->call(LocalsTableSeeder::class);
         $this->call(ShelvesTableSeeder::class);
-        $this->call(LevelsTableSeeder::class);
-        $this->call(BoxesTableSeeder::class);
     }
 }

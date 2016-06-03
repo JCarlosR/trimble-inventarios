@@ -12,10 +12,6 @@ class LevelsTableSeeder extends Seeder
      */
     public function run()
     {
-        Level::create([
-            'name' => 'N1',
-            'comment'=>'',
-            'shelf_id'=>1
-        ]);
+
     }
 }

@@ -15,7 +15,7 @@ class CreateShelvesTable extends Migration
         Schema::create('shelves', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('comment');
+            $table->string('comment')->nullable();
             $table->integer('local_id')->unsigned();
             $table->foreign('local_id')->references('id')->on('locals');
             $table->timestamps();

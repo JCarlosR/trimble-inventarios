@@ -21,7 +21,22 @@ class ProductController extends Controller
     {
         $products = Product::where('state',1)->orderBy('name', 'asc')->paginate(5);
 
-        return view('product.product.index')->with(compact(['products']));
+        return view('product.product.index')->with(compact('products'));
+    }
+
+    public function show_disabled()
+    {
+        $products = Product::where('state',0)->orderBy('name', 'asc')->paginate(5);
+        return view('product.product.back')->with(compact('products'));
+    }
+
+    public function enable( Request $request)
+    {
+        $product = Product::find($request->get('id'));
+        $product->state=1;
+        $product->save();
+
+        return redirect('producto/inactivos');
     }
 
     public function create()
@@ -29,7 +44,7 @@ class ProductController extends Controller
         $categories = Category::orderBy('name', 'asc')->get();
         $brands = Brand::orderBy('name', 'asc')->get();
 
-        return view('product.product.create')->with(compact(['categories', 'brands']));
+        return view('product.product.create')->with(compact('categories', 'brands'));
     }
 
     public function store( Request $request )

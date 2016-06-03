@@ -6,7 +6,7 @@
     <style>
         .margen
         {
-            margin-top:16px;
+            margin-top:11px;
         }
         .no-resize
         {
@@ -26,7 +26,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="col-md-12">
             <div class="x_panel">
 
                 <div class="x_title">
@@ -40,26 +40,26 @@
                 <div class="x_content table-responsive">
 
                     @if( $errors->count() > 0 )
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="alert alert-danger" role="alert">
-                                    <strong>Lo sentimos! </strong>Por favor revise los siguientes errores.
-                                    @foreach($errors->all() as $message)
-                                        <p>{{$message}}</p>
-                                    @endforeach
-                                </div>
+                        <div class="col-sm-12">
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Lo sentimos! </strong>Por favor revise los siguientes errores.
+                                @foreach($errors->all() as $message)
+                                    <p>{{$message}}</p>
+                                @endforeach
                             </div>
                         </div>
                     @endif
 
-                    <div class="form-inline">
-                        <div class="col-md-4">
-                            <h2><a href="{{ url('/producto/registrar') }}" class="btn btn-success"><i class="fa fa-plus-square-o"></i> Nuevo producto</a></h2>
+                    <div class="col-md-3">
+                        <h2><a href="{{ url('/producto/registrar') }}" class="btn btn-success"><i class="fa fa-plus-square-o"></i> Nuevo producto</a></h2>
+                    </div>
+                    <div class="col-md-9 form-inline">
+                        <div class="col-md-8 input-group margen">
+                            <span class="input-group-addon">Producto</span><input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
                         </div>
 
-                        <div class="col-md-8 input-group margen">
-                                <span class="input-group-addon">Producto</span>
-                                <input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
+                        <div class="col-md-3 margen pull-right">
+                            <a href="{{ url('/producto/inactivos') }}" class="btn btn-dark" type="button"><i class="fa fa-lock"></i> Restablecer eliminados</a>
                         </div>
                     </div>
 

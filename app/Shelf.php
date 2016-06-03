@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Shelf extends Model
 {
-    protected $fillable = ['name','local_id'];
+    protected $fillable = ['name','comment','local_id'];
 
     public function local()
     {
-        return $this->hasMany('App\Local', 'local_id');
+        return $this->belongsTo('App\Local');
     }
 
-    public function level()
+    public function levels()
     {
-        return $this->belongsTo('App\Level', 'level_id');
+        return $this->hasMany('App\Level');
     }
 }
