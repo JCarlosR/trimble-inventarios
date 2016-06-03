@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/salida/listar/venta/{cliente}/{inicio}/{fin}', 'OutputController@getVentasFiltro');
     Route::post('/salida/venta', 'OutputController@postRegistroVenta');
     Route::get('/salida/listar/detalles/{id}', 'OutputController@getVentaDetalles');
+    Route::post('/salida/venta/anular', 'OutputController@delete');
 
     Route::get('/salida/alquiler', 'OutputController@getAlquiler');
     Route::get('/salida/listar/alquiler', 'OutputController@getListaAlquiler');

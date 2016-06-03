@@ -1,7 +1,18 @@
 $(document).on('ready', function (){
     $('#btnShowOutputs').on('click', showOutputs);
     $('#bodyOutput').on('click', 'tr', showDetails);
+    $modalAnular = $('#modalAnular');
+    $('[data-anular]').on('click', mostrarAnular);
 });
+
+var $modalAnular;
+
+function mostrarAnular() {
+    var id = $(this).data('anular');
+    $modalAnular.find('[name="id"]').val(id);
+
+    $modalAnular.modal('show');
+}
 
 function showOutputs() {
     var cliente = $('#clientes').val();

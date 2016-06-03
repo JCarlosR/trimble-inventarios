@@ -24,6 +24,7 @@ class CreateOutputsTable extends Migration
 
             // For rentals, this indicates the status of the devolution
             $table->boolean('completed')->default(true);
+            $table->boolean('active')->default(true);
 
             // Simple data
             $table->enum('type', ['local', 'foreign']);
