@@ -42,7 +42,7 @@ class EntryController extends Controller
     public function getCompras()
     {
         $providers = Provider::select('name')->lists('name')->toJson();
-        $entries = Entry::whereNotNull('provider_id')->get();
+        $entries = Entry::whereNotNull('provider_id')->where('active', true)->get();
         $carbon = new Carbon();
         $datefin = $carbon->now();
         $dateinicio = $carbon->now()->subDays(7);

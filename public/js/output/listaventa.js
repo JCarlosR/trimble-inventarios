@@ -28,7 +28,8 @@ function showDetails() {
             if (data) {
                 $('#bodyDetails').html('');
                 $(data).each(function(i, e) {
-                    renderTemplateDetail(e.name, e.series, e.quantity, e.price, e.quantity * e.price);
+                    console.log(data);
+                    renderTemplateDetail(e.name, e.series, 1, e.price, e.price);
                 });
 
             } else {

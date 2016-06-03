@@ -73,7 +73,7 @@ class OutputController extends Controller
                 // Sino tomamos los primeros dependiendo cantidad y lo actualizamos(crear los outputDetails correspondiente)
 
 
-                if ($item->series != 'S/S') {
+               // if ($item->series != 'S/S') {
                     // Find the specific item
                     $realItem = Item::where('product_id', $item->id)->where('state', 'available')->where('series', $item->series)->first();
 
@@ -91,31 +91,31 @@ class OutputController extends Controller
                     ]);
 
                     // Update stock product
-                } else {
-
-                    // Primeros items que han coincidido con el producto indicado
-                    $firstItems = Item::where('product_id', $item->id)->where('state', 'available')->where('package_id', null)->take($item->quantity)->get();
-
-                    if($firstItems->count() < $item->quantity) {
-                        $productName = Product::find($item->id)->name;
-                        throw new \Exception('No se cuenta con stock suficiente para el producto '. $productName);
-                    }
-
-                    // Enough stock
-                    foreach($firstItems as $selectedItem) {
-                        $selectedItem->state = 'sold';
-                        $selectedItem->save();
-
-                        // Create one Output Detail per item
-                        OutputDetail::create([
-                            'output_id' => $output->id,
-                            'item_id' => $selectedItem->id,
-                            'price' => $item->price
-                        ]);
-                    }
+//                } else {
+//
+//                    // Primeros items que han coincidido con el producto indicado
+//                    $firstItems = Item::where('product_id', $item->id)->where('state', 'available')->where('package_id', null)->take($item->quantity)->get();
+//
+//                    if($firstItems->count() < $item->quantity) {
+//                        $productName = Product::find($item->id)->name;
+//                        throw new \Exception('No se cuenta con stock suficiente para el producto '. $productName);
+//                    }
+//
+//                    // Enough stock
+//                    foreach($firstItems as $selectedItem) {
+//                        $selectedItem->state = 'sold';
+//                        $selectedItem->save();
+//
+//                        // Create one Output Detail per item
+//                        OutputDetail::create([
+//                            'output_id' => $output->id,
+//                            'item_id' => $selectedItem->id,
+//                            'price' => $item->price
+//                        ]);
+//                    }
 
                     // Update stock
-                }
+  //              }
             }
 
             DB::commit();
