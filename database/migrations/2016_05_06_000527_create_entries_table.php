@@ -16,8 +16,9 @@ class CreateEntriesTable extends Migration
             $table->increments('id');
             $table->integer('provider_id')->unsigned()->nullable();
             $table->foreign('provider_id')->references('id')->on('providers');
-            $table->enum('type', ['local', 'foreign']);
+            $table->string('destination');
             $table->string('comment');
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

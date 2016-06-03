@@ -8,7 +8,7 @@ class Entry extends Model
 {
 
     protected $fillable = [
-        'provider_id', 'type', 'comment',
+        'provider_id', 'destination', 'comment',
     ];
 
 }

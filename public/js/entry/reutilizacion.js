@@ -52,38 +52,22 @@ function addItem() {
     if (!price || price <= 0)
         return;
 
-
     $.ajax({
-        url: '../producto/buscar/' + name
-    })
-    .done(function( data ) {
-        if (data) {
-            // if require series
-
-            if (data.series) {
+            url: '../producto/buscar/' + name
+        })
+        .done(function( data ) {
+            if (data) {
                 $('#bodySeries').html('');
                 for (var i = 0; i<quantity; ++i) {
                     renderTemplateSeries();
                 }
-
                 // Temporary variables
                 selectedProduct = { id: data.id, name: name, price: price };
-
                 $('#modalSeries').modal('show');
             } else {
-                if (itemExists(data.id)) {
-                    alert('Este producto ya se ha cargado');
-                    return;
-                }
-
-                items.push({ id: data.id, series: 'S/S', quantity: quantity, price: price });
-                updateTotal();
-                renderTemplateItem(data.id, name, 'S/S', quantity, price, quantity*price);
+                alert('Producto no existe');
             }
-        } else {
-            alert('Producto no existe');
-        }
-    });
+        });
 }
 
 function addItemsSeries() {

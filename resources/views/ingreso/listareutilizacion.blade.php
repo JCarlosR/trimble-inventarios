@@ -55,18 +55,24 @@
                                         <thead>
                                         <tr>
                                             <th>Ingreso</th>
-                                            <th>Tipo</th>
+                                            <th>Destino</th>
                                             <th>Fecha</th>
                                             <th>Observación</th>
+                                            <th>Acciòn</th>
                                         </tr>
                                         </thead>
                                         <tbody id="bodyEntries" data-href="{{ url('/ingreso/listar/detalles/{id}') }}">
                                         @foreach($entries as $entry)
                                             <tr>
                                                 <td data-id="{{ $entry->id }}">{{ $entry->id+10000 }}</td>
-                                                <td>{{ ($entry->type=='local'?'Local':'Extranjero') }}</td>
+                                                <td>{{ $entry->destiantion }}</td>
                                                 <td>{{ $entry->created_at }}</td>
                                                 <td>{{ $entry->comment }}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger" data-anular="{{ $entry->id }}">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>
