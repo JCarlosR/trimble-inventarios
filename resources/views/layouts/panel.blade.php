@@ -95,6 +95,12 @@
                                 </ul>
                             </li>
 
+                            <li><a><i class="fa fa-random"></i> Ubicaciones <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="{{ url('/local') }}">Locales</a></li>
+                                </ul>
+                            </li>
+
                             <li><a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="{{ url('/') }}">Reporte 1</a></li>

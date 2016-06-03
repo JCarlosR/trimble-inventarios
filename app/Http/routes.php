@@ -116,6 +116,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('modelo/eliminar','ExemplarController@delete');
     // Products
     Route::get('/producto', 'ProductController@index');
+    Route::get('/producto/inactivos', 'ProductController@show_disabled');
+    Route::post('/producto/habilitar', 'ProductController@enable');
     Route::get('/producto/registrar', 'ProductController@create');
     Route::post('/producto/registrar', 'ProductController@store');
     Route::get('/producto/categoria', 'ProductController@categoria');
@@ -139,6 +141,34 @@ Route::group(['middleware' => 'auth'], function () {
     // Search for a specific item
     Route::get('/items/producto/{id}', 'ItemController@searchItems');
 
+
+
+// Locations
+    // Locals
+    Route::get('/local', 'LocalController@index');
+    Route::get('/local/registrar', 'LocalController@create');
+    Route::post('/local/registrar', 'LocalController@store');
+    Route::post('local/modificar','LocalController@edit');
+    Route::post('local/eliminar','LocalController@delete');
+
+    // Shelves
+    Route::get('/anaquel/{local}', 'ShelfController@index');
+    Route::get('/anaquel/registrar/{local}', 'ShelfController@create');
+    Route::post('/anaquel/registrar/{local}', 'ShelfController@store');
+    Route::post('anaquel/modificar/{local}','ShelfController@edit');
+    Route::post('anaquel/eliminar/{local}','ShelfController@delete');
+
+    // Levels
+    Route::get('/nivel/{shelf}/{local}', 'LevelController@index');
+    Route::get('/nivel/registrar/{shelf}/{local}', 'LevelController@create');
+    Route::post('/nivel/registrar/{shelf}/{local}', 'LevelController@store');
+    Route::post('nivel/modificar/{shelf}/{local}','LevelController@edit');
+    Route::post('nivel/eliminar/{shelf}/{local}','LevelController@delete');
+
+    // Boxes
+    Route::get('/caja/{level}/{shelf}/{local}', 'BoxController@index');
+    Route::get('/caja/registrar/{level}/{shelf}/{local}', 'BoxController@create');
+    Route::post('/caja/registrar/{level}/{shelf}/{local}', 'BoxController@store');
+    Route::post('caja/modificar/{level}/{shelf}/{local}','BoxController@edit');
+    Route::post('caja/eliminar/{level}/{shelf}/{local}','BoxController@delete');
 });
-
-

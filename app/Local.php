@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Local extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['name','comment','type'];
 
-    public function shelf()
+    public function shelves()
     {
-        return $this->belongsTo('App\Shelf', 'shelf_id');
+        return $this->hasMany('App\Shelf');
     }
 }

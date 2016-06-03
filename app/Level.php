@@ -6,14 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Level extends Model
 {
-    protected $fillable = ['name','shelf_id'];
+    protected $fillable = ['name','comment','shelf_id'];
 
     public function shelf()
     {
-        return $this->hasMany('App\Shelf', 'shelf_id');
+        return $this->belongsTo('App\Shelf');
     }
-    public function box()
+
+    public function boxes()
     {
-        return $this->belongsTo('App\Box', 'box_id');
+        return $this->hasMany('App\Box');
     }
 }
