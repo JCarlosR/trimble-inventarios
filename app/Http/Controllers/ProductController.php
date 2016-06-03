@@ -19,7 +19,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::orderBy('name', 'asc')->paginate(5);
+        $products = Product::where('state',1)->orderBy('name', 'asc')->paginate(5);
 
         return view('product.product.index')->with(compact(['products']));
     }
@@ -85,7 +85,8 @@ class ProductController extends Controller
             'color'=>$request->get('color'),
             'category_id'=>$request->get('categories'),
             'subcategory_id'=>$request->get('subcategories'),
-            'comment'=>$request->get('comment')
+            'comment'=>$request->get('comment'),
+            'state'=>1
         ]);
 
         if( $request->file('image') )
@@ -224,10 +225,8 @@ class ProductController extends Controller
         }
 
         $product = Product::find( $request->get('id') );
-        $path = public_path().'/images/products';
-        if( $product->image != '0.png' )
-            File::delete($path.'/'.$product->image);
-        $product->delete();
+        $product->state = 0;
+        $product->save();
 
         return redirect('producto');
     }

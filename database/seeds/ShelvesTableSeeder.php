@@ -1,5 +1,6 @@
 <?php
 
+use App\Shelf;
 use Illuminate\Database\Seeder;
 
 class ShelvesTableSeeder extends Seeder
@@ -11,6 +12,9 @@ class ShelvesTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Shelf::create([
+            'name' => 'A1',
+            'comment'=>''
+        ]);
     }
 }

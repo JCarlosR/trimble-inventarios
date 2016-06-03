@@ -1,5 +1,6 @@
 <?php
 
+use App\Box;
 use Illuminate\Database\Seeder;
 
 class BoxesTableSeeder extends Seeder
@@ -11,6 +12,9 @@ class BoxesTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Box::create([
+            'name' => 'C1',
+            'comment'=>'',
+        ]);
     }
 }

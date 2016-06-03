@@ -1,5 +1,6 @@
 <?php
 
+use App\Level;
 use Illuminate\Database\Seeder;
 
 class LevelsTableSeeder extends Seeder
@@ -11,6 +12,9 @@ class LevelsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Level::create([
+            'name' => 'N1',
+            'comment'=>'',
+        ]);
     }
 }

@@ -30,6 +30,7 @@ class CreateProductsTable extends Migration
             $table->foreign('subcategory_id')->references('id')->on('subcategories');
             $table->string('image');
             $table->string('comment');
+            $table->integer('state');
             $table->timestamps();
         });
     }
