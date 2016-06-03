@@ -54,7 +54,7 @@
 
                     <div class="form-inline">
                         <div class="col-md-4">
-                            <h2><a href="{{ url('/producto/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nuevo producto</a></h2>
+                            <h2><a href="{{ url('/producto/registrar') }}" class="btn btn-success"><i class="fa fa-plus-square-o"></i> Nuevo producto</a></h2>
                         </div>
 
                         <div class="col-md-8 input-group margen">
@@ -70,13 +70,12 @@
                                 <th data-type="html"> Imagen </th>
                                 <th data-hide="all" data-breakpoints="all" data-title="Descripción"></th>
                                 <th>Precio</th>
-                                <th>Serie</th>
                                 <th>Marca</th>
                                 <th>Modelo</th>
                                 <th data-hide="all" data-breakpoints="all" data-title="Número de parte"></th>
                                 <th data-hide="all" data-breakpoints="all" data-title="Color"></th>
-                                <th data-breakpoints="xs sm md">Categoría</th>
-                                <th data-breakpoints="xs sm md">Subcategría</th>
+                                <th data-breakpoints="all">Categoría</th>
+                                <th data-breakpoints="all">Subcategría</th>
                                 <th data-hide="all" data-breakpoints="all" data-title="Observación"></th>
                                 <th data-type="html">Editar | Eliminar</th>
                             </tr>
@@ -85,22 +84,21 @@
                         @foreach($products as $product)
                         <tbody id="tabla">
                             <tr>
-                                <td>{{ $product->name }}</td>
+                                <td>{{ str_limit($product->name, $limit = 33, $end = '...') }}</td>
                                 <td ><img src="{{ asset('images/products') }}/{{ $product->image }} " class="img-responsive image"></td>
                                 <td>{{$product->description}}</td>
                                 <td>{{$product->price}} @if($product->money ==1) S/.  @else $ @endif </td>
-                                <td>@if($product->series ==1) Sí  @else No @endif </td>
-                                <td>{{ str_limit($product->brand->name, $limit = 5, $end = '...') }}</td>
-                                <td> {{ str_limit($product->exemplar->name, $limit = 6, $end = '...') }}</td>
+                                <td>{{ str_limit($product->brand->name, $limit = 20, $end = '...') }}</td>
+                                <td> {{ str_limit($product->exemplar->name, $limit = 20, $end = '...') }}</td>
                                 <td>{{$product->part_number}}</td>
                                 <td>{{$product->color}}</td>
-                                <td>{{ str_limit($product->category->name, $limit = 7, $end = '...') }}</td>
-                                <td>{{ str_limit($product->subcategory->name, $limit = 7, $end = '...') }}</td>
-                                <td>{{$product->comment}}</td>
+                                <td>{{ $product->category->name }}</td>
+                                <td>{{ $product->subcategory->name}}</td>
+                                <td>{{ $product->comment}}</td>
                                 <td>
                                     <span title="Editar">
                                         <button type="submit" class="btn btn-success" data-id="{{ $product->id }}" data-name="{{ $product ->name }}"
-                                                data-description="{{ $product->description }}"  data-price="{{ $product->price }}" data-money="{{ $product->money }}"  data-series="{{ $product->series }}"
+                                                data-description="{{ $product->description }}"  data-price="{{ $product->price }}" data-money="{{ $product->money }}"
                                                 data-brand="{{ $product->brand_id }}" data-exemplar="{{ $product->exemplar_id }}" data-part="{{ $product->part_number }}"
                                                 data-color="{{ $product->color }}" data-category="{{ $product->category_id }}" data-subcategory="{{ $product->subcategory_id }}"
                                                 data-image="{{ $product->image }}" data-comment="{{ $product->comment }}">
@@ -153,17 +151,8 @@
                                 <div class="col-md-3">
                                     <input type="number" placeholder="0.00" step="0.01"  min="0" id="price" name="price" required="required" class="form-control inside">
                                 </div>
-                                <div class="form-group form-inline">
-                                    <label class="control-label col-md-2" for="last-name">Serie <span class="required">*</span></label>
-                                    <div class="col-md-3 checkbox">
-                                        <input type="checkbox" id="series" name="series">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3" for="">Moneda<span class="required">*</span></label>
-                                <div class="col-md-8">
+                                <label class="control-label col-md-2" for="">Moneda<span class="required">*</span></label>
+                                <div class="col-md-4">
                                     <input type="radio" id="soles" name="money" value="1" >Soles
                                     <input type="radio" id="dollar" name="money" value="2" >Dólares</label>
                                 </div>

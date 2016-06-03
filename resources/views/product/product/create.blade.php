@@ -65,21 +65,8 @@
                             <div class="col-md-3">
                                 <input type="number" placeholder="0.00" value="{{ old('price') }}"  step="0.01" min="0.00" id="price" name="price" required="required" class="form-control inside">
                             </div>
-                            <div class="form-group form-inline">
-                                <label class="control-label col-md-1" for="series">Serie<span class="required">*</span></label>
-                                <div class="checkbox col-md-3">
-                                    @if( old('series') != null )
-                                        <input type="checkbox" id="series" name="series" checked>
-                                    @else
-                                        <input type="checkbox" id="series" name="series">
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3" for="money">Moneda<span class="required">*</span></label>
-                            <div class="radio-group col-md-7">
+                            <label class="control-label col-md-1" for="money">Moneda<span class="required">*</span></label>
+                            <div class="radio-group col-md-5">
                                 @if( old('money') == 2)
                                     <input type="radio" id="money" name="money" value="1" >Soles
                                     <input type="radio" id="money" name="money" value="2" checked>Dólares

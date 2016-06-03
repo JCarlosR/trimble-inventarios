@@ -24,7 +24,8 @@ class ProductsTableSeeder extends Seeder
         'category_id'=>'1',
         'subcategory_id'=>'1',
         'image'=>'1.jpg',
-        'comment'=>''
+        'comment'=>'',
+        'state'=>1
         ]);
 
         Product::create([
@@ -39,7 +40,8 @@ class ProductsTableSeeder extends Seeder
             'category_id'=>'1',
             'subcategory_id'=>'2',
             'image'=>'2.jpg',
-            'comment'=>''
+            'comment'=>'',
+            'state'=>1
         ]);
 
         Product::create([
@@ -54,7 +56,8 @@ class ProductsTableSeeder extends Seeder
             'category_id'=>'7',
             'subcategory_id'=>'19',
             'image'=>'3.jpg',
-            'comment'=>''
+            'comment'=>'',
+            'state'=>1
         ]);
 
         Product::create([
@@ -69,7 +72,8 @@ class ProductsTableSeeder extends Seeder
             'category_id'=>'3',
             'subcategory_id'=>'8',
             'image'=>'4.jpg',
-            'comment'=>''
+            'comment'=>'',
+            'state'=>1
         ]);
 
         Product::create([
@@ -84,7 +88,8 @@ class ProductsTableSeeder extends Seeder
             'category_id'=>'4',
             'subcategory_id'=>'10',
             'image'=>'5.jpg',
-            'comment'=>''
+            'comment'=>'',
+            'state'=>1
         ]);
 
         Product::create([
@@ -99,7 +104,8 @@ class ProductsTableSeeder extends Seeder
             'category_id'=>'3',
             'subcategory_id'=>'9',
             'image'=>'6.jpg',
-            'comment'=>''
+            'comment'=>'',
+            'state'=>1
         ]);
 
         Product::create([
@@ -114,7 +120,8 @@ class ProductsTableSeeder extends Seeder
             'category_id'=>'6',
             'subcategory_id'=>'17',
             'image'=>'7.jpg',
-            'comment'=>''
+            'comment'=>'',
+            'state'=>1
         ]);
     }
 }

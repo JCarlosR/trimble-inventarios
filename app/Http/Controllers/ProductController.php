@@ -19,7 +19,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::orderBy('name', 'asc')->paginate(5);
+        $products = Product::where('state',1)->orderBy('name', 'asc')->paginate(5);
 
         return view('product.product.index')->with(compact(['products']));
     }
@@ -74,23 +74,19 @@ class ProductController extends Controller
                 ->with($data);
         }
 
-        $serie = 0;
-        if ( $request->get('series') != null )
-            $serie=1;
-
         $product = Product::create([
             'name'	  => $request->get('name'),
             'description' => $request->get('description'),
             'price'=>$request->get('price'),
             'money'=>$request->get('money'),
-            'series'=>$serie,
             'brand_id'=>$request->get('brands'),
             'exemplar_id'=>$request->get('exemplars'),
             'part_number'=>$request->get('part_number'),
             'color'=>$request->get('color'),
             'category_id'=>$request->get('categories'),
             'subcategory_id'=>$request->get('subcategories'),
-            'comment'=>$request->get('comment')
+            'comment'=>$request->get('comment'),
+            'state'=>1
         ]);
 
         if( $request->file('image') )
@@ -178,16 +174,11 @@ class ProductController extends Controller
                 ->with($data);
         }
 
-        $serie = 0;
-        if ( $request->get('series') != null )
-            $serie=1;
-
         $product = Product::find( $request->get('id') );
         $product->name = $request->get('name');
         $product->description = $request->get('description');
         $product->price = $request->get('price');
         $product->money = $request->get('money');
-        $product->series = $serie;
         $product->brand_id = $request->get('brands');
         $product->exemplar_id = $request->get('exemplars');
         $product->part_number = $request->get('part_number');
@@ -234,10 +225,8 @@ class ProductController extends Controller
         }
 
         $product = Product::find( $request->get('id') );
-        $path = public_path().'/images/products';
-        if( $product->image != '0.png' )
-            File::delete($path.'/'.$product->image);
-        $product->delete();
+        $product->state = 0;
+        $product->save();
 
         return redirect('producto');
     }
