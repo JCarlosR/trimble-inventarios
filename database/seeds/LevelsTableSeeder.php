@@ -15,6 +15,7 @@ class LevelsTableSeeder extends Seeder
         Level::create([
             'name' => 'N1',
             'comment'=>'',
+            'shelf_id'=>1
         ]);
     }
 }

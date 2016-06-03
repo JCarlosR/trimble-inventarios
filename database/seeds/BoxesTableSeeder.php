@@ -15,6 +15,7 @@ class BoxesTableSeeder extends Seeder
         Box::create([
             'name' => 'C1',
             'comment'=>'',
+            'level_id'=>1
         ]);
     }
 }

@@ -14,7 +14,8 @@ class ShelvesTableSeeder extends Seeder
     {
         Shelf::create([
             'name' => 'A1',
-            'comment'=>''
+            'comment'=>'',
+            'local_id'=>1
         ]);
     }
 }
