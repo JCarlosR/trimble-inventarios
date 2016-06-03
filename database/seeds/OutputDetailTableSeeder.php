@@ -12,6 +12,7 @@ class OutputDetailsTableSeeder extends Seeder
      */
     public function run()
     {
+
         OutputDetail::create([
             'output_id' => 1,
             'item_id' => 1,
@@ -20,26 +21,8 @@ class OutputDetailsTableSeeder extends Seeder
 
         OutputDetail::create([
             'output_id' => 1,
-            'item_id' => 3,
-            'price' => 20.1,
-        ]);
-
-        OutputDetail::create([
-            'output_id' => 2,
-            'item_id' => 3,
-            'price' => 20.1,
-        ]);
-
-        OutputDetail::create([
-            'output_id' => 2,
-            'item_id' => 3,
-            'price' => 20.1,
-        ]);
-
-        OutputDetail::create([
-            'output_id' => 2,
-            'item_id' => 5,
-            'price' => 20.1,
+            'item_id' => 2,
+            'price' => 20,
         ]);
 
     }

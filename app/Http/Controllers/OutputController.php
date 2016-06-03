@@ -22,11 +22,6 @@ class OutputController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function getRegistroVenta()
     {
         $productos = Product::select('name')->lists('name')->toJson();
@@ -36,11 +31,10 @@ class OutputController extends Controller
 
     public function postRegistroVenta(Request $request)
     {
-        //dd($request->all());
         $items = json_decode($request->get('items'));
 
         $cliente = $request->get('cliente');
-        $tipo = $request->get('tipo');
+        $type = $request->get('type');
         $observacion = $request->get('observacion');
 
         $customer = Customer::where('name', $cliente)->first();
@@ -59,11 +53,10 @@ class OutputController extends Controller
 
         try {
             // Create Output Header
-
             $customerId = $customer->id;
             $output = Output::create([
                 'customer_id' => $customerId,
-                'type' => $tipo,
+                'type' => $type,
                 'reason' => 'sale',
                 'comment' => $observacion
             ]);
@@ -75,49 +68,21 @@ class OutputController extends Controller
                 // Sino tomamos los primeros dependiendo cantidad y lo actualizamos(crear los outputDetails correspondiente)
 
 
-               // if ($item->series != 'S/S') {
-                    // Find the specific item
-                    $realItem = Item::where('product_id', $item->id)->where('state', 'available')->where('series', $item->series)->first();
+                $realItem = Item::where('product_id', $item->id)->where('state', 'available')->where('series', $item->series)->first();
 
-                    if(!$realItem)
-                        throw new \Exception('No se ha encontrado el item con serie ' . $item->series);
-                    $realItem->state = 'sold';
+                if(!$realItem)
+                    throw new \Exception('No se ha encontrado el item con serie ' . $item->series);
+                $realItem->state = 'sold';
 
-                    $realItem->save();
+                $realItem->save();
 
-                    // Create one Output Detail
-                    OutputDetail::create([
-                        'output_id' => $output->id,
-                        'item_id' => $realItem->id,
-                        'price' => $item->price
-                    ]);
+                // Create one Output Detail
+                OutputDetail::create([
+                    'output_id' => $output->id,
+                    'item_id' => $realItem->id,
+                    'price' => $item->price
+                ]);
 
-                    // Update stock product
-//                } else {
-//
-//                    // Primeros items que han coincidido con el producto indicado
-//                    $firstItems = Item::where('product_id', $item->id)->where('state', 'available')->where('package_id', null)->take($item->quantity)->get();
-//
-//                    if($firstItems->count() < $item->quantity) {
-//                        $productName = Product::find($item->id)->name;
-//                        throw new \Exception('No se cuenta con stock suficiente para el producto '. $productName);
-//                    }
-//
-//                    // Enough stock
-//                    foreach($firstItems as $selectedItem) {
-//                        $selectedItem->state = 'sold';
-//                        $selectedItem->save();
-//
-//                        // Create one Output Detail per item
-//                        OutputDetail::create([
-//                            'output_id' => $output->id,
-//                            'item_id' => $selectedItem->id,
-//                            'price' => $item->price
-//                        ]);
-//                    }
-
-                    // Update stock
-  //              }
             }
 
             DB::commit();
@@ -132,13 +97,14 @@ class OutputController extends Controller
     public function getVentas()
     {
         $customers = Customer::select('name')->lists('name')->toJson();
-        $outputs = Output::where('reason', 'sale')->paginate(3);
-        //dd($outputs);
+        $outputs = Output::where('reason', 'sale')->where('active', true)->paginate(3);
+
         $carbon = new Carbon();
         $datefin = $carbon->now();
         $dateinicio = $carbon->now()->subDays(7);
         $datefin = $datefin->format('Y-m-d');
         $dateinicio = $dateinicio->format('Y-m-d');
+
         return view('salida.listaventa')->with(compact(['customers', 'outputs', 'datefin', 'dateinicio']));
     }
 
@@ -175,7 +141,9 @@ class OutputController extends Controller
 
     public function getAlquiler()
     {
-        return view('salida.alquiler');
+        $clientes = Customer::where('enable', 1)->select('name')->lists('name')->toJson();
+        //dd($clientes);
+        return view('salida.alquiler')->with(compact('clientes'));
     }
     public function getListaAlquiler()
     {
@@ -206,11 +174,8 @@ class OutputController extends Controller
                 return redirect('salida/baja')->with('error', 'No existe un paquete con la serie '.$code);
             $package->state = 'low';
             $details = $package->details;
-            //dd($details);
             $package->save();
 
-            //$details = $package->details;
-            //dd($details);
             foreach ($details as $detail)
             {
                 $detail->state = 'low';
@@ -254,20 +219,20 @@ class OutputController extends Controller
         $output = Output::find($request->get('id'));
 
         // Are all the details still available?
-        $allAvailable = true;
+        $allSold = true;
         foreach($output->details as $detail)
         {
-            $item = Item::where('series', $detail->series)->first();
-            if ($item->state != 'available')
+            $item = $detail->item;
+            if ($item->state != 'sold')
             {
-                $allAvailable = false;
+                $allSold = false;
                 break;
             }
         }
 
         // If not, add an error
-        $validator->after(function($validator) use ($allAvailable) {
-            if ($allAvailable == false) {
+        $validator->after(function($validator) use ($allSold) {
+            if ($allSold == false) {
                 $validator->errors()->add('available', 'Es imposible anular la operación porque generaría inconsistencias en el sistema.');
             }
         });
@@ -287,8 +252,8 @@ class OutputController extends Controller
         $output->save();
         foreach($output->details as $detail)
         {
-            $item = Item::where('series', $detail->series)->first();
-            $item->state = 'annulled';
+            $item = $detail->item;
+            $item->state = 'available';
             $item->save();
         }
 

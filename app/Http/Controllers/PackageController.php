@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Package;
 use App\Product;
 use Illuminate\Http\Request;
 
@@ -21,4 +22,16 @@ class PackageController extends Controller
         //dd($items[2]->id);
         return view('package.create')->with(compact('productos'));
     }
+
+    public function search($code)
+    {
+        $package = Package::where('code', $code)->first(['id', 'code']);
+        return $package;
+    }
+
+    public function searchDetails($id)
+    {
+
+    }
+
 }

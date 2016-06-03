@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    //
+
     protected $fillable = [
         'product_id', 'series', 'state', 'package_id',
     ];
@@ -15,4 +15,10 @@ class Item extends Model
     {
         return $this->belongsTo('App\Package');
     }
+
+    public function output_details()
+    {
+        return $this->hasMany('App\OutputDetail');
+    }
+
 }

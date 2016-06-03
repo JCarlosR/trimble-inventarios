@@ -131,6 +131,11 @@ Route::group(['middleware' => 'auth'], function () {
 // Search
     // Search product by name
     Route::get('/producto/buscar/{name}', 'ProductController@search');
+    Route::get('/paquete/buscar/{code}', 'PackageController@search');
+    Route::get('/paquete/detalles/{id}', 'PackageController@searchDetails');
+
+    Route::get('/productos/names', 'ProductController@searchAll');
+
     // Search for a specific item
     Route::get('/items/producto/{id}', 'ItemController@searchItems');
 
