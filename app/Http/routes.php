@@ -50,6 +50,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('productos/disponibles', 'OutputController@getProductosDisponibles');
     Route::get('paquetes/disponibles', 'OutputController@getPaquetesDisponibles');
 
+// Rental
+    Route::post('alquiler/registrar', 'RentalController@store');
 
 // Customers
     Route::get('/clientes', 'CustomerController@index');

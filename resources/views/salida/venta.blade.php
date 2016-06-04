@@ -116,7 +116,7 @@
                                         <label class="control-label col-md-3" for="producto">Producto:
                                         </label>
                                         <div class="input-group col-md-9">
-                                            <input type="text" id="producto" class="typeahead form-control">
+                                            <input type="text" id="product" class="typeahead form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -192,7 +192,6 @@
                                             <th>Acción</th>
                                         </tr>
                                         </thead>
-                                        <tbody id="table-items">
                                         <template id="template-item">
                                             <tr>
                                                 <th data-i scope="row">1</th>
@@ -206,6 +205,21 @@
                                                 </td>
                                             </tr>
                                         </template>
+                                        <template id="template-package">
+                                            <tr>
+                                                <th data-i scope="row">1</th>
+                                                <td data-name>1000001</td>
+                                                <td data-series>256314</td>
+                                                <td data-quantity>1</td>
+                                                <td data-price>1</td>
+                                                <td data-sub>1</td>
+                                                <td>
+                                                    <button data-look type="button" class="btn btn-primary">Ver</button>
+                                                    <button data-delete type="button" class="btn btn-danger">Quitar</button>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                        <tbody id="table-items">
 
 
                                         </tbody>
@@ -216,7 +230,7 @@
                             <div class="row">
                                 <div class="col-md-6 col-md-offset-3">
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-xs-12" for="cliente">Total
+                                        <label class="control-label col-md-3 col-xs-12" for="total">Total
                                         </label>
                                         <div class="col-md-6">
                                             <input type="text" id="total" class="form-control" readonly value="0">
@@ -248,6 +262,82 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <template id="template-series">
+        <div class="form-group">
+            <label for="serie">Ingrese serie:</label>
+            <input type="text" class="typeahead form-control" data-search>
+        </div>
+    </template>
+    <div class="modal fade" id="modalSeries" role="dialog">
+        <div class="modal-dialog modal-sm">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Ingrese las series</h4>
+                </div>
+                <div class="modal-body" id="bodySeries">
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="btnAccept">Aceptar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {{-- Fin modal --}}
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalDetails" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Detalles del paquete</h4>
+                </div>
+                <div class="modal-body" id="bodyDetails">
+                    <table class="table table-hover table-condensed">
+                        <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Serie</th>
+                            <th>Precio</th>
+                        </tr>
+                        </thead>
+                        <template id="template-details">
+                            <tr>
+                                <td data-name>1000001</td>
+                                <td data-series>256314</td>
+                                <td data-price>1</td>
+                            </tr>
+                        </template>
+                        <tbody id="table-details">
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {{-- Fin modal --}}
 @endsection
 
 @section('scripts')
@@ -278,7 +368,6 @@
             };
 
             var customers = {!! $clientes !!};
-            var products = {!! $productos !!};
 
             $('#cliente').typeahead(
                     {
@@ -292,20 +381,6 @@
                     }
             );
 
-            $('#producto').typeahead(
-                    {
-                        hint: true,
-                        highlight: true,
-                        minLength: 1
-                    },
-                    {
-                        name: 'products',
-                        source: substringMatcher(products)
-                    }
-            );
-
-
-
-    </script>
+                </script>
 
 @endsection

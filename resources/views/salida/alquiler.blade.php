@@ -84,8 +84,8 @@
 
                     <div class="x_content">
                         <br>
-                        <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
-
+                        <form id="form" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                            {{ csrf_field() }}
                             <div class="form-group">
 
                                 <div class="row">
@@ -99,7 +99,7 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="control-label col-md-3" for="tipo">Destino:</label>
+                                        <label class="control-label col-md-3" for="destination">Destino:</label>
 
                                         <div class="input-group col-md-9">
                                             <input type="text" name="destination" class="form-control">
@@ -112,14 +112,14 @@
                                         <label class="control-label col-md-3" for="fecha">Fecha alquiler:</label>
 
                                         <div class="input-group col-md-9">
-                                            <input type="date" name="fecha" class="form-control" value="{{ $currentDate }}">
+                                            <input type="date" name="fechaAlquiler" class="form-control" value="{{ $currentDate }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="control-label col-md-3" for="fecha">Fecha retorno:</label>
 
                                         <div class="input-group col-md-9">
-                                            <input type="date" name="fecha" class="form-control" value="{{ $currentDate }}">
+                                            <input type="date" name="fechaRetorno" class="form-control" value="{{ $currentDate }}">
                                         </div>
                                     </div>
                                 </div>
@@ -133,7 +133,7 @@
                                         <label class="control-label col-md-3" for="producto">Producto:
                                         </label>
                                         <div class="input-group col-md-9">
-                                            <input type="text" id="product" name="product" class="typeahead form-control">
+                                            <input type="text" id="product" class="typeahead form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -221,9 +221,19 @@
                             </div>
 
                             <div class="form-group">
+
+                                    <label class="control-label col-md-3" for="observacion">Observación:
+                                    </label>
+                                    <div class="col-md-6">
+                                        <textarea style="resize: none" name="observacion" class="form-control col-md-7 col-xs-12" rows="3"></textarea>
+                                    </div>
+
+                            </div>
+
+                            <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
-                                    <button type="submit" class="btn btn-primary">Grabar</button>
-                                    <button type="submit" class="btn btn-danger">Cancelar</button>
+                                    <button class="btn btn-primary">Registrar alquiler</button>
+                                    <a href="{{ url('/salida/listar/alquiler') }}" class="btn btn-danger">Cancelar</a>
                                 </div>
                             </div>
                         </form>

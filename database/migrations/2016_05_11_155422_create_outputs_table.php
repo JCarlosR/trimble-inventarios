@@ -28,7 +28,10 @@ class CreateOutputsTable extends Migration
 
             // Simple data
             $table->enum('type', ['local', 'foreign']);
+            $table->string('destination')->nullable();
             $table->string('comment');
+            $table->date('fechaAlquiler')->nullable();
+            $table->date('fechaRetorno')->nullable();
 
             $table->timestamps();
         });

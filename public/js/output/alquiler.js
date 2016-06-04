@@ -16,6 +16,8 @@ $(document).on('ready', function () {
     $(document).on('click', '[data-look]', lookDetails);
     $('#btnAccept').on('click', addItemsSeries);
 
+    $('#form').on('submit', registerRental);
+
 
     var url_products ='../productos/names';
     var url_packages = '../paquetes/disponibles';
@@ -49,6 +51,33 @@ $(document).on('ready', function () {
     });
 
 });
+
+function registerRental() {
+    event.preventDefault();
+    var _token = $(this).find('[name=_token]');
+    var data = $(this).serializeArray();
+
+    var url_alquiler = '../alquiler/registrar';
+
+    data.push({name: 'items', value: JSON.stringify(items)});
+
+    $.ajax({
+        url: url_alquiler,
+        data: data,
+        method: 'POST',
+        headers: { 'X-CSRF-TOKEN': _token }
+
+    })
+        .done(function( response ) {
+            if(response.error)
+                alert(response.message);
+            else{
+                alert('Alquiler registrado correctamente.');
+                //location.reload();
+            }
+
+        });
+}
 
 function lookDetails() {
     var id = $(this).data('look');
@@ -95,7 +124,7 @@ function addRow() {
             })
             .done(function( data ) {
                 if (data) {
-                    items.push({id: data.id, series: data.code, quantity: 1, price:price})
+                    items.push({id: data.id, series: data.code, quantity: 1, price:price, type:'paq'})
                     renderTemplatePackage(data.id, data.code, 1, price, price)
                     updateTotal();
                 } else {
@@ -127,9 +156,7 @@ function addRow() {
                 }
             });
     }
-
-
-
+    
 }
 
 function loadAutoCompleteItems(data) {
@@ -176,7 +203,7 @@ function addItemsSeries() {
 
     if( dontRepeat(series_array) ) {
         for ( var i=0; i<series_array.length; ++i) {
-            items.push({ id: selectedProduct.id, series: series_array[i], quantity: 1, price: selectedProduct.price });
+            items.push({ id: selectedProduct.id, series: series_array[i], quantity: 1, price: selectedProduct.price, type:'prod' });
             renderTemplateItem(selectedProduct.id, selectedProduct.name, series_array[i], 1, selectedProduct.price, selectedProduct.price);
         }
 
@@ -226,7 +253,6 @@ function updateTotal() {
         total += items[i].price * items[i].quantity;
     $('#total').val(total);
 }
-
 
 // Funciones relacionadas al template HTML5
 function activateTemplate(id) {
