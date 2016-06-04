@@ -72,56 +72,47 @@
 
                 <div class="x_content">
                     <br>
-                    <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
-
+                    <form id="form" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                        {{ csrf_field() }}
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label class="control-label col-md-3" for="nombre">Nombre:
-                                    </label>
+                                    <label class="control-label col-md-3" for="nombre">Nombre:</label>
                                     <div class="input-group col-md-9">
-                                        <input type="text" name="nombre" class="form-control">
+                                        <input type="text" id="name" name="name" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3" for="code">Código único:</label>
+                                        <div class="input-group col-md-9">
+                                            <input type="text" id="code" name="code" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label typeahead col-md-3" for="code">Ubicación:</label>
+                                        <div class="input-group col-md-9">
+                                            <input type="text" id="location" name="location" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 ">
-                                    <label class="control-label col-md-3" for="descripcion">Descripción: </label>
+                                    <label class="control-label col-md-3" for="Observacion">Observación: </label>
                                     <div class="input-group col-md-9">
-                                        <textarea style="resize: none"  name="descripcion" rows="2" class="form-control"></textarea>
+                                        <textarea style="resize: none" id="comment" name="comment" rows="2" class="form-control"></textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        {{--<div class="form-group">--}}
-                            {{--<div class="row">--}}
-                                {{--<div class="col-md-3">--}}
-                                    {{--<label for="Ubicacion" class="control-label" >Seleccionar local</label>--}}
-                                    {{--<select name="locales" id="locales" class="form-control"></select>--}}
-                                {{--</div>--}}
-                                {{--<div class="col-md-3">--}}
-                                    {{--<label for="Ubicacion" class="control-label" >Seleccionar anaquel</label>--}}
-                                    {{--<select name="locales" id="locales" class="form-control"></select>--}}
-                                {{--</div>--}}
-                                {{--<div class="col-md-3">--}}
-                                    {{--<label for="Ubicacion" class="control-label" >Seleccionar nivel</label>--}}
-                                    {{--<select name="locales" id="locales" class="form-control"></select>--}}
-                                {{--</div>--}}
-                                {{--<div class="col-md-3">--}}
-                                    {{--<label for="Ubicacion" class="control-label" >Seleccionar caja</label>--}}
-                                    {{--<select name="locales" id="locales" class="form-control"></select>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6 col-md-offset-2">
-                                    <label class="control-label col-md-3" for="cliente">Producto: </label>
+                                    <label class="control-label col-md-3" for="product">Producto: </label>
                                     <div class="input-group col-md-9">
-                                        <input type="text" id="producto" class="typeahead form-control">
+                                        <input type="text" id="product" class="typeahead form-control">
                                     </div>
                                 </div>
 
                                 <div class="col-md-2 ">
-                                    <button type="submit" class="btn btn-primary">Agregar</button>
+                                    <button type="button" id="btnAdd" class="btn btn-primary">Agregar</button>
                                 </div>
                             </div>
                         </div>
@@ -133,117 +124,74 @@
                                     <table class="table table-hover">
                                         <thead>
                                         <tr>
-                                            <th>Producto</th>
                                             <th>Nombre</th>
                                             <th>Serie</th>
-                                            <th>Observación</th>
                                             <th>Acción</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>00001</td>
-                                            <td>Producto X</td>
-                                            <td>ZBC</td>
-                                            <td>Observación</td>
-                                            <td>
-                                                <button type="button" class="btn btn-danger" title="Eliminar">
-                                                    Quitar
-                                                </button>
-                                            </td>
-                                        </tr>
+                                        <template id="template-item">
+                                            <tr>
+                                                <td data-name>1000001</td>
+                                                <td data-series>256314</td>
+                                                <td>
+                                                    <button data-delete type="button" class="btn btn-danger">Quitar</button>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                        <tbody id="table-items">
+
                                         </tbody>
                                     </table>
                                 </div>
-
                             </div>
                         </div>
 
                         <div class=" col-md-6 col-md-offset-5">
-                            <button type="submit" class="btn btn-success">Registrar</button>
                             <a href="{{ url('paquete') }}" type="reset" class="btn btn-danger">Cancelar</a>
+                            <button class="btn btn-success">Registrar</button>
                         </div>
-
-
                     </form>
                 </div>
-
             </div>
         </div>
+        <!-- Modal -->
+        <template id="template-series">
+            <div class="form-group">
+                <label for="serie">Ingrese serie:</label>
+                <input type="text" class="typeahead form-control" data-search>
+            </div>
+        </template>
+        <div class="modal fade" id="modalSeries" role="dialog">
+            <div class="modal-dialog modal-sm">
 
-
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
+                <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Productos asociados</h4>
+                        <h4 class="modal-title">Ingrese las series</h4>
                     </div>
+                    <div class="modal-body" id="bodySeries">
 
-                    <div class="modal-body">
-                        <table class="table table-hover">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Producto</th>
-                                            <th>Nombre</th>
-                                            <th>Precio</th>
-                                            <th>Serie</th>
-                                            <th>Marca</th>
-                                            <th>Modelo</th>
-                                            <th>NumParte</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>00001</td>
-                                            <td>Producto X</td>
-                                            <td>12.80</td>
-                                            <td></td>
-                                            <td>ZBC</td>
-                                            <td>XYZ</td>
-                                            <td>2</td>
-                                        </tr>
 
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>00001</td>
-                                            <td>Producto X</td>
-                                            <td>14.60</td>
-                                            <td></td>
-                                            <td>ZBC</td>
-                                            <td>XYZ</td>
-                                            <td>2</td>
-                                        </tr>
 
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>00001</td>
-                                            <td>Producto X</td>
-                                            <td>20.00</td>
-                                            <td>002</td>
-                                            <td>ZBC</td>
-                                            <td>XYZ</td>
-                                            <td>2</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
                     </div>
-
-                    <div class="modal-footer btn-group">
-                        <button type="button" class="btn btn-primary btn-lg">Seleccionar</button>
-                        <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Cancelar</button>
+                    <div class="modal-footer">
+                        <div class="text-center">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-success" id="btnAccept">Aceptar</button>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
+        {{-- Fin modal --}}
     </div>
 @endsection
 @section('scripts')
     <script src="{{ asset('js/typeahead.bundle.js') }}"></script>
-
+    <script src="{{ asset('js/package/package.js') }}"></script>
     <script>
 
         var substringMatcher = function(strs) {
@@ -267,22 +215,5 @@
                 cb(matches);
             };
         };
-        var products = {!! $productos !!};
-
-        $('#producto').typeahead(
-                {
-                    hint: true,
-                    highlight: true,
-                    minLength: 1
-                },
-                {
-                    name: 'products',
-                    source: substringMatcher(products)
-                }
-        );
-
-
-
     </script>
-
 @endsection

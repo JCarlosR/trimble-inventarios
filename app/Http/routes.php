@@ -130,14 +130,19 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('producto/modelo/{marca}','ProductController@modelo');
     Route::post('producto/modificar','ProductController@edit');
     Route::post('producto/eliminar','ProductController@delete');
+
     // Packages
     Route::get('/paquete', 'PackageController@index');
     Route::get('/paquete/registrar', 'PackageController@create');
+    Route::post('/paquete/registrar', 'PackageController@store');
+    Route::get('/paquete/productos', 'PackageController@items');
+
 
 // Search
     // Search product by name
     Route::get('/producto/buscar/{name}', 'ProductController@search');
     Route::get('/paquete/buscar/{code}', 'PackageController@search');
+    Route::get('/paquete/ubicaciones', 'PackageController@locations');
     Route::get('/paquete/detalles/{id}', 'PackageController@searchDetails');
 
     Route::get('/productos/names', 'ProductController@searchAll');
@@ -176,6 +181,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('caja/modificar/{level}/{shelf}/{local}','BoxController@edit');
     Route::post('caja/eliminar/{level}/{shelf}/{local}','BoxController@delete');
 
-    // Content
-    Route::get('producto/{box}/{level}/{shelf}/{local}','BoxController@show_products');
+    // Products contained in a box
+    Route::get('ubicacion/{box}/{level}/{shelf}/{local}','BoxController@location');
+
 });
