@@ -112,14 +112,14 @@
                                         <label class="control-label col-md-3" for="fecha">Fecha alquiler:</label>
 
                                         <div class="input-group col-md-9">
-                                            <input type="date" name="fecha" class="form-control">
+                                            <input type="date" name="fecha" class="form-control" value="{{ $currentDate }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="control-label col-md-3" for="fecha">Fecha retorno:</label>
 
                                         <div class="input-group col-md-9">
-                                            <input type="date" name="fecha" class="form-control">
+                                            <input type="date" name="fecha" class="form-control" value="{{ $currentDate }}">
                                         </div>
                                     </div>
                                 </div>
@@ -163,7 +163,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Lista</label>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-8 col-md-offset-2">
+                                <div class="col-md-10 col-md-offset-1">
                                     <table class="table table-hover table-condensed">
                                         <thead>
                                         <tr>
@@ -257,6 +257,49 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" id="btnAccept">Aceptar</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {{-- Fin modal --}}
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalDetails" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Detalles del paquete</h4>
+                </div>
+                <div class="modal-body" id="bodyDetails">
+                    <table class="table table-hover table-condensed">
+                        <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Serie</th>
+                            <th>Precio</th>
+                        </tr>
+                        </thead>
+                        <template id="template-details">
+                            <tr>
+                                <td data-name>1000001</td>
+                                <td data-series>256314</td>
+                                <td data-price>1</td>
+                            </tr>
+                        </template>
+                        <tbody id="table-details">
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
                 </div>
             </div>
 

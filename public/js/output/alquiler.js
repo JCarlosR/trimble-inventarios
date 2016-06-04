@@ -51,13 +51,18 @@ $(document).on('ready', function () {
 });
 
 function lookDetails() {
-    var id = $(this).data('delete');
+    var id = $(this).data('look');
     $.ajax({
-        url: 'paquete/detalles/'+id,
+        url: '../paquete/detalles/'+id,
         method: 'GET'
     }).done(function(datos) {
+        $('#table-details').html('');
+        for (var i = 0; i<datos.length; ++i)
+        {
+            renderTemplateDetails(datos[i].product.name, datos[i].series, datos[i].product.price);
+        }
 
-
+        $('#modalDetails').modal('show');
     });
 }
 
@@ -148,7 +153,6 @@ function loadAutoCompleteItems(data) {
         });
 }
 
-
 function handleBlurProduct() {
     $('#cantidad').val("");
     $('#cantidad').prop('readonly', false);
@@ -238,10 +242,20 @@ function renderTemplatePackage(id, code, quantity, price, sub) {
     clone.querySelector("[data-quantity]").innerHTML = quantity;
     clone.querySelector("[data-price]").innerHTML = price;
     clone.querySelector("[data-sub]").innerHTML = sub;
-    clone.querySelector("[data-lock]").setAttribute('data-lock', id);
+    clone.querySelector("[data-look]").setAttribute('data-look', id);
     clone.querySelector("[data-delete]").setAttribute('data-delete', id);
 
     $('#table-items').append(clone);
+}
+
+function renderTemplateDetails(name, series, price) {
+    var clone = activateTemplate('#template-details');
+
+    clone.querySelector("[data-name]").innerHTML = name;
+    clone.querySelector("[data-series]").innerHTML = series;
+    clone.querySelector("[data-price]").innerHTML = price;
+
+    $('#table-details').append(clone);
 }
 
 function renderTemplateItem(id, name, series, quantity, price, sub) {
