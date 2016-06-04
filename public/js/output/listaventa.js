@@ -39,8 +39,7 @@ function showDetails() {
             if (data) {
                 $('#bodyDetails').html('');
                 $(data).each(function(i, e) {
-                    console.log(data);
-                    renderTemplateDetail(e.name, e.series, 1, e.price, e.price);
+                    renderTemplateDetail(e.name, e.series, 1, e.price, e.price, e.location);
                 });
 
             } else {
@@ -55,7 +54,7 @@ function activateTemplate(id) {
     return document.importNode(t.content, true);
 };
 
-function renderTemplateDetail(name, series, quantity, price, sub) {
+function renderTemplateDetail(name, series, quantity, price, sub, location) {
 
     var clone = activateTemplate('#template-detail');
 
@@ -64,6 +63,7 @@ function renderTemplateDetail(name, series, quantity, price, sub) {
     clone.querySelector("[data-quantity]").innerHTML = quantity;
     clone.querySelector("[data-price]").innerHTML = price;
     clone.querySelector("[data-sub]").innerHTML = sub;
+    clone.querySelector("[data-location]").innerHTML = location;
 
     $('#bodyDetails').append(clone);
 }
