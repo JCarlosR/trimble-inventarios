@@ -26,4 +26,10 @@ class Item extends Model
         return $this->hasMany('App\OutputDetail');
     }
 
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
+    }
+
 }
+

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Item;
 use App\Package;
 use App\Product;
 use Illuminate\Http\Request;
@@ -31,7 +32,8 @@ class PackageController extends Controller
 
     public function searchDetails($id)
     {
-
+        $items = Item::where('package_id', $id)->with('product')->get();
+        return $items;
     }
 
 }

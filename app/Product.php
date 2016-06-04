@@ -25,4 +25,9 @@ class Product extends Model
         return $this->belongsTo('App\Exemplar', 'exemplar_id');
     }
 
+    public function items()
+    {
+        return $this->hasMany('App\Item');
+    }
+
 }

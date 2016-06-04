@@ -141,9 +141,12 @@ class OutputController extends Controller
 
     public function getAlquiler()
     {
+        $carbon = new Carbon();
+        $date = $carbon->now();
+        $currentDate = $date->format('Y-m-d');
         $clientes = Customer::where('enable', 1)->select('name')->lists('name')->toJson();
         //dd($clientes);
-        return view('salida.alquiler')->with(compact('clientes'));
+        return view('salida.alquiler')->with(compact(['clientes', 'currentDate']));
     }
     public function getListaAlquiler()
     {
