@@ -22,16 +22,20 @@ class CreateOutputsTable extends Migration
             // Employee who registered the output
             $table->enum('reason', ['sale', 'rental']);
 
-            // For rentals, this indicates the status of the devolution
-            $table->boolean('completed')->default(true);
             $table->boolean('active')->default(true);
 
             // Simple data
             $table->enum('type', ['local', 'foreign']);
-            $table->string('destination')->nullable();
             $table->string('comment');
+
+            // Rental data
             $table->date('fechaAlquiler')->nullable();
             $table->date('fechaRetorno')->nullable();
+            $table->string('destination')->nullable();
+            $table->string('comment_rental')->nullable();
+
+            // For rentals, this indicates the status of the devolution
+            $table->boolean('completed')->default(false);
 
             $table->timestamps();
         });

@@ -2,6 +2,12 @@
 
 @section('title', 'Ingresos')
 
+@section('styles')
+    <meta name="_token" content="{{ csrf_token() }}">
+
+    <link rel="stylesheet" href="{{ asset('css/typeahead.css') }}">
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -15,140 +21,37 @@
                     </ul>
 
                     <div class="clearfix"></div>
+                </div>
 
-                    <div class="x_content">
-                        <br>
-                        <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
-
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <label class="control-label col-md-4" for="cliente">
-                                            Cliente:
-                                        </label>
-                                        <div class="input-group col-md-8">
-                                            <input type="text" id="cliente" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="control-label col-md-4" for="cliente">
-                                            Desde:
-                                        </label>
-                                        <div class="input-group col-md-8">
-                                            <input type="date" id="cliente" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="control-label col-md-4" for="cliente">
-                                            Hasta:
-                                        </label>
-                                        <div class="input-group col-md-8">
-                                            <input type="date" id="cliente" class="form-control">
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="observacion">
-                                    Observaciones:
-                                </label>
-                                <div class="input-group col-md-6 col-sm-6 col-xs-12">
-                                    <input  id="observacion" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-md-8 col-md-offset-2 col-sm-12">
-                                    <table class="table table-hover table-condensed">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Salidas</th>
-                                            <th>Otro campo</th>
-                                            <th>Fecha</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>1000001</td>
-                                            <td>otro campo</td>
-                                            <td>14/05/2016</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>1000002</td>
-                                            <td>otro campo</td>
-                                            <td>14/05/2016</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>1000003</td>
-                                            <td>otro campo</td>
-                                            <td>14/05/2016</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Detalles</label>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-8 col-md-offset-2">
-                                    <table class="table table-hover table-condensed">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Producto/Paquete</th>
-                                            <th>Serie</th>
-                                            <th>Cantidad</th>
-                                            
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>1000001</td>
-                                            <td>256314</td>
-                                            <td>1</td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>1000002</td>
-                                            <td>256314</td>
-                                            <td>1</td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>1000003</td>
-                                            <td>256314</td>
-                                            <td>1</td>
-                                            
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
-                                    <button type="submit" class="btn btn-primary">Retornar</button>
-                                    <a href="{{ url('/ingreso/listar/retorno') }}" class="btn btn-danger">Cancelar</a>
-                                </div>
-                            </div>
-
-
-                            
-                        </form>
-                    </div>
+                <div class="x_content">
+                    <form id="form" class="form-horizontal form-label-left" novalidate="">
+                        <!-- React JS -->
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('vendors/react/react.min.js') }}"></script>
+    <script src="{{ asset('vendors/react/react-dom.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+    <script src="{{ asset('js/typeahead.bundle.js') }}"></script>
+    <script>
+        var substringMatcher = function(strs) {
+            return function findMatches(q, cb) {
+                var matches, substrRegex;
+                matches = [];
+                substrRegex = new RegExp(q, 'i');
+                $.each(strs, function(i, str) {
+                    if (substrRegex.test(str)) {
+                        matches.push(str);
+                    }
+                });
+                cb(matches);
+            };
+        };
+    </script>
+    <script type="text/babel" src="{{ asset('js/entry/retorno.js')}}"></script>
 @endsection

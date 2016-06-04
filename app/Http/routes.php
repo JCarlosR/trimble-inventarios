@@ -17,9 +17,6 @@ Route::get('/', 'HomeController@index');
 
 Route::group(['middleware' => 'auth'], function () {
     // Ingresos
-    Route::get('/ingreso/listar/retorno', 'EntryController@getRetornos');
-    Route::get('/ingreso/retorno', 'EntryController@getRetorno');
-
     Route::get('/ingreso/listar/compra', 'EntryController@getCompras');
     Route::get('/ingreso/listar/compra/{proveedor}/{inicio}/{fin}', 'EntryController@getComprasFiltro');
     Route::get('/ingreso/listar/detalles/{id}', 'EntryController@getCompraDetalles');
@@ -52,6 +49,11 @@ Route::group(['middleware' => 'auth'], function () {
 
 // Rental
     Route::post('alquiler/registrar', 'RentalController@store');
+    Route::get('/alquiler/listar/detalles/{id}', 'RentalController@getRentalDetails');
+
+// Devolution
+    Route::get('/ingreso/listar/retorno', 'DevolutionController@index');
+    Route::post('/ingreso/listar/retorno/{id}', 'DevolutionController@store');
 
 // Customers
     Route::get('/clientes', 'CustomerController@index');
