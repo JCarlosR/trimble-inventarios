@@ -46,7 +46,7 @@
                         <tr>
                             <th>Producto</th>
                             <th>serie</th>
-                            <th>Opción</th>
+                            <!--<th>Opción</th>-->
                         </tr>
                         </thead>
                         <tbody id="tabla">
@@ -61,7 +61,7 @@
                                 <tr>
                                     <td>{{ $item->package->name }}</td>
                                     <td></td>
-                                    <td><a href="{{url('/productos/'.$box.'/'.$level.'/'.$shelf.'/'.$local)}}" class="btn btn-primary"><i class="fa fa-eye"></i> Productos</a></td>
+                                     <td><a href="{{url('/productos/'.$box.'/'.$level.'/'.$shelf.'/'.$local)}}" class="btn btn-primary"><i class="fa fa-eye"></i> Productos</a></td>
                                 </tr>
                             @endif
                         @endforeach

@@ -17,13 +17,14 @@ class EntryDetailsTableSeeder extends Seeder
             'entry_id' => 1,
             'product_id' => 1,
             'series' => 'CO0',
-            'quantity' => 10,
+            'quantity' => 1,
             'price' => 15.2,
         ]);
         Item::create([
             'product_id' => 1,
             'series' => 'CO0',
-            'package_id' => null
+            'package_id' => null,
+            'box_id' => 1
         ]);
 
         EntryDetail::create([
@@ -36,7 +37,8 @@ class EntryDetailsTableSeeder extends Seeder
         Item::create([
             'product_id' => 1,
             'series' => 'CO1',
-            'package_id' => null
+            'package_id' => null,
+            'box_id' => 1
         ]);
 
         EntryDetail::create([
@@ -49,7 +51,8 @@ class EntryDetailsTableSeeder extends Seeder
         Item::create([
             'product_id' => 3,
             'series' => 'CO2',
-            'package_id' => null
+            'package_id' => null,
+            'box_id' => 1
         ]);
 
         EntryDetail::create([
@@ -62,7 +65,8 @@ class EntryDetailsTableSeeder extends Seeder
         Item::create([
             'product_id' => 3,
             'series' => 'CO3',
-            'package_id' => null
+            'package_id' => null,
+            'box_id' => 1
         ]);
 
 
@@ -78,7 +82,8 @@ class EntryDetailsTableSeeder extends Seeder
             'product_id' => 5,
             'series' => 'DGF02',
             'state' => 'available',
-            'package_id' => null
+            'package_id' => null,
+            'box_id' => 1
         ]);
 
         EntryDetail::create([
@@ -92,21 +97,23 @@ class EntryDetailsTableSeeder extends Seeder
             'product_id' => 5,
             'series' => 'DGF04',
             'state' => 'available',
-            'package_id' => null
+            'package_id' => null,
+            'box_id' => 1
         ]);
 
         EntryDetail::create([
             'entry_id' => 2,
             'product_id' => 4,
             'series' => 'XYZ03',
-            'quantity' => 3,
+            'quantity' => 1,
             'price' => 20.1,
         ]);
         Item::create([
             'product_id' => 4,
             'series' => 'XYZ03',
             'state' => 'available',
-            'package_id' => null
+            'package_id' => null,
+            'box_id' => 1
         ]);
 
 
@@ -121,7 +128,8 @@ class EntryDetailsTableSeeder extends Seeder
             'product_id' => 5,
             'series' => 'DGF02',
             'state' => 'available',
-            'package_id' => null
+            'package_id' => null,
+            'box_id' => 1
         ]);
 
         EntryDetail::create([
@@ -135,21 +143,23 @@ class EntryDetailsTableSeeder extends Seeder
             'product_id' => 5,
             'series' => 'DGF04',
             'state' => 'available',
-            'package_id' => null
+            'package_id' => null,
+            'box_id' => 1
         ]);
 
         EntryDetail::create([
             'entry_id' => 3,
             'product_id' => 4,
             'series' => 'ABC03',
-            'quantity' => 12,
+            'quantity' => 1,
             'price' => 10.1,
         ]);
         Item::create([
             'product_id' => 4,
             'series' => 'ABC03',
             'state' => 'available',
-            'package_id' => null
+            'package_id' => null,
+            'box_id' => 1
         ]);
     }
 

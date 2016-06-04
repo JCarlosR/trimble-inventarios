@@ -87,10 +87,11 @@
                                     <template id="template-detail">
                                         <tr>
                                             <td data-name></td>
-                                            <td data-series>256314</td>
-                                            <td data-quantity>1</td>
-                                            <td data-price>1</td>
-                                            <td data-sub>1</td>
+                                            <td data-series></td>
+                                            <td data-quantity></td>
+                                            <td data-price></td>
+                                            <td data-sub></td>
+                                            <td data-location></td>
                                         </tr>
                                     </template>
                                     <table class="table table-hover table-condensed">
@@ -101,6 +102,7 @@
                                             <th>Cantidad</th>
                                             <th>Precio</th>
                                             <th>Sub Total</th>
+                                            <th>Ubicación</th>
                                         </tr>
                                         </thead>
                                         <tbody id="bodyDetails">

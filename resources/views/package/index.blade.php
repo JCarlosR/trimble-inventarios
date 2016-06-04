@@ -32,37 +32,35 @@
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
+                                        <th>Código</th>
                                         <th>Paquete</th>
                                         <th>Descripción</th>
-                                        <th>Código</th>
-                                        <th>Ubicación</th>
-                                        <th>Observación</th>
-                                        <th>Acciones</th>
+                                        <th>Acción</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach( $packages as $package )
                                     <tr>
-                                        <td>00001</td>
-                                        <td>ZBC</td>
-                                        <td>XYZ</td>
-                                        <td>XYZ</td>
-                                        <td>Observación</td>
-
+                                        <td>{{ $package->code }}</td>
+                                        <td>{{ $package->name }}</td>
+                                        <td>{{ $package->description }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-success" title="Ver contenido">
-                                                <i class="fa fa-eye"></i>
+                                            <button type="button" class="btn btn-success" title="Ver contenido" data-look="{{ $package->id }}">
+                                                <i class="fa fa-eye"> Contenido</i>
                                             </button>
                                             <button type="button" class="btn btn-primary" title="Editar">
-                                                <i class="fa fa-pencil"></i>
+                                                <i class="fa fa-pencil"> Editar</i>
                                             </button>
-                                            <button type="button" class="btn btn-danger" title="Eliminar">
-                                                <i class="fa fa-trash"></i>
+                                            <button type="button" class="btn btn-danger" title="Eliminar" data-delete="{{ $package->id }}">
+                                                <i class="fa fa-trash"> Eliminar</i>
                                             </button>
                                         </td>
-                                    </tr>
 
+                                    </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
+                                {!! $packages->render() !!}
                             </div>
 
                         </div>
@@ -72,5 +70,49 @@
             </div>
         </div>
 
+        <!-- Modal -->
+        <div class="modal fade" id="modalDetails" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Detalles del paquete</h4>
+                    </div>
+                    <div class="modal-body" id="bodyDetails">
+                        <table class="table table-hover table-condensed">
+                            <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Serie</th>
+                            </tr>
+                            </thead>
+                            <template id="template-details">
+                                <tr>
+                                    <td data-name>1000001</td>
+                                    <td data-series>256314</td>
+                                    <td data-price>256314</td>
+                                </tr>
+                            </template>
+                            <tbody id="table-details">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        {{-- Fin modal --}}
+
     </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/package/packageIndex.js') }}"></script>
 @endsection

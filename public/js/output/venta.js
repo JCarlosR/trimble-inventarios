@@ -1,15 +1,82 @@
 // Global variables
 var items = [];
+var products;
+var packages;
+var dataset;
 
 // Temporary variables
 var selectedProduct;
 
 $(document).on('ready', function () {
-    $('#btnAdd').on('click', addItem);
+    var search = $('#product').val();
+
+    $('#product').on('blur', handleBlurProduct);
+    $('#btnAdd').on('click', addRow);
     $(document).on('click', '[data-delete]', deleteItem);
+    $(document).on('click', '[data-look]', lookDetails);
     $('#btnAccept').on('click', addItemsSeries);
     $('#form').on('submit', registerOutput);
+
+    var url_products ='../productos/names';
+    var url_packages = '../paquetes/disponibles';
+
+    $.ajax({
+        url: url_products,
+        method: 'GET'
+    }).done(function(datos) {
+
+        products = datos.products;
+        if( Object.prototype.toString.call(products) === '[object Array]'
+            && Object.prototype.toString.call(packages) === '[object Array]' )
+        {
+            dataset = products.concat(packages);
+            loadAutoCompleteProducts(dataset);
+        }
+
+    });
+
+    $.ajax({
+        url: url_packages
+    }).done(function(datos) {
+        packages = datos.packages;
+        if( Object.prototype.toString.call(products) === '[object Array]'
+            && Object.prototype.toString.call(packages) === '[object Array]' )
+        {
+            dataset = products.concat(packages);
+            loadAutoCompleteProducts(dataset);
+        }
+
+    });
 });
+
+function lookDetails() {
+    var id = $(this).data('look');
+    $.ajax({
+        url: '../paquete/detalles/'+id,
+        method: 'GET'
+    }).done(function(datos) {
+        $('#table-details').html('');
+        for (var i = 0; i<datos.length; ++i)
+        {
+            renderTemplateDetails(datos[i].product.name, datos[i].series, datos[i].product.price);
+        }
+
+        $('#modalDetails').modal('show');
+    });
+}
+
+function handleBlurProduct() {
+    $('#cantidad').val("");
+    $('#cantidad').prop('readonly', false);
+    var search = $('#product').val();
+
+    if ( packages.indexOf(search) != -1 )
+    {
+        $('#cantidad').val(1);
+        $('#cantidad').prop('readonly', true);
+    }
+
+}
 
 function registerOutput() {
     event.preventDefault();
@@ -34,10 +101,14 @@ function registerOutput() {
     });
 }
 
-function addItem() {
+function addRow() {
+    console.log('Entre');
     // Validate the product name
-    var name = $('#producto').val();
+    var name = $('#product').val();
     if (!name) return;
+
+    var customer = $('#cliente').val();
+    if (!customer) return;
 
     // Validate quantity products
     var _quantity = $('#cantidad').val();
@@ -51,30 +122,61 @@ function addItem() {
     if (!price || price <= 0)
         return;
 
+    var search = $('#product').val();
+    console.log(search);
+    if ( packages.indexOf(search) != -1 )
+    {
+        $.ajax({
+            url: '../paquete/buscar/' + name
+        })
+            .done(function( data ) {
+                if (data) {
+                    items.push({id: data.id, series: data.code, quantity: 1, price:price})
+                    renderTemplatePackage(data.id, data.code, 1, price, price)
+                    updateTotal();
+                } else {
+                    alert('Paquete no existe');
+                }
+            });
+    }else {
+        $.ajax({
+            url: '../producto/buscar/' + name
+        })
+            .done(function( data ) {
+                if (data) {
+                    // if require series
 
-    $.ajax({
-        url: '../producto/buscar/' + name
-    })
-    .done(function( data ) {
-        if (data) {
-            // if require series
+                    $('#bodySeries').html('');
+                    for (var i = 0; i<quantity; ++i) {
+                        renderTemplateSeries();
+                    }
 
-            $('#bodySeries').html('');
-            for (var i = 0; i<quantity; ++i) {
-                renderTemplateSeries();
-            }
+                    loadAutoCompleteItems(data);
 
-            loadAutoCompleteItems(data);
+                    // Temporary variables
+                    selectedProduct = { id: data.id, name: name, price: price };
 
-            // Temporary variables
-            selectedProduct = { id: data.id, name: name, price: price };
+                    $('#modalSeries').modal('show');
 
-            $('#modalSeries').modal('show');
+                } else {
+                    alert('Producto no existe');
+                }
+            });
+    }
+}
 
-        } else {
-            alert('Producto no existe');
-        }
-    });
+function renderTemplatePackage(id, code, quantity, price, sub) {
+    var clone = activateTemplate('#template-package');
+
+    clone.querySelector("[data-name]").innerHTML = 'Paquete';
+    clone.querySelector("[data-series]").innerHTML = code;
+    clone.querySelector("[data-quantity]").innerHTML = quantity;
+    clone.querySelector("[data-price]").innerHTML = price;
+    clone.querySelector("[data-sub]").innerHTML = sub;
+    clone.querySelector("[data-look]").setAttribute('data-look', id);
+    clone.querySelector("[data-delete]").setAttribute('data-delete', id);
+
+    $('#table-items').append(clone);
 }
 
 function loadAutoCompleteItems(data) {
@@ -158,12 +260,39 @@ function updateTotal() {
     $('#total').val(total);
 }
 
+function loadAutoCompleteProducts(data) {
+
+    $('#product').typeahead(
+        {
+            hint: true,
+            highlight: true,
+            minLength: 1
+        },
+        {
+            name: 'product',
+            source: substringMatcher(data)
+        }
+    );
+
+}
+
+
 
 // Funciones relacionadas al template HTML5
 function activateTemplate(id) {
     var t = document.querySelector(id);
     return document.importNode(t.content, true);
 };
+
+function renderTemplateDetails(name, series, price) {
+    var clone = activateTemplate('#template-details');
+
+    clone.querySelector("[data-name]").innerHTML = name;
+    clone.querySelector("[data-series]").innerHTML = series;
+    clone.querySelector("[data-price]").innerHTML = price;
+
+    $('#table-details').append(clone);
+}
 
 function renderTemplateItem(id, name, series, quantity, price, sub) {
 

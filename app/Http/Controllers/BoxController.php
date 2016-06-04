@@ -123,6 +123,7 @@ class BoxController extends Controller
     {
         $items = Item::where('box_id',$box)->paginate(5);
         $place  = Box::where('id',$box)->first();
+
         return view('location.box.location')->with(compact('items','place','box','level','shelf','local'));
     }
 }

@@ -72,15 +72,26 @@
 
                 <div class="x_content">
                     <br>
-                    <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
-
+                    <form id="form" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                        {{ csrf_field() }}
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label class="control-label col-md-3" for="nombre">Código único:
-                                    </label>
+                                    <label class="control-label col-md-3" for="nombre">Nombre:</label>
                                     <div class="input-group col-md-9">
                                         <input type="text" id="name" name="name" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3" for="code">Código único:</label>
+                                        <div class="input-group col-md-9">
+                                            <input type="text" id="code" name="code" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label typeahead col-md-3" for="code">Ubicación:</label>
+                                        <div class="input-group col-md-9">
+                                            <input type="text" id="location" name="location" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 ">
@@ -137,7 +148,7 @@
 
                         <div class=" col-md-6 col-md-offset-5">
                             <a href="{{ url('paquete') }}" type="reset" class="btn btn-danger">Cancelar</a>
-                            <button type="button" id="" class="btn btn-success">Registrar</button>
+                            <button class="btn btn-success">Registrar</button>
                         </div>
                     </form>
                 </div>

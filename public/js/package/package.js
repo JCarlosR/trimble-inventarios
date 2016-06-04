@@ -10,10 +10,24 @@ $(document).on('ready', function () {
 
     $('#btnAdd').on('click', addRow);
     $(document).on('click', '[data-delete]', deleteItem);
-
     $('#btnAccept').on('click', addItemsSeries);
+    $('#form').on('submit', registerPackage);
+
+    // Details of packages
+    $(document).on('click', '[data-look]', lookDetails);
 
     var url_products ='../productos/names';
+
+    var url_locations ='../paquete/ubicaciones';
+
+    $.ajax({
+        url: url_locations,
+        method: 'GET'
+    }).done(function(datos) {
+
+        locations = datos;
+        loadAutoCompleteLocations(locations);
+    });
 
     $.ajax({
         url: url_products,
@@ -27,6 +41,11 @@ $(document).on('ready', function () {
 
 function addRow() {
     // Validate the product name
+    var code = $('#code').val();
+    if (!code) {
+        alert('Ingrese el código del paquete');
+        return;
+    }
 
     var name = $('#name').val();
     if (!name) {
@@ -91,7 +110,7 @@ function addItemsSeries() {
 
     if( dontRepeat(series_array) ) {
         for ( var i=0; i<series_array.length; ++i) {
-            items.push({ id: selectedProduct.id, series: series_array[i], quantity: 1, price: selectedProduct.price });
+            items.push({ id: selectedProduct.id, series: series_array[i] });
             renderTemplateItem( selectedProduct.id, selectedProduct.name, series_array[i] );
         }
         $('#modalSeries').modal('hide');
@@ -141,7 +160,6 @@ function activateTemplate(id) {
 
 function renderTemplateItem( id, name, series ) {
     var clone = activateTemplate('#template-item');
-    clone.querySelector("[data-id]").innerHTML = id;
     clone.querySelector("[data-name]").innerHTML = name;
     clone.querySelector("[data-series]").innerHTML = series;
 
@@ -165,9 +183,81 @@ function loadAutoCompleteProducts(data) {
 
 }
 
+function loadAutoCompleteLocations(data) {
+    $('#location').typeahead(
+        {
+            hint: true,
+            highlight: true,
+            minLength: 1
+        },
+        {
+            name: 'locations',
+            source: substringMatcher(data)
+        }
+    );
+
+}
+
 function renderTemplateSeries() {
 
     var clone = activateTemplate('#template-series');
 
     $('#bodySeries').append(clone);
 }
+
+function registerPackage() {
+    event.preventDefault();
+    var _token = $(this).find('[name=_token]');
+    var data = $(this).serializeArray();
+
+    var url_paquete = '../paquete/registrar';
+
+    data.push({name: 'items', value: JSON.stringify(items)});
+
+    $.ajax({
+            url: url_paquete,
+            data: data,
+            method: 'POST',
+            headers: { 'X-CSRF-TOKEN': _token }
+
+        })
+        .done(function( response ) {
+            if(response.error)
+                alert(response.message);
+            else{
+                console.log(response);
+                alert('Paquete registrado correctamente.');
+                location.reload();
+            }
+        });
+}
+
+// Deails of packages
+function lookDetails() {
+    var id = $(this).data('look');
+
+    $.ajax({
+        url: '../paquete/detalles/'+id,
+        method: 'GET'
+    }).done(function(datos) {
+        $('#table-details').html('');
+        for (var i = 0; i<datos.length; ++i)
+        {
+            renderTemplateDetails(datos[i].product.name, datos[i].series, datos[i].product.price);
+        }
+
+        $('#modalDetails').modal('show');
+    });
+}
+
+function renderTemplateDetails(name, series, price) {
+    var clone = activateTemplate('#template-details');
+
+    clone.querySelector("[data-name]").innerHTML = name;
+    clone.querySelector("[data-series]").innerHTML = series;
+    clone.querySelector("[data-price]").innerHTML = price;
+
+    $('#table-details').append(clone);
+}
+
+
