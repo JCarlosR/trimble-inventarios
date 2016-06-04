@@ -34,19 +34,18 @@ function showDetails() {
     var id = $(this).find('[data-id]').data('id');
     var url = $('#bodyEntries').data('href').replace('{id}', id);
     $.ajax({
-            url: url
-        })
-        .done(function( data ) {
-            if (data) {
-                $('#bodyDetails').html('');
-                $(data).each(function(i, e) {
-                    renderTemplateDetail(e.name, e.series, e.quantity, e.price, e.quantity * e.price);
-                });
-
-            } else {
-                alert('Compra no encontrada');
-            }
-        });
+        url: url
+    })
+    .done(function( data ) {
+        if (data) {
+            $('#bodyDetails').html('');
+            $(data).each(function(i, e) {
+                renderTemplateDetail(e.name, e.series, e.quantity, e.price, e.quantity * e.price, e.location);
+            });
+        } else {
+            alert('Compra no encontrada');
+        }
+    });
 }
 
 // Funciones relacionadas al template HTML5
@@ -55,7 +54,7 @@ function activateTemplate(id) {
     return document.importNode(t.content, true);
 };
 
-function renderTemplateDetail(name, series, quantity, price, sub) {
+function renderTemplateDetail(name, series, quantity, price, sub, location) {
 
     var clone = activateTemplate('#template-detail');
 
@@ -64,6 +63,7 @@ function renderTemplateDetail(name, series, quantity, price, sub) {
     clone.querySelector("[data-quantity]").innerHTML = quantity;
     clone.querySelector("[data-price]").innerHTML = price;
     clone.querySelector("[data-sub]").innerHTML = sub;
+    clone.querySelector("[data-location]").innerHTML = location;
 
     $('#bodyDetails').append(clone);
 }

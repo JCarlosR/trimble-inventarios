@@ -67,14 +67,8 @@ class EntryController extends Controller
 
     public function getCompraDetalles($id)
     {
-        $details = EntryDetail::where('entry_id',$id)->get(['product_id', 'series', 'quantity', 'price']);
-
-        $array = $details->toArray();
-        foreach($array as $k => $detail) {
-            $array[$k]['name'] = Product::find($detail['product_id'])->name;
-        }
-
-        return $array;
+        $details = EntryDetail::where('entry_id',$id)->get();
+        return $details;
     }
 
     public function getRegistroReutilizacion()
