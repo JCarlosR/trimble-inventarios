@@ -90,6 +90,7 @@ class RentalController extends Controller
                         'price' => $item->price
                     ]);
 
+
                     $itemsPackageNotAvailble = Item::where('package_id', $realpackage->id)->where('state', '<>', 'available')->get();
 
                     if( count($itemsPackageNotAvailble) != 0 )
