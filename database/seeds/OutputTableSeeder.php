@@ -16,18 +16,7 @@ class OutputsTableSeeder extends Seeder
             'customer_id' => 1,
             'type' => 'local',
             'comment' => 'Comentario de prueba',
-        ]);
-
-        Output::create([
-            'customer_id' => 2,
-            'type' => 'local',
-            'comment' => 'Comentario de prueba 2',
-        ]);
-
-        Output::create([
-            'customer_id' => 1,
-            'type' => 'local',
-            'comment' => 'Comentario de prueba 3',
+            'reason' => 'sale'
         ]);
     }
 

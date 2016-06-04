@@ -133,6 +133,11 @@ Route::group(['middleware' => 'auth'], function () {
 // Search
     // Search product by name
     Route::get('/producto/buscar/{name}', 'ProductController@search');
+    Route::get('/paquete/buscar/{code}', 'PackageController@search');
+    Route::get('/paquete/detalles/{id}', 'PackageController@searchDetails');
+
+    Route::get('/productos/names', 'ProductController@searchAll');
+
     // Search for a specific item
     Route::get('/items/producto/{id}', 'ItemController@searchItems');
 
@@ -166,5 +171,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/caja/registrar/{level}/{shelf}/{local}', 'BoxController@store');
     Route::post('caja/modificar/{level}/{shelf}/{local}','BoxController@edit');
     Route::post('caja/eliminar/{level}/{shelf}/{local}','BoxController@delete');
+
     Route::get('producto/{box}/{level}/{shelf}/{local}','BoxController@show_products');
 });

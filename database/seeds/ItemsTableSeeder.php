@@ -15,7 +15,7 @@ class ItemsTableSeeder extends Seeder
         Item::create([
             'product_id' => 3,
             'series' => 'XT8-01',
-            'state' => 'available',
+            'state' => 'sold',
             'package_id' => null,
             'box_id' => 1
         ]);
@@ -23,7 +23,7 @@ class ItemsTableSeeder extends Seeder
         Item::create([
             'product_id' => 3,
             'series' => 'XT8-02',
-            'state' => 'available',
+            'state' => 'sold',
             'package_id' => null,
             'box_id' => 1
         ]);

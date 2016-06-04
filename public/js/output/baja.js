@@ -16,6 +16,7 @@ $(document).on('ready', function () {
         method: 'GET'
     }).done(function(datos) {
         items = datos.products;
+        loadAutoCompleteItems(items, 'items', '#searchProduct');
     });
 
     $.ajax({

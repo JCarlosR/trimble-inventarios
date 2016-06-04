@@ -73,7 +73,9 @@
                     <div class="x_content">
                         <br>
                         <div class="input-group">
-                            <a href="{{ url('/salida/venta') }}" id="NvoIngreso" class="btn btn-success"><i class="fa fa-plus-square-o"></i>  Nueva Venta</a>
+                            <a href="{{ url('/salida/venta') }}" id="NvoIngreso" class="btn btn-success">
+                                <i class="fa fa-plus-square-o"></i> Nueva venta
+                            </a>
                         </div>
                         <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
 
@@ -81,7 +83,7 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label class=" control-label col-md-4 " for="cliente">
-                                            cliente:
+                                            Cliente:
                                         </label>
                                         <div class="input-group col-md-8">
                                             <input type="text" id="clientes" class="typeahead form-control">
@@ -185,7 +187,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Anular compra</h4>
+                    <h4 class="modal-title">Anular venta</h4>
                 </div>
                 <form action="{{ url('/salida/venta/anular') }}" method="POST">
                     <div class="modal-body">
@@ -194,7 +196,7 @@
                         <input type="hidden" name="id" />
                         <div class="form-group">
                             <label for="nombreEliminar">¿Está seguro que desea anular la venta seleccionada?</label>
-                            <p>Deberá ingresar nuevamente los productos anteriores desde la vista de productos</p>
+                            <p>Deberá registrar la venta nuevamente y cargar los productos correspondientes.</p>
                         </div>
                     </div>
                     <div class="modal-footer">

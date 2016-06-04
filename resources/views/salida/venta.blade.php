@@ -98,11 +98,10 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="control-label col-md-3" for="tipo">Tipo:</label>
-
+                                        <label class="control-label col-md-3" for="type">Tipo:</label>
                                         <div class="input-group col-md-9">
-                                            <input type="radio" name="tipo" value="product" checked>Producto
-                                            <input type="radio" name="tipo" value="package">Paquete
+                                            <input type="radio" name="tipo" value="local" checked> Local
+                                            <input type="radio" name="tipo" value="foreign"> Extranjero
                                         </div>
                                     </div>
 
