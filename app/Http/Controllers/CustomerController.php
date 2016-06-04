@@ -11,12 +11,14 @@ use App\Http\Requests;
 
 class CustomerController extends Controller
 {
-    
 
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->ajax()) {
+            return Customer::where('enable', 1)->lists('name');
+        }
+
         $clientes = Customer::where('enable', 1)->paginate(3);
-        return $clientes;
         $tipos = CustomerType::all();
         return view('customer.index')->with(compact('clientes', 'tipos'));
     }
@@ -29,7 +31,6 @@ class CustomerController extends Controller
 
     public function edit( Request $request )
     {
-        //dd($request->all());
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
             'document' => 'required',

@@ -21,16 +21,6 @@ class EntryController extends Controller
         $this->middleware('auth');
     }
 
-    public function getRetornos()
-    {
-        $clientes = Provider::select('name')->lists('name')->toJson();
-        return view('ingreso.retorno')->with(compact(['entries', 'clientes', 'datefin', 'dateinicio']));;
-    }
-    public function getListaRetorno()
-    {
-        return view('ingreso.listaretorno');
-    }
-
     public function getRegistroCompra()
     {
         $productos = Product::select('name')->lists('name')->toJson();

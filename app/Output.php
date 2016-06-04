@@ -12,6 +12,10 @@ class Output extends Model
         'customer_id', 'type', 'reason', 'comment', 'destination', 'fechaAlquiler', 'fechaRetorno'
     ];
 
+    protected $appends = [
+        'rental_days', 'rental_state'
+    ];
+
     protected $dates = ['fechaAlquiler', 'fechaRetorno'];
 
     public function details()

@@ -105,7 +105,7 @@ class OutputController extends Controller
         $datefin = $datefin->format('Y-m-d');
         $dateinicio = $dateinicio->format('Y-m-d');
 
-        return view('salida.listaventa')->with(compact(['customers', 'outputs', 'datefin', 'dateinicio']));
+        return view('salida.listaventa')->with(compact('customers', 'outputs', 'datefin', 'dateinicio'));
     }
 
     public function getVentaDetalles($id)
@@ -136,7 +136,7 @@ class OutputController extends Controller
             return back();
         $id = $customer->id;
         $outputs = Output::where('customer_id', $id)->whereBetween('created_at', [$inicio, $fin])->paginate(3);
-        return view('salida.listaventa')->with(compact(['outputs', 'customers', 'datefin', 'dateinicio']));
+        return view('salida.listaventa')->with(compact('outputs', 'customers', 'datefin', 'dateinicio'));
     }
 
     public function getAlquiler()
@@ -145,9 +145,8 @@ class OutputController extends Controller
         $date = $carbon->now();
         $currentDate = $date->format('Y-m-d');
         $clientes = Customer::where('enable', 1)->select('name')->lists('name')->toJson();
-        //$outputs
-        //dd($clientes);
-        return view('salida.alquiler')->with(compact(['clientes', 'currentDate']));
+
+        return view('salida.alquiler')->with(compact('clientes', 'currentDate'));
     }
 
     public function getListaAlquiler()
@@ -183,7 +182,7 @@ class OutputController extends Controller
                 return redirect('salida/baja')->with('error', 'No existe un producto con la serie '.$code);
             $product->state = 'low';
             $product->save();
-        }else {
+        } else {
             $package = Package::where('code', $code)->first();
             if(! $package)
                 return redirect('salida/baja')->with('error', 'No existe un paquete con la serie '.$code);
