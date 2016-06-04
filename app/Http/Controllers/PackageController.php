@@ -92,16 +92,7 @@ class PackageController extends Controller
 
     public function locations()
     {
-        $boxes = Box::all();
-        $box = [];
-
-        foreach( $boxes as $boxe)
-        {
-            $box[$boxe->id] = $boxe->code;
-        }
-
-        dd($box);
-
-        return $box;
+        $boxes = Box::all()->lists('code');
+        return $boxes;
     }
 }
