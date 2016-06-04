@@ -14,7 +14,7 @@ class LocalsTableSeeder extends Seeder
     {
         Local::create([
             'name' => 'AL',
-            'comment '=> 'Es un almacén',
+            'comment'=> 'Es un almacén',
             'type' => 1
         ]);
 
