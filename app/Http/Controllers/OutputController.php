@@ -112,16 +112,16 @@ class OutputController extends Controller
     {
         $details = OutputDetail::where('output_id',$id)->get(['item_id', 'price']);
         $array = $details->toArray();
-        //dd($array);
-        foreach($array as $k => $detail) {
-            $productoID = Item::find($detail['item_id'])->product_id;
-            $array[$k]['product_id'] = $productoID;
-            $array[$k]['quantity'] = Item::find($detail['item_id'])->quantity;
-            $array[$k]['series'] = Item::find($detail['item_id'])->series;
-            $array[$k]['name'] = Product::find($productoID)->name;
-        }
 
-        //dd($array);
+        foreach($array as $k => $detail) {
+            $item = Item::find($detail['item_id']);
+            $productID = $item->product_id;
+            $array[$k]['product_id'] = $productID;
+            $array[$k]['quantity'] = $item->quantity;
+            $array[$k]['series'] = $item->series;
+            $array[$k]['name'] = Product::find($productID)->name;
+            $array[$k]['location'] = $item->box->code;
+        }
 
         return $array;
     }
