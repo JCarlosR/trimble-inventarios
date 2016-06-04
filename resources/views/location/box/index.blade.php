@@ -73,6 +73,7 @@
                                 <td>{{ str_limit($box->comment, $limit = 50, $end = '...') }}</td>
                                 <td>{{ $box->code }}</td>
                                 <td>
+                                    <a href="{{url('/productos/'.$box->id.'/'.$level.'/'.$shelf.'/'.$local)}}" class="btn btn-primary"><i class="fa fa-eye"></i> Productos</a>
 
                                     <button type="submit" class="btn btn-success" data-id="{{ $box->id }}" data-name="{{ $box->name }}"
                                             data-comment="{{ $box->comment }} ">
@@ -90,11 +91,6 @@
                     </table>
                     {!! $boxes->render() !!}
 
-                    <div class="form-group">
-                        <div class="col-md-3">
-                            <h2><a href="{{ url('nivel/'.$shelf.'/'.$local) }}" class="btn btn-success"><i class="fa fa-backward"></i> Volver</a></h2>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -103,7 +99,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Editar anaquel</h4>
+                        <h4 class="modal-title">Editar caja</h4>
                     </div>
                     <form action="{{ url('caja/modificar/'.$level.'/'.$shelf.'/'.$local) }}" class="form-horizontal form-label-left"  method="POST" enctype="multipart/form-data">
                         <div class="modal-body">
@@ -142,7 +138,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Eliminar nivel</h4>
+                        <h4 class="modal-title">Eliminar caja</h4>
                     </div>
                     <form action="{{ url('caja/eliminar/'.$level.'/'.$shelf.'/'.$local) }}" method="POST">
                         <div class="modal-body">
@@ -150,7 +146,7 @@
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                             <input type="hidden" name="id" />
                             <div class="form-group">
-                                <label for="nombreEliminar">¿Desea eliminar el siguiente nivel?</label>
+                                <label for="nombreEliminar">¿Desea eliminar la siguiente caja?</label>
                                 <input type="text" readonly class="form-control" name="nombreEliminar"/>
                             </div>
                         </div>

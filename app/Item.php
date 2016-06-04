@@ -15,4 +15,9 @@ class Item extends Model
     {
         return $this->belongsTo('App\Package');
     }
+
+    public function box()
+    {
+        return $this->belongsTo('App\Box');
+    }
 }

@@ -18,7 +18,7 @@ class ShelvesTableSeeder extends Seeder
         $locals = Local::all();
         foreach( $locals as $local ){
             // 4 shelves per local
-            for( $s = 1; $s < 5; ++$s ){
+            for( $s = 1; $s < 8; ++$s ){
                 $shelf = Shelf::create([
                     'name' => 'A' . $s,
                     'comment'=>'Anaquel A'.$s,
@@ -26,7 +26,7 @@ class ShelvesTableSeeder extends Seeder
                 ]);
 
                 // 3 levels per shelf
-                for( $l = 1; $l < 4; ++$l ){
+                for( $l = 1; $l < 7; ++$l ){
                     $level = Level::create([
                         'name' => 'N' . $l,
                         'comment'=>'Nivel N'.$l,

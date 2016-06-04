@@ -24,14 +24,14 @@ class DatabaseSeeder extends Seeder
         $this->call(ExemplarsTableSeeder::class);
         $this->call(ProductsTableSeeder::class);
 
+        $this->call(LocalsTableSeeder::class);
+        $this->call(ShelvesTableSeeder::class);
+
         $this->call(PackagesTableSeeder::class);
         $this->call(ItemsTableSeeder::class);
         $this->call(EntriesTableSeeder::class);
         $this->call(EntryDetailsTableSeeder::class);
         $this->call(OutputsTableSeeder::class);
         $this->call(OutputDetailsTableSeeder::class);
-
-        $this->call(LocalsTableSeeder::class);
-        $this->call(ShelvesTableSeeder::class);
     }
 }

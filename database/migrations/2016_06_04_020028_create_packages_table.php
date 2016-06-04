@@ -21,6 +21,9 @@ class CreatePackagesTable extends Migration
 
             $table->enum('state', ['low', 'sold', 'rented', 'available']);
 
+            $table->integer('box_id')->unsigned()->nullable(); // Temporary
+            $table->foreign('box_id')->references('id')->on('boxes');
+
             $table->timestamps();
         });
     }
