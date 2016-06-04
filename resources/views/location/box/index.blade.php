@@ -48,12 +48,12 @@
                         <h2><a href="{{ url('caja/registrar/'.$level.'/'.$shelf.'/'.$local) }}" class="btn btn-success"><i class="fa fa-plus-square-o"></i> Nueva caja</a></h2>
                     </div>
                     <div class="col-md-9 form-inline">
-                        <div class="col-md-9 input-group margen">
+                        <div class="col-md-8 input-group margen">
                             <span class="input-group-addon">Anaquel</span><input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
                         </div>
 
                         <div class="col-md-3 margen pull-right">
-                            <a href="{{ url('/anaquel/eliminados') }}" class="btn btn-dark" type="button"><i class="fa fa-lock"></i> Restablecer eliminados</a>
+                            <a href="{{ url('nivel/'.$shelf.'/'.$local) }}" class="btn btn-success"><i class="fa fa-backward"></i> Volver</a>
                         </div>
                     </div>
 
