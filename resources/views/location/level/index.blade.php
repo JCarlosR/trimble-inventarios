@@ -6,7 +6,7 @@
     <style>
         .margen
         {
-            margin-top:10px;
+            margin-top:11px;
         }
         .no-resize
         {
@@ -48,12 +48,12 @@
                         <h2><a href="{{ url('nivel/registrar/'.$shelf.'/'.$local) }}" class="btn btn-success"><i class="fa fa-plus-square-o"></i> Nuevo nivel</a></h2>
                     </div>
                     <div class="col-md-9 form-inline">
-                        <div class="col-md-9 input-group margen">
+                        <div class="col-md-8 input-group margen">
                             <span class="input-group-addon">Anaquel</span><input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
                         </div>
 
                         <div class="col-md-3 margen pull-right">
-                            <a href="{{ url('/anaquel/eliminados') }}" class="btn btn-dark" type="button"><i class="fa fa-lock"></i> Restablecer eliminados</a>
+                            <a href="{{ url('anaquel/'.$local) }}" class="btn btn-success"><i class="fa fa-backward"></i> Volver</a>
                         </div>
                     </div>
 
@@ -88,11 +88,6 @@
                     </table>
                     {!! $levels->render() !!}
 
-                    <div class="form-group">
-                        <div class="col-md-3">
-                            <h2><a href="{{ url('anaquel/'.$local) }}" class="btn btn-success"><i class="fa fa-backward"></i> Volver</a></h2>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -101,7 +96,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Editar anaquel</h4>
+                        <h4 class="modal-title">Editar nivel</h4>
                     </div>
                     <form action="{{ url('nivel/modificar/'.$shelf.'/'.$local) }}" class="form-horizontal form-label-left"  method="POST" enctype="multipart/form-data">
                         <div class="modal-body">

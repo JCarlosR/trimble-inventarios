@@ -16,6 +16,11 @@ class Item extends Model
         return $this->belongsTo('App\Package');
     }
 
+    public function box()
+    {
+        return $this->belongsTo('App\Box');
+    }
+
     public function output_details()
     {
         return $this->hasMany('App\OutputDetail');
@@ -27,3 +32,4 @@ class Item extends Model
     }
 
 }
+

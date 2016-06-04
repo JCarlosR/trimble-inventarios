@@ -17,6 +17,7 @@ class ItemsTableSeeder extends Seeder
             'series' => 'XT8-01',
             'state' => 'sold',
             'package_id' => null,
+            'box_id' => 1
         ]);
 
         Item::create([
@@ -24,6 +25,7 @@ class ItemsTableSeeder extends Seeder
             'series' => 'XT8-02',
             'state' => 'sold',
             'package_id' => null,
+            'box_id' => 1
         ]);
 
         Item::create([
@@ -31,6 +33,7 @@ class ItemsTableSeeder extends Seeder
             'series' => 'XT8-03',
             'state' => 'available',
             'package_id' => null,
+            'box_id' => 1
         ]);
 
         Item::create([
@@ -38,6 +41,7 @@ class ItemsTableSeeder extends Seeder
             'series' => 'XFRT8-01',
             'state' => 'available',
             'package_id' => null,
+            'box_id' => 1
         ]);
 
         Item::create([
@@ -45,6 +49,7 @@ class ItemsTableSeeder extends Seeder
             'series' => 'XHTYT8-02',
             'state' => 'available',
             'package_id' => null,
+            'box_id' => 1
         ]);
 
         Item::create([
@@ -52,6 +57,7 @@ class ItemsTableSeeder extends Seeder
             'series' => 'ASDFG-01',
             'state' => 'available',
             'package_id' => null,
+            'box_id' => 1
         ]);
 
         Item::create([
@@ -59,6 +65,7 @@ class ItemsTableSeeder extends Seeder
             'series' => 'QWER-056',
             'state' => 'available',
             'package_id' => null,
+            'box_id' => 1
         ]);
 
         Item::create([
@@ -66,6 +73,7 @@ class ItemsTableSeeder extends Seeder
             'series' => 'SDWQER-14',
             'state' => 'available',
             'package_id' => null,
+            'box_id' => 1
         ]);
 
         Item::create([
@@ -73,6 +81,7 @@ class ItemsTableSeeder extends Seeder
             'series' => 'IUY-21',
             'state' => 'available',
             'package_id' => null,
+            'box_id' => 1
         ]);
 
         //Items en paquetes
@@ -81,6 +90,7 @@ class ItemsTableSeeder extends Seeder
             'series' => 'SDFFD-03',
             'state' => 'available',
             'package_id' => 1,
+            'box_id' => 1
         ]);
 
         Item::create([
@@ -88,6 +98,7 @@ class ItemsTableSeeder extends Seeder
             'series' => 'SERIE-014',
             'state' => 'available',
             'package_id' => 1,
+            'box_id' => 1
         ]);
 
         Item::create([
@@ -95,6 +106,7 @@ class ItemsTableSeeder extends Seeder
             'series' => 'FFDDD-03',
             'state' => 'available',
             'package_id' => 2,
+            'box_id' => 1
         ]);
 
         Item::create([
@@ -102,6 +114,7 @@ class ItemsTableSeeder extends Seeder
             'series' => 'SERIE-078',
             'state' => 'available',
             'package_id' => 2,
+            'box_id' => 1
         ]);
 
         Item::create([
@@ -109,6 +122,7 @@ class ItemsTableSeeder extends Seeder
             'series' => 'TTGGGH-01',
             'state' => 'available',
             'package_id' => 3,
+            'box_id' => 1
         ]);
 
         Item::create([
@@ -116,6 +130,7 @@ class ItemsTableSeeder extends Seeder
             'series' => 'SERIE-178',
             'state' => 'available',
             'package_id' => 3,
+            'box_id' => 1
         ]);
 
         Item::create([
@@ -123,6 +138,7 @@ class ItemsTableSeeder extends Seeder
             'series' => 'SERIE-278',
             'state' => 'available',
             'package_id' => 3,
+            'box_id' => 1
         ]);
 
     }

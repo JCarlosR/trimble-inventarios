@@ -51,10 +51,6 @@
                         <div class="col-md-9 input-group margen">
                             <span class="input-group-addon">Local</span><input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
                         </div>
-
-                        <div class="col-md-3 margen pull-right">
-                            <a href="{{ url('/clientes/eliminados') }}" class="btn btn-dark" type="button"><i class="fa fa-lock"></i> Restablecer eliminados</a>
-                        </div>
                     </div>
 
                     <table class="table table-hover">

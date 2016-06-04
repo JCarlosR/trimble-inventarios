@@ -13,6 +13,11 @@ class Box extends Model
         return $this->belongsTo('App\Level');
     }
 
+    public function items()
+    {
+        return $this->hasMany('App\Item');
+    }
+
     public function getCodeAttribute()
     {
         return $this->level->shelf->local->name.'-'.$this->level->shelf->name.'-'.$this->level->name.'-'.$this->name;

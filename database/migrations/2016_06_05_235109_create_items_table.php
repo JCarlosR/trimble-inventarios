@@ -14,12 +14,20 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->increments('id');
+
             $table->integer('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products');
+
             $table->string('series');
+
             $table->enum('state', ['low', 'sold', 'rented', 'available', 'packaging', 'annulled'])->default('available');
+
             $table->integer('package_id')->unsigned()->nullable();
             $table->foreign('package_id')->references('id')->on('packages');
+
+            $table->integer('box_id')->unsigned()->nullable(); // Temporary
+            $table->foreign('box_id')->references('id')->on('boxes');
+
             $table->timestamps();
         });
     }

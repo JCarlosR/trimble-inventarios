@@ -171,4 +171,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/caja/registrar/{level}/{shelf}/{local}', 'BoxController@store');
     Route::post('caja/modificar/{level}/{shelf}/{local}','BoxController@edit');
     Route::post('caja/eliminar/{level}/{shelf}/{local}','BoxController@delete');
+
+    Route::get('producto/{box}/{level}/{shelf}/{local}','BoxController@show_products');
 });

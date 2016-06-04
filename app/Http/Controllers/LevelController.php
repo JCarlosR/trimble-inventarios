@@ -54,7 +54,7 @@ class LevelController extends Controller
         $level = Level::create([
             'name'	   => $request->get('name'),
             'comment'  => $request->get('comment'),
-            'shelf_id' => $local
+            'shelf_id' => $shelf
         ]);
         $level->save();
 
@@ -65,7 +65,7 @@ class LevelController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required'],[
-            'name.required' => 'Es nesecario ingresar el nombre del anaquel.',
+            'name.required' => 'Es nesecario ingresar el nombre del nivel.',
         ]);
 
         $level = Level::where( 'shelf_id',$shelf )->where( 'name',$request->get('name') )->first();
@@ -80,7 +80,7 @@ class LevelController extends Controller
             $data['errors'] = $validator->errors();
 
             if( $level_repeated == "errorRepeated" )
-                $data['errors']->add("name", "Ya existe un anaquel registrado con ese nombre, en este local");
+                $data['errors']->add("name", "Ya existe un nivel registrado con ese nombre, en este anaquel");
 
             return redirect('nivel/'.$shelf.'/'.$local)
                 ->withInput($request->all())
@@ -98,7 +98,7 @@ class LevelController extends Controller
     public function delete( Request $request, $shelf, $local )
     {
         $validator = Validator::make($request->all(), [
-            'id' => 'exists:shelves,id'
+            'id' => 'exists:levels,id'
         ]);
 
         $box = Box::where('level_id',$request->get('id'))->first();
