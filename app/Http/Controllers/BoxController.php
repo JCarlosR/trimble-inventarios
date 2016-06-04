@@ -118,4 +118,11 @@ class BoxController extends Controller
 
         return redirect('caja/'.$level.'/'.$shelf.'/'.$local);
     }
+
+    public function location ( $box, $level, $shelf, $local )
+    {
+        $items = Item::where('box_id',$box)->paginate(5);
+        $place  = Box::where('id',$box)->first();
+        return view('location.box.location')->with(compact('items','place','box','level','shelf','local'));
+    }
 }

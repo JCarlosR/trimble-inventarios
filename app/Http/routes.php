@@ -129,6 +129,8 @@ Route::group(['middleware' => 'auth'], function () {
     // Packages
     Route::get('/paquete', 'PackageController@index');
     Route::get('/paquete/registrar', 'PackageController@create');
+    Route::get('/paquete/productos', 'PackageController@items');
+
 
 // Search
     // Search product by name
@@ -172,5 +174,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('caja/modificar/{level}/{shelf}/{local}','BoxController@edit');
     Route::post('caja/eliminar/{level}/{shelf}/{local}','BoxController@delete');
 
-    Route::get('producto/{box}/{level}/{shelf}/{local}','BoxController@show_products');
+    Route::get('ubicacion/{box}/{level}/{shelf}/{local}','BoxController@location');
 });

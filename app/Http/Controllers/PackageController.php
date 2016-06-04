@@ -18,10 +18,9 @@ class PackageController extends Controller
 
     public function create()
     {
-        $productos = Product::select('name')->lists('name')->toJson();
+        $products = Product::select('name')->lists('name')->toJson();
 
-        //dd($items[2]->id);
-        return view('package.create')->with(compact('productos'));
+        return view('package.create')->with(compact('products'));
     }
 
     public function search($code)
@@ -36,4 +35,10 @@ class PackageController extends Controller
         return $items;
     }
 
+    public function items()
+    {
+        $items = Item::where('package_id',null)->lists('name');
+        $data['products'] = $items;
+        return $data;
+    }
 }

@@ -70,8 +70,8 @@
                         <div class="ln_solid"></div>
 
                         <div class="form-group text-center">
-                            <button type="submit" class="btn btn-success">Registrar</button>
                             <a href="{{url('/local')}}" class="btn btn-danger">Cancelar</a>
+                            <button type="submit" class="btn btn-success">Registrar</button>
                         </div>
                     </form>
                 </div>

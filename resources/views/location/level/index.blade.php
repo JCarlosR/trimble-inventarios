@@ -49,7 +49,7 @@
                     </div>
                     <div class="col-md-9 form-inline">
                         <div class="col-md-8 input-group margen">
-                            <span class="input-group-addon">Anaquel</span><input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
+                            <span class="input-group-addon">Nivel</span><input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
                         </div>
 
                         <div class="col-md-3 margen pull-right">

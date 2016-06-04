@@ -73,7 +73,7 @@
                                 <td>{{ str_limit($box->comment, $limit = 50, $end = '...') }}</td>
                                 <td>{{ $box->code }}</td>
                                 <td>
-                                    <a href="{{url('/productos/'.$box->id.'/'.$level.'/'.$shelf.'/'.$local)}}" class="btn btn-primary"><i class="fa fa-eye"></i> Productos</a>
+                                    <a href="{{url('/ubicacion/'.$box->id.'/'.$level.'/'.$shelf.'/'.$local)}}" class="btn btn-primary"><i class="fa fa-eye"></i> Productos</a>
 
                                     <button type="submit" class="btn btn-success" data-id="{{ $box->id }}" data-name="{{ $box->name }}"
                                             data-comment="{{ $box->comment }} ">
@@ -126,7 +126,7 @@
                         <div class="modal-footer">
                             <div class="text-center">
                                 <button class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-menu-up"></span> Salir</button>
-                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Guardar nivel</button>
+                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Guardar caja</button>
                             </div>
                         </div>
                     </form>

@@ -7,9 +7,7 @@ var items = [];
 var selectedProduct;
 
 $(document).on('ready', function () {
-
-    var search = $('#product').val();
-
+    
     $('#product').on('blur', handleBlurProduct);
     $('#btnAdd').on('click', addRow);
     $(document).on('click', '[data-delete]', deleteItem);
