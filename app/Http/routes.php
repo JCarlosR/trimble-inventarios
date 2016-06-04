@@ -52,6 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 // Rental
     Route::post('alquiler/registrar', 'RentalController@store');
+    Route::get('/alquiler/listar/detalles/{id}', 'RentalController@getRentalDetails');
 
 // Customers
     Route::get('/clientes', 'CustomerController@index');

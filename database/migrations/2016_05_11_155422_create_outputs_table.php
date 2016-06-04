@@ -23,7 +23,7 @@ class CreateOutputsTable extends Migration
             $table->enum('reason', ['sale', 'rental']);
 
             // For rentals, this indicates the status of the devolution
-            $table->boolean('completed')->default(true);
+            $table->boolean('completed')->default(false);
             $table->boolean('active')->default(true);
 
             // Simple data

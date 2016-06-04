@@ -24,7 +24,6 @@ class EntryController extends Controller
     public function getRetornos()
     {
         $clientes = Provider::select('name')->lists('name')->toJson();
-        //$outputs = Output::
         return view('ingreso.retorno')->with(compact(['entries', 'clientes', 'datefin', 'dateinicio']));;
     }
     public function getListaRetorno()
