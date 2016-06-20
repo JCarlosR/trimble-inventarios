@@ -28,7 +28,7 @@ function registerEntry() {
             alert(response.message);
         else{
             alert('Compra registrada correctamente.');
-            //location.reload();
+            location.reload();
         }
 
     });

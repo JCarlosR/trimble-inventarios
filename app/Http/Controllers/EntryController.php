@@ -118,13 +118,16 @@ class EntryController extends Controller
                 'price' => $item->price
             ]);
 
+            $box = Box::where('full_name', $item->location)->first();
+
             // Create Items
             for ($i = 0; $i<$item->quantity; ++$i)
                 Item::create([
                     'product_id' => $item->id,
                     'series' => $item->series,
                     'state' => 'available',
-                    'package_id' => null
+                    'package_id' => null,
+                    'box_id' => $box->id
                 ]);
         }
 
