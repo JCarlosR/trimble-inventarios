@@ -7,6 +7,8 @@ var dataset;
 // Temporary variables
 var selectedProduct;
 
+var checkeado = false;
+
 $(document).on('ready', function () {
     var search = $('#product').val();
 
@@ -16,6 +18,7 @@ $(document).on('ready', function () {
     $(document).on('click', '[data-look]', lookDetails);
     $('#btnAccept').on('click', addItemsSeries);
     $('#form').on('submit', registerOutput);
+    $(document).on('click', '[data-igvserie]', updateSubtotal);
 
     var url_products ='../productos/names';
     var url_packages = '../paquetes/disponibles';
@@ -49,9 +52,32 @@ $(document).on('ready', function () {
     });
 });
 
+function updateSubtotal() {
+    var serie = $(this).data('igvserie');
+    var price;
+    var precio = $(this).parent().next().text();
+    if( $(this).is(':checked'))
+    {
+        //precio = $(this).parent().prev().text();
+        price = precio*1.18;
+        $(this).parent().next().html(price);
+        for (var i = 0; i<items.length; ++i)
+            if (items[i].series == serie)
+                items[i].price = price;
+        updateTotal();
+    }else{
+        price = precio*100/118;
+        $(this).parent().next().html(price);
+        for (var i = 0; i<items.length; ++i)
+            if (items[i].series == serie)
+                items[i].price = price;
+        updateTotal();
+    }
+}
+
 function registerOutput() {
     event.preventDefault();
-
+    console.log(items);
     var _token = $(this).find('[name=_token]');
     var data = $(this).serializeArray();
     data.push({name: 'items', value: JSON.stringify(items)});
@@ -172,6 +198,7 @@ function renderTemplatePackage(id, code, quantity, price, sub) {
     clone.querySelector("[data-series]").innerHTML = code;
     clone.querySelector("[data-quantity]").innerHTML = quantity;
     clone.querySelector("[data-price]").innerHTML = price;
+    clone.querySelector("[data-igvserie]").setAttribute('data-igvserie', code);
     clone.querySelector("[data-sub]").innerHTML = sub;
     clone.querySelector("[data-look]").setAttribute('data-look', id);
     clone.querySelector("[data-delete]").setAttribute('data-delete', id);
@@ -325,6 +352,7 @@ function renderTemplateItem(id, name, series, quantity, price, sub) {
     clone.querySelector("[data-series]").innerHTML = series;
     clone.querySelector("[data-quantity]").innerHTML = quantity;
     clone.querySelector("[data-price]").innerHTML = price;
+    clone.querySelector("[data-igvserie]").setAttribute('data-igvserie', series);
     clone.querySelector("[data-sub]").innerHTML = sub;
 
     clone.querySelector("[data-delete]").setAttribute('data-delete', id);
