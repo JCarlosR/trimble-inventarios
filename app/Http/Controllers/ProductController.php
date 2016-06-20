@@ -21,7 +21,16 @@ class ProductController extends Controller
     {
         $products = Product::where('state',1)->orderBy('name', 'asc')->paginate(5);
 
-        return view('product.product.index')->with(compact('products'));
+        $myProducts = Product::all();
+        $items_per_Product = [];
+        foreach( $myProducts as $myProduct )
+        {
+            $count = Item::where('product_id',$myProduct->id)->where('state','available')->count();
+
+            $items_per_Product[$myProduct->id] = $count;
+        }
+
+        return view('product.product.index')->with(compact('products','items_per_Product'));
     }
 
     public function show_disabled()

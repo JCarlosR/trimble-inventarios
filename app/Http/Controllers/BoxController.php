@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\Box;
 use App\Item;
 use App\Level;
+
 use App\Local;
 use App\Shelf;
+
+use App\Package;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -138,9 +142,10 @@ class BoxController extends Controller
 
     public function location ( $box, $level, $shelf, $local )
     {
-        $items = Item::where('box_id',$box)->paginate(5);
+        $items = Item::where('box_id',$box)->paginate(4);
         $place  = Box::where('id',$box)->first();
+        $packages = Package::where('box_id',$box)->paginate(2);
 
-        return view('location.box.location')->with(compact('items','place','box','level','shelf','local'));
+        return view('location.box.location')->with(compact('items','packages','place','box','level','shelf','local'));
     }
 }

@@ -8,7 +8,7 @@ class Box extends Model
 {
     protected $fillable = ['name','comment','level_id', 'full_name'];
     protected $appends   = ['code'];
-    
+
     public function level()
     {
         return $this->belongsTo('App\Level');
