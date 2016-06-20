@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Box extends Model
 {
-    protected $fillable = ['name','comment','level_id'];
+    protected $fillable = ['name','comment','level_id', 'full_name'];
     protected $appends   = ['code'];
     
     public function level()

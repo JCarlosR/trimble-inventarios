@@ -38,7 +38,8 @@ class ShelvesTableSeeder extends Seeder
                         Box::create([
                             'name' => 'C' . $b,
                             'comment'=>'Caja C'.$b,
-                            'level_id' => $level->id
+                            'level_id' => $level->id,
+                            'full_name' => $local->name.'-'.$shelf->name.'-'.$level->name.'-C'.$b,
                         ]);
                     }
                 }

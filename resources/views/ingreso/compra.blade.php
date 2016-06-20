@@ -153,6 +153,7 @@
                                         <tr>
                                             <th>Producto</th>
                                             <th>Serie</th>
+                                            <th>Ubicación</th>
                                             <th>Cantidad</th>
                                             <th>Precio</th>
                                             <th>Subtotal</th>
@@ -164,6 +165,7 @@
                                             <tr>
                                                 <td data-name>1000001</td>
                                                 <td data-series>256314</td>
+                                                <td data-ubication>256314</td>
                                                 <td data-quantity>1</td>
                                                 <td data-price>1</td>
                                                 <td data-sub>1</td>
@@ -214,9 +216,19 @@
 
                         <!-- Modal -->
                         <template id="template-series">
-                            <div class="form-group">
-                                <label for="serie">Ingrese serie:</label>
-                                <input type="text" class="form-control">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="serie">Ingrese serie:</label>
+                                        <input type="text" class="form-control" data-serie>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div>
+                                        <label for="serie">Ingrese ubicación:</label>
+                                        <input type="text" class="typeahead form-control" data-location>
+                                    </div>
+                                </div>
                             </div>
                         </template>
                         <div class="modal fade" id="modalSeries" role="dialog">
@@ -251,9 +263,9 @@
 
 @section('scripts')
     <script src="{{ asset('js/typeahead.bundle.js') }}"></script>
-    <script src="{{ asset('js/entry/compra.js') }}"></script>
+
     <script>
-        $(document).on('ready', function () {
+        //$(document).on('ready', function () {
             var substringMatcher = function(strs) {
                 return function findMatches(q, cb) {
                     var matches, substrRegex;
@@ -294,6 +306,7 @@
                         source: substringMatcher(products)
                     }
             );
-        });
+        //});
     </script>
+    <script src="{{ asset('js/entry/compra.js') }}"></script>
 @endsection

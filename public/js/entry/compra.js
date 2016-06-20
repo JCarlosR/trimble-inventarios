@@ -28,7 +28,7 @@ function registerEntry() {
             alert(response.message);
         else{
             alert('Compra registrada correctamente.');
-            location.reload();
+            //location.reload();
         }
 
     });
@@ -62,6 +62,9 @@ function addItem() {
             }
             // Temporary variables
             selectedProduct = { id: data.id, name: name, price: price };
+            
+            loadAutoCompleteLocations();
+            
             $('#modalSeries').modal('show');
         } else {
             alert('Producto no existe');
@@ -69,9 +72,38 @@ function addItem() {
     });
 }
 
+function loadAutoCompleteLocations() {
+    console.log("Entre ubicacion");
+    $.ajax({
+        url: '../paquete/ubicaciones'
+
+    })
+        .done(function(datos){
+            console.log(datos);
+            $('[data-location]').typeahead(
+                {
+                    hint: true,
+                    highlight: true,
+                    minLength: 1
+                },
+                {
+                    name: 'locations',
+                    source: substringMatcher(datos)
+                }
+            );
+        });
+}
+
 function addItemsSeries() {
+    var locations_array = [];
+    $('#bodySeries').find('[data-location]').each(function (i, element) {
+        var locations = $(element).val();
+        if(locations != "")
+            locations_array.push(locations);
+    });
+    
     var series_array = [];
-    $('#bodySeries').find('input').each(function (i, element) {
+    $('#bodySeries').find('[data-serie]').each(function (i, element) {
         var series = $(element).val();
         if(series != "")
             series_array.push(series);
@@ -79,8 +111,8 @@ function addItemsSeries() {
 
     if( dontRepeat(series_array) ) {
         for ( var i=0; i<series_array.length; ++i) {
-            items.push({ id: selectedProduct.id, series: series_array[i], quantity: 1, price: selectedProduct.price });
-            renderTemplateItem(selectedProduct.id, selectedProduct.name, series_array[i], 1, selectedProduct.price, selectedProduct.price);
+            items.push({ id: selectedProduct.id, series: series_array[i], location: locations_array[i], quantity: 1, price: selectedProduct.price });
+            renderTemplateItem(selectedProduct.id, selectedProduct.name, series_array[i], locations_array[i], 1, selectedProduct.price, selectedProduct.price);
         }
 
         updateTotal();
@@ -136,12 +168,13 @@ function activateTemplate(id) {
     return document.importNode(t.content, true);
 };
 
-function renderTemplateItem(id, name, series, quantity, price, sub) {
+function renderTemplateItem(id, name, series, location, quantity, price, sub) {
 
     var clone = activateTemplate('#template-item');
 
     clone.querySelector("[data-name]").innerHTML = name;
     clone.querySelector("[data-series]").innerHTML = series;
+    clone.querySelector("[data-ubication]").innerHTML = location;
     clone.querySelector("[data-quantity]").innerHTML = quantity;
     clone.querySelector("[data-price]").innerHTML = price;
     clone.querySelector("[data-sub]").innerHTML = sub;

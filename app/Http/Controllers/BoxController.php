@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Box;
 use App\Item;
 use App\Level;
+use App\Local;
+use App\Shelf;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -51,10 +53,17 @@ class BoxController extends Controller
                 ->with($data);
         }
 
+        $nameLocal=Local::find($local)->get('name');
+        $nameShelf=Shelf::find($shelf)->get('name');
+        $nameLevel=Level::find($level)->get('name');
+        $nameBox = $request->get('name');
+
+        $fullName = $nameLocal.'-'.$nameShelf.'-'.$nameLevel.'-'.$nameBox;
         $box = Box::create([
             'name'	   => $request->get('name'),
             'comment'  => $request->get('comment'),
-            'level_id' => $level
+            'level_id' => $level,
+            'full_name' => $fullName
         ]);
         $box->save();
 
@@ -87,9 +96,17 @@ class BoxController extends Controller
                 ->with($data);
         }
 
+        $nameLocal=Local::find($local)->get('name');
+        $nameShelf=Shelf::find($shelf)->get('name');
+        $nameLevel=Level::find($level)->get('name');
+        $nameBox = $request->get('name');
+
+        $fullName = $nameLocal.'-'.$nameShelf.'-'.$nameLevel.'-'.$nameBox;
+
         $box = Box::find( $request->get('id') );
         $box->name = $request->get('name');
         $box->comment = $request->get('comment');
+        $box->full_name = $fullName;
         $box->save();
 
         return redirect('caja/'.$level.'/'.$shelf.'/'.$local);

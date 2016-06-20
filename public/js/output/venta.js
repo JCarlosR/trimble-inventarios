@@ -152,7 +152,7 @@ function addRow() {
                     }
 
                     loadAutoCompleteItems(data);
-
+                    // loadAutoCompleteLocations();
                     // Temporary variables
                     selectedProduct = { id: data.id, name: name, price: price };
 
@@ -199,6 +199,28 @@ function loadAutoCompleteItems(data) {
             );
         });
 }
+
+// function loadAutoCompleteLocations() {
+//     console.log("Entre ubicacion");
+//     $.ajax({
+//         url: '../paquete/ubicaciones'
+//
+//     })
+//         .done(function(datos){
+//             console.log(datos);
+//             $('[data-location]').typeahead(
+//                 {
+//                     hint: true,
+//                     highlight: true,
+//                     minLength: 1
+//                 },
+//                 {
+//                     name: 'locations',
+//                     source: substringMatcher(datos)
+//                 }
+//             );
+//         });
+// }
 
 function addItemsSeries() {
     var series_array = [];

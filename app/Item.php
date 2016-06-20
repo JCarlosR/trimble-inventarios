@@ -8,7 +8,7 @@ class Item extends Model
 {
 
     protected $fillable = [
-        'product_id', 'series', 'state', 'package_id',
+        'product_id', 'series', 'state', 'package_id', 'box_id',
     ];
 
     public function package()

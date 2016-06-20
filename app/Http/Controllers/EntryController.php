@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Box;
 use App\Entry;
 use App\EntryDetail;
 use App\Http\Requests;
@@ -85,7 +86,6 @@ class EntryController extends Controller
         return view('ingreso.listareutilizacion')->with(compact(['entries', 'dateinicio', 'datefin']));
     }
 
-
     public function postRegistroReutilizacion(Request $request)
     {
         $items = json_decode($request->get('items'));
@@ -135,8 +135,8 @@ class EntryController extends Controller
 
     public function postRegistroCompra(Request $request)
     {
-        //dd($items->all());
         $items = json_decode($request->get('items'));
+        //dd($items);
 
         $proveedor = $request->get('proveedor');
         $tipo = $request->get('tipo');
@@ -175,13 +175,16 @@ class EntryController extends Controller
                 'price' => $item->price
             ]);
 
+            $box = Box::where('full_name', $item->location)->first();
+
             // Create Items
             for ($i = 0; $i<$item->quantity; ++$i)
                 Item::create([
                     'product_id' => $item->id,
-                    'series' => ($item->series == 'S/S'? null:$item->series),
+                    'series' => $item->series,
                     'state' => 'available',
-                    'package_id' => null
+                    'package_id' => null,
+                    'box_id' => $box->id
                 ]);
         }
 
