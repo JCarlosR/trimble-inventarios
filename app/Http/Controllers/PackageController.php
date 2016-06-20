@@ -26,14 +26,13 @@ class PackageController extends Controller
         return view('package.create')->with(compact('products'));
     }
 
-    public function store( Request $request)
+    public function store( Request $request )
     {
         $items = json_decode($request->get('items'));
 
         $code = $request->get('code');
         $name = $request->get('name');
         $description = $request->get('comment');
-
 
         if (sizeof($items) == 0)
         {

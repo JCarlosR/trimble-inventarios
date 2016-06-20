@@ -67,6 +67,7 @@
                         <thead>
                             <tr>
                                 <th>Nombre</th>
+                                <th>Stock</th>
                                 <th data-type="html"> Imagen </th>
                                 <th data-hide="all" data-breakpoints="all" data-title="Descripción"></th>
                                 <th>Precio</th>
@@ -85,6 +86,7 @@
                         <tbody id="tabla">
                             <tr>
                                 <td>{{ str_limit($product->name, $limit = 33, $end = '...') }}</td>
+                                <td>{{$items_per_Product[$product->id]}}</td>
                                 <td ><img src="{{ asset('images/products') }}/{{ $product->image }} " class="img-responsive image"></td>
                                 <td>{{$product->description}}</td>
                                 <td>{{$product->price}} @if($product->money ==1) S/.  @else $ @endif </td>

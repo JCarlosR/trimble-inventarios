@@ -1,6 +1,6 @@
 @extends('layouts.panel')
 
-@section('title', 'Productos')
+@section('title', 'Productos y paquetes')
 
 @section('styles')
     <style>
@@ -23,7 +23,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Listado de productos de la caja {{$place->name}}</h2>
+                    <h2>Listado de productos y paquetes de la caja {{$place->name}}</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                     </ul>
@@ -57,17 +57,32 @@
                                     <td>{{ $item->series }}</td>
                                     <td></td>
                                 </tr>
-                            @else
-                                <tr>
-                                    <td>{{ $item->package->name }}</td>
-                                    <td></td>
-                                     <td><a href="{{url('/productos/'.$box.'/'.$level.'/'.$shelf.'/'.$local)}}" class="btn btn-primary"><i class="fa fa-eye"></i> Productos</a></td>
-                                </tr>
                             @endif
                         @endforeach
                         </tbody>
                     </table>
                     {!! $items->render() !!}
+
+
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Paquete</th>
+                            <th>Opción</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tabla">
+                        @foreach( $packages as $package )
+                            <tr>
+                                <td>{{ $package->code }}</td>
+                                <td>{{ $package->name }}</td>
+                                <td><a href="{{url('/ubicacion/'.$box.'/'.$level.'/'.$shelf.'/'.$local)}}" class="btn btn-primary"><i class="fa fa-eye"></i> Productos</a></td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                    {!! $packages->render() !!}
                 </div>
             </div>
         </div>
