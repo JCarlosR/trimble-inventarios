@@ -6,6 +6,8 @@ use App\Customer;
 use App\Http\Requests;
 use App\Item;
 use App\Output;
+use App\OutputPackage;
+use App\OutputPackageDetail;
 use App\Package;
 use App\Product;
 use App\OutputDetail;
@@ -32,9 +34,10 @@ class OutputController extends Controller
     public function postRegistroVenta(Request $request)
     {
         $items = json_decode($request->get('items'));
+        //dd($request->all());
 
         $cliente = $request->get('cliente');
-        $type = $request->get('type');
+        $type = $request->get('tipo');
         $observacion = $request->get('observacion');
 
         $customer = Customer::where('name', $cliente)->first();
@@ -59,29 +62,64 @@ class OutputController extends Controller
                 'type' => $type,
                 'reason' => 'sale',
                 'comment' => $observacion
+
             ]);
 
             foreach($items as $item)
             {
-                // Update Items
-                // Si tiene serie lo buscamos y actualizamos(crear un ouputDetail)
-                // Sino tomamos los primeros dependiendo cantidad y lo actualizamos(crear los outputDetails correspondiente)
+                if($item->type=='prod')
+                {
+                    $realItem = Item::where('product_id', $item->id)->where('state', 'available')->where('series', $item->series)->first();
 
+                    if(!$realItem)
+                        throw new \Exception('No se ha encontrado el item con serie ' . $item->series);
+                    $realItem->state = 'sold';
 
-                $realItem = Item::where('product_id', $item->id)->where('state', 'available')->where('series', $item->series)->first();
+                    $realItem->save();
+                    //dd($output->id);
+                    // Create one Output Detail = OutputDetailItem
+                    OutputDetail::create([
+                        'output_id' => $output->id,
+                        'item_id' => $realItem->id,
+                        'price' => $item->price
+                    ]);
+                } else {
+                    $realpackage = Package::find($item->id);
 
-                if(!$realItem)
-                    throw new \Exception('No se ha encontrado el item con serie ' . $item->series);
-                $realItem->state = 'sold';
+                    if(!$realpackage)
+                        throw new \Exception('No se ha encontrado el paquete con serie ' . $item->series);
+                    if($realpackage->state != 'available')
+                        throw new \Exception('El paquete '. $item->series .'no esta habilitado para hacer operaciones.');
 
-                $realItem->save();
+                    $realpackage->state = 'sold';
 
-                // Create one Output Detail
-                OutputDetail::create([
-                    'output_id' => $output->id,
-                    'item_id' => $realItem->id,
-                    'price' => $item->price
-                ]);
+                    $realpackage->save();
+                    //dd($output->id);
+
+                    $outputPackage = OutputPackage::create([
+                        'output_id' => $output->id,
+                        'package_id' => $realpackage->id,
+                        'price' => $item->price
+                    ]);
+
+                    $itemsPackageNotAvailble = Item::where('package_id', $realpackage->id)->where('state', '<>', 'available')->get();
+
+                    if( count($itemsPackageNotAvailble) != 0 )
+                        throw new \Exception('El paquete '. $item->series .' no está habilitado para hacer operaciones.');
+
+                    $itemsPackage = Item::where('package_id', $realpackage->id)->where('state', 'available')->get();
+                    foreach ($itemsPackage as $itemPaq)
+                    {
+                        OutputPackageDetail::create([
+                            'output_package_id' => $outputPackage->id,
+                            'item_id' => $itemPaq->id,
+                            'price' => $itemPaq->price
+                        ]);
+                        $itemPaq->state = 'sold';
+                        $itemPaq->save();
+                    }
+
+                }
 
             }
 
