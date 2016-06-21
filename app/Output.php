@@ -41,4 +41,13 @@ class Output extends Model
         return 'Fuera de tiempo';
     }
 
+    public function items()
+    {
+        return $this->hasMany('App\OutputDetail');
+    }
+
+    public function packages()
+    {
+        return $this->hasMany('App\OutputPackage');
+    }
 }

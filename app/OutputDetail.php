@@ -11,6 +11,8 @@ class OutputDetail extends Model
         'output_id', 'item_id', 'price'
     ];
 
+    protected $appends = ['returned'];
+
     public function output()
     {
         return $this->belongsTo('App\Output');
@@ -26,4 +28,10 @@ class OutputDetail extends Model
         return $this->hasOne('App\Devolution');
     }
 
+    public function getReturnedAttribute()
+    {
+        if ($this->devolution == null)
+            return false;
+        return true;
+    }
 }

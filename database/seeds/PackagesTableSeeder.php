@@ -19,11 +19,12 @@ class PackagesTableSeeder extends Seeder
             'state' => 'available',
         ]);
 
+        // 2
         Package::create([
             'name' => 'PAQ-019',
             'code' => 'PAQ-012-AL-04',
             'description' => 'Paquete de prueba',
-            'state' => 'available',
+            'state' => 'rented',
         ]);
 
         Package::create([

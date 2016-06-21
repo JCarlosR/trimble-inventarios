@@ -11,6 +11,10 @@ class Item extends Model
         'product_id', 'series', 'state', 'package_id', 'box_id',
     ];
 
+    protected $appends = [
+        'product_name'
+    ];
+
     public function package()
     {
         return $this->belongsTo('App\Package');
@@ -29,6 +33,11 @@ class Item extends Model
     public function product()
     {
         return $this->belongsTo('App\Product');
+    }
+
+    public function getProductNameAttribute()
+    {
+        return $this->product->name;
     }
 
 }

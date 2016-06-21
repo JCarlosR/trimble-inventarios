@@ -12,6 +12,7 @@ class ItemsTableSeeder extends Seeder
      */
     public function run()
     {
+        // 1
         Item::create([
             'product_id' => 3,
             'series' => 'XT8-01',
@@ -20,6 +21,7 @@ class ItemsTableSeeder extends Seeder
             'box_id' => 1
         ]);
 
+        // 2
         Item::create([
             'product_id' => 3,
             'series' => 'XT8-02',
@@ -28,14 +30,16 @@ class ItemsTableSeeder extends Seeder
             'box_id' => 1
         ]);
 
+        // 3
         Item::create([
             'product_id' => 3,
             'series' => 'XT8-03',
-            'state' => 'available',
+            'state' => 'rented',
             'package_id' => null,
             'box_id' => 1
         ]);
 
+        // 4
         Item::create([
             'product_id' => 5,
             'series' => 'XFRT8-01',
