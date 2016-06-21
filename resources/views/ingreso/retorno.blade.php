@@ -9,6 +9,60 @@
 @endsection
 
 @section('content')
+    @if (session('notif'))
+        <div class="alert alert-success">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Correcto!</strong> {{ session('notif') }}
+        </div>
+    @endif
+
+    <div id="modalDevolutionPartial" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Devolución parcial</h4>
+                </div>
+                <template id="template-detail">
+                    <tr>
+                        <td data-name></td>
+                        <td data-code></td>
+                        <td data-price></td>
+                        <td>
+                            <input type="checkbox" name="" value="">
+                        </td>
+                    </tr>
+                </template>
+                <form action="{{ url('/ingreso/listar/retorno/parcial') }}" method="POST">
+                    {{ csrf_field() }}
+                    {{ method_field('PUT') }}
+                    <input type="hidden" name="output_id" id="output_id" value="">
+                    <div class="modal-body">
+                        <p>Listado de ítems y paquetes</p>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Producto / Paquete</th>
+                                    <th>Código</th>
+                                    <th>Precio</th>
+                                    <th>¿Devolver?</th>
+                                </tr>
+                            </thead>
+                            <tbody id="devolution-details">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Aplicar devolución</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
@@ -53,5 +107,6 @@
             };
         };
     </script>
+    <script src="{{ asset('js/entry/retorno-parcial.js')}}"></script>
     <script type="text/babel" src="{{ asset('js/entry/retorno.js')}}"></script>
 @endsection

@@ -53,7 +53,9 @@ Route::group(['middleware' => 'auth'], function () {
 
 // Devolution
     Route::get('/ingreso/listar/retorno', 'DevolutionController@index');
+    Route::get('/ingreso/listar/retorno/{id}', 'DevolutionController@details');
     Route::post('/ingreso/listar/retorno/{id}', 'DevolutionController@store');
+    Route::put('/ingreso/listar/retorno/parcial', 'DevolutionController@partial');
 
 // Customers
     Route::get('/clientes', 'CustomerController@index');

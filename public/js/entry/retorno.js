@@ -9,7 +9,7 @@ var SearchPanel = React.createClass({
         return (
             <div className="row">
                 <div className="col-md-4">
-                    <label className="control-label col-md-4" forHtml="cliente">
+                    <label className="control-label col-md-4" forHtml="customer">
                         Cliente:
                     </label>
                     <div className="input-group col-md-8">
@@ -17,19 +17,19 @@ var SearchPanel = React.createClass({
                     </div>
                 </div>
                 <div className="col-md-4">
-                    <label className="control-label col-md-4" forHtml="cliente">
+                    <label className="control-label col-md-4" forHtml="start">
                         Desde:
                     </label>
                     <div className="input-group col-md-8">
-                        <input type="date" ref="start" className="form-control" value={this.props.start} />
+                        <input type="date" ref="start" className="form-control" onChange={this.onSearchChanged} />
                     </div>
                 </div>
                 <div className="col-md-4">
-                    <label className="control-label col-md-4" forHtml="cliente">
+                    <label className="control-label col-md-4" forHtml="end">
                         Hasta:
                     </label>
                     <div className="input-group col-md-8">
-                        <input type="date" ref="end" className="form-control" value={this.props.end} />
+                        <input type="date" ref="end" className="form-control" onChange={this.onSearchChanged} />
                     </div>
                 </div>
             </div>
@@ -37,13 +37,17 @@ var SearchPanel = React.createClass({
     },
     componentDidUpdate: function() {
         if (this.props.customers.length > 0 && ! this.state.loaded) {
+            this.refs.start.value = this.props.start;
+            this.refs.end.value = this.props.end;
             setTypeAHead(this.refs.customer, this.props.customers);
             this.setState({ loaded: true });
         }
     },
     onSearchChanged: function() {
         var customer_name = this.refs.customer.value;
-        this.props.onSearchChanged(customer_name);
+        var start = this.refs.start.value;
+        var end = this.refs.end.value;
+        this.props.onSearchChanged(customer_name, start, end);
     }
 });
 
@@ -79,7 +83,7 @@ var RentalsTableRow = React.createClass({
         this.props.handleDevolutionTotal(this.props.id);
     },
     onClickPartial: function() {
-        alert('En construcción');
+        this.props.handleDevolutionPartial(this.props.id);
     }
 });
 
@@ -95,7 +99,8 @@ var RentalsTable = React.createClass({
                 start={rental.fechaAlquiler}
                 days={rental.rental_days}
                 state={rental.rental_state}
-                handleDevolutionTotal={this.props.handleDevolutionTotal} />
+                handleDevolutionTotal={this.props.handleDevolutionTotal}
+                handleDevolutionPartial={this.props.handleDevolutionPartial} />
             );
         }.bind(this));
 
@@ -150,7 +155,9 @@ var DevolutionPanel = React.createClass({
                              customers={this.state.customers}
                              onSearchChanged={this.onSearchChanged} />
                 <DevolutionComment />
-                <RentalsTable rentals={this.state.rentals} handleDevolutionTotal={this.handleDevolutionTotal} />
+                <RentalsTable rentals={this.state.rentals}
+                    handleDevolutionTotal={this.handleDevolutionTotal}
+                    handleDevolutionPartial={this.handleDevolutionPartial} />
                 <RentalActions />
             </div>
         );
@@ -166,7 +173,9 @@ var DevolutionPanel = React.createClass({
             clearInterval(this.promise)
         }
         this.setState({
-            customer_name: customer_name
+            customer_name: customer_name,
+            start: start,
+            end: end
         });
         this.promise = setTimeout(function () {
             this.reloadRentals(customer_name, start, end);
@@ -202,6 +211,12 @@ var DevolutionPanel = React.createClass({
         });
     },
 
+    handleDevolutionPartial: function(id) {
+        $('#output_id').val(id);
+        showDevolutionDetails(id);
+        $('#modalDevolutionPartial').modal('show');
+    },
+
     handleChange: function(email, name, role, password) {
         this.setState({
             editingUser: {
@@ -215,10 +230,13 @@ var DevolutionPanel = React.createClass({
     },
 
     // Ajax object methods
-    reloadRentals: function(customer_name) {
+    reloadRentals: function(customer_name, start, end) {
         var url_request = this.props.url;
-        if (customer_name)
+        if (customer_name) {
             url_request += '?customer='+customer_name;
+            url_request += '&start='+start;
+            url_request += '&end='+end;
+        }
 
         $.ajax({
             url: url_request,

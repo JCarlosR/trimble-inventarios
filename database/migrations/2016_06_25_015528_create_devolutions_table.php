@@ -18,8 +18,11 @@ class CreateDevolutionsTable extends Migration
             $table->integer('output_detail_id')->unsigned()->nullable();
             $table->foreign('output_detail_id')->references('id')->on('output_details');
 
-            // The particular item, has been returned?
-            $table->boolean('returned')->default(false);
+            $table->integer('output_package_id')->unsigned()->nullable();
+            $table->foreign('output_package_id')->references('id')->on('output_packages');
+
+            // The item/package, has been returned?
+            // $table->boolean('returned')->default(false);
 
             $table->timestamps();
         });
