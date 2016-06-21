@@ -28,16 +28,22 @@ class PackageController extends Controller
 
     public function store( Request $request )
     {
+        $box= Box::where('full_name',$request->get('location'))->first();
+
         $items = json_decode($request->get('items'));
 
         $code = $request->get('code');
         $name = $request->get('name');
         $description = $request->get('comment');
 
+        $package = Package::where('name',$name)->first();
+
+        if($package != null)
+            return response()->json(['error' => true, 'message' => 'Ya existe un paquete con ese nombre']);
+
+
         if (sizeof($items) == 0)
-        {
             return response()->json(['error' => true, 'message' => 'Es necesario agregar elementos al paquete.']);
-        }
 
         DB::beginTransaction();
 
@@ -47,7 +53,8 @@ class PackageController extends Controller
                 'name' => $name,
                 'code' => $code,
                 'description' => $description,
-                'state'=>'available'
+                'state'=>'available',
+                'box_id'=>$box->id
             ]);
 
             foreach($items as $item)
@@ -69,6 +76,24 @@ class PackageController extends Controller
             return response()->json(['error' => true, 'message' => $e->getMessage()]);
         }
     }
+
+    public function destroy( Request $request )
+    {
+        $items=Item::where('package_id',$request->get('id'))->get();
+
+        foreach( $items as $item )
+        {
+            $item->package_id = null;
+            $item->save();
+        }
+
+        $package = Package::find($request->get('id'));
+        $package->state="low";
+        $package->save();
+
+        return redirect('paquete');
+    }
+
 
     public function search($code)
     {

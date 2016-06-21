@@ -15,7 +15,7 @@ class CreateBoxesTable extends Migration
         Schema::create('boxes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('full_name');
+            $table->string('comment');
             $table->integer('level_id')->unsigned();
             $table->foreign('level_id')->references('id')->on('levels');
             $table->string('full_name');

@@ -48,11 +48,11 @@
                                             <button type="button" class="btn btn-success" title="Ver contenido" data-look="{{ $package->id }}">
                                                 <i class="fa fa-eye"> Contenido</i>
                                             </button>
-                                            <button type="button" class="btn btn-primary" title="Editar">
+                                            <button type="button" class="btn btn-primary" title="Editar" data-edit="{{ $package->id }}" data-nameDelete="{{ $package->name }}" >
                                                 <i class="fa fa-pencil"> Editar</i>
                                             </button>
-                                            <button type="button" class="btn btn-danger" title="Eliminar" data-delete="{{ $package->id }}">
-                                                <i class="fa fa-trash"> Eliminar</i>
+                                            <button type="button" class="btn btn-danger" title="Descomponer" data-delete="{{ $package->id }}" data-name="{{ $package->name }}">
+                                                <i class="fa fa-trash"> Descomponer</i>
                                             </button>
                                         </td>
 
@@ -109,6 +109,74 @@
         </div>
 
         {{-- Fin modal --}}
+
+
+
+        <div class="modal fade" id="modalEdit" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Detalles del paquete</h4>
+                    </div>
+                    <div class="modal-body" id="bodyDetails">
+                        <table class="table table-hover table-condensed">
+                            <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Serie</th>
+                            </tr>
+                            </thead>
+                            <template id="template-details">
+                                <tr>
+                                    <td data-name>1000001</td>
+                                    <td data-series>256314</td>
+                                    <td data-price>256314</td>
+                                </tr>
+                            </template>
+                            <tbody id="table-details">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="modalDescomponer" class="modal fade in">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Descomponer paquete</h4>
+                    </div>
+                    <form action="{{ url('paquete/descomponer') }}" method="POST">
+                        <div class="modal-body">
+
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                            <input type="hidden" name="id" />
+                            <div class="form-group">
+                                <label for="nombreEliminar">¿Desea descomponer el siguiente paquete?</label>
+                                <input type="text" readonly class="form-control" name="name"/>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="btn-group pull-left">
+                                <button class="btn btn-danger pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-menu-up"></span> Cancelar</button>
+                            </div>
+                            <div class="btn-group pull-right">
+                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Aceptar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
     </div>
 @endsection

@@ -40,16 +40,16 @@ $(document).on('ready', function () {
 });
 
 function addRow() {
+    // Validate the product name
+    var code = $('#code').val();
+    if (!code) {
+        alert('Ingrese el código del paquete');
+        return;
+    }
 
     var name = $('#name').val();
     if (!name) {
         alert('Ingrese el nombre del paquete');
-        return;
-    }
-
-    var code = $('#code').val();
-    if (!code) {
-        alert('Ingrese el código del paquete');
         return;
     }
 
