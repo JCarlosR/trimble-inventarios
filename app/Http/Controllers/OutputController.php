@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Box;
 use App\Customer;
 use App\Http\Requests;
 use App\Item;
@@ -153,12 +154,13 @@ class OutputController extends Controller
 
         foreach($array as $k => $detail) {
             $item = Item::find($detail['item_id']);
+            $box = Box::find($item->box_id);
             $productID = $item->product_id;
             $array[$k]['product_id'] = $productID;
             $array[$k]['quantity'] = $item->quantity;
             $array[$k]['series'] = $item->series;
             $array[$k]['name'] = Product::find($productID)->name;
-            $array[$k]['location'] = $item->box->code;
+            $array[$k]['location'] = $box->full_name;
         }
 
         return $array;
