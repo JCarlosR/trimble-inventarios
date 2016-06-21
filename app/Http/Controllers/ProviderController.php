@@ -46,9 +46,6 @@ class ProviderController extends Controller
 
         $document="";
 
-        if($request->get('persona') == 'Natural' and strlen($request->get('document')) != 8 )
-            $document="errorDocument";
-
         if($request->get('persona') == 'Juridica' and strlen($request->get('document')) != 11 )
             $document="errorDocument";
 
