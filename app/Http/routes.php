@@ -53,7 +53,9 @@ Route::group(['middleware' => 'auth'], function () {
 
 // Devolution
     Route::get('/ingreso/listar/retorno', 'DevolutionController@index');
+    Route::get('/ingreso/listar/retorno/{id}', 'DevolutionController@details');
     Route::post('/ingreso/listar/retorno/{id}', 'DevolutionController@store');
+    Route::put('/ingreso/listar/retorno/parcial', 'DevolutionController@partial');
 
 // Customers
     Route::get('/clientes', 'CustomerController@index');
@@ -184,5 +186,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Products contained in a box
     Route::get('ubicacion/{box}/{level}/{shelf}/{local}','BoxController@location');
+    
+    // Reportes
+    Route::get('reporte/existencias', 'ReportController@getItems');
+
+    // WebServices to reports
+    Route::get('/locals/shelves/{local}', 'ReportController@shelves');
+    Route::get('/shelves/levels/{shelf}', 'ReportController@levels');
+    Route::get('/levels/boxes/{level}', 'ReportController@boxes');
+    Route::get('/boxes/items/{full_name}', 'ReportController@items');
 
 });

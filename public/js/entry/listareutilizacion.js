@@ -34,6 +34,7 @@ function showDetails() {
             url: url
         })
         .done(function( data ) {
+            console.log(data);
             if (data) {
                 $('#bodyDetails').html('');
                 $(data).each(function(i, e) {

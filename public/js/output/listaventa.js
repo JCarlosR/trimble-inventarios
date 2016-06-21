@@ -52,7 +52,7 @@ function showDetails() {
 function activateTemplate(id) {
     var t = document.querySelector(id);
     return document.importNode(t.content, true);
-};
+}
 
 function renderTemplateDetail(name, series, quantity, price, sub, location) {
 

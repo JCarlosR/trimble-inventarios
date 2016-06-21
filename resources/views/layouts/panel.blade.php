@@ -103,7 +103,7 @@
 
                             <li><a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="{{ url('/') }}">Reporte 1</a></li>
+                                    <li><a href="{{ url('reporte/existencias') }}">Reporte 1</a></li>
                                     <li><a href="{{ url('/') }}">Reporte 2</a></li>
                                 </ul>
                             </li>

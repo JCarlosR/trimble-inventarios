@@ -116,7 +116,7 @@ class PackageController extends Controller
 
     public function locations()
     {
-        $boxes = Box::all()->lists('code');
+        $boxes = Box::all()->lists('full_name');
         return $boxes;
     }
 }
