@@ -131,4 +131,5 @@ function renderTemplateItem(name, series, location, quantity, state) {
     clone.querySelector("[data-state]").innerHTML = state;
 
     $('#bodyItems').append(clone);
+    
 }
