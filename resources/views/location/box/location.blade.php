@@ -77,7 +77,7 @@
                             <tr>
                                 <td>{{ $package->code }}</td>
                                 <td>{{ $package->name }}</td>
-                                <td><a href="{{url('/ubicacion/'.$box.'/'.$level.'/'.$shelf.'/'.$local)}}" class="btn btn-primary"><i class="fa fa-eye"></i> Productos</a></td>
+                                <td><button type="button" class="btn btn-primary" title="Ver contenido" data-look="{{ $package->id }}"><i class="fa fa-eye"> Contenido</i></button></td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -86,13 +86,50 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalDetails" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Detalles del paquete</h4>
+                    </div>
+                    <div class="modal-body" id="bodyDetails">
+                        <table class="table table-hover table-condensed">
+                            <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Serie</th>
+                            </tr>
+                            </thead>
+                            <template id="template-details">
+                                <tr>
+                                    <td data-name>1000001</td>
+                                    <td data-series>256314</td>
+                                    <td data-price>256314</td>
+                                </tr>
+                            </template>
+                            <tbody id="table-details">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
     </div>
 @endsection
 
 @section('scripts')
     <script src="{{ asset('js/location/box.js')}}"></script>
     <script src="{{ asset('js/location/search.js') }}"></script>
-    <script>
-
-    </script>
 @endsection

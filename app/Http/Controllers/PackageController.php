@@ -77,9 +77,11 @@ class PackageController extends Controller
         }
     }
 
-    public function destroy( Request $request )
+    public function destroy( $id )
     {
-        $items=Item::where('package_id',$request->get('id'))->get();
+
+        $items=Item::where('package_id',$id)->get();
+        $package = Package::find($id);
 
         foreach( $items as $item )
         {
@@ -87,11 +89,11 @@ class PackageController extends Controller
             $item->save();
         }
 
-        $package = Package::find($request->get('id'));
+        $package = Package::find($id);
         $package->state="low";
         $package->save();
 
-        return redirect('paquete');
+        return response()->json(['message' => 'Paquete dado de baja correctamente']);
     }
 
 

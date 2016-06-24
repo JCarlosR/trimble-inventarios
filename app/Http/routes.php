@@ -137,14 +137,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/paquete', 'PackageController@index');
     Route::get('/paquete/registrar', 'PackageController@create');
     Route::post('/paquete/registrar', 'PackageController@store');
-    Route::post('/paquete/descomponer', 'PackageController@destroy');
+    Route::get('/paquete/descomponer/{id}', 'PackageController@destroy');
     Route::get('/paquete/productos', 'PackageController@items');
 
 
 // Search
     // Search product by name
     Route::get('/producto/buscar/{name}', 'ProductController@search');
-    Route::get('/paquete/buscar/{code}', 'PackageController@search');
     Route::get('/paquete/ubicaciones', 'PackageController@locations');
     Route::get('/paquete/detalles/{id}', 'PackageController@searchDetails');
 

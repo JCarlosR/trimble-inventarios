@@ -154,6 +154,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Modal -->
         <template id="template-series">
             <div class="form-group">

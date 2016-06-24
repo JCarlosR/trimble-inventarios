@@ -1,9 +1,6 @@
 var products;
 var packages;
-var dataset;
 var items = [];
-
-// Temporary variables
 var selectedProduct;
 
 $(document).on('ready', function () {
@@ -12,31 +9,6 @@ $(document).on('ready', function () {
     $(document).on('click', '[data-delete]', deleteItem);
     $('#btnAccept').on('click', addItemsSeries);
     $('#form').on('submit', registerPackage);
-
-    // Details of packages
-    $(document).on('click', '[data-look]', lookDetails);
-
-    var url_products ='../productos/names';
-
-    var url_locations ='../paquete/ubicaciones';
-
-    $.ajax({
-        url: url_locations,
-        method: 'GET'
-    }).done(function(datos) {
-
-        locations = datos;
-        loadAutoCompleteLocations(locations);
-    });
-
-    $.ajax({
-        url: url_products,
-        method: 'GET'
-    }).done(function(datos) {
-
-        products = datos.products;
-        loadAutoCompleteProducts(products);
-    });
 });
 
 function addRow() {
@@ -60,7 +32,7 @@ function addRow() {
     }
 
     $.ajax({
-            url: '../producto/buscar/' + product
+            url: '../public/producto/buscar/' + product
         })
         .done(function( data ) {
             if (data) {
@@ -83,7 +55,7 @@ function addRow() {
 
 function loadAutoCompleteItems(data) {
     $.ajax({
-            url: '../items/producto/' + data.id
+            url: '../public/items/producto/' + data.id
         })
         .done(function(datos){
             $('[data-search]').typeahead(
@@ -152,6 +124,13 @@ function itemDelete(id, series) {
     }
 }
 
+function renderTemplateSeries() {
+
+    var clone = activateTemplate('#template-series');
+
+    $('#bodySeries').append(clone);
+}
+
 // Funciones relacionadas al template HTML5
 function activateTemplate(id) {
     var t = document.querySelector(id);
@@ -168,49 +147,12 @@ function renderTemplateItem( id, name, series ) {
     $('#table-items').append(clone);
 }
 
-function loadAutoCompleteProducts(data) {
-    $('#product').typeahead(
-        {
-            hint: true,
-            highlight: true,
-            minLength: 1
-        },
-        {
-            name: 'products',
-            source: substringMatcher(data)
-        }
-    );
-
-}
-
-function loadAutoCompleteLocations(data) {
-    $('#location').typeahead(
-        {
-            hint: true,
-            highlight: true,
-            minLength: 1
-        },
-        {
-            name: 'locations',
-            source: substringMatcher(data)
-        }
-    );
-
-}
-
-function renderTemplateSeries() {
-
-    var clone = activateTemplate('#template-series');
-
-    $('#bodySeries').append(clone);
-}
-
 function registerPackage() {
     event.preventDefault();
     var _token = $(this).find('[name=_token]');
     var data = $(this).serializeArray();
 
-    var url_paquete = '../paquete/registrar';
+    var url_paquete = '../public/paquete/registrar';
 
     data.push({name: 'items', value: JSON.stringify(items)});
 
@@ -230,32 +172,4 @@ function registerPackage() {
                 location.reload();
             }
         });
-}
-
-// Deails of packages
-function lookDetails() {
-    var id = $(this).data('look');
-
-    $.ajax({
-        url: '../paquete/detalles/'+id,
-        method: 'GET'
-    }).done(function(datos) {
-        $('#table-details').html('');
-        for (var i = 0; i<datos.length; ++i)
-        {
-            renderTemplateDetails(datos[i].product.name, datos[i].series, datos[i].product.price);
-        }
-
-        $('#modalDetails').modal('show');
-    });
-}
-
-function renderTemplateDetails(name, series, price) {
-    var clone = activateTemplate('#template-details');
-
-    clone.querySelector("[data-name]").innerHTML = name;
-    clone.querySelector("[data-series]").innerHTML = series;
-    clone.querySelector("[data-price]").innerHTML = price;
-
-    $('#table-details').append(clone);
 }
