@@ -14,8 +14,14 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::orderBy('name', 'asc')->paginate(5);
+        $categories = Category::where('state',1)->orderBy('name', 'asc')->paginate(5);
         return view('product.category.index')->with(compact(['categories']));
+    }
+
+    public function show_disabled()
+    {
+        $categories = Category::where('state',0)->orderBy('name', 'asc')->paginate(5);
+        return view('product.category.back')->with(compact('categories'));
     }
 
     public function create()
@@ -23,7 +29,7 @@ class CategoryController extends Controller
         return view('product.category.create');
     }
 
-    public function created( Request $request)
+    public function store( Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:50',
@@ -52,6 +58,7 @@ class CategoryController extends Controller
         $category = Category::create([
             'name'	  => $request->get('name'),
             'description' => $request->get('description'),
+            'state'=>1
         ]);
         $category->save();
 
@@ -122,8 +129,18 @@ class CategoryController extends Controller
         }
 
         $category = Category::find( $request->get('id') );
-        $category->delete();
+        $category->state=0;
+        $category->save();
 
         return redirect('categoria')->with(compact(['data']));
+    }
+
+    public function enable( Request $request)
+    {
+        $categories = Category::find($request->get('id'));
+        $categories->state=1;
+        $categories->save();
+
+        return redirect('categorias/inactivas');
     }
 }

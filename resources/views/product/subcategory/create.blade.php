@@ -2,6 +2,18 @@
 
 @section('title', 'Subcategorías')
 
+@section('styles')
+    <style>
+        .no-resize
+        {
+            resize: none;
+        }
+        .inside:focus{
+            border: 1px solid #0097cf;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -37,14 +49,14 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nombre <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" name="name" required="required" value="{{old('name')}}" class="form-control col-md-7 col-xs-12">
+                                <input type="text" name="name" required="required" value="{{old('name')}}" class="form-control col-md-7 col-xs-12 inside">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Descripción
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <textarea name="description" rows="2" class="form-control">{{old('description')}}</textarea>
+                                <textarea name="description" rows="2" class="form-control no-resize inside">{{old('description')}}</textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -66,8 +78,8 @@
                         <div class="ln_solid"></div>
 
                         <div class="form-group text-center">
-                            <button type="submit" class="btn btn-success btn-lg">Registrar</button>
-                            <a href="{{url('/subcategoria')}}" class="btn btn-danger btn-lg">Cancelar</a>
+                            <a href="{{url('/subcategoria')}}" class="btn btn-danger">Cancelar</a>
+                            <button type="submit" class="btn btn-success">Registrar</button>
                         </div>
 
                     </form>

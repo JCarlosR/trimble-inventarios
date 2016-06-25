@@ -11,7 +11,7 @@ class Category extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['name','description'];
+    protected $fillable = ['name','description','state'];
 
 
     public function product()

@@ -6,7 +6,7 @@
     <style>
         .margen
         {
-            margin-top:16px;
+            margin-top:11px;
         }
     </style>
 @endsection
@@ -37,16 +37,18 @@
                         </div>
                     @endif
 
-                     <div class="form-inline">
-                         <div class="col-md-4">
-                             <h2><a href="{{ url('/marca/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nueva marca</a></h2>
-                         </div>
+                    <div class="col-md-3">
+                        <h2><a href="{{ url('/marca/registrar') }}" class="btn btn-success"><i class="fa fa-plus-square-o"></i> Nueva marca</a></h2>
+                    </div>
+                    <div class="col-md-9 form-inline">
+                        <div class="col-md-8 input-group margen">
+                            <span class="input-group-addon">Marca</span><input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
+                        </div>
 
-                         <div class="col-md-8 input-group margen">
-                             <span class="input-group-addon">Marca</span>
-                             <input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
-                         </div>
-                     </div>
+                        <div class="col-md-3 margen pull-right">
+                            <a href="{{ url('/marcas/inactivas') }}" class="btn btn-dark" type="button"><i class="fa fa-lock"></i> Restablecer eliminados</a>
+                        </div>
+                    </div>
 
                     <table class="table table-hover">
                         <thead>

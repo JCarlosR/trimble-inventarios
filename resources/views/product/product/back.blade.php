@@ -130,4 +130,7 @@
     <script src="{{ asset('js/footable.min.js') }}"></script>
     <script src="{{ asset('js/products/enable.js') }}"></script>
     <script src="{{ asset('js/products/search.js') }}"></script>
+    <script type="text/javascript">
+        $('.mytable').footable();
+    </script>
 @endsection
