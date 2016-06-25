@@ -41,48 +41,52 @@
                             <a href="{{ url('caja/'.$level.'/'.$shelf.'/'.$local) }}" class="btn btn-success"><i class="fa fa-backward"></i> Volver</a>
                         </div>
                     </div>
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th>Producto</th>
-                            <th>serie</th>
-                            <!--<th>Opción</th>-->
-                        </tr>
-                        </thead>
-                        <tbody id="tabla">
-                        @foreach( $items as $item )
-                            @if( $item->package_id == null)
-                                <tr>
-                                    <td>{{ $item->product->name }}</td>
-                                    <td>{{ $item->series }}</td>
-                                    <td></td>
-                                </tr>
-                            @endif
-                        @endforeach
-                        </tbody>
-                    </table>
-                    {!! $items->render() !!}
 
-
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th>Código</th>
-                            <th>Paquete</th>
-                            <th>Opción</th>
-                        </tr>
-                        </thead>
-                        <tbody id="tabla">
-                        @foreach( $packages as $package )
+                    @if( count($items) != 0)
+                        <table class="table table-hover">
+                            <thead>
                             <tr>
-                                <td>{{ $package->code }}</td>
-                                <td>{{ $package->name }}</td>
-                                <td><button type="button" class="btn btn-primary" title="Ver contenido" data-look="{{ $package->id }}"><i class="fa fa-eye"> Contenido</i></button></td>
+                                <th>Producto</th>
+                                <th>serie</th>
+                                <!--<th>Opción</th>-->
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                    {!! $packages->render() !!}
+                            </thead>
+                            <tbody id="tabla">
+                            @foreach( $items as $item )
+                                @if( $item->package_id == null)
+                                    <tr>
+                                        <td>{{ $item->product->name }}</td>
+                                        <td>{{ $item->series }}</td>
+                                        <td></td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+                        {!! $items->render() !!}
+                    @endif
+
+                    @if( count($packages) != 0)
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Paquete</th>
+                                <th>Opción</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tabla">
+                            @foreach( $packages as $package )
+                                <tr>
+                                    <td>{{ $package->code }}</td>
+                                    <td>{{ $package->name }}</td>
+                                    <td><button type="button" class="btn btn-primary" title="Ver contenido" data-look="{{ $package->id }}"><i class="fa fa-eye"> Contenido</i></button></td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                        {!! $packages->render() !!}
+                    @endif
                 </div>
             </div>
         </div>

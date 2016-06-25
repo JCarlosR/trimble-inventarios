@@ -197,6 +197,7 @@ Route::group(['middleware' => 'auth'], function () {
     
     // Reportes
     Route::get('reporte/existencias', 'ReportController@getItems');
+    Route::get('reporte/productos/existencias', 'ReportController@productItems');
 
     // WebServices to reports
     Route::get('/locals/shelves/{local}', 'ReportController@shelves');

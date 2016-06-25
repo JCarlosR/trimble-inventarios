@@ -75,4 +75,9 @@ class ReportController extends Controller
         return $array;
     }
 
+    public function productItems()
+    {
+        $products = Product::where('state',1)->get();
+        return view('reports.reportProduct')->with( compact('products'));
+    }
 }
