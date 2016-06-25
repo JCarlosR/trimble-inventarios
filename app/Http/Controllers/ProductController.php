@@ -257,7 +257,7 @@ class ProductController extends Controller
 
     public function search($name)
     {
-        $product = Product::where('name', $name)->first(['id', 'name']);
+        $product = Product::where('name', $name)->first(['id', 'name','price']);
         return $product;
     }
 

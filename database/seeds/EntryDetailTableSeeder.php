@@ -95,7 +95,7 @@ class EntryDetailsTableSeeder extends Seeder
         ]);
         Item::create([
             'product_id' => 5,
-            'series' => 'DGF04',
+            'series' => 'DGF05',
             'state' => 'available',
             'package_id' => null,
             'box_id' => 1

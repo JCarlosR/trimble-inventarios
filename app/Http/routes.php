@@ -137,6 +137,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/paquete', 'PackageController@index');
     Route::get('/paquete/registrar', 'PackageController@create');
     Route::post('/paquete/registrar', 'PackageController@store');
+    Route::post('/paquete/modificar', 'PackageController@edit');
     Route::get('/paquete/descomponer/{id}', 'PackageController@destroy');
     Route::get('/paquete/productos', 'PackageController@items');
 

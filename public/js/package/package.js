@@ -1,6 +1,5 @@
 var products;
 var packages;
-var dataset;
 var items = [];
 
 // Temporary variables
@@ -50,6 +49,12 @@ function addRow() {
     var name = $('#name').val();
     if (!name) {
         alert('Ingrese el nombre del paquete');
+        return;
+    }
+
+    var location = $('#location').val();
+    if (!location) {
+        alert('Ingrese la localización del paquete');
         return;
     }
 
@@ -146,7 +151,6 @@ function itemDelete(id, series) {
     for (var i = 0; i<items.length; ++i) {
         if (items[i].id == id && items[i].series == series) {
             items.splice(i, 1);
-            updateTotal();
             return;
         }
     }
