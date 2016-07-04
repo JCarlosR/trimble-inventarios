@@ -82,8 +82,8 @@
                             </tr>
                         </thead>
 
-                        @foreach($products as $product)
                         <tbody id="tabla">
+                        @foreach($products as $product)
                             <tr>
                                 <td>{{ str_limit($product->name, $limit = 33, $end = '...') }}</td>
                                 <td>{{$items_per_Product[$product->id]}}</td>
@@ -114,8 +114,8 @@
                                     </span>
                                 </td>
                             </tr>
-                        </tbody>
                         @endforeach
+                        </tbody>
                     </table>
                     {!! $products->render() !!}
                 </div>
@@ -217,9 +217,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-2" for="last-name">Imagen anterior</label>
-                                    <div class="col-md-2" id="newImage">
-                                        <input type="hidden" name="oldImage">
-                                    </div>
+                                    <div class="col-md-2" id="oldImage">    </div>
+                                    <input type="hidden" name="oldImage">
                                 </div>
                             </div>
 

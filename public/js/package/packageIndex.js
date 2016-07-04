@@ -51,12 +51,10 @@ function mostrarDescomponer()
     $modalDescomponer.find('[name="name"]').val(name);
     $modalDescomponer.modal('show');
 
-
-    var id_destroy = $('#id').val();
     $('#sayYes').click( function(event) {
         event.preventDefault();
         $.ajax({
-            url: '../public/paquete/descomponer/'+id_destroy,
+            url: '../public/paquete/descomponer/'+id,
             method: 'GET'
         }).done(function (response) {
             alert(response.message);

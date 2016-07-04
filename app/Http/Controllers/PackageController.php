@@ -30,6 +30,9 @@ class PackageController extends Controller
     {
         $box= Box::where('full_name',$request->get('location'))->first();
 
+        if($box == null)
+            return response()->json(['error' => true, 'message' => 'La ubicación no existe']);
+
         $items = json_decode($request->get('items'));
 
         $code = $request->get('code');
@@ -39,7 +42,6 @@ class PackageController extends Controller
         $package_name = Package::where('name',$name)->first();
 
         $package_code = Package::where('code',$code)->first();
-
 
         if($package_code != null)
             return response()->json(['error' => true, 'message' => 'Ya existe un paquete con ese código']);
@@ -86,6 +88,9 @@ class PackageController extends Controller
     public function edit(  Request $request  )
     {
         $box= Box::where('full_name',$request->get('location'))->first();
+
+        if($box == null)
+            return response()->json(['error' => true, 'message' => 'La ubicación no existe']);
 
         $items = json_decode($request->get('items'));
 

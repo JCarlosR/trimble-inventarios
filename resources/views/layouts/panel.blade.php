@@ -105,6 +105,7 @@
                                 <ul class="nav child_menu">
                                     <li><a href="{{ url('reporte/existencias') }}">Reporte según ubicación</a></li>
                                     <li><a href="{{ url('reporte/productos/existencias/') }}">Existencias por producto</a></li>
+                                    <li><a href="{{ url('bar') }}">Gráfico de Barras</a></li>
                                 </ul>
                             </li>
 

@@ -198,6 +198,9 @@ Route::group(['middleware' => 'auth'], function () {
     // Reportes
     Route::get('reporte/existencias', 'ReportController@getItems');
     Route::get('reporte/productos/existencias', 'ReportController@productItems');
+    Route::get('bar', 'ReportController@bar');
+    Route::get('month/{year}', 'ReportController@months_year');
+    Route::get('data_bar/{year?}/{month?}', 'ReportController@data_bar');
 
     // WebServices to reports
     Route::get('/locals/shelves/{local}', 'ReportController@shelves');
