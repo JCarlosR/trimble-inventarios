@@ -1,6 +1,6 @@
 @extends('layouts.panel');
 
-@section('title','Productos con más items')
+@section('title','Los 5 productos con más items')
 
 @section('style')
     <style>
@@ -46,14 +46,17 @@
                     <button class="btn btn-primary form-control" id="graficar">Graficar</button>
                 </div>
             </form>
-
-            <div class="form-group">
-                <canvas id="canvas"></canvas>
-                <!-- <progress id="animationProgress" max="1" value="0"></progress> -->
-            </div>
         </div>
-        <br>
-        <br>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col col-md-10 col-md-offset-1">
+            <div id="loading" class="text-center" style="display: none;">
+                <img src="{{ asset('images/loading.svg') }}" alt="Cargando">
+                <p>Cargando ...</p>
+            </div>
+            <canvas id="canvas" style="display: none;"></canvas>
+        </div>
     </div>
 @endsection
 

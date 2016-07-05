@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -46,6 +47,17 @@ class UserController extends Controller
 
     public function delete() {
 
+    }
+
+    public function excel() {
+        Excel::create('Trimble Usuarios', function($excel) {
+
+            $excel->sheet('Usuarios', function($sheet) {
+                $users = User::all();
+                $sheet->fromArray($users);
+            });
+
+        })->export('xls');
     }
 
 }
