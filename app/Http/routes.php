@@ -16,7 +16,7 @@ Route::auth();
 Route::get('/', 'HomeController@index');
 
 Route::group(['middleware' => 'auth'], function () {
-    // Ingresos
+    // Entries
     Route::get('/ingreso/listar/compra', 'EntryController@getCompras');
     Route::get('/ingreso/listar/compra/{proveedor}/{inicio}/{fin}', 'EntryController@getComprasFiltro');
     Route::get('/ingreso/listar/detalles/{id}', 'EntryController@getCompraDetalles');
@@ -31,7 +31,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/ingreso/compra', 'EntryController@postRegistroCompra');
     Route::post('/ingreso/reutilizacion', 'EntryController@postRegistroReutilizacion');
 
-// Salidas
+
+    // Outputs
     Route::get('/salida/venta', 'OutputController@getRegistroVenta');
     Route::get('/salida/listar/venta', 'OutputController@getVentas');
     Route::get('/salida/listar/venta/{cliente}/{inicio}/{fin}', 'OutputController@getVentasFiltro');
@@ -47,17 +48,20 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('productos/disponibles', 'OutputController@getProductosDisponibles');
     Route::get('paquetes/disponibles', 'OutputController@getPaquetesDisponibles');
 
-// Rental
+
+    // Rentals
     Route::post('alquiler/registrar', 'RentalController@store');
     Route::get('/alquiler/listar/detalles/{id}', 'RentalController@getRentalDetails');
 
-// Devolution
+
+    // Devolutions
     Route::get('/ingreso/listar/retorno', 'DevolutionController@index');
     Route::get('/ingreso/listar/retorno/{id}', 'DevolutionController@details');
     Route::post('/ingreso/listar/retorno/{id}', 'DevolutionController@store');
     Route::put('/ingreso/listar/retorno/parcial', 'DevolutionController@partial');
 
-// Customers
+
+    // Customers
     Route::get('/clientes', 'CustomerController@index');
     Route::get('/clientes/registrar', 'CustomerController@create');
     Route::post('/clientes/registrar', 'CustomerController@store');
@@ -66,13 +70,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/clientes/eliminados', 'CustomerController@back');
     Route::post('/clientes/restablecer', 'CustomerController@giveBack');
 
-// Customer types
+
+    // Customer types
     Route::get('/clientes/tipos', 'CustomerTypeController@create');
     Route::post('/clientes/tipos/modificar', 'CustomerTypeController@edit');
     Route::post('/clientes/tipos/registrar', 'CustomerTypeController@created');
     Route::post('/clientes/tipos/eliminar', 'CustomerTypeController@delete');
 
-// Providers
+
+    // Providers
     Route::get('/proveedores', 'ProviderController@index');
     Route::get('/proveedores/registrar', 'ProviderController@create');
     Route::post('/proveedores/registrar', 'ProviderController@store');
@@ -81,19 +87,22 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/proveedores/eliminados', 'ProviderController@back');
     Route::post('/proveedores/restablecer', 'ProviderController@giveBack');
 
-// Provider types
+
+    // Provider types
     Route::get('/proveedores/tipos', 'ProviderTypeController@create');
     Route::post('/proveedores/tipos/modificar', 'ProviderTypeController@edit');
     Route::post('/proveedores/tipos/registrar', 'ProviderTypeController@created');
     Route::post('/proveedores/tipos/eliminar', 'ProviderTypeController@delete');
 
-// Users
+
+    // Users
     Route::get('/usuarios', 'UserController@index');
     Route::put('/usuarios/{id}', 'UserController@edit');
     Route::post('/usuarios', 'UserController@store');
     Route::delete('/usuarios', 'UserController@delete');
 
-// Products
+
+    /* Products */
     // Categories
     Route::get('/categoria', 'CategoryController@index');
     Route::get('/categorias/inactivas', 'CategoryController@show_disabled');
@@ -141,6 +150,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('producto/modificar','ProductController@edit');
     Route::post('producto/eliminar','ProductController@delete');
 
+
     // Packages
     Route::get('/paquete', 'PackageController@index');
     Route::get('/paquete/registrar', 'PackageController@create');
@@ -150,33 +160,31 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/paquete/productos', 'PackageController@items');
 
 
-// Search
+    /* Searches */
     // Search product by name
     Route::get('/producto/buscar/{name}', 'ProductController@search');
     Route::get('/paquete/ubicaciones', 'PackageController@locations');
     Route::get('/paquete/detalles/{id}', 'PackageController@searchDetails');
     Route::get('/paquete/buscar/{name}', 'PackageController@search');
     Route::get('/productos/names', 'ProductController@searchAll');
-
     // Search for a specific item
     Route::get('/items/producto/{id}', 'ItemController@searchItems');
 
 
-
-// Locations
+    /* Locations */
     // Locals
     Route::get('/local', 'LocalController@index');
     Route::get('/local/registrar', 'LocalController@create');
     Route::post('/local/registrar', 'LocalController@store');
-    Route::post('local/modificar','LocalController@edit');
-    Route::post('local/eliminar','LocalController@delete');
+    Route::post('/local/modificar','LocalController@edit');
+    Route::post('/local/eliminar','LocalController@delete');
 
     // Shelves
     Route::get('/anaquel/{local}', 'ShelfController@index');
     Route::get('/anaquel/registrar/{local}', 'ShelfController@create');
     Route::post('/anaquel/registrar/{local}', 'ShelfController@store');
-    Route::post('anaquel/modificar/{local}','ShelfController@edit');
-    Route::post('anaquel/eliminar/{local}','ShelfController@delete');
+    Route::post('/anaquel/modificar/{local}','ShelfController@edit');
+    Route::post('/anaquel/eliminar/{local}','ShelfController@delete');
 
     // Levels
     Route::get('/nivel/{shelf}/{local}', 'LevelController@index');
@@ -189,20 +197,25 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/caja/{level}/{shelf}/{local}', 'BoxController@index');
     Route::get('/caja/registrar/{level}/{shelf}/{local}', 'BoxController@create');
     Route::post('/caja/registrar/{level}/{shelf}/{local}', 'BoxController@store');
-    Route::post('caja/modificar/{level}/{shelf}/{local}','BoxController@edit');
-    Route::post('caja/eliminar/{level}/{shelf}/{local}','BoxController@delete');
+    Route::post('/caja/modificar/{level}/{shelf}/{local}','BoxController@edit');
+    Route::post('/caja/eliminar/{level}/{shelf}/{local}','BoxController@delete');
 
     // Products contained in a box
-    Route::get('ubicacion/{box}/{level}/{shelf}/{local}','BoxController@location');
-    
-    // Reportes
-    Route::get('reporte/existencias', 'ReportController@getItems');
-    Route::get('reporte/productos/existencias', 'ReportController@productItems');
-    Route::get('bar', 'ReportController@bar');
-    Route::get('month/{year}', 'ReportController@months_year');
-    Route::get('data_bar/{year?}/{month?}', 'ReportController@data_bar');
+    Route::get('/ubicacion/{box}/{level}/{shelf}/{local}','BoxController@location');
 
-    // WebServices to reports
+
+    // Reports
+    Route::get('/reporte/existencias', 'ReportController@getItems');
+    Route::get('/reporte/productos/existencias', 'ReportController@productItems');
+    Route::get('/bar', 'ReportController@bar');
+    Route::get('/month/{year}', 'ReportController@months_year');
+    Route::get('/data_bar/{year?}/{month?}', 'ReportController@data_bar');
+
+    // Excel exports
+    Route::get('/excel/usuarios', 'UserController@excel');
+
+
+    // WebServices used in reports
     Route::get('/locals/shelves/{local}', 'ReportController@shelves');
     Route::get('/shelves/levels/{shelf}', 'ReportController@levels');
     Route::get('/levels/boxes/{level}', 'ReportController@boxes');
