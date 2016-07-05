@@ -6,9 +6,81 @@ $(document).on('ready', principal);
 
 function principal()
 {
-    loadMonths();
+    var randomScalingFactor = function() {
+        return Math.round(Math.random() * 100);
+    };
 
-    loadCanvas( 0,0 );
+    // Variables
+    var PAGE_NAMES = ["Page 0", "Page 1", "Page 2", "Page 3", "Page 4", "Page 5", "Page 6"];
+    var USER_LABELS = ["Items"];
+
+    // Random color
+    var randomColorFactor = function() {
+        return Math.round(Math.random() * 255);
+    };
+    var randomColor = function(opacity) {
+        return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',' + (opacity || '.3') + ')';
+    };
+
+    var config = {
+        type: 'horizontalBar',
+        data: {
+            labels: PAGE_NAMES,
+            datasets: [{
+                label: USER_LABELS[0],
+                data: [], // [65, 59, 80, 81, 56, 55, 40],
+                fill: false,
+                borderDash: [5, 5]
+            }]
+        },
+        options: {
+            title:{
+                display: true,
+                text: "Los productos con más items"
+            },
+            animation: {
+                duration: 2000
+            },
+            tooltips: {
+                mode: 'label'
+            },
+            scales: {
+                xAxes: [{
+                    scaleLabel: {
+                        show: true,
+                        labelString: 'Pages',
+                    },
+                    ticks: {
+                        suggestedMin: 0 // minimum will be 0, unless there is a lower value.
+                    }
+                }],
+                yAxes: [{
+                    scaleLabel: {
+                        show: true,
+                        labelString: 'Value'
+                    },
+                    ticks: {
+                        suggestedMin: 0 // minimum will be 0, unless there is a lower value.
+                    }
+                }]
+            }
+        }
+    };
+
+    $.each(config.data.datasets, function(i, dataset) {
+        dataset.borderColor = randomColor(0.4);
+        dataset.backgroundColor = randomColor(0.5);
+        dataset.pointBorderColor = randomColor(0.7);
+        dataset.pointBackgroundColor = randomColor(0.5);
+        dataset.pointBorderWidth = 1;
+    });
+
+    window.onload = function() {
+        var ctx = document.getElementById("canvas").getContext("2d");
+        window.myLine = new Chart(ctx, config);
+
+        loadMonths();
+    };
 
     $('#graficar').click(function (event) {
         event.preventDefault();
@@ -16,72 +88,32 @@ function principal()
         var year = $('#anio').val();
         var month  = $('#mes').val();
 
-        loadCanvas(  year,month );
-    })
+        $('#loading').show();
+        $('#canvas').slideUp();
 
-}
-
-function loadCanvas(year,month)
-{
-    var ctx = $("#canvas");
-    $.getJSON('data_bar/'+year+'/'+month, function(data) {
-        var myLabels =[];
-        var myData =[];
-
-        $.each(data.name,function(key,value)
-        {
-            myLabels.push(value);
-        });
-
-        $.each(data.quantity,function(key,value)
-        {
-            myData.push(value);
-        });
-
-        var data = {
-            labels: myLabels,
-            datasets: [
-                {
-                    label: "Cantidad de items",
-                    backgroundColor: [
-                        'rgba(145, 162, 235, 0.8)',
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(153, 102, 255, 0.9)',
-                        'rgba(55, 206, 86, 0.8)',
-                        'rgba(195, 182, 10, 0.9)'
-
-                    ],
-                    borderColor: "rgba(255,99,132,1)",
-                    borderWidth: 1,
-                    hoverBackgroundColor: [
-                        'rgba(145, 162, 235, 0.6)',
-                        'rgba(255, 99, 132, 0.8)',
-                        'rgba(153, 102, 255, 0.7)',
-                        'rgba(55, 206, 86, 0.6)',
-                        'rgba(195, 182, 10, 0.7)'
-                    ],
-                    hoverBorderColor: "rgba(255,99,132,1)",
-                    data: myData
-                }
-            ]
+        var pageDataSet = {
+            label: USER_LABELS[0],
+            borderColor: randomColor(0.4),
+            backgroundColor: randomColor(0.5),
+            pointBorderColor: randomColor(0.7),
+            pointBackgroundColor: randomColor(0.5),
+            pointBorderWidth: 1,
+            data: []
         };
 
-        var mychart = new Chart(ctx, {
-            type: "horizontalBar",
-            data: data,
-            options: {
-                scales: {
-                    xAxes: [{
-                        stacked: true
-                    }],
-                    yAxes: [{
-                        stacked: true
-                    }]
-                }
-            }
-        });
+        $.getJSON('data_bar/'+year+'/'+month, function(data) {
 
-    });
+            $('#loading').hide();
+            $('#canvas').slideDown();
+
+            config.data.datasets = [];
+            config.data.labels = data.name;
+            pageDataSet.data = data.quantity;
+            config.data.datasets.push(pageDataSet);
+
+            window.myLine.update();
+        });
+    })
 }
 
 function loadMonths()
@@ -95,7 +127,8 @@ function loadMonths()
 
             $.each(data.name,function(key,value)
             {
-                $("#mes").append(" <option></option> ").attr('value',value).text(convert_month_number(value));
+                var month = convert_month_number(value);
+                $("#mes").append('<option value="'+month+'">'+value+'</option>');
             });
         });
     });

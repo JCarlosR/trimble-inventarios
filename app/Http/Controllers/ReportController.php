@@ -260,15 +260,25 @@ class ReportController extends Controller
         $products_name = []; $products_count =[];
 
         // Getting the x=7 bigger elements
-        for( $i = 0; $i<5;$i++)
+
+        if( count($result_items)>5 )
         {
-            $products_name[] = $result_products[$i];
-            $products_count[] = $result_items[$i];
+            for( $i = 0; $i<5;$i++)
+            {
+                $products_name[] = $result_products[$i];
+                $products_count[] = $result_items[$i];
+            }
+
+            $data['name']     = $products_name;
+            $data['quantity'] = $products_count;
+
+            return $data;
+        }else
+        {
+            $data['name']     = $result_products;
+            $data['quantity'] = $result_items   ;
+
+            return $data;
         }
-
-        $data['name']     = $products_name;
-        $data['quantity'] = $products_count;
-
-        return $data;
     }
 }
