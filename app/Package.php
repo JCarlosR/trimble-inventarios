@@ -17,4 +17,9 @@ class Package extends Model
     {
         return $this->belongsTo('App\Box');
     }
+
+    public function items()
+    {
+        return $this->hasMany('App\Item');
+    }
 }
