@@ -13,9 +13,11 @@ use App\Package;
 use App\Product;
 use App\OutputDetail;
 use Carbon\Carbon;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Excel;
 
 class OutputController extends Controller
 {
@@ -325,5 +327,31 @@ class OutputController extends Controller
         }
 
         return back();
+    }
+
+    public function reportRange() {
+        Excel::create('Salidas', function ($excel){
+            $excel->sheet('Salidas', function($sheet) {
+
+                $outputs = Output::all();
+
+                $sheet->fromArray($outputs);
+
+            });
+        })->download('xlsx');
+
+        /*$outputs = Output::with('items')->with('packages')->get();
+        //dd($outputs);
+        foreach($outputs as $output) {
+            echo ('Id '.$output->id);
+            foreach ($output->items as $item) {
+                echo ('Item_Id '.$item->id);
+            }
+            foreach ($output->packages as $package) {
+                echo ('Pack_Id '.$package->id);
+            }
+            echo('<br>');
+        }*/
+
     }
 }
