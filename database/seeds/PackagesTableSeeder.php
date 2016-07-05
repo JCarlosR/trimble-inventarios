@@ -17,6 +17,7 @@ class PackagesTableSeeder extends Seeder
             'code' => 'PAQ-012-AL-01',
             'description' => 'Paquete de prueba',
             'state' => 'available',
+            'box_id'=> 1
         ]);
 
         // 2
@@ -25,6 +26,7 @@ class PackagesTableSeeder extends Seeder
             'code' => 'PAQ-012-AL-04',
             'description' => 'Paquete de prueba',
             'state' => 'rented',
+            'box_id'=> 2
         ]);
 
         Package::create([
@@ -32,6 +34,7 @@ class PackagesTableSeeder extends Seeder
             'code' => 'PAQ-012-AL-03',
             'description' => 'Paquete de prueba',
             'state' => 'available',
+            'box_id'=> 3
         ]);
     }
 }

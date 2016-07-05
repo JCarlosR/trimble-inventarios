@@ -18,7 +18,7 @@ class CreateBoxesTable extends Migration
             $table->string('comment');
             $table->integer('level_id')->unsigned();
             $table->foreign('level_id')->references('id')->on('levels');
-            $table->string('comment');
+            $table->string('full_name');
             $table->timestamps();
         });
     }

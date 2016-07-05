@@ -2,9 +2,6 @@ $(document).on('ready', principal);
 
 var $modalHabilitar;
 function principal() {
-    //FooTable
-    $('.mytable').footable();
-
     $modalHabilitar = $('#modalHabilitar');
     $('[data-habilitar]').on('click', mostrarHabilitar);
 }

@@ -50,8 +50,8 @@ class ProductController extends Controller
 
     public function create()
     {
-        $categories = Category::orderBy('name', 'asc')->get();
-        $brands = Brand::orderBy('name', 'asc')->get();
+        $categories = Category::where('state',1)->orderBy('name', 'asc')->get();
+        $brands = Brand::where('state',1)->orderBy('name', 'asc')->get();
 
         return view('product.product.create')->with(compact('categories', 'brands'));
     }
@@ -130,23 +130,23 @@ class ProductController extends Controller
     }
     public function categoria()
     {
-        $categories = Category::orderBy('name', 'asc')->get();
+        $categories = Category::where('state',1)->orderBy('name', 'asc')->get();
         return response()->json($categories);
     }
     public function marca()
     {
-        $brands = Brand::orderBy('name', 'asc')->get();
+        $brands = Brand::where('state',1)->orderBy('name', 'asc')->get();
         return response()->json($brands);
     }
 
     public function subcategoria( $categoria )
     {
-        $subcategories = Subcategory::where('category_id',$categoria)->orderBy('name', 'asc')->get();
+        $subcategories = Subcategory::where('state',1)->where('category_id',$categoria)->orderBy('name', 'asc')->get();
         return response()->json($subcategories);
     }
     public function modelo( $marca )
     {
-        $exemplares = Exemplar::where('brand_id',$marca)->orderBy('name', 'asc')->get();
+        $exemplares = Exemplar::where('state',1)->where('brand_id',$marca)->orderBy('name', 'asc')->get();
         return response()->json($exemplares);
     }
 
@@ -257,7 +257,7 @@ class ProductController extends Controller
 
     public function search($name)
     {
-        $product = Product::where('name', $name)->first(['id', 'name']);
+        $product = Product::where('name', $name)->first(['id', 'name','price']);
         return $product;
     }
 

@@ -24,7 +24,7 @@ class EntryDetailsTableSeeder extends Seeder
             'product_id' => 1,
             'series' => 'CO0',
             'package_id' => null,
-            'box_id' => 1
+            'box_id' => 2
         ]);
 
         EntryDetail::create([
@@ -95,10 +95,10 @@ class EntryDetailsTableSeeder extends Seeder
         ]);
         Item::create([
             'product_id' => 5,
-            'series' => 'DGF04',
+            'series' => 'DGF05',
             'state' => 'available',
             'package_id' => null,
-            'box_id' => 1
+            'box_id' => 10
         ]);
 
         EntryDetail::create([
@@ -129,7 +129,7 @@ class EntryDetailsTableSeeder extends Seeder
             'series' => 'DGF02',
             'state' => 'available',
             'package_id' => null,
-            'box_id' => 1
+            'box_id' => 2
         ]);
 
         EntryDetail::create([
@@ -144,7 +144,7 @@ class EntryDetailsTableSeeder extends Seeder
             'series' => 'DGF04',
             'state' => 'available',
             'package_id' => null,
-            'box_id' => 1
+            'box_id' => 3
         ]);
 
         EntryDetail::create([

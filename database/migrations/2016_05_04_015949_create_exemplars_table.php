@@ -18,6 +18,7 @@ class CreateExemplarsTable extends Migration
             $table->string('description');
             $table->integer('brand_id')->unsigned();
             $table->foreign('brand_id')->references('id')->on('brands');
+            $table->integer('state');
             $table->timestamps();
         });
     }

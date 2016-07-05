@@ -14,17 +14,23 @@ class ExemplarController extends Controller
 {
     public function index()
     {
-        $exemplars = Exemplar::orderBy('name', 'asc')->paginate(5);
-        return view('product.exemplar.index')->with(compact(['exemplars']));
+        $exemplars = Exemplar::where('state',1)->orderBy('name', 'asc')->paginate(5);
+        return view('product.exemplar.index')->with(compact('exemplars'));
+    }
+
+    public function show_disabled()
+    {
+        $exemplars = Exemplar::where('state',0)->orderBy('name', 'asc')->paginate(5);
+        return view('product.exemplar.back')->with(compact('exemplars'));
     }
 
     public function create()
     {
-        $brands = Brand::orderBy('name', 'asc')->get();
-        return view('product.exemplar.create')->with(compact(['brands']));
+        $brands = Brand::where('state',1)->orderBy('name', 'asc')->get();
+        return view('product.exemplar.create')->with(compact('brands'));
     }
 
-    public function created( Request $request)
+    public function store( Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:50',
@@ -65,7 +71,8 @@ class ExemplarController extends Controller
         $exemplar = Exemplar::create([
             'name'	  => $request->get('name'),
             'description' => $request->get('description'),
-            'brand_id' => $request->get('brands')
+            'brand_id' => $request->get('brands'),
+            'state'=>1
         ]);
 
         $exemplar->save();
@@ -75,7 +82,7 @@ class ExemplarController extends Controller
 
     public function dropdown()
     {
-        $brands = Brand::orderBy('name', 'asc')->get();
+        $brands = Brand::where('state',1)->orderBy('name', 'asc')->get();
         return response()->json($brands);
     }
 
@@ -148,8 +155,18 @@ class ExemplarController extends Controller
         }
 
         $exemplar = Exemplar::find( $request->get('id') );
-        $exemplar->delete();
+        $exemplar->state=0;
+        $exemplar->save();
 
         return redirect('modelo');
+    }
+
+    public function enable( Request $request)
+    {
+        $exemplar = Exemplar::find($request->get('id'));
+        $exemplar->state=1;
+        $exemplar->save();
+
+        return redirect('modelos/inactivos');
     }
 }

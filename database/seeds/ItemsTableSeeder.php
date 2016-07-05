@@ -27,7 +27,7 @@ class ItemsTableSeeder extends Seeder
             'series' => 'XT8-02',
             'state' => 'sold',
             'package_id' => null,
-            'box_id' => 1
+            'box_id' => 2
         ]);
 
         // 3
@@ -69,7 +69,7 @@ class ItemsTableSeeder extends Seeder
             'series' => 'QWER-056',
             'state' => 'available',
             'package_id' => null,
-            'box_id' => 1
+            'box_id' => 2
         ]);
 
         Item::create([
@@ -110,7 +110,7 @@ class ItemsTableSeeder extends Seeder
             'series' => 'FFDDD-03',
             'state' => 'available',
             'package_id' => 2,
-            'box_id' => 1
+            'box_id' => 2
         ]);
 
         Item::create([
@@ -142,7 +142,7 @@ class ItemsTableSeeder extends Seeder
             'series' => 'SERIE-278',
             'state' => 'available',
             'package_id' => 3,
-            'box_id' => 1
+            'box_id' => 10
         ]);
 
     }

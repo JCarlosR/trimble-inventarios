@@ -14,32 +14,39 @@ class CategoriesTableSeeder extends Seeder
     {
         Category::create([
             'name' => 'GNSS',
-            'description' => 'Descripción Gnss'
+            'description' => 'Descripción Gnss',
+            'state'=>1
         ]);
         Category::create([
             'name' => 'DIFERENCIALES',
-            'description' => 'Descripción Diferenciales'
+            'description' => 'Descripción Diferenciales',
+            'state'=>1
         ]);
         Category::create([
             'name' => 'GEODÉSICOS',
-            'description' => 'Descripción Geodésicos'
+            'description' => 'Descripción Geodésicos',
+            'state'=>1
         ]);
 
         Category::create([
             'name' => 'ONMISTAR',
-            'description' => 'Descripción '
+            'description' => 'Descripción ',
+            'state'=>1
         ]);
         Category::create([
             'name' => 'ESTACIONES DE RASTREO PERMANENTE',
-            'description' => 'Descripción Estaciones de rastreo permanente'
+            'description' => 'Descripción Estaciones de rastreo permanente',
+            'state'=>1
         ]);
         Category::create([
             'name' => 'ESTACIONES TOTALES',
-            'description' => 'Descripción Estaciones totales'
+            'description' => 'Descripción Estaciones totales',
+            'state'=>1
         ]);
         Category::create([
             'name' => 'BIENES DE OFICINA',
-            'description' => 'Descripción Bienes de oficina'
+            'description' => 'Descripción Bienes de oficina',
+            'state'=>1
         ]);
     }
 }

@@ -6,7 +6,7 @@
     <style>
         .margen
         {
-            margin-top:16px;
+            margin-top:11px;
         }
     </style>
 @endsection
@@ -39,14 +39,16 @@
                         </div>
                     @endif
 
-                    <div class="form-inline">
-                        <div class="col-md-4">
-                            <h2><a href="{{ url('subcategoria/registrar') }}" class="btn btn-success btn-lg"><i class="fa fa-plus-square-o"></i> Nueva subcategoría</a></h2>
+                    <div class="col-md-3">
+                        <h2><a href="{{ url('subcategoria/registrar') }}" class="btn btn-success"><i class="fa fa-plus-square-o"></i> Nuevo subcategoría </a></h2>
+                    </div>
+                    <div class="col-md-9 form-inline">
+                        <div class="col-md-8 input-group margen">
+                            <span class="input-group-addon">Subcategoría</span><input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
                         </div>
 
-                        <div class="col-md-8 input-group margen">
-                            <span class="input-group-addon">Subcategoría</span>
-                            <input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
+                        <div class="col-md-3 margen pull-right">
+                            <a href="{{ url('/subcategorias/inactivas') }}" class="btn btn-dark" type="button"><i class="fa fa-lock"></i> Restablecer eliminados</a>
                         </div>
                     </div>
 

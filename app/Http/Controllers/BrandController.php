@@ -15,8 +15,14 @@ class BrandController extends Controller
 {
     public function index()
     {
-        $brands = Brand::orderBy('name', 'asc')->paginate(5);
+        $brands = Brand::where('state',1)->orderBy('name', 'asc')->paginate(5);
         return view('product.brand.index')->with( compact('brands') );
+    }
+
+    public function show_disabled()
+    {
+        $brands = Brand::where('state',0)->orderBy('name', 'asc')->paginate(5);
+        return view('product.brand.back')->with(compact('brands'));
     }
 
     public function create()
@@ -24,7 +30,7 @@ class BrandController extends Controller
         return view('product.brand.create');
     }
 
-    public function created( Request $request)
+    public function store( Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:50'
@@ -53,6 +59,7 @@ class BrandController extends Controller
         $brand = Brand::create([
             'name'	  => $request->get('name'),
             'description' => $request->get('description'),
+            'state'=>1
         ]);
 
         $brand->save();
@@ -123,8 +130,18 @@ class BrandController extends Controller
         }
 
         $brand = Brand::find( $request->get('id') );
-        $brand->delete();
+        $brand->state=0;
+        $brand->save();
 
         return redirect('marca');
+    }
+
+    public function enable( Request $request)
+    {
+        $brand = Brand::find($request->get('id'));
+        $brand->state=1;
+        $brand->save();
+
+        return redirect('marcas/inactivas');
     }
 }

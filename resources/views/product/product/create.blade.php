@@ -152,8 +152,8 @@
                         </div>
 
                         <div class="form-group text-center">
-                            <button type="submit" class="btn btn-success">Registrar</button>
                             <a href="{{url('/producto')}}" class="btn btn-danger">Cancelar</a>
+                            <button type="submit" class="btn btn-success">Registrar</button>
                         </div>
                     </form>
                 </div>

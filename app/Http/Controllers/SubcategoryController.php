@@ -14,17 +14,23 @@ class SubcategoryController extends Controller
 {
     public function index()
     {
-        $subcategories = Subcategory::orderBy('name', 'asc')->paginate(5);
+        $subcategories = Subcategory::where('state',1)->orderBy('name', 'asc')->paginate(5);
         return view('product.subcategory.index')->with(compact(['subcategories']));
+    }
+
+    public function show_disabled()
+    {
+        $subcategories = Subcategory::where('state',0)->orderBy('name', 'asc')->paginate(5);
+        return view('product.subcategory.back')->with(compact('subcategories'));
     }
 
     public function create()
     {
-        $categories = Category::orderBy('name', 'asc')->get();
-        return view('product.subcategory.create')->with(compact(['categories']));
+        $categories = Category::where('state',1)->orderBy('name', 'asc')->get();
+        return view('product.subcategory.create')->with(compact('categories'));
     }
 
-    public function created( Request $request)
+    public function store( Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:50',
@@ -66,7 +72,8 @@ class SubcategoryController extends Controller
         $subcategory = Subcategory::create([
             'name'	  => $request->get('name'),
             'description' => $request->get('description'),
-            'category_id' => $request->get('categories')
+            'category_id' => $request->get('categories'),
+            'state'=>1
         ]);
         $subcategory->save();
 
@@ -75,7 +82,7 @@ class SubcategoryController extends Controller
 
     public function dropdown()
     {
-        $categories = Category::orderBy('name', 'asc')->get();
+        $categories = Category::where('state',1)->orderBy('name', 'asc')->get();
         return response()->json($categories);
     }
 
@@ -130,6 +137,7 @@ class SubcategoryController extends Controller
 
         return redirect('subcategoria');
     }
+
     public function delete( Request $request )
     {
         $validator = Validator::make($request->all(), [
@@ -150,8 +158,18 @@ class SubcategoryController extends Controller
         }
 
         $subcategory = Subcategory::find( $request->get('id') );
-        $subcategory->delete();
+        $subcategory->state=0;
+        $subcategory->save();
 
         return redirect('subcategoria');
+    }
+
+    public function enable( Request $request)
+    {
+        $subcategory = Subcategory::find($request->get('id'));
+        $subcategory->state=1;
+        $subcategory->save();
+
+        return redirect('subcategorias/inactivas');
     }
 }

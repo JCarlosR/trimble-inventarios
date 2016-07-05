@@ -96,30 +96,38 @@ Route::group(['middleware' => 'auth'], function () {
 // Products
     // Categories
     Route::get('/categoria', 'CategoryController@index');
+    Route::get('/categorias/inactivas', 'CategoryController@show_disabled');
     Route::get('/categoria/registrar', 'CategoryController@create');
-    Route::post('/categoria/registrar', 'CategoryController@created');
+    Route::post('/categoria/registrar', 'CategoryController@store');
     Route::post('categoria/modificar','CategoryController@edit');
     Route::post('categoria/eliminar','CategoryController@delete');
+    Route::post('categoria/habilitar','CategoryController@enable');
     // Subcategories
     Route::get('/subcategoria', 'SubcategoryController@index');
+    Route::get('/subcategorias/inactivas', 'SubcategoryController@show_disabled');
     Route::get('/subcategoria/registrar', 'SubcategoryController@create');
-    Route::post('/subcategoria/registrar', 'SubcategoryController@created');
+    Route::post('/subcategoria/registrar', 'SubcategoryController@store');
     Route::get('subcategoria/dropdown','SubcategoryController@dropdown');
     Route::post('subcategoria/modificar','SubcategoryController@edit');
     Route::post('subcategoria/eliminar','SubcategoryController@delete');
+    Route::post('subcategoria/habilitar','SubcategoryController@enable');
     // Brands
     Route::get('/marca', 'BrandController@index');
+    Route::get('/marcas/inactivas', 'BrandController@show_disabled');
     Route::get('/marca/registrar', 'BrandController@create');
-    Route::post('/marca/registrar', 'BrandController@created');
+    Route::post('/marca/registrar', 'BrandController@store');
     Route::post('marca/modificar','BrandController@edit');
     Route::post('marca/eliminar','BrandController@delete');
+    Route::post('marca/habilitar','BrandController@enable');
     // Models
     Route::get('/modelo', 'ExemplarController@index');
+    Route::get('/modelos/inactivos', 'ExemplarController@show_disabled');
     Route::get('/modelo/registrar', 'ExemplarController@create');
-    Route::post('/modelo/registrar', 'ExemplarController@created');
+    Route::post('/modelo/registrar', 'ExemplarController@store');
     Route::get('modelo/dropdown','ExemplarController@dropdown');
     Route::post('modelo/modificar','ExemplarController@edit');
     Route::post('modelo/eliminar','ExemplarController@delete');
+    Route::post('modelo/habilitar','ExemplarController@enable');
     // Products
     Route::get('/producto', 'ProductController@index');
     Route::get('/producto/inactivos', 'ProductController@show_disabled');
@@ -137,13 +145,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/paquete', 'PackageController@index');
     Route::get('/paquete/registrar', 'PackageController@create');
     Route::post('/paquete/registrar', 'PackageController@store');
+    Route::post('/paquete/modificar', 'PackageController@edit');
+    Route::get('/paquete/descomponer/{id}', 'PackageController@destroy');
     Route::get('/paquete/productos', 'PackageController@items');
 
 
 // Search
     // Search product by name
     Route::get('/producto/buscar/{name}', 'ProductController@search');
-    Route::get('/paquete/buscar/{code}', 'PackageController@search');
     Route::get('/paquete/ubicaciones', 'PackageController@locations');
     Route::get('/paquete/detalles/{id}', 'PackageController@searchDetails');
 
@@ -188,6 +197,10 @@ Route::group(['middleware' => 'auth'], function () {
     
     // Reportes
     Route::get('reporte/existencias', 'ReportController@getItems');
+    Route::get('reporte/productos/existencias', 'ReportController@productItems');
+    Route::get('bar', 'ReportController@bar');
+    Route::get('month/{year}', 'ReportController@months_year');
+    Route::get('data_bar/{year?}/{month?}', 'ReportController@data_bar');
 
     // WebServices to reports
     Route::get('/locals/shelves/{local}', 'ReportController@shelves');

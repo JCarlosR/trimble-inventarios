@@ -11,7 +11,7 @@ class Subcategory extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['name','description','category_id'];
+    protected $fillable = ['name','description','category_id','state'];
 
     public function product()
     {

@@ -28,16 +28,30 @@ class PackageController extends Controller
 
     public function store( Request $request )
     {
+        $box= Box::where('full_name',$request->get('location'))->first();
+
+        if($box == null)
+            return response()->json(['error' => true, 'message' => 'La ubicación no existe']);
+
         $items = json_decode($request->get('items'));
 
         $code = $request->get('code');
         $name = $request->get('name');
-        $description = $request->get('comment');
+        $description = $request->get('description');
+
+        $package_name = Package::where('name',$name)->first();
+
+        $package_code = Package::where('code',$code)->first();
+
+        if($package_code != null)
+            return response()->json(['error' => true, 'message' => 'Ya existe un paquete con ese código']);
+
+
+        if($package_name != null)
+            return response()->json(['error' => true, 'message' => 'Ya existe un paquete con ese nombre']);
 
         if (sizeof($items) == 0)
-        {
             return response()->json(['error' => true, 'message' => 'Es necesario agregar elementos al paquete.']);
-        }
 
         DB::beginTransaction();
 
@@ -47,7 +61,8 @@ class PackageController extends Controller
                 'name' => $name,
                 'code' => $code,
                 'description' => $description,
-                'state'=>'available'
+                'state'=>'available',
+                'box_id'=>$box->id
             ]);
 
             foreach($items as $item)
@@ -69,6 +84,96 @@ class PackageController extends Controller
             return response()->json(['error' => true, 'message' => $e->getMessage()]);
         }
     }
+
+    public function edit(  Request $request  )
+    {
+        $box= Box::where('full_name',$request->get('location'))->first();
+
+        if($box == null)
+            return response()->json(['error' => true, 'message' => 'La ubicación no existe']);
+
+        $items = json_decode($request->get('items'));
+
+        $id = $request->get('id');
+        $code = $request->get('code');
+        $name = $request->get('name');
+        $location = $box->id;
+        $description = $request->get('description');
+
+        $package_name = Package::where('name',$name)->first();
+        $package_code = Package::where('code',$code)->first();
+
+        if($package_code != null)
+            if( $package_code->id != $id )
+                return response()->json(['error' => true, 'message' => 'Ya existe un paquete con ese código']);
+
+        if($package_name != null)
+            if( $package_name->id !=  $id )
+                return response()->json(['error' => true, 'message' => 'Ya existe un paquete con ese nombre']);
+
+        if (sizeof($items) == 0)
+            return response()->json(['error' => true, 'message' => 'Es necesario agregar elementos al paquete.']);
+
+        DB::beginTransaction();
+        try {
+
+            $package = Package::find($id);
+            foreach($items as $item)
+            {
+                $product = Product::where('name', $item->product)->first();
+                $realItem = Item::where('product_id', $product->id)->where('state', 'available')->where('series', $item->series )->first();
+
+                if(!$realItem)
+                    throw new \Exception('No se ha encontrado el item con serie ' . $item->series);
+            }
+
+            $delete_items = Item::where('package_id',$package->id)->get();
+            foreach( $delete_items as $delete_item )
+            {
+                $delete_item->package_id = null;
+                $delete_item->save();
+            }
+
+            foreach( $items as $item )
+            {
+                $new_item = Item::where('series',$item->series)->first();
+                $new_item->package_id = $package->id;
+                $new_item->save();
+            }
+
+            $package->code = $code;
+            $package->name = $name;
+            $package->box_id = $location;
+            $package->description = $description;
+            $package->save();
+
+            DB::commit();
+            return response()->json(['error' => false]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['error' => true, 'message' => $e->getMessage()]);
+        }
+
+    }
+
+    public function destroy( $id )
+    {
+
+        $items=Item::where('package_id',$id)->get();
+        $package = Package::find($id);
+
+        foreach( $items as $item )
+        {
+            $item->package_id = null;
+            $item->save();
+        }
+
+        $package->state="low";
+        $package->save();
+
+        return response()->json(['message' => 'Paquete dado de baja correctamente']);
+    }
+
 
     public function search($code)
     {

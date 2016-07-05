@@ -11,7 +11,7 @@ class Exemplar extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['name','description','brand_id'];
+    protected $fillable = ['name','description','brand_id','state'];
 
     public function product()
     {

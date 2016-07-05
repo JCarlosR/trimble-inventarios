@@ -1,6 +1,5 @@
 var products;
 var packages;
-var dataset;
 var items = [];
 
 // Temporary variables
@@ -40,6 +39,12 @@ $(document).on('ready', function () {
 });
 
 function addRow() {
+    // Validate the product name
+    var code = $('#code').val();
+    if (!code) {
+        alert('Ingrese el código del paquete');
+        return;
+    }
 
     var name = $('#name').val();
     if (!name) {
@@ -47,9 +52,9 @@ function addRow() {
         return;
     }
 
-    var code = $('#code').val();
-    if (!code) {
-        alert('Ingrese el código del paquete');
+    var location = $('#location').val();
+    if (!location) {
+        alert('Ingrese la localización del paquete');
         return;
     }
 
@@ -146,7 +151,6 @@ function itemDelete(id, series) {
     for (var i = 0; i<items.length; ++i) {
         if (items[i].id == id && items[i].series == series) {
             items.splice(i, 1);
-            updateTotal();
             return;
         }
     }
@@ -259,5 +263,3 @@ function renderTemplateDetails(name, series, price) {
 
     $('#table-details').append(clone);
 }
-
-
