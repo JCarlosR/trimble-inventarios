@@ -144,8 +144,8 @@ function addRow() {
         })
             .done(function( data ) {
                 if (data) {
-                    items.push({id: data.id, series: data.code, quantity: 1, price:price, type:'paq'})
-                    renderTemplatePackage(data.id, data.code, 1, price, price)
+                    items.push({id: data.id, series: data.code, quantity: 1, price:price, type:'paq'});
+                    renderTemplatePackage(data.id, data.code, 1, price, price);
                     updateTotal();
                 } else {
                     alert('Paquete no existe');

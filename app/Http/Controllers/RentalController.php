@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Box;
 use App\Customer;
 use App\Item;
 use App\Output;
@@ -142,7 +143,7 @@ class RentalController extends Controller
             $array[$k]['quantity'] = $item->quantity;
             $array[$k]['series'] = $item->series;
             $array[$k]['name'] = Product::find($productID)->name;
-            $array[$k]['location'] = $item->box->code;
+            $array[$k]['location'] = $item->box->full_name;
         }
 
         foreach($array2 as $k => $detail) {
@@ -151,7 +152,8 @@ class RentalController extends Controller
             $array2[$k]['quantity'] = 1;
             $array2[$k]['code'] = $package->code;
             $array2[$k]['name'] = 'Paquete';
-            $array2[$k]['location'] = $package->box_id;
+            $box = Box::find($package->box_id);
+            $array2[$k]['location'] = $box->full_name;
         }
 
         $data['items'] = $array;

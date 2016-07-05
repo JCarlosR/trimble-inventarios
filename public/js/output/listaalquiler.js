@@ -57,6 +57,7 @@ function showOutputs() {
 function showDetails() {
     var id = $(this).data('look');
     var url = $('#bodyOutput').data('href').replace('{id}', id);
+    console.log(url);
     $.ajax({
             url: url
         })

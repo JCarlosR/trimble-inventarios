@@ -32,14 +32,18 @@ function showOutputs() {
 function showDetails() {
     var id = $(this).find('[data-id]').data('id');
     var url = $('#bodyOutput').data('href').replace('{id}', id);
+    console.log(url);
     $.ajax({
             url: url
         })
         .done(function( data ) {
             if (data) {
                 $('#bodyDetails').html('');
-                $(data).each(function(i, e) {
-                    renderTemplateDetail(e.name, e.series, 1, e.price, e.price, e.location);
+                $(data.items).each(function(i, e) {
+                    renderTemplateDetail(e.name, e.series, 1, e.price, e.price, e.location, -1);
+                });
+                $(data.packages).each(function(i, e) {
+                    renderTemplateDetail(e.name, e.code, 1, e.price, e.price, e.location, e.package_id);
                 });
 
             } else {

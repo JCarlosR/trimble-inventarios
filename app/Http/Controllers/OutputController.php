@@ -150,20 +150,33 @@ class OutputController extends Controller
     public function getVentaDetalles($id)
     {
         $details = OutputDetail::where('output_id',$id)->get(['item_id', 'price']);
+        $detailspackage = OutputPackage::where('output_id', $id)->get(['package_id', 'price']);
         $array = $details->toArray();
+        $array2 = $detailspackage->toArray();
 
         foreach($array as $k => $detail) {
             $item = Item::find($detail['item_id']);
-            $box = Box::find($item->box_id);
             $productID = $item->product_id;
             $array[$k]['product_id'] = $productID;
             $array[$k]['quantity'] = $item->quantity;
             $array[$k]['series'] = $item->series;
             $array[$k]['name'] = Product::find($productID)->name;
-            $array[$k]['location'] = $box->full_name;
+            $array[$k]['location'] = $item->box->full_name;
         }
 
-        return $array;
+        foreach($array2 as $k => $detail) {
+            $package = Package::find($detail['package_id']);
+            $array2[$k]['package_id'] = $package->id;
+            $array2[$k]['quantity'] = 1;
+            $array2[$k]['code'] = $package->code;
+            $array2[$k]['name'] = 'Paquete';
+            $box = Box::find($package->box_id);
+            $array2[$k]['location'] = $box->full_name;
+        }
+
+        $data['items'] = $array;
+        $data['packages'] = $array2;
+        return $data;
     }
 
     public function getVentasFiltro($cliente, $inicio, $fin)
