@@ -106,6 +106,14 @@
                                     <li><a href="{{ url('reporte/existencias') }}">Reporte según ubicación</a></li>
                                     <li><a href="{{ url('reporte/productos/existencias/') }}">Existencias por producto</a></li>
                                     <li><a href="{{ url('bar') }}">Gráfico de Barras</a></li>
+
+                                    <li><a>Salidas<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="{{ url('/categoria') }}">Venta</a></li>
+                                            <li><a href="{{ url('/subcategoria') }}">Alquiler</a></li>
+                                            <li><a href="{{ url('marca') }}">Reutilización</a></li>
+                                         </ul>
+                                    </li>
                                 </ul>
                             </li>
 

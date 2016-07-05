@@ -82,7 +82,6 @@ class ReportController extends Controller
         return view('reports.reportProduct')->with( compact('products'));
     }
 
-
     // New about Reports
     public function bigger($array)
     {
@@ -161,30 +160,18 @@ class ReportController extends Controller
     {
         switch($month)
         {
-            case 1:
-                return 'Enero';
-            case 2:
-                return 'Febrero';
-            case 3:
-                return 'Marzo';
-            case 4:
-                return 'Abril';
-            case 5:
-                return 'Mayo';
-            case 6:
-                return 'Junio';
-            case 7:
-                return 'Julio';
-            case 8:
-                return 'Agosto';
-            case 9:
-                return 'Setiembre';
-            case 10:
-                return 'Octubre';
-            case 11:
-                return 'Noviembre';
-            case 12:
-                return 'Diciembre';
+            case 1: return 'Enero';
+            case 2: return 'Febrero';
+            case 3: return 'Marzo';
+            case 4: return 'Abril';
+            case 5: return 'Mayo';
+            case 6: return 'Junio';
+            case 7: return 'Julio';
+            case 8: return 'Agosto';
+            case 9: return 'Setiembre';
+            case 10:return 'Octubre';
+            case 11:return 'Noviembre';
+            case 12:return 'Diciembre';
         }
     }
 
@@ -227,9 +214,11 @@ class ReportController extends Controller
             foreach( $products as $product )
             {
                 $count = Item::where('product_id',$product->id)->count();
-                $products_[$i] = $product->name;
-                $items[$i] = $count;
-                $i++;
+                if( $count != 0 ) {
+                    $products_[$i] = $product->name;
+                    $items[$i] = $count;
+                    $i++;
+                }
             }
         }
         else
@@ -237,9 +226,11 @@ class ReportController extends Controller
             foreach( $products as $product )
             {
                 $count = Item::where('product_id',$product->id)->where( DB::raw('YEAR(created_at)'), $year )->where( DB::raw('MONTH(created_at)'), $month )->count();
-                $products_[$i] = $product->name;
-                $items[$i] = $count;
-                $i++;
+                if( $count !=0 ) {
+                    $products_[$i] = $product->name;
+                    $items[$i] = $count;
+                    $i++;
+                }
             }
         }
 
@@ -260,7 +251,6 @@ class ReportController extends Controller
         $products_name = []; $products_count =[];
 
         // Getting the x=7 bigger elements
-
         if( count($result_items)>5 )
         {
             for( $i = 0; $i<5;$i++)
