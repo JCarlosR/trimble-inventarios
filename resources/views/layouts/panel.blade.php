@@ -109,9 +109,9 @@
 
                                     <li><a>Salidas<span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
-                                            <li><a href="{{ url('/excel/productos') }}">Productos</a></li>
-                                            <li><a href="{{ url('/subcategoria') }}">Alquiler</a></li>
-                                            <li><a href="{{ url('marca') }}">Reutilización</a></li>
+                                            <li><a href="{{ url('/salida/venta/reporte') }}">Ventas</a></li>
+                                            <li><a href="{{ url('/salida/alquiler/reporte') }}">Alquiler</a></li>
+                                            <li><a href="{{ url('/salida/reutilizacion/reporte') }}">Reutilización</a></li>
                                          </ul>
                                     </li>
                                 </ul>

@@ -7,6 +7,9 @@ use App\Item;
 use App\Level;
 
 use App\Local;
+use App\Output;
+use App\OutputDetail;
+use App\OutputPackage;
 use App\Product;
 use App\Shelf;
 
@@ -271,28 +274,5 @@ class ReportController extends Controller
 
             return $data;
         }
-    }
-
-    //Excel
-    public function excel()
-    {
-        Excel::create('Trimble Productos', function($excel) {
-
-            $excel->sheet('Productos', function($sheet) {
-                $products = Product::where('state',1)->get();
-                $products_ = [];
-
-
-
-                foreach ( $products as $product) {
-                    $products_[] = ['Producto'=>$product->name,'','','',''];
-                    $products_[] = ['','Moneda','Precio','Color'];
-                    $products_[] = ['',$product->money,$product->price,$product->color];
-                }
-
-                $sheet->with($products_);
-            })->export('xls');
-
-        });
     }
 }

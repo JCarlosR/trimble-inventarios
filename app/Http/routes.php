@@ -214,8 +214,21 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Excel exports
     Route::get('/excel/usuarios', 'UserController@excel');
-    Route::get('/excel/productos', 'ReportController@excel');
 
+    //Excel - SoleS
+    Route::get('customer/names', 'ExcelController@customers');
+
+    Route::get('salida/venta/reporte', 'ExcelController@sv_index');
+    Route::post('salida/venta/data', 'ExcelController@sv_data');
+    Route::get('salida/venta/excel/{inicio}/{fin}', 'ExcelController@sv_excel');
+
+    Route::get('salida/alquiler/reporte', 'ExcelController@sa_index');
+    Route::get('salida/alquiler/data/{inicio}/{fin}', 'ExcelController@sa_data');
+    Route::get('salida/alquiler/excel/{inicio}/{fin}', 'ExcelController@sa_excel');
+
+    Route::get('salida/reutilizacion/reporte', 'ExcelController@sr_index');
+    Route::get('salida/reutilizacion/data/{inicio}/{fin}', 'ExcelController@sr_data');
+    Route::get('salida/reutilizacion/excel/{inicio}/{fin}', 'ExcelController@sr_excel');
 
     // WebServices used in reports
     Route::get('/locals/shelves/{local}', 'ReportController@shelves');
