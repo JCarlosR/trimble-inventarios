@@ -226,5 +226,6 @@ Route::group(['middleware' => 'auth'], function () {
     // WebServices to Outputs into range of time
     Route::get('/report/outputs/', 'OutputController@reportOutput');
     Route::get('/salidas/range/{start}/{end}', 'OutputController@reportRange');
+    Route::get('/salidas/range/{start}/{end}/{cliente}', 'OutputController@reportRange');
 
 });

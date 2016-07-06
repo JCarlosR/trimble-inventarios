@@ -333,35 +333,32 @@ class OutputController extends Controller
     }
 
     public function reportRange( $start, $end ) {
-        Excel::create('Salidas', function ($excel){
-            $excel->sheet('Salidas', function($sheet) {
+        ($start." ".$end);
+        Excel::create('Salidas', function ($excel) use ($start, $end){
+            $excel->sheet('Salidas', function($sheet) use ($start, $end) {
                 $dataexcel = [];
+                $sheet->mergeCells('A1:J1');
                 $sheet->getDefaultStyle()
                     ->getAlignment()
                     ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_JUSTIFY);
-                $outputs = Output::whereBetween('create_ad',[$start,$end])->with('customers')->with('items')->with('packages')->get();
+                $outputs = Output::whereBetween('created_at',[$start,$end])->with('customers')->with('items')->with('packages')->get();
                 //dd($outputs);
+                array_push($dataexcel, ['REPORTE DE SALIDAS DESDE EL '.$start.' AL '.$end]);
                 foreach($outputs as $output) {
                     array_push($dataexcel, ['', '', '', '']);
                     array_push($dataexcel, ['ID Salida', 'Cliente', 'Tipo', 'Comentario']);
-                    //echo ('Id: '.$output->id.' -- Cliente: '.$output->customers->name. ' -- Tipo: '.$output->reason.' -- Comentario: '.$output->comment);
                     array_push($dataexcel, [$output->id, $output->customers->name, $output->reason, $output->comment]);
-                    //echo('<br>');
                     array_push($dataexcel, ['Nombre/Producto', 'Codigo/Serie', 'Cantidad', 'Precio', 'Ubicacion']);
                     foreach ($output->items as $item) {
                         $ite = Item::find($item->item_id);
                         $producto = Product::find($ite->product_id);
                         $box = Box::find($ite->box_id);
-                        //echo ('Nombre/Producto: '.$producto->name.' -- Codigo: '.$ite->series. ' -- Cantidad: 1 -- Precio: '.$item->price.' -- Ubicación: '. $box->full_name);
                         array_push($dataexcel, [$producto->name, $ite->series, '1', $item->price, $box->full_name]);
-                        //echo ('<br>');
                     }
                     foreach ($output->packages as $package) {
                         $pack = Package::find($package->package_id);
                         $box = Box::find($pack->box_id);
-                        //echo ('Nombre/Producto: paquete -- Codigo: '.$pack->code. ' -- Cantidad: 1 -- Precio: '.$package->price.' -- Ubicación: '. $box->full_name);
                         array_push($dataexcel, ['Paquete', $pack->code, '1', $package->price, $box->full_name]);
-                        //echo ('<br>');
                         $itemsDet = Item::where('package_id', $pack->id)->get();
                         array_push($dataexcel, ['','Nombre/Producto', 'Codigo/Serie', 'Cantidad', 'Precio', 'Ubicacion']);
                         foreach($itemsDet as $iteDet) {
@@ -371,16 +368,12 @@ class OutputController extends Controller
 
                         }
                     }
-                    //echo('<br>');
-                    //echo ('<br>');
                 }
-                // Set black background
                 $sheet->cells(function ($cells){
                     $cells->setBackground('#F5F5F5');
                     $cells->setAlignment('center');
                     $cells->setVAlignment('center');
                 });
-
 
                 $sheet->setWidth(
                     array(
@@ -392,15 +385,68 @@ class OutputController extends Controller
                         'F'=> '25'
                     )
                 );
-
                 $sheet->fromArray($dataexcel, null, 'A1', false, false);
-                //var_dump($dataexcel);
-
-
             });
-
         })->export('xlsx');
+    }
 
+    public function reportRangeCustomer( $start, $end, $cliente ) {
+        ($start." ".$end);
+        Excel::create('Salidas', function ($excel) use ($start, $end, $cliente){
+            $excel->sheet('Salidas', function($sheet) use ($start, $end, $cliente) {
+                $dataexcel = [];
+                $sheet->mergeCells('A1:J1');
+                $sheet->getDefaultStyle()
+                    ->getAlignment()
+                    ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_JUSTIFY);
+                $cliente = Customer::where('name', $cliente)->first();
+                $outputs = Output::where('customer_id', $cliente->id)->whereBetween('created_at',[$start,$end])->with('customers')->with('items')->with('packages')->get();
+                //dd($outputs);
+                array_push($dataexcel, ['REPORTE DE SALIDAS DESDE EL '.$start.' AL '.$end]);
+                foreach($outputs as $output) {
+                    array_push($dataexcel, ['', '', '', '']);
+                    array_push($dataexcel, ['ID Salida', 'Cliente', 'Tipo', 'Comentario']);
+                    array_push($dataexcel, [$output->id, $output->customers->name, $output->reason, $output->comment]);
+                    array_push($dataexcel, ['Nombre/Producto', 'Codigo/Serie', 'Cantidad', 'Precio', 'Ubicacion']);
+                    foreach ($output->items as $item) {
+                        $ite = Item::find($item->item_id);
+                        $producto = Product::find($ite->product_id);
+                        $box = Box::find($ite->box_id);
+                        array_push($dataexcel, [$producto->name, $ite->series, '1', $item->price, $box->full_name]);
+                    }
+                    foreach ($output->packages as $package) {
+                        $pack = Package::find($package->package_id);
+                        $box = Box::find($pack->box_id);
+                        array_push($dataexcel, ['Paquete', $pack->code, '1', $package->price, $box->full_name]);
+                        $itemsDet = Item::where('package_id', $pack->id)->get();
+                        array_push($dataexcel, ['','Nombre/Producto', 'Codigo/Serie', 'Cantidad', 'Precio', 'Ubicacion']);
+                        foreach($itemsDet as $iteDet) {
+                            $producto = Product::find($iteDet->product_id);
+                            $box = Box::find($iteDet->box_id);
+                            array_push($dataexcel, ['', $producto->name, $iteDet->series, '1', $iteDet->price, $box->full_name]);
+
+                        }
+                    }
+                }
+                $sheet->cells(function ($cells){
+                    $cells->setBackground('#F5F5F5');
+                    $cells->setAlignment('center');
+                    $cells->setVAlignment('center');
+                });
+
+                $sheet->setWidth(
+                    array(
+                        'A'=> '35',
+                        'B'=> '25',
+                        'C'=> '25',
+                        'D'=> '25',
+                        'E'=> '25',
+                        'F'=> '25'
+                    )
+                );
+                $sheet->fromArray($dataexcel, null, 'A1', false, false);
+            });
+        })->export('xlsx');
     }
 
     public function reportOutput() {
