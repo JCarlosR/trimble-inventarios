@@ -78,7 +78,7 @@
                                 <th data-breakpoints="all">Categoría</th>
                                 <th data-breakpoints="all">Subcategría</th>
                                 <th data-hide="all" data-breakpoints="all" data-title="Observación"></th>
-                                <th data-type="html">Editar | Eliminar</th>
+                                <th data-type="html">Acción</th>
                             </tr>
                         </thead>
 
@@ -98,6 +98,7 @@
                                 <td>{{ $product->subcategory->name}}</td>
                                 <td>{{ $product->comment}}</td>
                                 <td>
+                                    <button type="button" class="btn btn-info" data-view><i class="fa fa-eye"></i></button>
                                     <span title="Editar">
                                         <button type="submit" class="btn btn-success" data-id="{{ $product->id }}" data-name="{{ $product ->name }}"
                                                 data-description="{{ $product->description }}"  data-price="{{ $product->price }}" data-money="{{ $product->money }}"
@@ -118,6 +119,32 @@
                         </tbody>
                     </table>
                     {!! $products->render() !!}
+                </div>
+            </div>
+        </div>
+
+        <div id="modalView" class="modal fade in">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Existencias del producto <span id="selected_product"></span></h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Se encontraron <span id="items_quantity"></span> existencias disponibles del producto seleccionado.</p>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Serie</th>
+                                <th>Ubicación</th>
+                            </tr>
+                            </thead>
+                            <tbody id="items_tbody">
+                            </tbody>                            
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Aceptar</button>
+                    </div>
                 </div>
             </div>
         </div>

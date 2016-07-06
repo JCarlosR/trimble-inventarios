@@ -12,7 +12,7 @@ class Item extends Model
     ];
 
     protected $appends = [
-        'product_name'
+        'product_name', 'current_location'
     ];
 
     public function package()
@@ -38,6 +38,11 @@ class Item extends Model
     public function getProductNameAttribute()
     {
         return $this->product->name;
+    }
+
+    public function getCurrentLocationAttribute()
+    {
+        return $this->box->full_name;
     }
 
 }
