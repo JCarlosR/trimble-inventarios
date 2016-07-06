@@ -6,11 +6,11 @@
     <div class="title_right">
         <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
 
-            <form class="form-inline">
+            <form class="form-inline" action="{{ url('/producto') }}" method="GET">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Buscar producto ...">
+                    <input type="text" name="product_name" class="form-control" placeholder="Buscar producto ...">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">Go</button>
+                        <button class="btn btn-default" type="submit">Go</button>
                     </span>
                 </div>
             </form>

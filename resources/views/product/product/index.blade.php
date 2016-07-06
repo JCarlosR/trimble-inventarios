@@ -30,7 +30,7 @@
             <div class="x_panel">
 
                 <div class="x_title">
-                    <h2>Listado de productos</h2>
+                    <h2><a href="{{ url('/producto') }}">Listado de productos</a></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                     </ul>
@@ -143,7 +143,7 @@
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Aceptar</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Aceptar</button>
                     </div>
                 </div>
             </div>

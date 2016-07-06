@@ -17,9 +17,16 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::where('state',1)->orderBy('name', 'asc')->paginate(5);
+        if ($request->has('product_name')) {
+            $name = $request->get('product_name');
+            $query = '%'.$name.'%';
+            $products = Product::where('state', 1)->orderBy('name', 'asc')
+                ->where('name', 'like', $query)->paginate(5);
+        } else {
+            $products = Product::where('state',1)->orderBy('name', 'asc')->paginate(5);
+        }
 
         $myProducts = Product::all();
         $items_per_Product = [];
