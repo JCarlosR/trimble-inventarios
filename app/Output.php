@@ -26,6 +26,8 @@ class Output extends Model
     public function getRentalDaysAttribute()
     {
         $now = Carbon::now();
+        if (!$this->fechaAlquiler)
+            return "";
         return $this->fechaAlquiler->diff($now)->days;
     }
 
@@ -49,5 +51,10 @@ class Output extends Model
     public function packages()
     {
         return $this->hasMany('App\OutputPackage');
+    }
+
+    public function customers()
+    {
+        return $this->belongsTo('App\Customer', 'customer_id');
     }
 }
