@@ -5,16 +5,36 @@ function principal()
     //FooTable
     $('.mytable').footable();
 
+    $modalView = $('#modalView');
     $modalEditar = $('#modalEditar');
     $modalEliminar = $('#modalEliminar');
 
+    $('[data-view]').on('click', showItemsModal);
     $('[data-id]').on('click', mostrarEditar);
     $('[data-delete]').on('click', mostrarEliminar);
 }
 
-//Create
+// Modals
+var $modalView;
 var $modalEditar;
 var $modalEliminar;
+
+function showItemsModal() {
+    var $tr = $(this).parents('tr');
+    var product_id = $tr.find('[data-id]').data('id');
+    var product_name = $tr.find('[data-name]').data('name');
+    $('#selected_product').text(product_name);
+
+    $.getJSON('./producto/'+product_id+'/items', function (data) {
+        $('#items_quantity').text(data.length);
+        var item_rows = '';
+        for (var i=0; i<data.length; ++i) {
+            item_rows += '<tr><td>'+data[i].series+'</td><td>'+data[i].current_location+'</td></tr>';
+        }
+        $('#items_tbody').html(item_rows);
+    });
+    $modalView.modal('show');
+}
 
 function mostrarEditar() {
     var id = $(this).data('id');

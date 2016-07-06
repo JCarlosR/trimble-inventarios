@@ -161,16 +161,17 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     /* Searches */
-    // Search product by name
+    // Search 1 product by name
     Route::get('/producto/buscar/{name}', 'ProductController@search');
     Route::get('/paquete/ubicaciones', 'PackageController@locations');
     Route::get('/paquete/detalles/{id}', 'PackageController@searchDetails');
-    // Search package by name
+    // Search 1 package by name
     Route::get('/paquete/buscar/{name}', 'PackageController@search');
     Route::get('/productos/names', 'ProductController@searchAll');
-    // Search for a specific item
+    // Item list (just codes) by product
     Route::get('/items/producto/{id}', 'ItemController@searchItems');
-
+    // Items by product (JSON response)
+    Route::get('/producto/{id}/items', 'ItemController@itemsByProduct');
 
     /* Locations */
     // Locals
