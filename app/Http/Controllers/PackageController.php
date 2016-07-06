@@ -178,6 +178,14 @@ class PackageController extends Controller
     public function search($code)
     {
         $package = Package::where('code', $code)->first(['id', 'code']);
+
+        // Calculate total price
+        $items = Item::where('package_id', $package->id)->get();
+        $package->price = 0;
+        foreach ($items as $item) {
+            $item_price = $item->product->price;
+            $package->price += $item_price;
+        }
         return $package;
     }
 
