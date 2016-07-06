@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ff237bf8a74bb39098126a61286328b8",
+    "hash": "ab55ed6c13f59819b84572c8ca6c95ab",
     "content-hash": "97782043852f6a2153774aa823726ad7",
     "packages": [
         {
@@ -436,8 +436,6 @@
             "time": "2016-06-17 19:25:12"
         },
         {
-<<<<<<< HEAD
-=======
             "name": "laravelcollective/bus",
             "version": "v5.2",
             "source": {
@@ -483,7 +481,6 @@
             "time": "2015-12-23 07:43:33"
         },
         {
->>>>>>> 2388d8c1a551e6f9b7e598d879d2b538b711857b
             "name": "league/flysystem",
             "version": "1.0.24",
             "source": {
