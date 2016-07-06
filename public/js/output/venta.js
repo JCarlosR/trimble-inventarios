@@ -10,8 +10,6 @@ var selectedProduct;
 var checkeado = false;
 
 $(document).on('ready', function () {
-    var search = $('#product').val();
-
     $('#product').on('blur', handleBlurProduct);
     $('#btnAdd').on('click', addRow);
     $(document).on('click', '[data-delete]', deleteItem);
@@ -92,7 +90,7 @@ function registerOutput() {
                 alert(response.message);
             else{
                 alert('Venta registrada correctamente.');
-                //location.reload();
+                location.reload();
             }
 
         });
@@ -179,16 +177,33 @@ function addRow() {
 }
 
 function handleBlurProduct() {
-    $('#cantidad').val("");
-    $('#cantidad').prop('readonly', false);
-    var search = $('#product').val();
+    var $quantity = $('#cantidad');
+    var name = $('#product').val();
 
-    if ( packages.indexOf(search) != -1 )
-    {
-        $('#cantidad').val(1);
-        $('#cantidad').prop('readonly', true);
+    // When a package is selected
+    if ( packages.indexOf(name) > -1 )
+    {   // Quantity always is 1
+        $quantity.val(1);
+        $quantity.prop('readonly', true);
+        setPackagePrice(name);
+    } else { // When a product is selected
+        // Quantity input is available
+        $quantity.val('');
+        $quantity.prop('readonly', false);
+        setProductPrice(name);
     }
+}
 
+function setProductPrice(product_name) {
+    $.getJSON('../producto/buscar/'+product_name, function (data) {
+        $('#precio').val( data.price );
+    });
+}
+
+function setPackagePrice(package_name) {
+    $.getJSON('../paquete/buscar/'+package_name, function (data) {
+        $('#precio').val( data.price );
+    });
 }
 
 function renderTemplatePackage(id, code, quantity, price, sub) {
