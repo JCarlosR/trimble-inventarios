@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Box;
 use App\Customer;
+use App\Entry;
 use App\Http\Requests;
 use App\Item;
 use App\Output;
@@ -12,12 +13,14 @@ use App\OutputPackageDetail;
 use App\Package;
 use App\Product;
 use App\OutputDetail;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
-use Maatwebsite\Excel\Excel;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OutputController extends Controller
 {
@@ -330,28 +333,61 @@ class OutputController extends Controller
     }
 
     public function reportRange() {
-        Excel::create('Salidas', function ($excel){
+        /*Excel::create('Salidas', function ($excel){
             $excel->sheet('Salidas', function($sheet) {
 
-                $outputs = Output::all();
+                //$outputs = Output::all();
+
+                $outputs[0] = ['dat1', 'data11'];
+                $outputs[1] = ['dat2', 'data22'];
+                $outputs[2] = ['dat3', 'data33'];
 
                 $sheet->fromArray($outputs);
 
             });
-        })->download('xlsx');
 
-        /*$outputs = Output::with('items')->with('packages')->get();
-        //dd($outputs);
-        foreach($outputs as $output) {
-            echo ('Id '.$output->id);
-            foreach ($output->items as $item) {
-                echo ('Item_Id '.$item->id);
-            }
-            foreach ($output->packages as $package) {
-                echo ('Pack_Id '.$package->id);
-            }
-            echo('<br>');
-        }*/
+        })->export('xlsx');*/
+        Excel::create('Salidas', function ($excel){
+            $excel->sheet('Salidas', function($sheet) {
+                $dataexcel = [];
+
+                $outputs = Output::with('customers')->with('items')->with('packages')->get();
+                //dd($outputs);
+                array_push($dataexcel, ['ID Salida', 'Cliente', 'Tipo', 'Comentario']);
+                foreach($outputs as $output) {
+                    echo ('Id: '.$output->id.' -- Cliente: '.$output->customers->name. ' -- Tipo: '.$output->reason.' -- Comentario: '.$output->comment);
+                    array_push($dataexcel, [$output->id, $output->customers->name, $output->reason, $output->comment]);
+                    echo('<br>');
+                    array_push($dataexcel, ['Nombre/Producto', 'Codigo/Serie', 'Cantidad', 'Precio', 'Ubicacion']);
+                    foreach ($output->items as $item) {
+                        $ite = Item::find($item->item_id);
+                        $producto = Product::find($ite->product_id);
+                        $box = Box::find($ite->box_id);
+                        echo ('Nombre/Producto: '.$producto->name.' -- Codigo: '.$ite->series. ' -- Cantidad: 1 -- Precio: '.$item->price.' -- Ubicación: '. $box->full_name);
+                        array_push($dataexcel, [$producto->name, $ite->series, '1', $item->price, $box->full_name]);
+                        echo ('<br>');
+                    }
+                    foreach ($output->packages as $package) {
+                        $pack = Package::find($package->package_id);
+                        $box = Box::find($pack->box_id);
+                        echo ('Nombre/Producto: paquete -- Codigo: '.$pack->code. ' -- Cantidad: 1 -- Precio: '.$package->price.' -- Ubicación: '. $box->full_name);
+                        array_push($dataexcel, ['Paquete', $pack->code, '1', $package->price, $box->full_name]);
+                        echo ('<br>');
+                    }
+                    echo('<br>');
+                    echo ('<br>');
+                }
+
+                //dd($dataexcel);
+
+
+
+                $sheet->fromArray($dataexcel);
+                var_dump($dataexcel);
+
+            });
+
+        })->export('xlsx');
 
     }
 }
