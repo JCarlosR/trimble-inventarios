@@ -22,166 +22,213 @@ class ExcelController extends Controller
         return $data;
     }
 
-    public function sv_index()
+    public function index()
     {
         return view('excel.salida.venta');
     }
 
-    public function sv_data( Request $request )
+    public function sv_data( $inicio,$fin,$cliente )
     {
+        Excel::create('Trimble Reporte de Ventas', function($excel) use ($inicio, $fin,$cliente)
+        {
 
-        $cliente = $request->get('cliente');
-        $inicio  = $request->get('inicio');
-        $fin     = $request->get('fin');
-
-        $outputs = Output::where('reason','sale')->where('active',1)->get();
-
-        foreach ( $outputs as $output) {
-            $subtotal_details = OutputDetail::where('output_id',$output->id)->sum('price');
-            $subtotal_packages = OutputPackage::where('output_id',$output->id)->sum('price');
-            $total = $subtotal_details + $subtotal_packages;
-
-            $sales[] = ['CLIENTE','FECHA DE VENTA','TIPO','TOTAL VENTA'];
-            $sales[] = [$output->customer->name,$output->created_at,$output->type,$total];
-            $sales[] = [''];
-
-            $outputPackages = OutputPackage::where('output_id',$output->id)->get();
-
-            if( count($outputPackages)>0)
+            $excel->sheet('Ventas', function($sheet)use ($inicio, $fin,$cliente)
             {
-                $sales[] = ['','PAQUETE','CÓDIGO','UBICACIÓN','PRECIO'];
-                foreach ( $outputPackages  as $outputPackage) {
-                    $package = Package::find($outputPackage->package_id);
-                    $sales[] = ['',$package->name,$package->code,$package->box->full_name,$outputPackage->price];
-
-                    $sales[] = [''];
-                    $sales[] = ['','','PRODUCTO','SERIE','UBICACIÓN'];
-
-                    $items = Item::where('package_id',$package->id)->get();
-                    foreach ($items as $item)
-                        $sales[] = ['','',$item->product->name,$item->series,$item->box->full_name];
-                }
-
-            }
-
-            $sales[] = [''];
-            $outputDetails = OutputDetail::where('output_id',$output->id)->get();
-
-            if( count($outputDetails)>0 )
-            {
-                $sales[] = ['','PRODUCTO','SERIE','UBICACIÓN','PRECIO'];
-                foreach ($outputDetails as $outputDetail) {
-                    $item = Item::find($outputDetail->item_id);
-                    $sales[] = ['',$item->product->name,$item->series,$item->box->full_name,$outputDetail->price];
-                }
-            }
-            $sales[] = [''];
-        }
-
-        $data['sales'] = $sales;
-
-        $x=[];
-        $x[] = 10;
-        $x[] = 40;
-        $deta['x'] = $x;
-        return $deta;
-    }
-
-    public function sv_excel()
-    {
-        Excel::create('Trimble Reporte de Ventas', function($excel) {
-
-            $excel->sheet('Ventas', function($sheet) {
-                $outputs = Output::where('reason','sale')->get();
+                $customer = Customer::where('name',$cliente)->first();
+                $outputs = Output::where('reason', 'sale')->whereBetween('created_at', [$inicio, $fin])->where('customer_id', $customer->id)->get();
 
                 $sales = [];
                 $subtotal_details = 0;
-                $subtotal_packages=0;
+                $subtotal_packages = 0;
                 $total = 0;
-
                 $sheet->row(1, array(''));
-                /*
-                $sheet->row($sheet->getHighestRow(), function ($row) {
-                    $row->setFontWeight('bold');
-                });
-                */
-                $i = 0;
-                foreach ( $outputs as $output) {
-                    $subtotal_details = OutputDetail::where('output_id',$output->id)->sum('price');
-                    $subtotal_packages = OutputPackage::where('output_id',$output->id)->sum('price');
+                $rental[] = ['        ', 'Reporte de ventas FECHA INICIO : '.$inicio, 'FECHA FIN : '.$fin];
+                $rental[] = ['        '];
+
+                foreach ($outputs as $output) {
+                    $subtotal_details = OutputDetail::where('output_id', $output->id)->sum('price');
+                    $subtotal_packages = OutputPackage::where('output_id', $output->id)->sum('price');
                     $total = $subtotal_details + $subtotal_packages;
-                    $sales[] = ['CLIENTE','FECHA DE VENTA','TIPO','TOTAL VENTA'];
-                    $sales[] = [$output->customer->name,$output->created_at,$output->type,$total];
-                    $sales[] = [''];
+                    $sales[] = ['        ','CLIENTE', 'FECHA DE VENTA', 'TIPO', 'TOTAL VENTA'];
+                    $sales[] = ['        ',$output->customers->name, $output->created_at, ($output->type=='local')?'local':'extranjero', $total];
+                    $sales[] = ['        '];
 
-                    $outputPackages = OutputPackage::where('output_id',$output->id)->get();
+                    $outputPackages = OutputPackage::where('output_id', $output->id)->get();
 
-                    if( count($outputPackages)>0)
-                    {
-                        $sales[] = ['','PAQUETE','CÓDIGO','UBICACIÓN','PRECIO'];
-                        foreach ( $outputPackages  as $outputPackage) {
+                    if (count($outputPackages) > 0) {
+                        $sales[] = ['        ','', 'PAQUETE', 'CÓDIGO', 'UBICACIÓN', 'PRECIO'];
+                        foreach ($outputPackages as $outputPackage) {
                             $package = Package::find($outputPackage->package_id);
-                            $sales[] = ['',$package->name,$package->code,$package->box->full_name,$outputPackage->price];
+                            $sales[] = ['        ','', $package->name, $package->code, $package->box->full_name, $outputPackage->price];
 
-                            $sales[] = [''];
-                            $sales[] = ['','','PRODUCTO','SERIE','UBICACIÓN'];
+                            $sales[] = ['        '];
+                            $sales[] = ['        ','', '', 'PRODUCTO', 'SERIE', 'UBICACIÓN'];
 
-                            $items = Item::where('package_id',$package->id)->get();
+                            $items = Item::where('package_id', $package->id)->get();
                             foreach ($items as $item)
-                                $sales[] = ['','',$item->product->name,$item->series,$item->box->full_name];
+                                $sales[] = ['        ','', '', $item->product->name, $item->series, $item->box->full_name];
+                            $sales[] = ['        '];
                         }
-
                     }
 
-                    $sales[] = [''];
-                    $outputDetails = OutputDetail::where('output_id',$output->id)->get();
+                    $outputDetails = OutputDetail::where('output_id', $output->id)->get();
 
-                    if( count($outputDetails)>0 )
-                    {
-                        $sales[] = ['','PRODUCTO','SERIE','UBICACIÓN','PRECIO'];
+                    if (count($outputDetails) > 0) {
+                        $sales[] = ['        ','', 'PRODUCTO', 'SERIE', 'UBICACIÓN', 'PRECIO'];
                         foreach ($outputDetails as $outputDetail) {
                             $item = Item::find($outputDetail->item_id);
-                            $sales[] = ['',$item->product->name,$item->series,$item->box->full_name,$outputDetail->price];
+                            $sales[] = ['        ','', $item->product->name, $item->series, $item->box->full_name, $outputDetail->price];
                         }
                     }
-                    $sales[] = [''];
+                    $sales[] = ['        '];
                 }
 
-                foreach ( $sales as $sale)
-                    $sheet->appendRow($sale);
+                foreach ($sales as $row)
+                    $sheet->appendRow($row);
 
-            })->export('xls');
-
+            })->export('xlsx');
         });
     }
 
-    public function sa_index()
+    public function sv_data_verify( $inicio,$fin,$cliente )
     {
+        $customer = Customer::where('name', $cliente)->first();
 
+        if(count($customer)<1)
+            return ['error'=>true,'message'=>'Nombre de cliente inválido'];
+        $outputs = Output::where('reason', 'sale')->whereBetween('created_at', [$inicio, $fin])->where('customer_id', $customer->id)->get();
+
+        if(count($outputs)<1)
+            return ['error'=>true,'message'=>'No existen datos'];
+        return ['error'=>false,'message'=>'All ok'];
     }
 
-    public function sa_data( $inicio,$fin )
+    public function sa_data( $inicio,$fin,$cliente )
     {
+        Excel::create('Trimble Reporte de Alquileres', function($excel) use ($inicio, $fin,$cliente)
+        {
+            $excel->sheet('Alquileres', function($sheet)use ($inicio, $fin,$cliente)
+            {
+                $customer = Customer::where('name',$cliente)->first();
+                $outputs = Output::where('reason', 'rental')->whereBetween('created_at', [$inicio, $fin])->where('customer_id', $customer->id)->get();
 
+                $rental = [];
+                $subtotal_details = 0;
+                $subtotal_packages = 0;
+                $total = 0;
+                $sheet->row(1, array(''));
+                $rental[] = ['        ', 'Reporte de alquileres FECHA INICIO : '.$inicio, 'FECHA FIN : '.$fin];
+                $rental[] = ['        '];
+
+                foreach ($outputs as $output) {
+                    $subtotal_details = OutputDetail::where('output_id', $output->id)->sum('price');
+                    $subtotal_packages = OutputPackage::where('output_id', $output->id)->sum('price');
+                    $total = $subtotal_details + $subtotal_packages;
+                    $rental[] = ['        ','CLIENTE', 'FECHA ALQUILER', 'TIPO', 'TOTAL ALQUILER'];
+                    $rental[] = ['        ',$output->customers->name, $output->created_at, ($output->type=='local')?'local':'extranjero', $total];
+                    $rental[] = ['        '];
+
+                    $outputPackages = OutputPackage::where('output_id', $output->id)->get();
+
+                    if (count($outputPackages) > 0) {
+                        $rental[] = ['        ','', 'PAQUETE', 'CÓDIGO', 'UBICACIÓN', 'PRECIO'];
+                        foreach ($outputPackages as $outputPackage) {
+                            $package = Package::find($outputPackage->package_id);
+                            $rental[] = ['        ','', $package->name, $package->code, $package->box->full_name, $outputPackage->price];
+
+                            $rental[] = ['        '];
+                            $rental[] = ['        ','', '', 'PRODUCTO', 'SERIE', 'UBICACIÓN'];
+
+                            $items = Item::where('package_id', $package->id)->get();
+                            foreach ($items as $item)
+                                $rental[] = ['        ','', '', $item->product->name, $item->series, $item->box->full_name];
+                            $rental[] = ['        '];
+                        }
+                    }
+
+                    $outputDetails = OutputDetail::where('output_id', $output->id)->get();
+
+                    if (count($outputDetails) > 0) {
+                        $rental[] = ['        ','', 'PRODUCTO', 'SERIE', 'UBICACIÓN', 'PRECIO'];
+                        foreach ($outputDetails as $outputDetail) {
+                            $item = Item::find($outputDetail->item_id);
+                            $rental[] = ['        ','', $item->product->name, $item->series, $item->box->full_name, $outputDetail->price];
+                        }
+                    }
+                    $rental[] = ['        '];
+                }
+
+                foreach ($rental as $row)
+                    $sheet->appendRow($row);
+
+            })->export('xlsx');
+        });
     }
 
-    public function sa_excel()
+    public function sa_data_verify( $inicio,$fin,$cliente )
     {
+        $customer = Customer::where('name', $cliente)->first();
 
+        if(count($customer)<1)
+            return ['error'=>true,'message'=>'Nombre de cliente inválido'];
+        $outputs = Output::where('reason', 'rental')->whereBetween('created_at', [$inicio, $fin])->where('customer_id', $customer->id)->get();
+
+        if(count($outputs)<1)
+            return ['error'=>true,'message'=>'No existen datos'];
+        return ['error'=>false,'message'=>'All ok'];
     }
 
-    public function sr_index()
+    public function sb_data( $inicio,$fin )
     {
+        Excel::create('Trimble Reporte de Bajas', function($excel) use ($inicio, $fin) {
+            $excel->sheet('Bajas', function ($sheet) use ($inicio, $fin) {
 
+                $packages = Package::where('state', 'low')->whereBetween('updated_at', [$inicio, $fin])->get();
+                $lows = [];
+                $sheet->row(1, array(''));
+
+                if( count($packages)>0 )
+                {
+                    $lows[] = ['        ', 'Reporte de bajas FECHA INICIO : '.$inicio, 'FECHA FIN : '.$fin];
+                    $lows[] = ['        '];
+
+                    foreach ($packages as $package) {
+                        $lows[] = ['        ', 'PAQUETE', 'CÓDIGO', 'UBICACIÓN', 'FECHA BAJA'];
+                        $lows[] = ['        ', $package->name, $package->code, $package->box->full_name, $package->updated_at];
+                        $lows[] = ['        '];
+
+                        $items = Item::where('package_id',$package->id)->get();
+                        $lows[] = ['        ','','PRODUCTO','SERIE','UBICACIÓN','FECHA BAJA'];
+                        foreach ($items as $item)
+                            $lows[] = ['        ','',$item->product->name,$item->series,$item->box->full_name,$item->updated_at];
+
+                        $lows[] = ['        '];
+                    }
+                }
+
+                $items = Item::where('state', 'low')->whereBetween('updated_at', [$inicio, $fin])->get();
+
+                if( count($items)>0 )
+                {
+                    $lows[] = ['        ', 'PRODUCTO', 'SERIE', 'UBICACIÓN', 'FECHA BAJA'];
+                    foreach ($items as $item)
+                        $lows[] = ['        ',$item->product->name,$item->series,$item->box->full_name,$item->updated_at];
+                }
+                foreach ($lows as $low)
+                    $sheet->appendRow($low);
+
+            })->export('xlsx');
+        });
     }
 
-    public function sr_data( $inicio,$fin )
+
+    public function sb_data_verify($inicio,$fin)
     {
+        $packages = Package::where('state', 'low')->whereBetween('updated_at', [$inicio, $fin])->get();
+        $items = Item::where('state', 'low')->whereBetween('updated_at', [$inicio, $fin])->get();
 
-    }
-
-    public function sr_excel()
-    {
-
+        if( count($packages)<1 AND count($items)<1 )
+            return ['error'=>true,'message'=>'No existen datos'];
+        return ['error'=>false,'message'=>'All ok'];
     }
 }

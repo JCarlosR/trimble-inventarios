@@ -53,9 +53,8 @@ class Output extends Model
         return $this->hasMany('App\OutputPackage');
     }
 
-    public function customer()
+    public function customers()
     {
-        return $this->belongsTo('App\Customer');
-
+        return $this->belongsTo('App\Customer', 'customer_id');
     }
 }

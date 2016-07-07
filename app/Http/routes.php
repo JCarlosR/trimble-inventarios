@@ -219,17 +219,13 @@ Route::group(['middleware' => 'auth'], function () {
     //Excel - SoleS
     Route::get('customer/names', 'ExcelController@customers');
 
-    Route::get('salida/venta/reporte', 'ExcelController@sv_index');
-    Route::post('salida/venta/data', 'ExcelController@sv_data');
-    Route::get('salida/venta/excel/{inicio}/{fin}', 'ExcelController@sv_excel');
-
-    Route::get('salida/alquiler/reporte', 'ExcelController@sa_index');
-    Route::get('salida/alquiler/data/{inicio}/{fin}', 'ExcelController@sa_data');
-    Route::get('salida/alquiler/excel/{inicio}/{fin}', 'ExcelController@sa_excel');
-
-    Route::get('salida/reutilizacion/reporte', 'ExcelController@sr_index');
-    Route::get('salida/reutilizacion/data/{inicio}/{fin}', 'ExcelController@sr_data');
-    Route::get('salida/reutilizacion/excel/{inicio}/{fin}', 'ExcelController@sr_excel');
+    Route::get('/salida/venta/alquiler/reutilizacion', 'ExcelController@index');
+    Route::get('/salida/venta/data/{inicio}/{fin}/{cliente}', 'ExcelController@sv_data');
+    Route::get('/sales/verify/{inicio}/{fin}/{cliente}', 'ExcelController@sv_data_verify');
+    Route::get('/salida/alquiler/data/{inicio}/{fin}/{cliente}', 'ExcelController@sa_data');
+    Route::get('/rental/verify/{inicio}/{fin}/{cliente}', 'ExcelController@sa_data_verify');
+    Route::get('/salida/baja/data/{inicio}/{fin}', 'ExcelController@sb_data');
+    Route::get('/low/verify/{inicio}/{fin}', 'ExcelController@sb_data_verify');
 
     // WebServices used in reports
     Route::get('/locals/shelves/{local}', 'ReportController@shelves');
