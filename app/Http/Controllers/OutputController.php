@@ -454,4 +454,27 @@ class OutputController extends Controller
         $customers = Customer::select('name')->lists('name')->toJson();
         return view('reports.reportOutputsAll')->with(compact('customers'));
     }
+
+    public function reportOutputPDF($start, $end)
+    {
+        $outputs = Output::whereBetween('created_at',[$start,$end])->with('customers')->with('items')->with('packages')->get();
+        /*return view('reports.pdfOutputs')->with(compact('outputs', 'start', 'end'));
+*/
+        $vista =  view('reports.pdfOutputs', compact('outputs', 'start', 'end'))->render();
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadHTML($vista);
+        return $pdf->stream();
+    }
+
+    public function reportOutputCustomerPDF($start, $end, $cliente)
+    {
+        $client = Customer::where('name', $cliente)->first();
+        $outputs = Output::where('customer_id', $client->id)->whereBetween('created_at',[$start,$end])->with('customers')->with('items')->with('packages')->get();
+        /*return view('reports.pdfOutputs')->with(compact('outputs', 'start', 'end'));
+*/
+        $vista =  view('reports.pdfOutputsCustomer', compact('outputs', 'start', 'end', 'cliente'))->render();
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadHTML($vista);
+        return $pdf->stream();
+    }
 }
