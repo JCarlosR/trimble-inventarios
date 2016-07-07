@@ -22,4 +22,9 @@ class Package extends Model
     {
         return $this->hasMany('App\Item');
     }
+
+    public function getCurrentLocationAttribute()
+    {
+        return $this->box->full_name;
+    }
 }

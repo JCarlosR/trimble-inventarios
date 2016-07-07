@@ -85,7 +85,7 @@
                             </div>
                             <div class="col-md-6">
                                 <button id="exportExcel" data-url="{{ url('/salidas/range') }}" type="button" class="btn btn-success">Exportar en excel</button>
-                                <button id="exportPDf" type="button" class="btn btn-info">Exportar en pdf</button>
+                                <a target="_blank" id="exportPDF" data-url="{{ url('/outputs/ver/pdf') }}" type="button" class="btn btn-info">Exportar en pdf</a>
                             </div>
                         </div>
                         <br>
@@ -123,7 +123,7 @@
                             </div>
                             <div class="col-md-3">
                                 <button id="exportExcel2" data-url="{{ url('/salidas/cliente') }}"type="button" class="btn btn-success">Exportar en excel</button>
-                                <button type="button" class="btn btn-info">Exportar en pdf</button>
+                                <a target="_blank" id="exportPDF2" data-url="{{ url('/outputs/ver/pdf') }}" type="button" class="btn btn-info">Exportar en pdf</a>
                             </div>
                         </div>
                         <br>

@@ -237,5 +237,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/report/outputs/', 'OutputController@reportOutput');
     Route::get('/salidas/range/{start}/{end}', 'OutputController@reportRange');
     Route::get('/salidas/range/{start}/{end}/{cliente}', 'OutputController@reportRange');
+    Route::get('/outputs/ver/pdf/{start}/{end}', 'OutputController@reportOutputPDF');
+    Route::get('/outputs/ver/pdf/{start}/{end}/{cliente}', 'OutputController@reportOutputCustomerPDF');
 
 });
