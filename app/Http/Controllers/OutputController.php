@@ -399,10 +399,10 @@ class OutputController extends Controller
                 $sheet->getDefaultStyle()
                     ->getAlignment()
                     ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_JUSTIFY);
-                $cliente = Customer::where('name', $cliente)->first();
-                $outputs = Output::where('customer_id', $cliente->id)->whereBetween('created_at',[$start,$end])->with('customers')->with('items')->with('packages')->get();
+                $client = Customer::where('name', $cliente)->first();
+                $outputs = Output::where('customer_id', $client->id)->whereBetween('created_at',[$start,$end])->with('customers')->with('items')->with('packages')->get();
                 //dd($outputs);
-                array_push($dataexcel, ['REPORTE DE SALIDAS DESDE EL '.$start.' AL '.$end]);
+                array_push($dataexcel, ['REPORTE DE SALIDAS DESDE EL '.$start.' AL '.$end.' DEL CLIENTE: '.$client->name]);
                 foreach($outputs as $output) {
                     array_push($dataexcel, ['', '', '', '']);
                     array_push($dataexcel, ['ID Salida', 'Cliente', 'Tipo', 'Comentario']);
