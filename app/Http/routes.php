@@ -215,6 +215,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Excel exports
     Route::get('/excel/usuarios', 'UserController@excel');
+    Route::get('/excel/existencias/{id}', 'ItemController@excelByProduct');
 
 
     // WebServices used in reports
