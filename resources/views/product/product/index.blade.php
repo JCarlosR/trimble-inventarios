@@ -143,6 +143,8 @@
                         </table>
                     </div>
                     <div class="modal-footer">
+                        <a href="{{ url('/excel/existencias/product_id') }}" id="btnExcel" class="btn btn-success pull-left"><span class="fa fa-file-excel-o" aria-hidden="true"></span> Excel</a>
+
                         <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Aceptar</button>
                     </div>
                 </div>

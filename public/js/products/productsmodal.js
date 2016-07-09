@@ -9,6 +9,8 @@ function principal()
     $modalEditar = $('#modalEditar');
     $modalEliminar = $('#modalEliminar');
 
+    $btnExcel = $('#btnExcel');
+
     $('[data-view]').on('click', showItemsModal);
     $('[data-id]').on('click', mostrarEditar);
     $('[data-delete]').on('click', mostrarEliminar);
@@ -18,6 +20,9 @@ function principal()
 var $modalView;
 var $modalEditar;
 var $modalEliminar;
+
+// Buttons
+var $btnExcel;
 
 function showItemsModal() {
     var $tr = $(this).parents('tr');
@@ -31,9 +36,17 @@ function showItemsModal() {
         for (var i=0; i<data.length; ++i) {
             item_rows += '<tr><td>'+data[i].series+'</td><td>'+data[i].current_location+'</td></tr>';
         }
+        replaceExcelProductId(product_id);
         $('#items_tbody').html(item_rows);
     });
     $modalView.modal('show');
+}
+
+function replaceExcelProductId(product_id) {
+    var excel_url = $btnExcel.attr('href');
+    var lastPosition = excel_url.lastIndexOf('/');
+    excel_url = excel_url.substr(0, lastPosition+1) + product_id;
+    $btnExcel.attr('href', excel_url);
 }
 
 function mostrarEditar() {
