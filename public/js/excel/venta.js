@@ -159,3 +159,92 @@ function excelB()
             location.href = '../../../../public/salida/baja/data/'+inicio+'/'+fin;
     });
 }
+
+function pdfV()
+{
+    event.preventDefault();
+    var cliente = $('#clienteV').val();
+    var inicio   = $('#inicioV').val();
+    var fin      = $('#finV').val()
+    if(!cliente)
+    {
+        alert('Ingrese nombre de cliente');
+        return;
+    }
+
+    if(  fin<inicio )
+    {
+        alert('La fecha de inicio debe ser menor que la fecha de fin');
+        return;
+    }
+
+    $.ajax({
+        url: '../../../../public/sales/verify/'+inicio+'/'+fin+'/'+cliente,
+        method: 'GET'
+    }).done(function (data) {
+
+        if( data.error )
+            alert(data.message);
+        else {
+            var url = '../../../../public/salida/venta/data/pdf/' + inicio + '/' + fin + '/' + cliente;
+            window.open(url, '_blank');
+        }
+    });
+}
+
+function pdfA()
+{
+    event.preventDefault();
+    var cliente = $('#clienteA').val();
+    var inicio   = $('#inicioA').val();
+    var fin      = $('#finA').val()
+    if(!cliente)
+    {
+        alert('Ingrese nombre de cliente');
+        return;
+    }
+
+    if(  fin<inicio )
+    {
+        alert('La fecha de inicio debe ser menor que la fecha de fin');
+        return;
+    }
+
+    $.ajax({
+        url: '../../../../public/rental/verify/'+inicio+'/'+fin+'/'+cliente,
+        method: 'GET'
+    }).done(function (data) {
+
+        if( data.error )
+            alert(data.message);
+        else {
+            var url = '../../../../public/salida/alquiler/data/pdf/' + inicio + '/' + fin + '/' + cliente;
+            window.open(url, '_blank');
+        }
+    });
+}
+
+function pdfB()
+{
+    event.preventDefault();
+    var inicio   = $('#inicioB').val();
+    var fin      = $('#finB').val();
+    if(  fin<inicio )
+    {
+        alert('La fecha de inicio debe ser menor que la fecha de fin');
+        return;
+    }
+
+    $.ajax({
+        url: '../../../../public/low/verify/'+inicio+'/'+fin,
+        method: 'GET'
+    }).done(function (data) {
+
+        if( data.error )
+            alert(data.message);
+        else {
+            var url = '../../../../public/salida/baja/data/pdf/' + inicio + '/' + fin;
+            window.open(url, '_blank');
+        }
+    });
+}

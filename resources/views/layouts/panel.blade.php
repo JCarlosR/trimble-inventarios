@@ -109,7 +109,7 @@
 
                                     <li><a>Salidas<span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
-                                            <li><a href="{{ url('/report/outputs/') }}">Venta</a></li>
+                                            <li><a href="{{ url('/report/outputs/') }}">Salidas</a></li>
                                             <li><a href="{{ url('/salida/venta/alquiler/reutilizacion') }}">Salidas detalladas</a></li>
                                          </ul>
                                     </li>
