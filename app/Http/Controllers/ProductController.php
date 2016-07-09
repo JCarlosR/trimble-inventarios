@@ -32,7 +32,7 @@ class ProductController extends Controller
         $items_per_Product = [];
         foreach( $myProducts as $myProduct )
         {
-            $count = Item::where('product_id',$myProduct->id)->where('state','available')->count();
+            $count = Item::where('product_id',$myProduct->id)->where('state','available')->where('package_id',null)->count();
 
             $items_per_Product[$myProduct->id] = $count;
         }

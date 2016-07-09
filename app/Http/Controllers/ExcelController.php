@@ -238,7 +238,7 @@ class ExcelController extends Controller
                     }
                 }
 
-                $items = Item::where('state', 'low')->whereBetween('updated_at', [$inicio, $fin])->get();
+                $items = Item::where('state', 'low')->where('package_id',null)->whereBetween('updated_at', [$inicio, $fin])->get();
 
                 if( count($items)>0 )
                 {
@@ -256,7 +256,7 @@ class ExcelController extends Controller
     public function sb_data_pdf($inicio,$fin)
     {
         $packages = Package::where('state', 'low')->whereBetween('updated_at', [$inicio, $fin])->get();
-        $items = Item::where('state', 'low')->whereBetween('updated_at', [$inicio, $fin])->get();
+        $items = Item::where('state', 'low')->where('package_id',null)->whereBetween('updated_at', [$inicio, $fin])->get();
 
         $vista =  view('excel.bajapdf', compact('packages', 'items','inicio','fin'));
         $pdf = app('dompdf.wrapper');

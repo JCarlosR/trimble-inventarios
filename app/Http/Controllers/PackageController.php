@@ -168,10 +168,10 @@ class PackageController extends Controller
             $item->save();
         }
 
-        $package->state="low";
+        $package->state="deleted";
         $package->save();
 
-        return response()->json(['message' => 'Paquete dado de baja correctamente']);
+        return response()->json(['message' => 'Paquete descompuesto correctamente']);
     }
 
 

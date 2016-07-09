@@ -217,7 +217,7 @@ class ReportController extends Controller
         {
             foreach( $products as $product )
             {
-                $count = Item::where('product_id',$product->id)->count();
+                $count = Item::where('product_id',$product->id)->where('state','available')->where('package_id',null)->count();
                 if( $count != 0 ) {
                     $products_[$i] = $product->name;
                     $items[$i] = $count;
@@ -229,7 +229,8 @@ class ReportController extends Controller
         {
             foreach( $products as $product )
             {
-                $count = Item::where('product_id',$product->id)->where( DB::raw('YEAR(created_at)'), $year )->where( DB::raw('MONTH(created_at)'), $month )->count();
+                $count = Item::where('product_id',$product->id)->where('state','available')->where('package_id',null)->
+                               where( DB::raw('YEAR(created_at)'), $year )->where( DB::raw('MONTH(created_at)'), $month )->count();
                 if( $count !=0 ) {
                     $products_[$i] = $product->name;
                     $items[$i] = $count;
