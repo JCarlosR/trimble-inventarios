@@ -246,4 +246,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/outputs/ver/pdf/{start}/{end}', 'OutputController@reportOutputPDF');
     Route::get('/outputs/ver/pdf/{start}/{end}/{cliente}', 'OutputController@reportOutputCustomerPDF');
 
+    // Small Box 
+    Route::get('/cajachica', 'SmallBoxController@index');
+    Route::post('/cajachica/save', 'SmallBoxController@store');
+
 });

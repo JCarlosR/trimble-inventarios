@@ -120,6 +120,9 @@
                             <li><a href="{{ url('/usuarios') }}"><i class="fa fa-bell"></i> Usuarios</a>
                             </li>
                             @endif
+
+                            <li><a href="{{ url('/cajachica') }}"><i class="fa fa-bell"></i> Caja chica</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="menu_section">
