@@ -240,19 +240,86 @@ class SmallBoxController extends Controller
         return view('location.box.location')->with(compact('items','packages','place','box','level','shelf','local'));
     }
 
+    public function getMonthName($month)
+    {
+        switch ($month) {
+            case 1: return 'Enero';
+            case 2: return 'Febrero';
+            case 3: return 'Marzo';
+            case 4: return 'Abril';
+            case 5: return 'Mayo';
+            case 6: return 'Junio';
+            case 7: return 'Julio';
+            case 8: return 'Agosto';
+            case 9: return 'Setiembre';
+            case 10: return 'Octubre';
+            case 11: return 'Noviembre';
+            case 12: return 'Diciembre';
+        }
+
+        return '';
+    }
+
     public function excel(Request $request)
     {
         $year = $request->get('year');
         $month = $request->get('month');
-        $from = Carbon::create($year, $month, 1);
-        $to = $from->modify('last day of this month');
-        dd($to);
-        
-        Excel::create('Trimble Caja Chica', function($excel) {
+        // $from = Carbon::create($year, $month, 1);
+        // $to = $from->modify('last day of this month');
 
-            $excel->sheet('Julio', function($sheet) {
-                // $users = User::all();
-                // $sheet->fromArray($users);
+        $movements_collection = SmallBox::whereMonth('created_at', '=', $month)->get();
+        $movements = [];
+        $i = 0;
+        $remains = 0;
+        foreach ($movements_collection as $movement) {
+            $row = [];
+            $row[] = $i++;
+            $row[] = $movement->created_at->format('d/m/Y h:i A');
+            $row[] = $movement->concept;
+            if ($movement->type == 'output') {
+                $income = '';
+                $expenses = $movement->amount;
+                $remains -= $expenses;
+            } else {
+                $income = $movement->amount;
+                $expenses = '';
+                $remains += $income;
+            }
+            $row[] = $income;
+            $row[] = $expenses;
+            $row[] = $remains;
+            $movements[] = $row;
+        }
+        // dd($movements);
+
+        // Generate an Excel file with the movements in the selected month
+        $monthName = $this->getMonthName($month);
+        $title = 'CAJA CHICA - ' . strtoupper($monthName) . ' ' . $year;
+        Excel::create($title, function($excel) use($movements, $title, $monthName) {
+
+            $excel->sheet('Mes ' . $monthName, function($sheet) use($movements, $title, $monthName) {
+
+                // First row styling
+                $sheet->mergeCells('A1:F1');
+                $sheet->row(1, function ($row) {
+                    $row->setFontSize(14);
+                    $row->setFontWeight('bold');
+                    $row->setAlignment('center');
+                });
+                $sheet->row(1, [$title]);
+
+                // Second row (headers)
+                $sheet->row(2, function ($row) {
+                    $row->setFontWeight('bold');
+                    $row->setAlignment('center');
+                });
+                $sheet->row(2, ['Nro', 'Día', 'Concepto', 'Ingresos', 'Egresos', 'A favor']);
+
+                // Items data
+                foreach ($movements as $movement) {
+                    $sheet->appendRow($movement);
+                }
+
             });
 
         })->export('xls');
