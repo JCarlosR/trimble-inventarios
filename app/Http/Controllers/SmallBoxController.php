@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SmallBoxController extends Controller
 {
@@ -237,5 +238,28 @@ class SmallBoxController extends Controller
         $packages = Package::where('state','available')->where('box_id',$box)->paginate(2);
 
         return view('location.box.location')->with(compact('items','packages','place','box','level','shelf','local'));
+    }
+
+    public function excel(Request $request)
+    {
+        $year = $request->get('year');
+        $month = $request->get('month');
+        $from = Carbon::create($year, $month, 1);
+        $to = $from->modify('last day of this month');
+        dd($to);
+        
+        Excel::create('Trimble Caja Chica', function($excel) {
+
+            $excel->sheet('Julio', function($sheet) {
+                // $users = User::all();
+                // $sheet->fromArray($users);
+            });
+
+        })->export('xls');
+    }
+
+    public function pdf()
+    {
+
     }
 }

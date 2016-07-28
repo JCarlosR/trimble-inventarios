@@ -122,7 +122,7 @@
             </div>
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Listado de los conceptos de la caja chica mes actual</h2>
+                    <h2>Listado de conceptos de caja chica según mes</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                         <li><a class="close-link"><i class="fa fa-close"></i></a></li>
@@ -131,21 +131,34 @@
                     <div class="x_content">
                         <br>
                         <div class="row">
+
                             <div class="col-md-3">
-                                <label for="start2">Fecha inicial</label>
-                                <input id="start2" name="start" type="date" value="" class="form-control">
+                                <label for="selectYear">Seleccione año</label>
+                                <select id="selectYear" class="form-control">
+                                    <option value="2016">2016</option>
+                                </select>
                             </div>
                             <div class="col-md-3">
-                                <label for="end2">Fecha final</label>
-                                <input id="end2" name="end" type="date" value="" class="form-control">
+                                <label for="selectMonth">Seleccione mes</label>
+                                <select id="selectMonth" class="form-control">
+                                    <option value="1">Enero</option>
+                                    <option value="2">Febrero</option>
+                                    <option value="3">Marzo</option>
+                                    <option value="4">Abril</option>
+                                    <option value="5">Mayo</option>
+                                    <option value="6">Junio</option>
+                                    <option value="7">Julio</option>
+                                    <option value="8">Agosto</option>
+                                    <option value="9">Setiembre</option>
+                                    <option value="10">Octubre</option>
+                                    <option value="11">Noviembre</option>
+                                    <option value="12">Diciembre</option>
+                                </select>
                             </div>
+
                             <div class="col-md-3">
-                                <label for="clientes">Cliente</label>
-                                <input id="clientes" name="end" type="text" value="" class="typeahead form-control">
-                            </div>
-                            <div class="col-md-3">
-                                <button id="exportExcel2" data-url="{{ url('/salidas/cliente') }}"type="button" class="btn btn-success">Exportar en excel</button>
-                                <a target="_blank" id="exportPDF2" data-url="{{ url('/outputs/ver/pdf') }}" type="button" class="btn btn-info">Exportar en pdf</a>
+                                <a id="btnExcel" href="{{ url('/excel/caja-chica') }}" class="btn btn-success btn-block">Exportar como Excel</a>
+                                <a id="btnPDF" href="{{ url('/pdf/caja-chica') }}" class="btn btn-info btn-block">Exportar como PDF</a>
                             </div>
                         </div>
                         <br>

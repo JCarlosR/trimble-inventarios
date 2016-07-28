@@ -14,6 +14,7 @@ class CreateSmallBoxesTable extends Migration
     {
         Schema::create('small_boxes', function (Blueprint $table) {
             $table->increments('id');
+
             $table->string('concept');
             $table->enum('type', ['input', 'output', 'assign']);
             $table->decimal('amount', 9,2);
