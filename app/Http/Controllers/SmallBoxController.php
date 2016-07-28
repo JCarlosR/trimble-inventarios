@@ -267,7 +267,8 @@ class SmallBoxController extends Controller
         // $from = Carbon::create($year, $month, 1);
         // $to = $from->modify('last day of this month');
 
-        $movements_collection = SmallBox::whereMonth('created_at', '=', $month)->get();
+        $movements_collection = SmallBox::whereMonth('created_at', '=', $month)
+                                ->whereYear('created_at', '=', $year)->get();
         $movements = [];
         $i = 0;
         $remains = 0;
@@ -325,8 +326,44 @@ class SmallBoxController extends Controller
         })->export('xls');
     }
 
-    public function pdf()
+    public function pdf(Request $request)
     {
+        $year = $request->get('year');
+        $month = $request->get('month');
 
+        $movements_collection = SmallBox::whereMonth('created_at', '=', $month)
+                                ->whereYear('created_at', '=', $year)->get();
+
+        $movements = [];
+        $i = 0;
+        $remains = 0;
+        foreach ($movements_collection as $movement) {
+            $row = [];
+            $row[] = $i++;
+            $row[] = $movement->created_at->format('d/m/Y h:i A');
+            $row[] = $movement->concept;
+            if ($movement->type == 'output') {
+                $income = '';
+                $expenses = $movement->amount;
+                $remains -= $expenses;
+            } else {
+                $income = $movement->amount;
+                $expenses = '';
+                $remains += $income;
+            }
+            $row[] = $income;
+            $row[] = $expenses;
+            $row[] = $remains;
+            $movements[] = $row;
+        }
+
+        $monthName = $this->getMonthName($month);
+
+        // return view('smallBox.pdf', compact('movements', 'monthName', 'year'));
+
+        $vista =  view('smallBox.pdf', compact('movements', 'monthName', 'year'))->render();
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadHTML($vista);
+        return $pdf->download();
     }
 }
