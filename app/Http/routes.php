@@ -4,11 +4,6 @@
 |--------------------------------------------------------------------------
 | Application Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
 */
 
 Route::auth();
@@ -199,8 +194,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/caja/{level}/{shelf}/{local}', 'BoxController@index');
     Route::get('/caja/registrar/{level}/{shelf}/{local}', 'BoxController@create');
     Route::post('/caja/registrar/{level}/{shelf}/{local}', 'BoxController@store');
-    Route::post('/caja/modificar/{level}/{shelf}/{local}','BoxController@edit');
-    Route::post('/caja/eliminar/{level}/{shelf}/{local}','BoxController@delete');
+    Route::post('/caja/modificar/{level}/{shelf}/{local}', 'BoxController@edit');
+    Route::post('/caja/eliminar/{level}/{shelf}/{local}', 'BoxController@delete');
 
     // Products contained in a box
     Route::get('/ubicacion/{box}/{level}/{shelf}/{local}','BoxController@location');
@@ -213,11 +208,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/month/{year}', 'ReportController@months_year');
     Route::get('/data_bar/{year?}/{month?}', 'ReportController@data_bar');
 
-    // Excel exports
+    // Excel - User exports
     Route::get('/excel/usuarios', 'UserController@excel');
     Route::get('/excel/existencias/{id}', 'ItemController@excelByProduct');
 
-    //Excel - SoleS
+    // Excel - SoleS
     Route::get('customer/names', 'ExcelController@customers');
     Route::get('/salida/venta/alquiler/reutilizacion', 'ExcelController@index');
 
@@ -249,5 +244,8 @@ Route::group(['middleware' => 'auth'], function () {
     // Small Box 
     Route::get('/cajachica', 'SmallBoxController@index');
     Route::post('/cajachica/save', 'SmallBoxController@store');
-
+    // Excel - Small box
+    Route::get('/excel/caja-chica', 'SmallBoxController@excel');
+    // PDF - Small box
+    Route::get('/pdf/caja-chica', 'SmallBoxController@pdf');
 });

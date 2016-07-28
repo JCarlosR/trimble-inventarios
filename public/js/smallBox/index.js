@@ -1,11 +1,37 @@
 $(document).on('ready', principal);
 
+var $btnExcel;
+var $btnPDF;
+var $selectYear;
+var $selectMonth;
+
 function principal()
 {
     $('#form').on('submit', registerConcept);
+
+    // Export buttons
+    $btnExcel = $('#btnExcel');
+    $btnPDF = $('#btnPDF');
+    // Export params
+    $selectYear = $('#selectYear');
+    $selectMonth = $('#selectMonth');
+    // Export click events
+    $btnExcel.on('click', exportExcelOrPdf);
+    $btnPDF.on('click', exportExcelOrPdf);
 }
 
-function registerConcept() {
+function exportExcelOrPdf()
+{
+    event.preventDefault();
+
+    var url = $(this).attr('href');
+    url += '?year=' + $selectYear.val() + '&month=' + $selectMonth.val();
+
+    location.href = url;
+}
+
+function registerConcept()
+{
     event.preventDefault();
     var _token = $(this).find('[name=_token]');
     var data = new FormData(this);
