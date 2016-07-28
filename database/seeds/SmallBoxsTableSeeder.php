@@ -26,13 +26,13 @@ class SmallBoxsTableSeeder extends Seeder
         ]);
         SmallBox::create([
             'concept' => 'Pago de agua.',
-            'type' => 'assign',
+            'type' => 'output',
             'amount' => 30.00,
             'enable' => 1
         ]);
         SmallBox::create([
             'concept' => 'Pago de luz.',
-            'type' => 'assign',
+            'type' => 'output',
             'amount' => 30.00,
             'enable' => 1
         ]);
