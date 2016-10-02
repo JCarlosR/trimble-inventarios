@@ -35,7 +35,7 @@ class ExcelController extends Controller
             $excel->sheet('Ventas', function($sheet)use ($inicio, $fin,$cliente)
             {
                 $customer = Customer::where('name',$cliente)->first();
-                $outputs = Output::where('reason', 'sale')->whereBetween('created_at', [$inicio, $fin])->where('customer_id', $customer->id)->get();
+                $outputs = Output::where('reason', 'sale')->whereDate('created_at','>=',$inicio)->whereDate('created_at','<=',$fin)->where('customer_id', $customer->id)->get();
 
                 $sales = [];
                 $subtotal_details = 0;
@@ -93,7 +93,7 @@ class ExcelController extends Controller
     public function sv_data_pdf($inicio,$fin,$cliente)
     {
         $customer = Customer::where('name',$cliente)->first();
-        $outputs = Output::where('reason','sale')->whereBetween('created_at',[$inicio,$fin])->where('customer_id',$customer->id)->get();
+        $outputs = Output::where('reason','sale')->whereDate('created_at','>=',$inicio)->whereDate('created_at','<=',$fin)->where('customer_id',$customer->id)->get();
         $total = [];
 
         foreach ($outputs as $output)
@@ -111,8 +111,7 @@ class ExcelController extends Controller
 
         if(count($customer)<1)
             return ['error'=>true,'message'=>'Nombre de cliente inválido'];
-        $outputs = Output::where('reason', 'sale')->whereBetween('created_at', [$inicio, $fin])->where('customer_id', $customer->id)->get();
-
+        $outputs = Output::where('reason', 'sale')->whereDate('created_at','>=',$inicio)->whereDate('created_at','<=',$fin)->where('customer_id', $customer->id)->get();
         if(count($outputs)<1)
             return ['error'=>true,'message'=>'No existen datos'];
         return ['error'=>false,'message'=>'All ok'];
@@ -126,7 +125,7 @@ class ExcelController extends Controller
             $excel->sheet('Alquileres', function($sheet)use ($inicio, $fin,$cliente)
             {
                 $customer = Customer::where('name',$cliente)->first();
-                $outputs = Output::where('reason', 'rental')->whereBetween('fechaAlquiler', [$inicio, $fin])->where('customer_id', $customer->id)->get();
+                $outputs = Output::where('reason', 'rental')->whereDate('fechaAlquiler','>=',$inicio)->whereDate('fechaAlquiler','<=',$fin)->where('customer_id', $customer->id)->get();
 
                 $rental = [];
                 $subtotal_details = 0;
@@ -184,7 +183,7 @@ class ExcelController extends Controller
     public function sa_data_pdf($inicio,$fin,$cliente)
     {
         $customer = Customer::where('name',$cliente)->first();
-        $outputs = Output::where('reason', 'rental')->whereBetween('fechaAlquiler', [$inicio, $fin])->where('customer_id', $customer->id)->get();
+        $outputs = Output::where('reason', 'rental')->whereDate('fechaAlquiler','>=',$inicio)->whereDate('fechaAlquiler','<=',$fin)->where('customer_id', $customer->id)->get();
         $total = [];
 
         foreach ($outputs as $output)
@@ -202,7 +201,7 @@ class ExcelController extends Controller
 
         if(count($customer)<1)
             return ['error'=>true,'message'=>'Nombre de cliente inválido'];
-        $outputs = Output::where('reason', 'rental')->whereBetween('created_at', [$inicio, $fin])->where('customer_id', $customer->id)->get();
+        $outputs = Output::where('reason', 'rental')->whereDate('created_at','>=',$inicio)->whereDate('created_at','<=',$fin)->where('customer_id', $customer->id)->get();
 
         if(count($outputs)<1)
             return ['error'=>true,'message'=>'No existen datos'];
@@ -215,7 +214,7 @@ class ExcelController extends Controller
         Excel::create('Trimble Reporte de Bajas', function($excel) use ($inicio, $fin) {
             $excel->sheet('Bajas', function ($sheet) use ($inicio, $fin) {
 
-                $packages = Package::where('state', 'low')->whereBetween('updated_at', [$inicio, $fin])->get();
+                $packages = Package::where('state', 'low')->whereDate('updated_at','>=', $inicio)->whereDate('updated_at','<=', $fin)->get();
                 $lows = [];
                 $sheet->row(1, array(''));
 
@@ -238,7 +237,7 @@ class ExcelController extends Controller
                     }
                 }
 
-                $items = Item::where('state', 'low')->where('package_id',null)->whereBetween('updated_at', [$inicio, $fin])->get();
+                $items = Item::where('state', 'low')->where('package_id',null)->whereDate('updated_at','>=', $inicio)->whereDate('updated_at','<=', $fin)->get();
 
                 if( count($items)>0 )
                 {
@@ -255,8 +254,8 @@ class ExcelController extends Controller
 
     public function sb_data_pdf($inicio,$fin)
     {
-        $packages = Package::where('state', 'low')->whereBetween('updated_at', [$inicio, $fin])->get();
-        $items = Item::where('state', 'low')->where('package_id',null)->whereBetween('updated_at', [$inicio, $fin])->get();
+        $packages = Package::where('state', 'low')->whereDate('updated_at','>=', $inicio)->whereDate('updated_at','<=', $fin)->get();
+        $items = Item::where('state', 'low')->where('package_id',null)->whereDate('updated_at','>=', $inicio)->whereDate('updated_at','<=', $fin)->get();
 
         $vista =  view('excel.bajapdf', compact('packages', 'items','inicio','fin'));
         $pdf = app('dompdf.wrapper');
@@ -266,8 +265,8 @@ class ExcelController extends Controller
 
     public function sb_data_verify($inicio,$fin)
     {
-        $packages = Package::where('state', 'low')->whereBetween('updated_at', [$inicio, $fin])->get();
-        $items = Item::where('state', 'low')->whereBetween('updated_at', [$inicio, $fin])->get();
+        $packages = Package::where('state', 'low')->whereDate('updated_at','>=', $inicio)->whereDate('updated_at','<=', $fin)->get();
+        $items = Item::where('state', 'low')->whereDate('updated_at','>=', $inicio)->whereDate('updated_at','<=', $fin)->get();
 
         if( count($packages)<1 AND count($items)<1 )
             return ['error'=>true,'message'=>'No existen datos'];

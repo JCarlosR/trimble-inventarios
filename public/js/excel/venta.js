@@ -3,29 +3,22 @@ $(document).on('ready', principal);
 function principal()
 {
     var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1;
-
-    var yyyy = today.getFullYear();
-    if(dd<10){dd='0'+dd}
-    if(mm<10){mm='0'+mm}
-    today = yyyy+'-'+mm+'-'+dd;
 
     //Sale
-    $('#inicioV').val(today);
-    $('#finV').val(today);
+    $('#inicioV').val( putDate(today) );
+    $('#finV').val( putDate(today) );
     $('#excelV').on('click',excelV);
     $('#pdfV').on('click',pdfV);
 
     //Rented
-    $('#inicioA').val(today);
-    $('#finA').val(today);
+    $('#inicioA').val( putDate(today) );
+    $('#finA').val( putDate(today) );
     $('#excelA').on('click',excelA);
     $('#pdfA').on('click',pdfA);
 
     //Lowed
-    $('#inicioB').val(today);
-    $('#finB').val(today);
+    $('#inicioB').val( putDate(today) );
+    $('#finB').val( putDate(today) );
     $('#excelB').on('click',excelB);
     $('#pdfB').on('click',pdfB);
 
@@ -47,6 +40,17 @@ function principal()
         loadAutoCompleteCustomersA(customers);
     });
 
+}
+
+function putDate( date )
+{
+    var dd = date.getDate();
+    var mm = date.getMonth()+1;
+
+    var yyyy = date.getFullYear();
+    if(dd<10){dd='0'+dd}
+    if(mm<10){mm='0'+mm}
+    return yyyy+'-'+mm+'-'+dd;
 }
 
 function loadAutoCompleteCustomersV(data) {
