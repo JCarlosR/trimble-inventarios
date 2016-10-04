@@ -7,6 +7,11 @@ function principal() {
 }
 
 function mostrarHabilitar() {
+    if( access_denied ){
+        alert('Usted no tiene permisos para esta acción');
+        return;
+    }
+
     var id = $(this).data('habilitar');
     $modalHabilitar.find('[name="id"]').val(id);
 

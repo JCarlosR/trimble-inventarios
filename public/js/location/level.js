@@ -25,6 +25,11 @@ function mostrarEditar() {
 }
 
 function mostrarEliminar() {
+    if( access_denied ){
+        alert('Usted no tiene permisos para esta acción');
+        return;
+    }
+
     var id = $(this).data('delete');
     $modalEliminar.find('[name="id"]').val(id);
 

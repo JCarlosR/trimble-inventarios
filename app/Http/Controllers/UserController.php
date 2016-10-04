@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -13,6 +14,9 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
+        if( Auth::user()->role_id == 1 )
+            return redirect('/');
+
         // Ajax requests
         if ($request->ajax()) {
             $search = $request->get('search');
@@ -25,6 +29,9 @@ class UserController extends Controller
     }
 
     public function edit($id, Request $request) {
+        if( Auth::user()->role_id == 1 )
+            return redirect('/');
+
         $user = User::find($id);
         $user->email = $request->get('email');
         $user->name = $request->get('name');
@@ -35,6 +42,9 @@ class UserController extends Controller
     }
 
     public function store(Request $request) {
+        if( Auth::user()->role_id == 1 )
+            return redirect('/');
+
         $user = User::create([
             'email' => $request->get('email'),
             'name' => $request->get('name'),
@@ -46,10 +56,12 @@ class UserController extends Controller
     }
 
     public function delete() {
-
     }
 
     public function excel() {
+        if( Auth::user()->role_id == 1 )
+            return redirect('/');
+
         Excel::create('Trimble Usuarios', function($excel) {
 
             $excel->sheet('Usuarios', function($sheet) {
@@ -59,5 +71,4 @@ class UserController extends Controller
 
         })->export('xls');
     }
-
 }

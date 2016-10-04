@@ -38,6 +38,7 @@
                     <div class="profile_info">
                         <span>Bienvenido,</span>
                         <h2>{{ Auth::user()->name }}</h2>
+                        <input type="text" id="-user-role-id-" value="{{ Auth::user()->role_id }}" hidden>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -224,6 +225,10 @@
 
 <!-- jQuery -->
 <script src="{{ asset('vendors/jquery/dist/jquery.min.js') }}"></script>
+
+<!-- Access denied -->
+<script src="{{ asset('js/user/access.js') }}"></script>
+
 <!-- Bootstrap -->
 <script src="{{ asset('vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <!-- FastClick -->

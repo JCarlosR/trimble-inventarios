@@ -44,6 +44,11 @@ $(document).on('ready', function () {
 
 function mostrarDescomponer()
 {
+    if( access_denied ){
+        alert('Usted no tiene permisos para esta acción');
+        return;
+    }
+
     var id = $(this).data('decompose');
     $modalDescomponer.find('[name="id"]').val(id);
 
