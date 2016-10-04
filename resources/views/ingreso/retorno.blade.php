@@ -79,6 +79,7 @@
 
                 <div class="x_content">
                     <form id="form" class="form-horizontal form-label-left" novalidate="">
+                        {{-- TODO: Give some functionality to the comment input box --}}
                         <!-- React JS -->
                     </form>
                 </div>

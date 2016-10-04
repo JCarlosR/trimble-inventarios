@@ -54,7 +54,7 @@ var SearchPanel = React.createClass({
 var DevolutionComment = React.createClass({
     render: function() {
         return <div className="form-group">
-            <label className="control-label col-md-3 col-sm-3 col-xs-12" forHtml="observacion">
+            <label className="control-label col-md-3 col-sm-3 col-xs-12" forHtml="comment_rental">
                 Observaciones:
             </label>
             <div className="input-group col-md-6 col-sm-6 col-xs-12">
