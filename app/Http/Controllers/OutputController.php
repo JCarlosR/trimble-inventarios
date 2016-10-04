@@ -40,8 +40,9 @@ class OutputController extends Controller
     public function postRegistroVenta(Request $request)
     {
         $items = json_decode($request->get('items'));
-        //dd($request->all());
-
+        dd($items);
+        $factura = $request->get('factura');
+        $moneda = $request->get('moneda');
         $cliente = $request->get('cliente');
         $type = $request->get('tipo');
         $observacion = $request->get('observacion');
@@ -58,6 +59,13 @@ class OutputController extends Controller
             return response()->json(['error' => true, 'message' => 'Es necesario ingresar detalles para la venta.']);
         }
 
+        $outputInvoice = Output::where('invoice', $factura)->first();
+
+        if(!$outputInvoice)
+        {
+            return response()->json(['error' => true, 'message' => 'El numero de factura no puede ser repetido.']);
+        }
+
         DB::beginTransaction();
 
         try {
@@ -66,6 +74,8 @@ class OutputController extends Controller
             $output = Output::create([
                 'customer_id' => $customerId,
                 'type' => $type,
+                'invoice' => $factura,
+                'currency' => $moneda,
                 'reason' => 'sale',
                 'comment' => $observacion
 
@@ -130,12 +140,28 @@ class OutputController extends Controller
             }
 
             DB::commit();
+            $total = 0;
+            foreach ($items as $item)
+            {
+                $total = $total+$item->price;
+            }
+            $vista =  view('facturas.pdfFacturas', compact('total', 'items', 'cliente', 'type', 'observacion'))->render();
+            $dompdf = app('dompdf.wrapper');
+            $dompdf->loadHTML($vista);
+            $pdf = $dompdf->output();
+            $pdf_name = "Factura";
+            $file_location = $_SERVER['DOCUMENT_ROOT']."/trimble-inventarios/public/facturas/".$pdf_name.".pdf";
+            file_put_contents($file_location,$pdf);
+
+            
             return response()->json(['error' => false]);
+
             // all good
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['error' => true, 'message' => $e->getMessage()]);
         }
+
     }
 
     public function getVentas()
@@ -476,5 +502,20 @@ class OutputController extends Controller
         $pdf = app('dompdf.wrapper');
         $pdf->loadHTML($vista);
         return $pdf->stream();
+    }
+
+    public function getReportVentas(){
+        $outputs = Output::where('reason', 'sale')->with('customers')->get();
+        $urlInvoice = $_SERVER['DOCUMENT_ROOT']."trimble-inventarios/public/facturas/";
+        //dd($urlInvoice);
+        return view('salida.reportVentas')->with(compact('outputs', 'urlInvoice'));
+    }
+
+    public function showInvoice( $invoice ){
+        $pdf = app('dompdf.wrapper');
+        //$urlInvoice = $_SERVER['DOCUMENT_ROOT']."trimble-inventarios/public/facturas/Factura.pdf";
+        $urlInvoice = $_SERVER['DOCUMENT_ROOT']."/trimble-inventarios/public/facturas/".$invoice.".pdf";
+        $pdf->stream($urlInvoice, array("Attachment" => false));
+        exit(0);
     }
 }

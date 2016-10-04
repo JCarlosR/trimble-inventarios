@@ -25,7 +25,9 @@ class CreateOutputsTable extends Migration
             $table->boolean('active')->default(true);
 
             // Simple data
+            $table->string('invoice');
             $table->enum('type', ['local', 'foreign']);
+            $table->enum('currency', ['soles', 'dolares']);
             $table->string('comment');
 
             // Rental data

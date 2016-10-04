@@ -15,7 +15,9 @@ class OutputsTableSeeder extends Seeder
     {
         Output::create([
             'customer_id' => 1,
+            'invoice' => '1000001',
             'type' => 'local',
+            'currency' => 'soles',
             'comment' => 'Venta de prueba',
             'reason' => 'sale'
         ]);
@@ -23,7 +25,9 @@ class OutputsTableSeeder extends Seeder
         $carbon = new Carbon();
         Output::create([
             'customer_id' => 1,
+            'invoice' => '1000002',
             'type' => 'local',
+            'currency' => 'dolares',
             'comment' => 'Alquiler de prueba',
             'reason' => 'rental',
             'fechaAlquiler' => $carbon->now(),

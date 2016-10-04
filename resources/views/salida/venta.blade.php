@@ -40,6 +40,23 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
+                                        <label class="control-label col-md-3" for="factura">
+                                            Nro. Factura:
+                                        </label>
+                                        <div class="input-group col-md-9">
+                                            <input id="factura" name="factura" class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="control-label col-md-3" for="type">Moneda:</label>
+                                        <div class="input-group col-md-9">
+                                            <input type="radio" name="moneda" value="soles" checked> Soles
+                                            <input type="radio" name="moneda" value="dolares"> Dólares
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
                                         <label class="control-label col-md-3" for="cliente">
                                             Cliente:
                                         </label>

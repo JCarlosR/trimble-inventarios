@@ -202,6 +202,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     // Reports
+
+    Route::get('/reporte/ventas', 'OutputController@getReportVentas');
+    Route::get('/show/invoice/{invoice}', 'OutputController@showInvoice');
+    
     Route::get('/reporte/existencias', 'ReportController@getItems');
     Route::get('/reporte/productos/existencias', 'ReportController@productItems');
     Route::get('/bar', 'ReportController@bar');

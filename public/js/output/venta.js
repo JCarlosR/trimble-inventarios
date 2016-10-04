@@ -142,7 +142,7 @@ function addRow() {
         })
             .done(function( data ) {
                 if (data) {
-                    items.push({id: data.id, series: data.code, quantity: 1, price:price, type:'paq'});
+                    items.push({nombre: name, id: data.id, series: data.code, quantity: 1, price:price, type:'paq'});
                     renderTemplatePackage(data.id, data.code, 1, price, price);
                     updateTotal();
                 } else {
@@ -274,7 +274,7 @@ function addItemsSeries() {
 
     if( dontRepeat(series_array) ) {
         for ( var i=0; i<series_array.length; ++i) {
-            items.push({ id: selectedProduct.id, series: series_array[i], quantity: 1, price: selectedProduct.price, type:'prod' });
+            items.push({ nombre:selectedProduct.name, id: selectedProduct.id, series: series_array[i], quantity: 1, price: selectedProduct.price, type:'prod' });
             renderTemplateItem(selectedProduct.id, selectedProduct.name, series_array[i], 1, selectedProduct.price, selectedProduct.price);
         }
 
