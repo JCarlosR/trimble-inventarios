@@ -118,7 +118,8 @@
                                     <table class="table table-hover table-condensed">
                                         <thead>
                                         <tr>
-                                            <th>Venta</th>
+                                            <th>Cód. Interno</th>
+                                            <th>Factura</th>
                                             <th>Tipo</th>
                                             <th>Fecha</th>
                                             <th>Observación</th>
@@ -128,12 +129,13 @@
                                         <tbody id="bodyOutput" data-href="{{ url('/salida/listar/detalles/{id}') }}">
                                         @foreach($outputs as $output)
                                             <tr>
-                                                <td data-id="{{ $output->id }}">{{ $output->id+10000 }}</td>
+                                                <td data-id="{{ $output->id }}">{{ $output->id }}</td>
+                                                <td>{{ $output->invoice }}</td>
                                                 <td>{{ ($output->type=='local'?'Local':'Extranjero') }}</td>
                                                 <td>{{ $output->created_at }}</td>
                                                 <td>{{ $output->comment }}</td>
                                                 <td>
-                                                    <button type="button" class="btn btn-danger" data-anular="{{ $output->id }}">
+                                                    <button type="button" class="btn btn-danger btn-sm" data-anular="{{ $output->id }}" title="Anular">
                                                         <i class="fa fa-trash"></i>
                                                     </button>
                                                 </td>

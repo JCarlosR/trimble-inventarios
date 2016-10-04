@@ -45,16 +45,39 @@ $(document).on('ready', function () {
             dataset = products.concat(packages);
             loadAutoCompleteProducts(dataset);
         }
-
     });
 
 });
 
+function prevMonth(date_string) {
+    var slash = date_string.indexOf('-'); // first slash
+    var input_month = date_string.substr(slash+1);
+    slash = input_month.indexOf('-'); // last slash
+    input_month = input_month.substr(0, slash);
+
+    var current_month = new Date().getMonth() +1; // January is 0 for Date objects
+
+    return parseInt(input_month) < current_month;
+}
+
 function registerRental() {
     event.preventDefault();
+
+    // Validate invoice number
+    var invoice = $('#invoice').val();
+    if (! invoice) {
+        alert('Ingrese el número de factura.');
+        return;
+    }
+
+    // Validate date
+    var invoice_date = $('#invoice_date').val();
+    if (prevMonth(invoice_date)) {
+        alert('Tenga en cuenta que ha seleccionado un mes pasado.');
+    }
+
     var _token = $(this).find('[name=_token]');
     var data = $(this).serializeArray();
-
     var url_alquiler = '../alquiler/registrar';
 
     data.push({name: 'items', value: JSON.stringify(items)});
@@ -71,7 +94,7 @@ function registerRental() {
                 alert(response.message);
             else{
                 alert('Alquiler registrado correctamente.');
-                //location.reload();
+                location.reload();
             }
 
         });

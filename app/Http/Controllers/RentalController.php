@@ -19,8 +19,10 @@ use Illuminate\Support\Facades\DB;
 class RentalController extends Controller
 {
     public function store(Request $request) {
-        //dd($request->all());
         $items = json_decode($request->get('items'));
+
+        $invoiceDate = $request->get('invoice_date');
+        $invoiceNumber = $request->get('invoice');
 
         $cliente = $request->get('cliente');
         $destination = $request->get('destination');
@@ -28,14 +30,19 @@ class RentalController extends Controller
         $fechaRetorno = $request->get('fechaRetorno');
         $observacion = $request->get('observacion');
 
-        $customer = Customer::where('name', $cliente)->first();
+        $invoiceNumberRepeated = Output::where('invoice', $invoiceNumber)->count() > 0;
+        if($invoiceNumberRepeated)
+        {
+            return response()->json(['error' => true, 'message' => 'Ha ingresado un número de factura repetido.']);
+        }
 
-        if(!$customer)
+        $customer = Customer::where('name', $cliente)->first();
+        if (! $customer)
         {
             return response()->json(['error' => true, 'message' => 'Cliente indicado no existe.']);
         }
 
-        if($fechaRetorno<$fechaAlquiler)
+        if ($fechaRetorno < $fechaAlquiler)
         {
             return response()->json(['error' => true, 'message' => 'Inconsistencia de fechas, la fecha de retorno debe ser posterior a la fecha de alquiler.']);
         }
@@ -50,8 +57,10 @@ class RentalController extends Controller
         try {
             // Create Output Header
             $customerId = $customer->id;
-            //dd($destination);
+
             $output = Output::create([
+                'invoice_date' => $invoiceDate,
+                'invoice' => $invoiceNumber,
                 'customer_id' => $customerId,
                 'destination' => $destination,
                 'reason' => 'rental',
@@ -59,7 +68,7 @@ class RentalController extends Controller
                 'fechaAlquiler' => $fechaAlquiler,
                 'fechaRetorno' => $fechaRetorno
             ]);
-            //dd($output);
+
             foreach($items as $item)
             {
                 if($item->type=='prod')

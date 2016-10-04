@@ -4,6 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @mixin \Eloquent
+ */
+
 class Package extends Model
 {
     protected $fillable = ['name', 'code', 'description', 'state','box_id'];

@@ -5,11 +5,17 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @mixin \Eloquent
+ */
+
 class Output extends Model
 {
 
     protected $fillable = [
-        'customer_id', 'type', 'reason', 'comment', 'destination', 'fechaAlquiler', 'fechaRetorno'
+        'invoice', 'invoice_date',
+        'customer_id', 'type', 'reason', 'comment', 'destination',
+        'fechaAlquiler', 'fechaRetorno' // just for rentals
     ];
 
     protected $appends = [
@@ -26,8 +32,9 @@ class Output extends Model
     public function getRentalDaysAttribute()
     {
         $now = Carbon::now();
-        if (!$this->fechaAlquiler)
-            return "";
+        if (! $this->fechaAlquiler)
+            return '';
+
         return $this->fechaAlquiler->diff($now)->days;
     }
 

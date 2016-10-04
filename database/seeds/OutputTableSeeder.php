@@ -13,17 +13,24 @@ class OutputsTableSeeder extends Seeder
      */
     public function run()
     {
+        $carbon = new Carbon();
+
         Output::create([
             'customer_id' => 1,
+            'invoice' => '1000001',
+            'invoice_date' => $carbon->now(),
             'type' => 'local',
+            'currency' => 'PEN',
             'comment' => 'Venta de prueba',
             'reason' => 'sale'
         ]);
 
-        $carbon = new Carbon();
         Output::create([
             'customer_id' => 1,
+            'invoice' => '1000002',
+            'invoice_date' => $carbon->now(),
             'type' => 'local',
+            'currency' => 'USD',
             'comment' => 'Alquiler de prueba',
             'reason' => 'rental',
             'fechaAlquiler' => $carbon->now(),

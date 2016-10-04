@@ -16,7 +16,6 @@ var URL = window.location,
 
 // Sidebar
 $(document).ready(function() {
-    // TODO: This is some kind of easy fix, maybe we can improve this
     var setContentHeight = function () {
         // reset height
         $RIGHT_COL.css('min-height', $(window).height());

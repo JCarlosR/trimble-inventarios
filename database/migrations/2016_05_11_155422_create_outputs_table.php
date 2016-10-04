@@ -24,15 +24,19 @@ class CreateOutputsTable extends Migration
 
             $table->boolean('active')->default(true);
 
-            // Simple data
+            // General data
             $table->enum('type', ['local', 'foreign']);
+            $table->enum('currency', ['PEN', 'USD']);
             $table->string('comment');
+
+            // Invoice data
+            $table->string('invoice'); // number
+            $table->date('invoice_date')->nullable();
 
             // Rental data
             $table->date('fechaAlquiler')->nullable();
             $table->date('fechaRetorno')->nullable();
             $table->string('destination')->nullable();
-            $table->string('comment_rental')->nullable();
 
             // For rentals, this indicates the status of the devolution
             $table->boolean('completed')->default(false);

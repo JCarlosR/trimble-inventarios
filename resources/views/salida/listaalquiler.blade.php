@@ -136,10 +136,10 @@
                                             <td>{{ $output->rental_state }}</td>
                                             <td>{{ $output->comment }}</td>
                                             <td>
-                                                <button type="button" class="btn btn-primary" data-look="{{ $output->id }}">
+                                                <button type="button" class="btn btn-primary btn-sm" data-look="{{ $output->id }}" title="Ver detalles">
                                                     <i class="fa fa-eye"></i>
                                                 </button>
-                                                <button type="button" class="btn btn-danger" data-anular="{{ $output->id }}">
+                                                <button type="button" class="btn btn-danger btn-sm" data-anular="{{ $output->id }}">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             </td>

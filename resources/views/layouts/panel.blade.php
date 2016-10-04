@@ -104,6 +104,7 @@
 
                             <li><a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
+                                    <li><a href="{{ url('reporte/ventas') }}">Reporte de ventas</a></li>
                                     <li><a href="{{ url('reporte/existencias') }}">Reporte según ubicación</a></li>
                                     <li><a href="{{ url('reporte/productos/existencias/') }}">Existencias por producto</a></li>
                                     <li><a href="{{ url('bar') }}">Gráfico de Barras</a></li>
@@ -122,7 +123,7 @@
                             </li>
                             @endif
 
-                            <li><a href="{{ url('/cajachica') }}"><i class="fa fa-bell"></i> Caja chica</a>
+                            <li><a href="{{ url('/cajachica') }}"><i class="fa fa-institution"></i> Caja chica</a>
                             </li>
                         </ul>
                     </div>

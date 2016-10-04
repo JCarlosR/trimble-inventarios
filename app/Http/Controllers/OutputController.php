@@ -4,21 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Box;
 use App\Customer;
-use App\Entry;
 use App\Http\Requests;
 use App\Item;
 use App\Output;
+use App\OutputDetail;
 use App\OutputPackage;
 use App\OutputPackageDetail;
 use App\Package;
 use App\Product;
-use App\OutputDetail;
-use App\User;
 use Carbon\Carbon;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -40,14 +36,15 @@ class OutputController extends Controller
     public function postRegistroVenta(Request $request)
     {
         $items = json_decode($request->get('items'));
-        //dd($request->all());
 
+        $invoiceDate = $request->get('invoice_date');
+        $factura = $request->get('factura');
+        $moneda = $request->get('moneda');
         $cliente = $request->get('cliente');
         $type = $request->get('tipo');
         $observacion = $request->get('observacion');
 
         $customer = Customer::where('name', $cliente)->first();
-
         if(!$customer)
         {
             return response()->json(['error' => true, 'message' => 'Cliente indicado no existe.']);
@@ -58,17 +55,25 @@ class OutputController extends Controller
             return response()->json(['error' => true, 'message' => 'Es necesario ingresar detalles para la venta.']);
         }
 
+        $invoiceNumberRepeated = Output::where('invoice', $factura)->count() > 0;
+        if($invoiceNumberRepeated)
+        {
+            return response()->json(['error' => true, 'message' => 'Ha ingresado un número de factura repetido.']);
+        }
+
         DB::beginTransaction();
 
         try {
             // Create Output Header
             $customerId = $customer->id;
             $output = Output::create([
+                'invoice_date' => $invoiceDate,
+                'invoice' => $factura,
                 'customer_id' => $customerId,
                 'type' => $type,
+                'currency' => $moneda,
                 'reason' => 'sale',
                 'comment' => $observacion
-
             ]);
 
             foreach($items as $item)
@@ -82,7 +87,7 @@ class OutputController extends Controller
                     $realItem->state = 'sold';
 
                     $realItem->save();
-                    //dd($output->id);
+
                     // Create one Output Detail = OutputDetailItem
                     OutputDetail::create([
                         'output_id' => $output->id,
@@ -100,7 +105,6 @@ class OutputController extends Controller
                     $realpackage->state = 'sold';
 
                     $realpackage->save();
-                    //dd($output->id);
 
                     $outputPackage = OutputPackage::create([
                         'output_id' => $output->id,
@@ -130,12 +134,28 @@ class OutputController extends Controller
             }
 
             DB::commit();
+            $total = 0;
+            foreach ($items as $item)
+            {
+                $total = $total+$item->price;
+            }
+            $vista =  view('facturas.pdfFacturas', compact('total', 'items', 'cliente', 'type', 'observacion'))->render();
+            $dompdf = app('dompdf.wrapper');
+            $dompdf->loadHTML($vista);
+            $pdf = $dompdf->output();
+            $pdf_name = "Factura";
+            $file_location = $_SERVER['DOCUMENT_ROOT']."/trimble-inventarios/public/facturas/".$pdf_name.".pdf";
+            file_put_contents($file_location,$pdf);
+
+            
             return response()->json(['error' => false]);
+
             // all good
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['error' => true, 'message' => $e->getMessage()]);
         }
+
     }
 
     public function getVentas()
@@ -476,5 +496,20 @@ class OutputController extends Controller
         $pdf = app('dompdf.wrapper');
         $pdf->loadHTML($vista);
         return $pdf->stream();
+    }
+
+    public function getReportVentas(){
+        $outputs = Output::where('reason', 'sale')->with('customers')->get();
+        $urlInvoice = $_SERVER['DOCUMENT_ROOT']."trimble-inventarios/public/facturas/";
+        //dd($urlInvoice);
+        return view('salida.reportVentas')->with(compact('outputs', 'urlInvoice'));
+    }
+
+    public function showInvoice( $invoice ){
+        $pdf = app('dompdf.wrapper');
+        //$urlInvoice = $_SERVER['DOCUMENT_ROOT']."trimble-inventarios/public/facturas/Factura.pdf";
+        $urlInvoice = $_SERVER['DOCUMENT_ROOT']."/trimble-inventarios/public/facturas/".$invoice.".pdf";
+        $pdf->stream($urlInvoice, array("Attachment" => false));
+        exit(0);
     }
 }
