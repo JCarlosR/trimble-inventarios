@@ -4,9 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @mixin \Eloquent
+ */
+
 class Customer extends Model
 {
-    //
+
     protected $fillable = [
         'name', 'document', 'address', 'phone', 'type', 'customer_type_id', 'enable',
     ];
