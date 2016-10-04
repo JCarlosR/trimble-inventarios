@@ -87,6 +87,21 @@
                         <form id="form" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
                             {{ csrf_field() }}
                             <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="control-label col-md-3" for="fecha">Nro de factura:</label>
+
+                                        <div class="input-group col-md-9">
+                                            <input type="text" name="invoice" id="invoice" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="control-label col-md-3" for="fecha">Fecha factura:</label>
+                                        <div class="input-group col-md-9">
+                                            <input type="date" name="invoice_date" id="invoice_date" class="form-control" value="{{ $currentDate }}">
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="row">
                                     <div class="col-md-6">
@@ -105,8 +120,8 @@
                                             <input type="text" name="destination" class="form-control">
                                         </div>
                                     </div>
-
                                 </div>
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label class="control-label col-md-3" for="fecha">Fecha alquiler:</label>
@@ -205,8 +220,6 @@
                                         </template>
                                         <tbody id="table-items">
 
-
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -261,8 +274,6 @@
                 </div>
                 <div class="modal-body" id="bodySeries">
 
-
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" id="btnAccept">Aceptar</button>
@@ -314,7 +325,6 @@
 
         </div>
     </div>
-
     {{-- Fin modal --}}
 @endsection
 @section('scripts')

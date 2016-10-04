@@ -15,17 +15,6 @@
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="#">Settings 1</a>
-                                </li>
-                                <li>
-                                    <a href="#">Settings 2</a>
-                                </li>
-                            </ul>
-                        </li>
                         <li>
                             <a class="close-link"><i class="fa fa-close"></i></a>
                         </li>
@@ -41,17 +30,16 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label class="control-label col-md-3" for="factura">
-                                            Nro. Factura:
+                                            Nro. de factura:
                                         </label>
                                         <div class="input-group col-md-9">
                                             <input id="factura" name="factura" class="form-control" type="text">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="control-label col-md-3" for="type">Moneda:</label>
+                                        <label class="control-label col-md-3" for="sale_date">Fecha de factura:</label>
                                         <div class="input-group col-md-9">
-                                            <input type="radio" name="moneda" value="soles" checked> Soles
-                                            <input type="radio" name="moneda" value="dolares"> Dólares
+                                            <input type="date" class="form-control" name="invoice_date" id="invoice_date" value="{{ date('Y-m-d') }}">
                                         </div>
                                     </div>
                                 </div>
@@ -66,11 +54,23 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="control-label col-md-3" for="type">Tipo:</label>
-                                        <div class="input-group col-md-9">
-                                            <input type="radio" name="tipo" value="local" checked> Local
-                                            <input type="radio" name="tipo" value="foreign"> Extranjero
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label class="control-label col-md-4" for="type">Moneda:</label>
+                                                <div class="input-group col-md-8">
+                                                    <input type="radio" name="moneda" value="PEN" checked> Soles
+                                                    <input type="radio" name="moneda" value="USD"> Dólares
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="control-label col-md-4" for="type">Tipo:</label>
+                                                <div class="input-group col-md-8">
+                                                    <input type="radio" name="tipo" value="local" checked> Local
+                                                    <input type="radio" name="tipo" value="foreign"> Extranjero
+                                                </div>
+                                            </div>
                                         </div>
+
                                     </div>
 
                                 </div>

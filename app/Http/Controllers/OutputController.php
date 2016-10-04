@@ -4,21 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Box;
 use App\Customer;
-use App\Entry;
 use App\Http\Requests;
 use App\Item;
 use App\Output;
+use App\OutputDetail;
 use App\OutputPackage;
 use App\OutputPackageDetail;
 use App\Package;
 use App\Product;
-use App\OutputDetail;
-use App\User;
 use Carbon\Carbon;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -40,7 +36,8 @@ class OutputController extends Controller
     public function postRegistroVenta(Request $request)
     {
         $items = json_decode($request->get('items'));
-        dd($items);
+
+        $invoiceDate = $request->get('invoice_date');
         $factura = $request->get('factura');
         $moneda = $request->get('moneda');
         $cliente = $request->get('cliente');
@@ -48,7 +45,6 @@ class OutputController extends Controller
         $observacion = $request->get('observacion');
 
         $customer = Customer::where('name', $cliente)->first();
-
         if(!$customer)
         {
             return response()->json(['error' => true, 'message' => 'Cliente indicado no existe.']);
@@ -59,11 +55,10 @@ class OutputController extends Controller
             return response()->json(['error' => true, 'message' => 'Es necesario ingresar detalles para la venta.']);
         }
 
-        $outputInvoice = Output::where('invoice', $factura)->first();
-
-        if(!$outputInvoice)
+        $invoiceNumberRepeated = Output::where('invoice', $factura)->count() > 0;
+        if($invoiceNumberRepeated)
         {
-            return response()->json(['error' => true, 'message' => 'El numero de factura no puede ser repetido.']);
+            return response()->json(['error' => true, 'message' => 'Ha ingresado un número de factura repetido.']);
         }
 
         DB::beginTransaction();
@@ -72,13 +67,13 @@ class OutputController extends Controller
             // Create Output Header
             $customerId = $customer->id;
             $output = Output::create([
+                'invoice_date' => $invoiceDate,
+                'invoice' => $factura,
                 'customer_id' => $customerId,
                 'type' => $type,
-                'invoice' => $factura,
                 'currency' => $moneda,
                 'reason' => 'sale',
                 'comment' => $observacion
-
             ]);
 
             foreach($items as $item)
@@ -92,7 +87,7 @@ class OutputController extends Controller
                     $realItem->state = 'sold';
 
                     $realItem->save();
-                    //dd($output->id);
+
                     // Create one Output Detail = OutputDetailItem
                     OutputDetail::create([
                         'output_id' => $output->id,
@@ -110,7 +105,6 @@ class OutputController extends Controller
                     $realpackage->state = 'sold';
 
                     $realpackage->save();
-                    //dd($output->id);
 
                     $outputPackage = OutputPackage::create([
                         'output_id' => $output->id,

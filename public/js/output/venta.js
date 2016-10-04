@@ -56,7 +56,7 @@ function updateSubtotal() {
     var precio = $(this).parent().next().text();
     if( $(this).is(':checked'))
     {
-        //precio = $(this).parent().prev().text();
+        // precio = $(this).parent().prev().text();
         price = precio*1.18;
         $(this).parent().next().html(price);
         for (var i = 0; i<items.length; ++i)
@@ -73,9 +73,33 @@ function updateSubtotal() {
     }
 }
 
+function prevMonth(date_string) {
+    var slash = date_string.indexOf('-'); // first slash
+    var input_month = date_string.substr(slash+1);
+    slash = input_month.indexOf('-'); // last slash
+    input_month = input_month.substr(0, slash);
+
+    var current_month = new Date().getMonth() +1; // January is 0 for Date objects
+
+    return parseInt(input_month) < current_month;
+}
+
 function registerOutput() {
     event.preventDefault();
-    console.log(items);
+
+    // Validate invoice number
+    var invoice = $('#factura').val();
+    if (! invoice) {
+        alert('Ingrese el número de factura.');
+        return;
+    }
+
+    // Validate date
+    var invoice_date = $('#invoice_date').val();
+    if (prevMonth(invoice_date)) {
+        alert('Tenga en cuenta que ha seleccionado un mes pasado.');
+    }
+
     var _token = $(this).find('[name=_token]');
     var data = $(this).serializeArray();
     data.push({name: 'items', value: JSON.stringify(items)});
@@ -84,16 +108,15 @@ function registerOutput() {
         data: data,
         method: 'POST',
         headers: { 'X-CSRF-TOKEN': _token }
-    })
-        .done(function( response ) {
-            if(response.error)
-                alert(response.message);
-            else{
-                alert('Venta registrada correctamente.');
-                location.reload();
-            }
+    }).done(function( response ) {
+        if(response.error)
+            alert(response.message);
+        else{
+            alert('Venta registrada correctamente.');
+            location.reload();
+        }
 
-        });
+    });
 }
 
 function lookDetails() {
@@ -113,7 +136,6 @@ function lookDetails() {
 }
 
 function addRow() {
-    console.log('Entre');
     // Validate the product name
     var name = $('#product').val();
     if (!name) return;

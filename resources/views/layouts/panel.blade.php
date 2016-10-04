@@ -122,7 +122,7 @@
                             </li>
                             @endif
 
-                            <li><a href="{{ url('/cajachica') }}"><i class="fa fa-bell"></i> Caja chica</a>
+                            <li><a href="{{ url('/cajachica') }}"><i class="fa fa-institution"></i> Caja chica</a>
                             </li>
                         </ul>
                     </div>
