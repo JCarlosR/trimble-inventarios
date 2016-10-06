@@ -20,6 +20,9 @@ class CreateOutputsTable extends Migration
             $table->foreign('customer_id')->references('id')->on('customers');
 
             // Employee who registered the output
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+
             $table->enum('reason', ['sale', 'rental']);
 
             $table->boolean('active')->default(true);
@@ -28,6 +31,7 @@ class CreateOutputsTable extends Migration
             $table->enum('type', ['local', 'foreign']);
             $table->enum('currency', ['PEN', 'USD']);
             $table->string('comment');
+            $table->decimal('igv', 9,2);
 
             // Invoice data
             $table->string('invoice'); // number

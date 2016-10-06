@@ -14,6 +14,7 @@ use App\Package;
 use App\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
@@ -35,6 +36,7 @@ class OutputController extends Controller
 
     public function postRegistroVenta(Request $request)
     {
+        //dd(Auth::user()->id);
         $items = json_decode($request->get('items'));
 
         $invoiceDate = $request->get('invoice_date');
@@ -42,6 +44,7 @@ class OutputController extends Controller
         $moneda = $request->get('moneda');
         $cliente = $request->get('cliente');
         $type = $request->get('tipo');
+        $igv = $request->get('igv');
         $observacion = $request->get('observacion');
 
         $customer = Customer::where('name', $cliente)->first();
@@ -70,7 +73,9 @@ class OutputController extends Controller
                 'invoice_date' => $invoiceDate,
                 'invoice' => $factura,
                 'customer_id' => $customerId,
+                'user_id' => Auth::user()->id,
                 'type' => $type,
+                'igv' => $igv,
                 'currency' => $moneda,
                 'reason' => 'sale',
                 'comment' => $observacion

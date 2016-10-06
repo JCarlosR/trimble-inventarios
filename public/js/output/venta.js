@@ -3,6 +3,7 @@ var items = [];
 var products;
 var packages;
 var dataset;
+var igv = 0;
 
 // Temporary variables
 var selectedProduct;
@@ -50,6 +51,8 @@ $(document).on('ready', function () {
     });
 });
 
+
+
 function updateSubtotal() {
     var serie = $(this).data('igvserie');
     var price;
@@ -62,6 +65,8 @@ function updateSubtotal() {
         for (var i = 0; i<items.length; ++i)
             if (items[i].series == serie)
                 items[i].price = price;
+        igv += price-precio;
+        console.log("IGV: "+igv);
         updateTotal();
     }else{
         price = precio*100/118;
@@ -69,6 +74,8 @@ function updateSubtotal() {
         for (var i = 0; i<items.length; ++i)
             if (items[i].series == serie)
                 items[i].price = price;
+        igv -= precio-price;
+        console.log("IGV: "+igv);
         updateTotal();
     }
 }
@@ -103,6 +110,7 @@ function registerOutput() {
     var _token = $(this).find('[name=_token]');
     var data = $(this).serializeArray();
     data.push({name: 'items', value: JSON.stringify(items)});
+    data.push({name: 'igv', value: Math.round(igv*100)/100});
     $.ajax({
         url: 'venta',
         data: data,
@@ -325,15 +333,19 @@ function dontRepeat(series_array) {
 function deleteItem() {
     var $tr = $(this).parents('tr');
     var id = $(this).data('delete');
+    var precio = $(this).parent().prev().text();
     var series = $tr.find('[data-series]').text();
-    itemDelete(id, series);
+    itemDelete(id, series, precio);
     $tr.remove();
 }
 
-function itemDelete(id, series) {
+function itemDelete(id, series, precio) {
+    var price;
     for (var i = 0; i<items.length; ++i) {
         if (items[i].id == id && items[i].series == series) {
             items.splice(i, 1);
+            price = precio*100/118;
+            igv -= precio-price;
             updateTotal();
             return;
         }
@@ -344,7 +356,9 @@ function updateTotal() {
     var total = 0;
     for (var i=0; i<items.length; ++i)
         total += items[i].price * items[i].quantity;
+    $('#igv').val(Math.round(igv*100)/100);
     $('#total').val(total);
+
 }
 
 function loadAutoCompleteProducts(data) {
