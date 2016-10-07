@@ -36,6 +36,8 @@ class CreateOutputsTable extends Migration
             // Invoice data
             $table->string('invoice'); // number
             $table->date('invoice_date')->nullable();
+            $table->date('income_tax_date')->nullable();
+            $table->date('general_sales_tax_date')->nullable();
 
             // Rental data
             $table->date('fechaAlquiler')->nullable();
