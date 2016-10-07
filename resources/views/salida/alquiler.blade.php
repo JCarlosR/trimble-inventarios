@@ -187,6 +187,7 @@
                                             <th>Serie</th>
                                             <th>Cantidad</th>
                                             <th>Precio</th>
+                                            <th>IGV</th>
                                             <th>Subtotal</th>
                                             <th>Acción</th>
                                         </tr>
@@ -198,6 +199,9 @@
                                                 <td data-series>256314</td>
                                                 <td data-quantity>1</td>
                                                 <td data-price>1</td>
+                                                <td>
+                                                    <input type="checkbox" data-igvserie>
+                                                </td>
                                                 <td data-sub>1</td>
                                                 <td>
                                                     <button data-delete type="button" class="btn btn-danger">Quitar</button>
@@ -211,6 +215,9 @@
                                                 <td data-series>256314</td>
                                                 <td data-quantity>1</td>
                                                 <td data-price>1</td>
+                                                <td>
+                                                    <input type="checkbox" data-igvserie>
+                                                </td>
                                                 <td data-sub>1</td>
                                                 <td>
                                                     <button data-look type="button" class="btn btn-primary">Ver</button>
@@ -225,12 +232,27 @@
                                 </div>
 
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cliente">Total
-                                </label>
-                                <div class="col-md-3 col-sm-6 col-xs-12">
-                                    <input type="text" id="total" class="form-control">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-xs-12" for="total">Igv:
+                                        </label>
+                                        <div class="col-md-4">
+                                            <input type="text" id="igv" class="form-control" readonly value="0">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <label class="control-label col-md-3 col-xs-12" for="total">Total:
+                                        </label>
+                                        <div class="col-md-4">
+                                            <input type="text" id="total" class="form-control" readonly value="0">
+                                        </div>
+                                    </div>
                                 </div>
+
                             </div>
 
                             <div class="form-group">

@@ -51,8 +51,6 @@ $(document).on('ready', function () {
     });
 });
 
-
-
 function updateSubtotal() {
     var serie = $(this).data('igvserie');
     var price;
@@ -376,8 +374,6 @@ function loadAutoCompleteProducts(data) {
     );
 
 }
-
-
 
 // Funciones relacionadas al template HTML5
 function activateTemplate(id) {
