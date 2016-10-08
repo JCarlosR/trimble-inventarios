@@ -255,4 +255,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/excel/caja-chica', 'SmallBoxController@excel');
     // PDF - Small box
     Route::get('/pdf/caja-chica', 'SmallBoxController@pdf');
+
+    // Pagos
+    Route::get('/pagos', 'PaymentController@index');
+    Route::get('/pagos/search/{invoice}', 'PaymentController@search');
+    Route::post('/pagos/save', 'PaymentController@store');
+    
 });

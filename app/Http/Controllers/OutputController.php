@@ -45,6 +45,7 @@ class OutputController extends Controller
         $cliente = $request->get('cliente');
         $type = $request->get('tipo');
         $igv = $request->get('igv');
+        $total = $request->get('total');
         $observacion = $request->get('observacion');
 
         $customer = Customer::where('name', $cliente)->first();
@@ -76,6 +77,8 @@ class OutputController extends Controller
                 'user_id' => Auth::user()->id,
                 'type' => $type,
                 'igv' => $igv,
+                'total' => $total,
+                'state' => 0,
                 'currency' => $moneda,
                 'reason' => 'sale',
                 'comment' => $observacion

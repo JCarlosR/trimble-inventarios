@@ -14,7 +14,7 @@ class Output extends Model
 
     protected $fillable = [
         'invoice', 'invoice_date',
-        'customer_id', 'user_id', 'igv', 'type', 'reason', 'comment', 'destination',
+        'customer_id', 'user_id', 'igv', 'type', 'reason', 'comment', 'destination', 'state', 'total',
         'fechaAlquiler', 'fechaRetorno' // just for rentals
     ];
 
