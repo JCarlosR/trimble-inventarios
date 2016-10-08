@@ -43,6 +43,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('productos/disponibles', 'OutputController@getProductosDisponibles');
     Route::get('paquetes/disponibles', 'OutputController@getPaquetesDisponibles');
 
+    // Invoices
+    Route::get('listar-facturas-declarar','InvoiceController@index');
+    Route::post('listar-facturas-declarar-ir','InvoiceController@ir');
+    Route::post('listar-facturas-declarar-igv','InvoiceController@igv');
+    Route::get('listar-facturas-declarar-historial','InvoiceController@history');
+    Route::get('listar-facturas-declarar/{mes}','InvoiceController@mes');
+    Route::get('listar-facturas-declarar/{inicio}/{fin}','InvoiceController@fechas');
+
 
     // Rentals
     Route::post('alquiler/registrar', 'RentalController@store');
