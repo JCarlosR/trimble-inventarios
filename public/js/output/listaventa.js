@@ -17,7 +17,16 @@ function showDetractionModal() {
     $modalDetraction.find('[name="id"]').val(id);
 
     $.get(detraction_url+'/'+id, function (data) {
-        $modalDetraction.find('[name="detraction"]').val(data);
+        if (data) {
+            $modalDetraction.find('[name="detraction"]').val(data.value);
+            $modalDetraction.find('[name="detraction_date"]').val(data.detraction_date);
+            $modalDetraction.find('[name="voucher"]').val(data.voucher);
+        } else {
+            $modalDetraction.find('[name="detraction"]').val(0);
+            $modalDetraction.find('[name="detraction_date"]').val('');
+            $modalDetraction.find('[name="voucher"]').val('');
+        }
+
         $modalDetraction.modal('show');
     });
 }

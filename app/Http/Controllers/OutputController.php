@@ -357,33 +357,6 @@ class OutputController extends Controller
         return back();
     }
 
-    public function getDetraction($id) {
-        return Output::find($id)->detraction;
-    }
-
-    public function postDetraction(Request $request) {
-        $data['success'] = true;
-
-        $output_id = $request->get('id');
-        $detraction = $request->get('detraction');
-
-        if ($detraction < 0) {
-            $data['success'] = false;
-            $data['message'] = 'Ingrese un valor positivo o CERO para anular.';
-        }
-
-        $output = Output::find($output_id);
-        if (! $output) {
-            $data['success'] = false;
-            $data['message'] = 'La salida seleccionada no existe en la base de datos.';
-        }
-
-        $output->detraction = $detraction;
-        $output->save();
-
-        return $data;
-    }
-
     public function reportRange( $start, $end ) {
         ($start." ".$end);
         Excel::create('Salidas', function ($excel) use ($start, $end){

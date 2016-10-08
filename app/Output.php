@@ -64,4 +64,9 @@ class Output extends Model
     {
         return $this->belongsTo('App\Customer', 'customer_id');
     }
+
+    public function detraction()
+    {
+        return $this->hasOne('App\Detraction');
+    }
 }
