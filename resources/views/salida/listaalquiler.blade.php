@@ -112,7 +112,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-2 col-sm-12">
-                                <table class="table table-hover" id="mytable">
+                                <table class="table table-hover" id="outputsTable">
                                     <thead>
                                     <tr>
                                         <th>Alquiler</th>
@@ -136,8 +136,11 @@
                                             <td>{{ $output->rental_state }}</td>
                                             <td>{{ $output->comment }}</td>
                                             <td>
-                                                <button type="button" class="btn btn-primary btn-sm" data-look="{{ $output->id }}" title="Ver detalles">
-                                                    <i class="fa fa-eye"></i>
+                                                <button type="button" class="btn btn-info btn-sm" data-look="{{ $output->id }}" title="Listar detalles">
+                                                    <i class="fa fa-list"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-sm" data-detraction="{{ $output->id }}" title="Detracción">
+                                                    <i class="fa fa-bolt"></i>
                                                 </button>
                                                 <button type="button" class="btn btn-danger btn-sm" data-anular="{{ $output->id }}">
                                                     <i class="fa fa-trash"></i>
@@ -254,6 +257,8 @@
             </div>
         </div>
     </div>
+
+    @include('salida.modal-detraction')
 @endsection
 
 @section('scripts')
@@ -261,6 +266,8 @@
     <script src="{{ asset('js/footable.min.js') }}"></script>
     <script src="{{ asset('js/output/listaalquiler.js') }}"></script>
     <script>
+        var detraction_url = '{{ url('/salida/detraction') }}';
+
         $(document).on('ready', function () {
             var substringMatcher = function(strs) {
                 return function findMatches(q, cb) {

@@ -1,16 +1,40 @@
 $(document).on('ready', function (){
     $('#btnShowOutputs').on('click', showOutputs);
-    $('#bodyOutput').on('click', 'tr', showDetails);
+    $('#bodyOutput').on('click', '[data-details]', showDetails);
+
     $modalAnular = $('#modalAnular');
     $('[data-anular]').on('click', mostrarAnular);
+
+    $modalDetraction = $('#modalDetraction');
+    $('[data-detraction]').on('click', showDetractionModal);
+    $formDetraction = $('#formDetraction');
+    $formDetraction.on('submit', submitDetraction);
 });
 
-var $modalAnular;
+var $modalDetraction, $formDetraction;
+function showDetractionModal() {
+    var id = $(this).data('detraction');
+    $modalDetraction.find('[name="id"]').val(id);
 
+    $.get(detraction_url+'/'+id, function (data) {
+        $modalDetraction.find('[name="detraction"]').val(data);
+        $modalDetraction.modal('show');
+    });
+}
+function submitDetraction() {
+    event.preventDefault();
+
+    $.post(detraction_url, $(this).serialize(), function (data) {
+        if (data.success)
+            $modalDetraction.modal('hide');
+        else alert(data.message);
+    });
+}
+
+var $modalAnular;
 function mostrarAnular() {
     var id = $(this).data('anular');
     $modalAnular.find('[name="id"]').val(id);
-
     $modalAnular.modal('show');
 }
 
@@ -30,9 +54,9 @@ function showOutputs() {
 }
 
 function showDetails() {
-    var id = $(this).find('[data-id]').data('id');
+    var id = $(this).data('details');
     var url = $('#bodyOutput').data('href').replace('{id}', id);
-    console.log(url);
+    // console.log(url);
     $.ajax({
             url: url
         })

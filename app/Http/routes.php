@@ -43,6 +43,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('productos/disponibles', 'OutputController@getProductosDisponibles');
     Route::get('paquetes/disponibles', 'OutputController@getPaquetesDisponibles');
 
+    // Outputs detraction
+    Route::get('/salida/detraction/{id}', 'OutputController@getDetraction');
+    Route::post('/salida/detraction', 'OutputController@postDetraction');
+
 
     // Rentals
     Route::post('alquiler/registrar', 'RentalController@store');

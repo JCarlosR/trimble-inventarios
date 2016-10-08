@@ -38,7 +38,10 @@ class CreateOutputsTable extends Migration
             $table->date('fechaRetorno')->nullable();
             $table->string('destination')->nullable();
 
-            // For rentals, this indicates the status of the devolution
+            // Detraction data
+            $table->float('detraction')->default(0);
+
+            // For rentals, the completed is TRUE when the devolution is done
             $table->boolean('completed')->default(false);
 
             $table->timestamps();

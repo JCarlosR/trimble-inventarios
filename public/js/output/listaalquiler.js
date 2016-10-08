@@ -1,14 +1,41 @@
 $(document).on('ready', function (){
-    $('#btnShowOutputs').on('click', showOutputs);
+    // $('#btnShowOutputs').on('click', showOutputs); // ??
+
     $('[data-look]').on('click', showDetails);
+
     $modalAnular = $('#modalAnular');
     $('[data-anular]').on('click', mostrarAnular);
 
     $(document).on('click', '[data-package]', showPackageDetails);
 
-    // FooTable
-    $('#mytable').footable();
+    // Apply fooTable
+    $('#outputsTable').footable();
+
+    $modalDetraction = $('#modalDetraction');
+    $('[data-detraction]').on('click', showDetractionModal);
+    $formDetraction = $('#formDetraction');
+    $formDetraction.on('submit', submitDetraction);
 });
+
+var $modalDetraction, $formDetraction;
+function showDetractionModal() {
+    var id = $(this).data('detraction');
+    $modalDetraction.find('[name="id"]').val(id);
+
+    $.get(detraction_url+'/'+id, function (data) {
+        $modalDetraction.find('[name="detraction"]').val(data);
+        $modalDetraction.modal('show');
+    });
+}
+function submitDetraction() {
+    event.preventDefault();
+
+    $.post(detraction_url, $(this).serialize(), function (data) {
+        if (data.success)
+            $modalDetraction.modal('hide');
+        else alert(data.message);
+    });
+}
 
 function showPackageDetails() {
     var id = $(this).data('package');
@@ -25,7 +52,6 @@ function showPackageDetails() {
 
         $('#modalPackageDetails').modal('show');
     });
-
 }
 
 
