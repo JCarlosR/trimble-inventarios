@@ -100,7 +100,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/usuarios', 'UserController@store');
     Route::delete('/usuarios', 'UserController@delete');
 
-
     /* Products */
     // Categories
     Route::get('/categoria', 'CategoryController@index');

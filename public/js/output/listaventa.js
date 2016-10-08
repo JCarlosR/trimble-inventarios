@@ -33,6 +33,11 @@ function submitDetraction() {
 
 var $modalAnular;
 function mostrarAnular() {
+    if( access_denied ){
+        alert('Usted no tiene permisos para esta acción');
+        return;
+    }
+
     var id = $(this).data('anular');
     $modalAnular.find('[name="id"]').val(id);
     $modalAnular.modal('show');

@@ -11,7 +11,8 @@ function principal() {
 var $modalEditar;
 var $modalEliminar;
 
-function mostrarEditar() {
+function mostrarEditar()
+{
     var id = $(this).data('id');
     $modalEditar.find('[name="id"]').val(id);
 
@@ -25,6 +26,11 @@ function mostrarEditar() {
 }
 
 function mostrarEliminar() {
+    if( access_denied ){
+        alert('Usted no tiene permisos para esta acción');
+        return;
+    }
+
     var id = $(this).data('delete');
     $modalEliminar.find('[name="id"]').val(id);
 
