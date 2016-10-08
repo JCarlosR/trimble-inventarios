@@ -20,6 +20,9 @@ class OutputsTableSeeder extends Seeder
             'invoice' => '1000001',
             'invoice_date' => $carbon->now(),
             'type' => 'local',
+            'igv' => 0.00,
+            'total' => 35.20,
+            'state' => 0,
             'currency' => 'PEN',
             'comment' => 'Venta de prueba',
             'reason' => 'sale'

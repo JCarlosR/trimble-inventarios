@@ -51,8 +51,6 @@ $(document).on('ready', function () {
     });
 });
 
-
-
 function updateSubtotal() {
     var serie = $(this).data('igvserie');
     var price;
@@ -65,7 +63,7 @@ function updateSubtotal() {
         for (var i = 0; i<items.length; ++i)
             if (items[i].series == serie)
                 items[i].price = price;
-        igv += price-precio;
+        igv += (Math.round(price*100)/100)-(Math.round(precio*100)/100);
         console.log("IGV: "+igv);
         updateTotal();
     }else{
@@ -74,7 +72,7 @@ function updateSubtotal() {
         for (var i = 0; i<items.length; ++i)
             if (items[i].series == serie)
                 items[i].price = price;
-        igv -= precio-price;
+        igv -= (Math.round(precio*100)/100)-(Math.round(price*100)/100);
         console.log("IGV: "+igv);
         updateTotal();
     }
@@ -92,8 +90,9 @@ function prevMonth(date_string) {
 }
 
 function registerOutput() {
-    event.preventDefault();
-
+    event.preventDefault()
+    var totalguardar = $('#total').val();
+    
     // Validate invoice number
     var invoice = $('#factura').val();
     if (! invoice) {
@@ -111,6 +110,7 @@ function registerOutput() {
     var data = $(this).serializeArray();
     data.push({name: 'items', value: JSON.stringify(items)});
     data.push({name: 'igv', value: Math.round(igv*100)/100});
+    data.push({name: 'total', value: totalguardar});
     $.ajax({
         url: 'venta',
         data: data,
@@ -357,7 +357,7 @@ function updateTotal() {
     for (var i=0; i<items.length; ++i)
         total += items[i].price * items[i].quantity;
     $('#igv').val(Math.round(igv*100)/100);
-    $('#total').val(total);
+    $('#total').val(Math.round(total*100)/100);
 
 }
 
@@ -376,8 +376,6 @@ function loadAutoCompleteProducts(data) {
     );
 
 }
-
-
 
 // Funciones relacionadas al template HTML5
 function activateTemplate(id) {

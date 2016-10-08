@@ -32,6 +32,8 @@ class CreateOutputsTable extends Migration
             $table->enum('currency', ['PEN', 'USD']);
             $table->string('comment');
             $table->decimal('igv', 9,2);
+            $table->decimal('total', 9,2);
+            $table->integer('state')->unsigned();//1:pendiente; 0: pagada
 
             // Invoice data
             $table->string('invoice'); // number
@@ -44,7 +46,7 @@ class CreateOutputsTable extends Migration
             $table->date('fechaRetorno')->nullable();
             $table->string('destination')->nullable();
 
-            // For rentals, this indicates the status of the devolution
+            // For rentals, the completed is TRUE when the devolution is done
             $table->boolean('completed')->default(false);
 
             $table->timestamps();

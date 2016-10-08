@@ -43,6 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('productos/disponibles', 'OutputController@getProductosDisponibles');
     Route::get('paquetes/disponibles', 'OutputController@getPaquetesDisponibles');
 
+
     // Invoices
     Route::get('listar-facturas-declarar','InvoiceController@index');
     Route::post('listar-facturas-declarar-ir','InvoiceController@ir');
@@ -51,6 +52,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('listar-facturas-declarar/{mes}','InvoiceController@mes');
     Route::get('listar-facturas-declarar/{inicio}/{fin}','InvoiceController@fechas');
 
+    // Outputs detraction
+    Route::get('/salida/detraction/{id}', 'DetractionController@getDetraction');
+    Route::post('/salida/detraction', 'DetractionController@postDetraction');
 
     // Rentals
     Route::post('alquiler/registrar', 'RentalController@store');
@@ -259,4 +263,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/excel/caja-chica', 'SmallBoxController@excel');
     // PDF - Small box
     Route::get('/pdf/caja-chica', 'SmallBoxController@pdf');
+
+    // Pagos
+    Route::get('/pagos', 'PaymentController@index');
+    Route::get('/pagos/search/{invoice}', 'PaymentController@search');
+    Route::post('/pagos/save', 'PaymentController@store');
+    
 });

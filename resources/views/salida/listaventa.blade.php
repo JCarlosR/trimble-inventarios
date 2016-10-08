@@ -121,6 +121,7 @@
                                             <th>Cód. Interno</th>
                                             <th>Factura</th>
                                             <th>Tipo</th>
+                                            <th>Moneda</th>
                                             <th>Fecha</th>
                                             <th>Observación</th>
                                             <th>Acción</th>
@@ -129,12 +130,19 @@
                                         <tbody id="bodyOutput" data-href="{{ url('/salida/listar/detalles/{id}') }}">
                                         @foreach($outputs as $output)
                                             <tr>
-                                                <td data-id="{{ $output->id }}">{{ $output->id }}</td>
+                                                <td>{{ $output->id }}</td>
                                                 <td>{{ $output->invoice }}</td>
                                                 <td>{{ ($output->type=='local'?'Local':'Extranjero') }}</td>
+                                                <td>{{ $output->currency }}</td>
                                                 <td>{{ $output->created_at }}</td>
                                                 <td>{{ $output->comment }}</td>
                                                 <td>
+                                                    <button type="button" class="btn btn-info btn-sm" data-details="{{ $output->id }}" title="Listar detalles">
+                                                        <i class="fa fa-list"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-warning btn-sm" data-detraction="{{ $output->id }}" title="Detracción">
+                                                        <i class="fa fa-bolt"></i>
+                                                    </button>
                                                     <button type="button" class="btn btn-danger btn-sm" data-anular="{{ $output->id }}" title="Anular">
                                                         <i class="fa fa-trash"></i>
                                                     </button>
@@ -195,13 +203,14 @@
                 </div>
                 <form action="{{ url('/salida/venta/anular') }}" method="POST">
                     <div class="modal-body">
-
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <input type="hidden" name="id" />
+
                         <div class="form-group">
-                            <label for="nombreEliminar">¿Está seguro que desea anular la venta seleccionada?</label>
+                            <label>¿Está seguro que desea anular la venta seleccionada?</label>
                             <p>Deberá registrar la venta nuevamente y cargar los productos correspondientes.</p>
                         </div>
+
                     </div>
                     <div class="modal-footer">
                         <div class="btn-group pull-left">
@@ -215,12 +224,16 @@
             </div>
         </div>
     </div>
+
+    @include('salida.modal-detraction')
 @endsection
 
 @section('scripts')
     <script src="{{ asset('js/typeahead.bundle.js') }}"></script>
     <script src="{{ asset('js/output/listaventa.js') }}"></script>
     <script>
+        var detraction_url = '{{ url('/salida/detraction') }}';
+
         $(document).on('ready', function () {
             var substringMatcher = function(strs) {
                 return function findMatches(q, cb) {
