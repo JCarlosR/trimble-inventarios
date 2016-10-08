@@ -125,6 +125,9 @@
 
                             <li><a href="{{ url('/cajachica') }}"><i class="fa fa-institution"></i> Caja chica</a>
                             </li>
+
+                            <li><a href="{{ url('/pagos') }}"><i class="fa fa-usd"></i> Pagos</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="menu_section">
