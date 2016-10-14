@@ -11,7 +11,12 @@ use App\Http\Requests;
 class DetractionController extends Controller
 {
     public function getDetraction($id) {
-        return Output::find($id)->detraction;
+        $output = Output::find($id);
+
+        if ($output->total_price > 1750)
+            return -1;
+
+        return $output->detraction;
     }
 
     public function postDetraction(Request $request) {
