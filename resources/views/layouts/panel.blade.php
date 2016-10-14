@@ -125,14 +125,10 @@
 
                             <li><a href="{{ url('/cajachica') }}"><i class="fa fa-institution"></i> Caja chica</a>
                             </li>
-<<<<<<< HEAD
+
                             <li><a href="{{url('listar-facturas-declarar')}}"><i class="fa fa-book"></i> Facturas</a></li>
-
-=======
-
                             <li><a href="{{ url('/pagos') }}"><i class="fa fa-usd"></i> Pagos</a>
                             </li>
->>>>>>> 0a73fbf36980a79e77a60944c3b3424fb62ed0d0
                         </ul>
                     </div>
                     <div class="menu_section">
