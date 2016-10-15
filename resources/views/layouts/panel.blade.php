@@ -127,7 +127,6 @@
                             </li>
 
                             <li><a href="{{url('listar-facturas-declarar')}}"><i class="fa fa-book"></i> Facturas</a></li>
-
                             <li><a href="{{ url('/pagos') }}"><i class="fa fa-usd"></i> Pagos</a>
                             </li>
                         </ul>

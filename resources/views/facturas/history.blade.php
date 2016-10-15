@@ -55,16 +55,18 @@
 	                <table class="table table-hover">
 	                    <thead>
 	                    <tr>
-	                        <th>Factura</th>
+	                        <th>Documento</th>
+							<th>Tipo documento</th>
 	                        <th>Fecha emisión</th>
-							<th>Fecha IR</th>
-							<th>Fecha SUNAT</th>
+							<th>Fecha declaración IR</th>
+							<th>Fecha declaración IGV</th>
 	                    </tr>
 	                    </thead>
 	                    <tbody>
 	                    	@foreach( $outputs as $output )
 	                        <tr>
 	                            <td>{{ $output->invoice }} </td>
+								<td>{{ ($output->type_doc=='F')?'Factura':'Boleta' }} </td>
 	                            <td>{{ $output->invoice_date }}</td>
 								<td>{{ $output->income_tax_date }}</td>
 								<td>{{ $output->general_sales_tax_date }}</td>
@@ -78,9 +80,14 @@
 		</div>
 	</div>
 	<div class="row text-center">
-		<a href="{{ url('listar-facturas-declarar') }}" class="btn btn-success">
+		<a href="{{ url('listar-facturas-declarar') }}" class="btn btn-danger">
 			<i class="fa fa-backward"></i> Volver
 		</a>
+		<button type="button" id="excel_outputs"  class="btn btn-success"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Exportar excel</button>
 	</div>
 
+@endsection
+
+@section('scripts')
+	<script src=" {{ asset('js/invoice/excel.js') }} "></script>
 @endsection

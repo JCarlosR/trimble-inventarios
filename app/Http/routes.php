@@ -51,6 +51,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('listar-facturas-declarar-historial','InvoiceController@history');
     Route::get('listar-facturas-declarar/{mes}','InvoiceController@mes');
     Route::get('listar-facturas-declarar/{inicio}/{fin}','InvoiceController@fechas');
+    Route::get('datos-excel','InvoiceController@verify');
+    Route::get('exportar-datos-excel-facturas','InvoiceController@excel');
+
 
     // Outputs detraction
     Route::get('/salida/detraction/{id}', 'DetractionController@getDetraction');
