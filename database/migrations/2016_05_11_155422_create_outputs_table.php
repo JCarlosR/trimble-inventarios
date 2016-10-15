@@ -28,15 +28,19 @@ class CreateOutputsTable extends Migration
             $table->boolean('active')->default(true);
 
             // General data
-            $table->enum('type', ['local', 'foreign']);
+            $table->enum('type', ['L', 'F']);
             $table->enum('currency', ['PEN', 'USD']);
             $table->string('comment');
             $table->decimal('igv', 9,2);
             $table->decimal('total', 9,2);
+            $table->float('shipping');
+            $table->float('envio');
             $table->integer('state')->unsigned();//1:pendiente; 0: pagada
 
             // Invoice data
             $table->string('invoice'); // number
+            $table->enum('type_doc', ['F', 'B']); // type
+            $table->string('city')->nullable(); // Provincia
             $table->date('invoice_date')->nullable();
             $table->date('income_tax_date')->nullable();
             $table->date('general_sales_tax_date')->nullable();

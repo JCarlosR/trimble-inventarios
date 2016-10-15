@@ -113,7 +113,7 @@ var InvoicePanel = React.createClass({
                         last_page={this.state.last_page}
                         handlePageChange={this.handlePageChange} />
                 </div>
-                
+
                 <div className="col-md-4">
                     <UsersForm
                         user={this.state.editingUser}

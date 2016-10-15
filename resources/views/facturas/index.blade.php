@@ -56,7 +56,8 @@
 	                <table class="table table-striped">
 	                    <thead>
 	                    <tr>
-	                        <th>Factura</th>
+	                        <th>Documento</th>
+							<th>Tipo documento</th>
 	                        <th>Fecha emisión</th>
 	                        <th>Opción</th>
 	                    </tr>
@@ -65,6 +66,7 @@
 	                    	@foreach( $outputs as $output )
 	                        <tr data-id="{{ $output->invoice }}">
 	                            <td>{{ $output->invoice }} </td>
+								<td>{{ ($output->type_doc=='F')?'Factura':'Boleta'}} </td>
 	                            <td>{{ $output->invoice_date }}</td>
 	                            <td>
 									@if(  $output->income_tax_date== null && $output->general_sales_tax_date == null)

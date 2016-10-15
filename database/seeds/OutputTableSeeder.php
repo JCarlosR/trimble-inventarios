@@ -18,11 +18,14 @@ class OutputsTableSeeder extends Seeder
         Output::create([
             'customer_id' => 1,
             'invoice' => '1000001',
+            'user_id' => 2,
+            'type_doc' => 'F',
             'invoice_date' => $carbon->now(),
-            'type' => 'local',
+            'type' => 'L',
             'igv' => 0.00,
             'total' => 35.20,
-            'state' => 0,
+            'shipping' => 0.00,
+            'state' => 1,
             'currency' => 'PEN',
             'comment' => 'Venta de prueba',
             'reason' => 'sale'
@@ -31,12 +34,18 @@ class OutputsTableSeeder extends Seeder
         Output::create([
             'customer_id' => 1,
             'invoice' => '1000002',
+            'type_doc' => 'F',
+            'user_id' => 2,
             'invoice_date' => $carbon->now(),
-            'type' => 'local',
+            'type' => 'L',
             'currency' => 'USD',
+            'igv' => 0.00,
+            'total' => 20,
+            'shipping' => 0.00,
             'comment' => 'Alquiler de prueba',
             'reason' => 'rental',
             'fechaAlquiler' => $carbon->now(),
+            'state' => 1,
             'fechaRetorno' => $carbon->now()->addDays(5),
             'destination' => 'Cajamarca'
         ]);

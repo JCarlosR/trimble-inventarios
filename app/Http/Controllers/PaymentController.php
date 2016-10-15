@@ -25,8 +25,12 @@ class PaymentController extends Controller
     public function search($invoice)
     {
         $payments = Payments::where('invoice',$invoice)->where('enable', 1)->get();
-
-        return $payments;
+        $output = Output::where('invoice', $invoice)->get();
+        
+        $data['payments'] = $payments;
+        $data['output'] = $output;
+        
+        return $data;
     }
 
     public function store(Request $request)

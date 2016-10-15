@@ -59,13 +59,29 @@ function traerPagos() {
         url: 'pagos/search/' + invoice
     })
         .done(function( data ) {
+            var pagado = 0;
+            console.log(data);
             $('#table-payments').html('');
-            for (var i = 0; i<data.length; ++i)
+            for (var i = 0; i<data.payments.length; ++i)
             {
-                renderTemplatePayment(data[i].invoice, data[i].payment, data[i].type, data[i].operation, data[i].updated_at);
-                console.log(data[i].invoice);
+                pagado = pagado + parseFloat(data.payments[i].payment);
+                renderTemplatePayment(data.payments[i].invoice, data.payments[i].payment, data.payments[i].type, data.payments[i].operation, data.payments[i].updated_at);
+                console.log(data.payments[i].invoice);
             }
+            var deuda = parseFloat(data.output[0].total)-pagado;
+            renderTemplateSummary(data.output[0].invoice, data.output[0].total, pagado, deuda);
+            
         });
+}
+function renderTemplateSummary(invoice, total, pagado, deuda) {
+
+    var clone = activateTemplate('#template-summary');
+
+    clone.querySelector("[data-invoice]").innerHTML = invoice;
+    clone.querySelector("[data-montototal]").innerHTML = total;
+    clone.querySelector("[data-montopagado]").innerHTML = Math.round(pagado*100)/100;
+    clone.querySelector("[data-montodeuda]").innerHTML = Math.round(deuda*100)/100;
+    $('#table-summary').append(clone);
 }
 
 function renderTemplatePayment(invoice, payment, type, operation, updated_at) {

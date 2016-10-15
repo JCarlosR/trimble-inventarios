@@ -109,6 +109,48 @@
 
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-2 col-sm-12">
+                                <h3>Resumen de pagos de la factura</h3>
+                                <table class="table table-hover table-condensed">
+                                    <thead>
+                                    <tr>
+                                        <th>Factura</th>
+                                        <th>Monto total</th>
+                                        <th>Monto Pagado</th>
+                                        <th>Monto Adeudado</th>
+                                    </tr>
+                                    </thead>
+                                    <template id="template-summary">
+                                        <tr>
+                                            <td data-invoice>1000001</td>
+                                            <td data-montototal>256314</td>
+                                            <td data-montopagado>1</td>
+                                            <td data-montodeuda>1</td>
+                                        </tr>
+                                    </template>
+
+                                    <tbody id="table-summary">
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <template id="template-summary">
+                                <template id="template-summary">
+                                    <tr>
+                                        <td data-factura>1000001</td>
+                                        <td data-montototal>256314</td>
+                                        <td data-montopagado>1</td>
+                                        <td data-montodeuda>1</td>
+                                    </tr>
+                                </template>
+                            </template>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-2 col-sm-12">
+                                <h3>Lista de pagos</h3>
                                 <table class="table table-hover table-condensed">
                                     <thead>
                                     <tr>
@@ -182,6 +224,7 @@
                             <div class="input-group col-md-8">
                                 <input type="radio" id="type" name="type" value="Efectivo" checked> Efectivo
                                 <input type="radio" id="type" name="type" value="Deposito"> Depósito
+                                <input type="radio" id="type" name="type" value="Credito"> Crédito
                             </div>
                         </div>
                         <div class="form-group">
