@@ -69,4 +69,18 @@ class Output extends Model
     {
         return $this->hasOne('App\Detraction');
     }
+
+    public function getTotalPriceAttribute()
+    {
+        $items = $this->items;
+        $packages = $this->packages;
+        $total = 0;
+        foreach ($items as $item) {
+            $total += $item->price;
+        }
+        foreach ($packages as $package) {
+            $total += $package->price;
+        }
+        return $total;
+    }
 }

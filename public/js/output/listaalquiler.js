@@ -24,6 +24,11 @@ function showDetractionModal() {
 
     $.get(detraction_url+'/'+id, function (data) {
         if (data) {
+            if (data == -1) {
+                alert('No es posible asignar detracción cuando la venta excede 1750.');
+                return;
+            }
+
             $modalDetraction.find('[name="detraction"]').val(data.value);
             $modalDetraction.find('[name="detraction_date"]').val(data.detraction_date);
             $modalDetraction.find('[name="voucher"]').val(data.voucher);
