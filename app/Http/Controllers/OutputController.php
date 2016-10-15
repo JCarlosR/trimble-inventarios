@@ -80,7 +80,7 @@ class OutputController extends Controller
                 'type' => $type,
                 'igv' => $igv,
                 'total' => $total,
-                'envio' => 10,
+                'shipping' => $envio,
                 'city' => $city,
                 'state' => 0,
                 'currency' => $moneda,

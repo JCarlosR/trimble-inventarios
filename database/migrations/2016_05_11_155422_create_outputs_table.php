@@ -33,8 +33,7 @@ class CreateOutputsTable extends Migration
             $table->string('comment');
             $table->decimal('igv', 9,2);
             $table->decimal('total', 9,2);
-            $table->float('shipping');
-            $table->float('envio');
+            $table->decimal('shipping', 9,2);
             $table->integer('state')->unsigned();//1:pendiente; 0: pagada
 
             // Invoice data
