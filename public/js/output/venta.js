@@ -150,7 +150,7 @@ function registerOutput() {
             alert(response.message);
         else{
             alert('Venta registrada correctamente.');
-            //location.reload();
+            location.reload();
         }
 
     });
