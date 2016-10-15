@@ -115,7 +115,7 @@ function registerRental() {
 
     $.ajax({
         url: url_alquiler,
-        data: data,
+        data: data, 
         method: 'POST',
         headers: { 'X-CSRF-TOKEN': _token }
 

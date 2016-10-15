@@ -36,7 +36,7 @@ class OutputController extends Controller
 
     public function postRegistroVenta(Request $request)
     {
-        //dd(Auth::user()->id);
+        //dd($request->get('envio'));
         $items = json_decode($request->get('items'));
 
         $invoiceDate = $request->get('invoice_date');
@@ -45,7 +45,9 @@ class OutputController extends Controller
         $cliente = $request->get('cliente');
         $type = $request->get('tipo');
         $igv = $request->get('igv');
+        $city = $request->get('city');
         $total = $request->get('total');
+        $envio = $request->get('envio');
         $observacion = $request->get('observacion');
 
         $customer = Customer::where('name', $cliente)->first();
@@ -78,6 +80,8 @@ class OutputController extends Controller
                 'type' => $type,
                 'igv' => $igv,
                 'total' => $total,
+                'envio' => 10,
+                'city' => $city,
                 'state' => 0,
                 'currency' => $moneda,
                 'reason' => 'sale',
