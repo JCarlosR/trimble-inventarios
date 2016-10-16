@@ -36,6 +36,31 @@ class SmallBoxsTableSeeder extends Seeder
             'amount' => 30.00,
             'enable' => 1
         ]);
+        SmallBox::create([
+            'concept' => 'Asignacion para el mes de Agosto.',
+            'type' => 'assign',
+            'amount' => 60.00,
+            'enable' => 1
+        ]);
+        SmallBox::create([
+            'concept' => 'Ingreso a la caja chica.',
+            'type' => 'input',
+            'amount' => 20.00,
+            'enable' => 1
+        ]);
+        SmallBox::create([
+            'concept' => 'Pago de agua.',
+            'type' => 'output',
+            'amount' => 40.00,
+            'enable' => 1
+        ]);
+        SmallBox::create([
+            'concept' => 'Pago de luz.',
+            'type' => 'output',
+            'amount' => 30.00,
+            'enable' => 1
+        ]);
+
     }
 
 }

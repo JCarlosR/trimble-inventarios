@@ -246,7 +246,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Small Box 
     Route::get('/cajachica', 'SmallBoxController@index');
+    Route::get('/cajachica/listar', 'SmallBoxController@listar');
     Route::post('/cajachica/save', 'SmallBoxController@store');
+    Route::post('/cajachica/editrow', 'SmallBoxController@editrow');
     // Excel - Small box
     Route::get('/excel/caja-chica', 'SmallBoxController@excel');
     // PDF - Small box
