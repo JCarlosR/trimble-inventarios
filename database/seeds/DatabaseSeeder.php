@@ -35,5 +35,6 @@ class DatabaseSeeder extends Seeder
         $this->call(OutputDetailsTableSeeder::class);
         $this->call(SmallBoxBalancesTableSeeder::class);
         $this->call(SmallBoxsTableSeeder::class);
+        $this->call(PaymentsTableSeeder::class);
     }
 }

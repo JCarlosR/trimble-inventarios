@@ -30,20 +30,28 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label class="control-label col-md-3" for="factura">
-                                            Nro. de factura:
+                                            Nro. de documento:
                                         </label>
                                         <div class="input-group col-md-9">
                                             <input id="factura" name="factura" class="form-control" type="text">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                        <label class="control-label col-md-4" for="type">Tipo de Documento:</label>
+                                        <div class="input-group col-md-8">
+                                            <input type="radio" name="documento" value="F" checked> Factura
+                                            <input type="radio" name="documento" value="B"> Boleta
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
                                         <label class="control-label col-md-3" for="sale_date">Fecha de factura:</label>
                                         <div class="input-group col-md-9">
                                             <input type="date" class="form-control" name="invoice_date" id="invoice_date" value="{{ date('Y-m-d') }}">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-md-6">
                                         <label class="control-label col-md-3" for="cliente">
                                             Cliente:
@@ -53,24 +61,30 @@
                                         </div>
                                     </div>
 
+                                </div>
+
+                                <div class="row">
                                     <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label class="control-label col-md-4" for="type">Moneda:</label>
-                                                <div class="input-group col-md-8">
-                                                    <input type="radio" name="moneda" value="PEN" checked> Soles
-                                                    <input type="radio" name="moneda" value="USD"> Dólares
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="control-label col-md-4" for="type">Tipo:</label>
-                                                <div class="input-group col-md-8">
-                                                    <input type="radio" name="tipo" value="local" checked> Local
-                                                    <input type="radio" name="tipo" value="foreign"> Extranjero
-                                                </div>
+                                        <div class="col-md-6">
+                                            <label class="control-label col-md-6" for="type">Moneda:</label>
+                                            <div class="input-group col-md-6">
+                                                <input type="radio" name="moneda" value="PEN" checked> Soles
+                                                <input type="radio" name="moneda" value="USD"> Dólares
                                             </div>
                                         </div>
-
+                                        <div class="col-md-6">
+                                            <label class="control-label col-md-4" for="type">Tipo:</label>
+                                            <div class="input-group col-md-8">
+                                                <input type="radio" name="tipo" value="L" checked> Lima
+                                                <input type="radio" name="tipo" value="P"> Provincias
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="control-label col-md-4" for="provincia">Provincia:</label>
+                                        <div class="input-group col-md-8">
+                                            <input type="text" name="provincia" id="provincia" class="form-control col-md-8">
+                                        </div>
                                     </div>
 
                                 </div>
@@ -101,6 +115,7 @@
                                             <input type="number" min="0" step="0.01" id="precio" class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
 
@@ -124,7 +139,8 @@
 
                                 <div class="form-group">
                                     <label for="serie">Ingrese serie:</label>
-                                    <input type="text" class="typeahead form-control" data-search>
+                                    <input type="text" class="typeahead form-control" name="serie" data-search>
+
                                 </div>
 
 
@@ -176,6 +192,7 @@
                                             <th>Cantidad</th>
                                             <th>Precio</th>
                                             <th>IGV</th>
+                                            <th>Monto IGV</th>
                                             <th>Subtotal</th>
                                             <th>Acción</th>
                                         </tr>
@@ -190,6 +207,7 @@
                                                 <td>
                                                     <input type="checkbox" data-igvserie>
                                                 </td>
+                                                <td data-igvmonto>1</td>
                                                 <td data-sub>1</td>
                                                 <td>
                                                     <button data-delete type="button" class="btn btn-danger">Quitar</button>
@@ -206,6 +224,7 @@
                                                 <td>
                                                     <input type="checkbox" data-igvserie>
                                                 </td>
+                                                <td data-igvmonto>1</td>
                                                 <td data-sub>1</td>
                                                 <td>
                                                     <button data-look type="button" class="btn btn-primary">Ver</button>
@@ -224,12 +243,33 @@
                             <div class="row">
                                 <div class="col-md-6 col-md-offset-3">
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-xs-12" for="total">Total
+
+                                        <label class="control-label col-md-3 col-xs-12" for="envio">Costo de envío:
                                         </label>
-                                        <div class="col-md-6">
-                                            <input type="text" id="total" class="form-control" readonly value="0">
+                                        <div class="col-md-4">
+                                            <input type="number" min="1" step="1" id="costenvio" class="form-control" value="0">
+                                        </div>
+                                        IGV: <input type="checkbox" id="envioigv" >
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-xs-12" for="igv">Igv:
+                                        </label>
+                                        <div class="col-md-4">
+                                            <input type="text" id="igv" class="form-control" readonly value="0">
                                         </div>
                                     </div>
+
+                                    <div class="form-group">
+
+                                        <label class="control-label col-md-3 col-xs-12" for="total">Total:
+                                        </label>
+                                        <div class="col-md-4">
+                                            <input type="text" id="total" class="form-control" readonly value="0">
+
+                                        </div>
+                                    </div>
+
                                 </div>
 
                             </div>

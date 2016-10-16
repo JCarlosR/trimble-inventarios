@@ -125,12 +125,15 @@
 
                             <li><a href="{{ url('/cajachica/listar') }}"><i class="fa fa-institution"></i> Caja chica</a>
                             </li>
+
+                            <li><a href="{{url('listar-facturas-declarar')}}"><i class="fa fa-book"></i> Facturas</a></li>
+                            <li><a href="{{ url('/pagos') }}"><i class="fa fa-usd"></i> Pagos</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="menu_section">
                         <h3>Más</h3>
                         <ul class="nav side-menu">
-                            <li><a><i class="fa fa-bug"></i> Reportar error</a></li>
                             <li><a href="{{ url('/logout') }}">
                                     <i class="fa fa-plug"></i> Desconectar
                             </a></li>

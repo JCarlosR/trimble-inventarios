@@ -14,8 +14,8 @@ class Output extends Model
 
     protected $fillable = [
         'invoice', 'invoice_date',
-        'customer_id', 'type', 'reason', 'comment', 'destination',
-        'fechaAlquiler', 'fechaRetorno' // just for rentals
+        'customer_id', 'user_id', 'igv', 'type', 'reason', 'comment', 'destination', 'state', 'total',
+        'fechaAlquiler', 'fechaRetorno', 'shipping', 'type_doc', 'city', 'currency' // just for rentals
     ];
 
     protected $appends = [
@@ -63,5 +63,24 @@ class Output extends Model
     public function customers()
     {
         return $this->belongsTo('App\Customer', 'customer_id');
+    }
+
+    public function detraction()
+    {
+        return $this->hasOne('App\Detraction');
+    }
+
+    public function getTotalPriceAttribute()
+    {
+        $items = $this->items;
+        $packages = $this->packages;
+        $total = 0;
+        foreach ($items as $item) {
+            $total += $item->price;
+        }
+        foreach ($packages as $package) {
+            $total += $package->price;
+        }
+        return $total;
     }
 }

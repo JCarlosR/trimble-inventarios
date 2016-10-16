@@ -2,9 +2,12 @@ var products;
 var packages;
 var dataset;
 var items = [];
+var igv = 0;
 
 // Temporary variables
 var selectedProduct;
+
+var checkeado = false;
 
 $(document).on('ready', function () {
     
@@ -13,9 +16,9 @@ $(document).on('ready', function () {
     $(document).on('click', '[data-delete]', deleteItem);
     $(document).on('click', '[data-look]', lookDetails);
     $('#btnAccept').on('click', addItemsSeries);
-
+    
     $('#form').on('submit', registerRental);
-
+    $(document).on('click', '[data-igvserie]', updateSubtotal);
 
     var url_products ='../productos/names';
     var url_packages = '../paquetes/disponibles';
@@ -49,6 +52,33 @@ $(document).on('ready', function () {
 
 });
 
+function updateSubtotal() {
+    var serie = $(this).data('igvserie');
+    var price;
+    var precio = $(this).parent().next().text();
+    if( $(this).is(':checked'))
+    {
+        // precio = $(this).parent().prev().text();
+        price = precio*1.18;
+        $(this).parent().next().html(price);
+        for (var i = 0; i<items.length; ++i)
+            if (items[i].series == serie)
+                items[i].price = price;
+        igv += price-precio;
+        console.log("IGV: "+igv);
+        updateTotal();
+    }else{
+        price = precio*100/118;
+        $(this).parent().next().html(price);
+        for (var i = 0; i<items.length; ++i)
+            if (items[i].series == serie)
+                items[i].price = price;
+        igv -= precio-price;
+        console.log("IGV: "+igv);
+        updateTotal();
+    }
+}
+
 function prevMonth(date_string) {
     var slash = date_string.indexOf('-'); // first slash
     var input_month = date_string.substr(slash+1);
@@ -81,10 +111,11 @@ function registerRental() {
     var url_alquiler = '../alquiler/registrar';
 
     data.push({name: 'items', value: JSON.stringify(items)});
+    data.push({name: 'igv', value: Math.round(igv*100)/100});
 
     $.ajax({
         url: url_alquiler,
-        data: data,
+        data: data, 
         method: 'POST',
         headers: { 'X-CSRF-TOKEN': _token }
 
@@ -202,7 +233,22 @@ function loadAutoCompleteItems(data) {
 }
 
 function handleBlurProduct() {
-    $('#cantidad').val("");
+    var $quantity = $('#cantidad');
+    var name = $('#product').val();
+
+    // When a package is selected
+    if ( packages.indexOf(name) > -1 )
+    {   // Quantity always is 1
+        $quantity.val(1);
+        $quantity.prop('readonly', true);
+        setPackagePrice(name);
+    } else { // When a product is selected
+        // Quantity input is available
+        $quantity.val('');
+        $quantity.prop('readonly', false);
+        setProductPrice(name);
+    }
+    /*$('#cantidad').val("");
     $('#cantidad').prop('readonly', false);
     var search = $('#product').val();
 
@@ -210,8 +256,20 @@ function handleBlurProduct() {
     {
         $('#cantidad').val(1);
         $('#cantidad').prop('readonly', true);
-    }
+    }*/
 
+}
+
+function setProductPrice(product_name) {
+    $.getJSON('../producto/buscar/'+product_name, function (data) {
+        $('#precio').val( data.price );
+    });
+}
+
+function setPackagePrice(package_name) {
+    $.getJSON('../paquete/buscar/'+package_name, function (data) {
+        $('#precio').val( data.price );
+    });
 }
 
 function addItemsSeries() {
@@ -253,15 +311,19 @@ function dontRepeat(series_array) {
 function deleteItem() {
     var $tr = $(this).parents('tr');
     var id = $(this).data('delete');
+    var precio = $(this).parent().prev().text();
     var series = $tr.find('[data-series]').text();
-    itemDelete(id, series);
+    itemDelete(id, series, precio);
     $tr.remove();
 }
 
-function itemDelete(id, series) {
+function itemDelete(id, series, precio) {
+    var price;
     for (var i = 0; i<items.length; ++i) {
         if (items[i].id == id && items[i].series == series) {
             items.splice(i, 1);
+            price = precio*100/118;
+            igv -= precio-price;
             updateTotal();
             return;
         }
@@ -272,6 +334,7 @@ function updateTotal() {
     var total = 0;
     for (var i=0; i<items.length; ++i)
         total += items[i].price * items[i].quantity;
+    $('#igv').val(Math.round(igv*100)/100);
     $('#total').val(total);
 }
 

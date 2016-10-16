@@ -1,14 +1,55 @@
 $(document).on('ready', function (){
-    $('#btnShowOutputs').on('click', showOutputs);
+    // $('#btnShowOutputs').on('click', showOutputs); // ??
+
     $('[data-look]').on('click', showDetails);
+
     $modalAnular = $('#modalAnular');
     $('[data-anular]').on('click', mostrarAnular);
 
     $(document).on('click', '[data-package]', showPackageDetails);
 
-    // FooTable
-    $('#mytable').footable();
+    // Apply fooTable
+    $('#outputsTable').footable();
+
+    $modalDetraction = $('#modalDetraction');
+    $('[data-detraction]').on('click', showDetractionModal);
+    $formDetraction = $('#formDetraction');
+    $formDetraction.on('submit', submitDetraction);
 });
+
+var $modalDetraction, $formDetraction;
+function showDetractionModal() {
+    var id = $(this).data('detraction');
+    $modalDetraction.find('[name="id"]').val(id);
+
+    $.get(detraction_url+'/'+id, function (data) {
+        if (data) {
+            if (data == -1) {
+                alert('No es posible asignar detracción cuando la venta excede 1750.');
+                return;
+            }
+
+            $modalDetraction.find('[name="detraction"]').val(data.value);
+            $modalDetraction.find('[name="detraction_date"]').val(data.detraction_date);
+            $modalDetraction.find('[name="voucher"]').val(data.voucher);
+        } else {
+            $modalDetraction.find('[name="detraction"]').val(0);
+            $modalDetraction.find('[name="detraction_date"]').val('');
+            $modalDetraction.find('[name="voucher"]').val('');
+        }
+
+        $modalDetraction.modal('show');
+    });
+}
+function submitDetraction() {
+    event.preventDefault();
+
+    $.post(detraction_url, $(this).serialize(), function (data) {
+        if (data.success)
+            $modalDetraction.modal('hide');
+        else alert(data.message);
+    });
+}
 
 function showPackageDetails() {
     var id = $(this).data('package');
@@ -25,7 +66,6 @@ function showPackageDetails() {
 
         $('#modalPackageDetails').modal('show');
     });
-
 }
 
 

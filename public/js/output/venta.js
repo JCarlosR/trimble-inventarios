@@ -3,6 +3,7 @@ var items = [];
 var products;
 var packages;
 var dataset;
+var igv = 0;
 
 // Temporary variables
 var selectedProduct;
@@ -17,6 +18,7 @@ $(document).on('ready', function () {
     $('#btnAccept').on('click', addItemsSeries);
     $('#form').on('submit', registerOutput);
     $(document).on('click', '[data-igvserie]', updateSubtotal);
+    $('#envioigv').on('click', envioIGV);
 
     var url_products ='../productos/names';
     var url_packages = '../paquetes/disponibles';
@@ -50,28 +52,52 @@ $(document).on('ready', function () {
     });
 });
 
+function envioIGV() {
+    var costoEnvio = $('#costenvio').val();
+    console.log(costoEnvio);
+    var addIgv = 0;
+    if( $(this).is(':checked'))
+    {
+        addIgv = Math.round((parseFloat(costoEnvio)*0.18));
+        console.log('AddIGV:  '+addIgv);
+        igv += Math.round(addIgv);
+    }else{
+        addIgv = Math.round((parseFloat(costoEnvio)*0.18));
+        igv -= Math.round(addIgv);
+    }
+    updateTotal();
+}
+
 function updateSubtotal() {
     var serie = $(this).data('igvserie');
     var price;
-    var precio = $(this).parent().next().text();
+    var precio = $(this).parent().next().next().text();
+    console.log(precio);
     if( $(this).is(':checked'))
     {
         // precio = $(this).parent().prev().text();
-        price = precio*1.18;
-        $(this).parent().next().html(price);
+        price = Math.round((precio*1.18)*100)/100;
+        $(this).parent().next().html( Math.round((precio*0.18)*100)/100 );
+        $(this).parent().next().next().html(price);
         for (var i = 0; i<items.length; ++i)
             if (items[i].series == serie)
                 items[i].price = price;
+        igv += (Math.round(price*100)/100)-(Math.round(precio*100)/100);
+        //igv += (price)
+        console.log("IGV: "+igv);
         updateTotal();
     }else{
-        price = precio*100/118;
-        $(this).parent().next().html(price);
+        price = Math.round((precio*100/118)*100)/100;
+        $(this).parent().next().html(Math.round(0)/100);
+        $(this).parent().next().next().html(price);
         for (var i = 0; i<items.length; ++i)
             if (items[i].series == serie)
                 items[i].price = price;
+        igv -= (Math.round(precio*100)/100)-(Math.round(price*100)/100);
+        console.log("IGV: "+igv);
         updateTotal();
     }
-}
+} // Cambiar esto en alquiler
 
 function prevMonth(date_string) {
     var slash = date_string.indexOf('-'); // first slash
@@ -86,7 +112,13 @@ function prevMonth(date_string) {
 
 function registerOutput() {
     event.preventDefault();
-
+    var totalguardar = $('#total').val();
+    var costoEnvio = $('#costenvio').val();
+    console.log(costoEnvio);
+    var totalIgv = $('#igv').val();
+    var city = $('#provincia').val();
+    var type_doc = $('input:radio[name=documento]:checked').val();
+    
     // Validate invoice number
     var invoice = $('#factura').val();
     if (! invoice) {
@@ -103,6 +135,11 @@ function registerOutput() {
     var _token = $(this).find('[name=_token]');
     var data = $(this).serializeArray();
     data.push({name: 'items', value: JSON.stringify(items)});
+    data.push({name: 'igv', value: Math.round(totalIgv*100)/100});
+    data.push({name: 'total', value: Math.round(totalguardar*100)/100});
+    data.push({name: 'envio', value: Math.round(costoEnvio*100)/100});
+    data.push({name: 'city', value: city});
+    data.push({name: 'type_doc', value: type_doc});
     $.ajax({
         url: 'venta',
         data: data,
@@ -205,6 +242,7 @@ function handleBlurProduct() {
     // When a package is selected
     if ( packages.indexOf(name) > -1 )
     {   // Quantity always is 1
+        
         $quantity.val(1);
         $quantity.prop('readonly', true);
         setPackagePrice(name);
@@ -288,7 +326,7 @@ function loadAutoCompleteItems(data) {
 
 function addItemsSeries() {
     var series_array = [];
-    $('#bodySeries').find('input').each(function (i, element) {
+    $('#bodySeries').find('[name=serie]').each(function (i, element) {
         var series = $(element).val();
         if(series != "")
             series_array.push(series);
@@ -325,15 +363,21 @@ function dontRepeat(series_array) {
 function deleteItem() {
     var $tr = $(this).parents('tr');
     var id = $(this).data('delete');
+    var precio = $(this).parent().prev().text();
     var series = $tr.find('[data-series]').text();
-    itemDelete(id, series);
+    itemDelete(id, series, precio);
     $tr.remove();
 }
 
-function itemDelete(id, series) {
+function itemDelete(id, series, precio) {
+    var price;
     for (var i = 0; i<items.length; ++i) {
         if (items[i].id == id && items[i].series == series) {
             items.splice(i, 1);
+            price = precio*100/118;
+            if (Math.round(igv*100)/100 != 0){
+                igv -= precio-price;
+            }
             updateTotal();
             return;
         }
@@ -341,10 +385,19 @@ function itemDelete(id, series) {
 }
 
 function updateTotal() {
+    var costoEnvio = $('#costenvio').val();
     var total = 0;
     for (var i=0; i<items.length; ++i)
         total += items[i].price * items[i].quantity;
-    $('#total').val(total);
+    if( $('#envioigv').is(':checked')) {
+        total += Math.round((costoEnvio * 1.18) * 100) / 100;
+    }else {
+        total += Math.round(costoEnvio*100)/100
+    }
+    console.log(Math.round((costoEnvio*100/118)*100)/100);
+    $('#igv').val(Math.round(igv*100)/100);
+    $('#total').val(Math.round(total*100)/100);
+
 }
 
 function loadAutoCompleteProducts(data) {
@@ -362,8 +415,6 @@ function loadAutoCompleteProducts(data) {
     );
 
 }
-
-
 
 // Funciones relacionadas al template HTML5
 function activateTemplate(id) {
@@ -390,6 +441,7 @@ function renderTemplateItem(id, name, series, quantity, price, sub) {
     clone.querySelector("[data-quantity]").innerHTML = quantity;
     clone.querySelector("[data-price]").innerHTML = price;
     clone.querySelector("[data-igvserie]").setAttribute('data-igvserie', series);
+    clone.querySelector("[data-igvmonto]").innerHTML = 0;
     clone.querySelector("[data-sub]").innerHTML = sub;
 
     clone.querySelector("[data-delete]").setAttribute('data-delete', id);

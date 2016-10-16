@@ -20,25 +20,36 @@ class CreateOutputsTable extends Migration
             $table->foreign('customer_id')->references('id')->on('customers');
 
             // Employee who registered the output
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+
             $table->enum('reason', ['sale', 'rental']);
 
             $table->boolean('active')->default(true);
 
             // General data
-            $table->enum('type', ['local', 'foreign']);
+            $table->enum('type', ['L', 'F']);
             $table->enum('currency', ['PEN', 'USD']);
             $table->string('comment');
+            $table->decimal('igv', 9,2);
+            $table->decimal('total', 9,2);
+            $table->decimal('shipping', 9,2);
+            $table->integer('state')->unsigned();//1:pendiente; 0: pagada
 
             // Invoice data
             $table->string('invoice'); // number
+            $table->enum('type_doc', ['F', 'B']); // type
+            $table->string('city')->nullable(); // Provincia
             $table->date('invoice_date')->nullable();
+            $table->date('income_tax_date')->nullable();
+            $table->date('general_sales_tax_date')->nullable();
 
             // Rental data
             $table->date('fechaAlquiler')->nullable();
             $table->date('fechaRetorno')->nullable();
             $table->string('destination')->nullable();
 
-            // For rentals, this indicates the status of the devolution
+            // For rentals, the completed is TRUE when the devolution is done
             $table->boolean('completed')->default(false);
 
             $table->timestamps();

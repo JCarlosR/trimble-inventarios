@@ -14,6 +14,7 @@ use App\Product;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class RentalController extends Controller
@@ -23,7 +24,8 @@ class RentalController extends Controller
 
         $invoiceDate = $request->get('invoice_date');
         $invoiceNumber = $request->get('invoice');
-
+        $igv = $request->get('igv');
+        $total = $request->get('total');
         $cliente = $request->get('cliente');
         $destination = $request->get('destination');
         $fechaAlquiler = $request->get('fechaAlquiler');
@@ -62,8 +64,12 @@ class RentalController extends Controller
                 'invoice_date' => $invoiceDate,
                 'invoice' => $invoiceNumber,
                 'customer_id' => $customerId,
+                'user_id' => Auth::user()->id,
                 'destination' => $destination,
                 'reason' => 'rental',
+                'igv' => $igv,
+                'total' => $total,
+                'state' => 0,
                 'comment' => $observacion,
                 'fechaAlquiler' => $fechaAlquiler,
                 'fechaRetorno' => $fechaRetorno
