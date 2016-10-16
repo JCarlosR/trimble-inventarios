@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
+
+    use CurrencyConversion;
+
     public function index(Request $request)
     {
         if ($request->has('product_name')) {
@@ -262,9 +265,23 @@ class ProductController extends Controller
         return redirect('producto');
     }
 
-    public function search($name)
+    public function searchByName($name)
     {
-        $product = Product::where('name', $name)->first(['id', 'name','price']);
+        $product = Product::where('name', $name)->first(['id', 'name', 'money', 'price']);
+        return $product;
+    }
+
+    public function priceByName($name, $currency)
+    {
+        $product = Product::where('name', $name)->first(['id', 'name', 'money', 'price']);
+        if ($product->money != $currency) {
+            if ($currency == 'USD') // The price is required in USD
+                $product->price = $this->convertCurrencyToUSD($currency, $product->price); // e.g. PEN => USD
+            else // The price is required in another currency
+                $product->price = $this->convertUSDToCurrency($currency, $product->price); // e.g. USD => PEN
+            $product->money = $currency; // To avoid mistakes
+        }
+
         return $product;
     }
 

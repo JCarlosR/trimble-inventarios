@@ -240,9 +240,8 @@ function handleBlurProduct() {
     var name = $('#product').val();
 
     // When a package is selected
-    if ( packages.indexOf(name) > -1 )
-    {   // Quantity always is 1
-        
+    if ( packages.indexOf(name) > -1 ) {
+        // Quantity always is 1
         $quantity.val(1);
         $quantity.prop('readonly', true);
         setPackagePrice(name);
@@ -255,8 +254,9 @@ function handleBlurProduct() {
 }
 
 function setProductPrice(product_name) {
-    $.getJSON('../producto/buscar/'+product_name, function (data) {
-        $('#precio').val( data.price );
+    var currency = $('input[name=moneda]:checked').val(); // Selected currency
+    $.getJSON('../producto/'+product_name+'/precio/'+currency, function (data) {
+        $('#precio').val(data.price);
     });
 }
 

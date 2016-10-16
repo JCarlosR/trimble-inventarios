@@ -27,14 +27,19 @@ class DatabaseSeeder extends Seeder
         $this->call(LocalsTableSeeder::class);
         $this->call(ShelvesTableSeeder::class);
 
+        $this->call(CurrenciesTableSeeder::class);
+
         $this->call(PackagesTableSeeder::class);
         $this->call(ItemsTableSeeder::class);
+
         $this->call(EntriesTableSeeder::class);
         $this->call(EntryDetailsTableSeeder::class);
         $this->call(OutputsTableSeeder::class);
         $this->call(OutputDetailsTableSeeder::class);
+
         $this->call(SmallBoxBalancesTableSeeder::class);
         $this->call(SmallBoxsTableSeeder::class);
+
         $this->call(PaymentsTableSeeder::class);
     }
 }

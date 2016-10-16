@@ -170,8 +170,9 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     /* Searches */
-    // Search 1 product by name
-    Route::get('/producto/buscar/{name}', 'ProductController@search');
+    // Search a product by name and return its basic data
+    Route::get('/producto/buscar/{name}', 'ProductController@searchByName');
+    Route::get('/producto/{name}/precio/{currency}', 'ProductController@priceByName');
     Route::get('/paquete/ubicaciones', 'PackageController@locations');
     Route::get('/paquete/detalles/{id}', 'PackageController@searchDetails');
     // Search 1 package by name
