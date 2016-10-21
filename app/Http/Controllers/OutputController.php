@@ -82,7 +82,7 @@ class OutputController extends Controller
                 'total' => $total,
                 'shipping' => $envio,
                 'city' => $city,
-                'state' => 0,
+                'state' => 1,
                 'currency' => $moneda,
                 'reason' => 'sale',
                 'comment' => $observacion
@@ -155,7 +155,7 @@ class OutputController extends Controller
             $dompdf = app('dompdf.wrapper');
             $dompdf->loadHTML($vista);
             $pdf = $dompdf->output();
-            $pdf_name = "Factura";
+            $pdf_name = $factura;
             $file_location = $_SERVER['DOCUMENT_ROOT']."/trimble-inventarios/public/facturas/".$pdf_name.".pdf";
             file_put_contents($file_location,$pdf);
 

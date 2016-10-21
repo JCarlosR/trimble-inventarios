@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label class="control-label col-md-3" for="sale_date">Fecha de factura:</label>
+                                        <label class="control-label col-md-3" for="sale_date">Fecha:</label>
                                         <div class="input-group col-md-9">
                                             <input type="date" class="form-control" name="invoice_date" id="invoice_date" value="{{ date('Y-m-d') }}">
                                         </div>

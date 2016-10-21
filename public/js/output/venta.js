@@ -58,12 +58,12 @@ function envioIGV() {
     var addIgv = 0;
     if( $(this).is(':checked'))
     {
-        addIgv = Math.round((parseFloat(costoEnvio)*0.18));
+        addIgv = Math.round((parseFloat(costoEnvio)*0.18)*100)/100;
         console.log('AddIGV:  '+addIgv);
-        igv += Math.round(addIgv);
+        igv += Math.round(addIgv*100)/100;
     }else{
-        addIgv = Math.round((parseFloat(costoEnvio)*0.18));
-        igv -= Math.round(addIgv);
+        addIgv = Math.round((parseFloat(costoEnvio)*0.18)*100)/100;
+        igv -= Math.round(addIgv*100)/100;
     }
     updateTotal();
 }
