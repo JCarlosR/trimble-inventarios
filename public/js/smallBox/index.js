@@ -1,5 +1,10 @@
 $(document).on('ready', principal);
 
+//First section
+
+
+
+//Second section
 var $btnExcel;
 var $btnPDF;
 var $selectYear;
@@ -54,4 +59,20 @@ function registerConcept()
                 }, 2000);
             }
         });
+}
+
+function renderTemplateItem(id, name, series, location, quantity, price, sub) {
+
+    var clone = activateTemplate('#template-item');
+
+    clone.querySelector("[data-name]").innerHTML = name;
+    clone.querySelector("[data-series]").innerHTML = series;
+    clone.querySelector("[data-ubication]").innerHTML = location;
+    clone.querySelector("[data-quantity]").innerHTML = quantity;
+    clone.querySelector("[data-price]").innerHTML = price;
+    clone.querySelector("[data-sub]").innerHTML = sub;
+
+    clone.querySelector("[data-delete]").setAttribute('data-delete', id);
+
+    $('#table-items').append(clone);
 }

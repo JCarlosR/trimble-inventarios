@@ -31,6 +31,22 @@ class SmallBoxController extends Controller
         return view('smallBox.smallBox')->with(compact('date'));
     }
 
+    public function listar()
+    {
+        $carbon = new Carbon();
+        $date = $carbon->now();
+        $year = ($date->year);
+        $month = $date->month;
+        $date = $date->format('Y-m-d');
+        $assignmes = SmallBox::whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->where('type','=','assign')->first();
+        $nextassign = SmallBox::where('type','=','assign')->where('id','>',$assignmes->id)->first();
+        if($nextassign)
+            $conceptos = SmallBox::where('id','>',$assignmes->id)->where('id','<',$nextassign->id)->where('type','<>','assign')->get();
+        else
+            $conceptos = SmallBox::where('id','>',$assignmes->id)->where('type','<>','assign')->get();
+        return view('smallBox.listar')->with(compact('date','conceptos','assignmes'));
+    }
+
     public function store( Request $request )
     {
         $dt = Carbon::parse($request->get('date'));
@@ -365,5 +381,27 @@ class SmallBoxController extends Controller
         $pdf = app('dompdf.wrapper');
         $pdf->loadHTML($vista);
         return $pdf->download();
+    }
+
+
+    public function editrow(Request $request)
+    {
+        $id = $request->get('id');
+        $concept = $request->get('concepto');
+        $amount = $request->get('monto');
+
+        if($id == null OR $id == "")
+            return response()->json(['error' => true, 'message' => 'Ha ocurrido un error inesperado. Actualice y vuelva a intentar.']);
+        if ($concept == null OR $concept == "")
+            return response()->json(['error' => true, 'message' => 'Es necesario ingresar el concepto a la caja chica']);
+        if ($amount == null OR $amount == "")
+            return response()->json(['error' => true, 'message' => 'Es necesario ingresar el importe del concepto a la caja chica']);
+
+        $box = SmallBox::find( $id );
+        $box->concept = $concept;
+        $box->amount = $amount;
+        $box->save();
+
+        return response()->json(['error' => false, 'message' => 'Concepto editado correctamente.']);
     }
 }

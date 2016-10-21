@@ -123,7 +123,7 @@
                             </li>
                             @endif
 
-                            <li><a href="{{ url('/cajachica') }}"><i class="fa fa-institution"></i> Caja chica</a>
+                            <li><a href="{{ url('/cajachica/listar') }}"><i class="fa fa-institution"></i> Caja chica</a>
                             </li>
                             <li><a><i class="fa fa-bar-chart-o"></i> Facturas <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">

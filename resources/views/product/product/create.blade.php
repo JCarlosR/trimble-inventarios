@@ -33,7 +33,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="alert alert-danger" role="alert">
-                                    <strong>Lo sentimos! </strong>Por favor revise los siguientes errores.
+                                    <strong>Lo sentimos!</strong> Por favor revise los siguientes errores.
                                     @foreach($errors->all() as $message)
                                         <p>{{$message}}</p>
                                     @endforeach
@@ -68,11 +68,11 @@
                             <label class="control-label col-md-1" for="money">Moneda<span class="required">*</span></label>
                             <div class="radio-group col-md-5">
                                 @if( old('money') == 2)
-                                    <input type="radio" id="money" name="money" value="1" >Soles
-                                    <input type="radio" id="money" name="money" value="2" checked>Dólares
+                                    <input type="radio" id="money" name="money" value="PEN" >Soles
+                                    <input type="radio" id="money" name="money" value="USD" checked>Dólares
                                 @else
-                                    <input type="radio" id="money" name="money" value="1" checked>Soles
-                                    <input type="radio" id="money" name="money" value="2">Dólares
+                                    <input type="radio" id="money" name="money" value="PEN" checked>Soles
+                                    <input type="radio" id="money" name="money" value="USD">Dólares
                                 @endif
                             </div>
                         </div>

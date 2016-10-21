@@ -121,31 +121,12 @@
 
                             <!-- Modal -->
                             <template id="template-series">
-                                {{--<div class="row">--}}
-                                    {{--<div class="col-md-6">--}}
-                                        {{--<div class="form-group">--}}
-                                            {{--<label for="serie">Ingrese serie:</label>--}}
-                                            {{--<input type="text" class="typeahead form-control" data-search>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-6">--}}
-                                        {{--<div>--}}
-                                            {{--<label for="serie">Ingrese ubicación:</label>--}}
-                                            {{--<input type="text" class="typeahead form-control" data-location>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{----}}
-                                {{--</div>--}}
-
                                 <div class="form-group">
                                     <label for="serie">Ingrese serie:</label>
                                     <input type="text" class="typeahead form-control" name="serie" data-search>
-
                                 </div>
-
-
-
                             </template>
+
                             <div class="modal fade" id="modalSeries" role="dialog">
                                 <div class="modal-dialog modal-sm">
 
@@ -169,7 +150,6 @@
 
                                 </div>
                             </div>
-
                             {{-- Fin modal --}}
 
                             <div class="form-group">
@@ -297,44 +277,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
-    {{--<template id="template-series">--}}
-        {{--<div class="form-group">--}}
-            {{--<label for="serie">Ingrese serie:</label>--}}
-            {{--<input type="text" class="typeahead form-control" data-search>--}}
-        {{--</div>--}}
-        {{--<div class="form-group">--}}
-            {{--<label for="ubicacion">Ingrese ubicación:</label>--}}
-            {{--<input type="text" class="typeahead form-control" data-ubicacion>--}}
-        {{--</div>--}}
-    {{--</template>--}}
-    {{--<div class="modal fade" id="modalSeries" role="dialog">--}}
-        {{--<div class="modal-dialog modal-sm">--}}
 
-            {{--<!-- Modal content-->--}}
-            {{--<div class="modal-content">--}}
-                {{--<div class="modal-header">--}}
-                    {{--<button type="button" class="close" data-dismiss="modal">&times;</button>--}}
-                    {{--<h4 class="modal-title">Ingrese las series</h4>--}}
-                {{--</div>--}}
-                {{--<div class="modal-body" id="bodySeries">--}}
-
-
-
-                {{--</div>--}}
-                {{--<div class="modal-footer">--}}
-                    {{--<button type="button" class="btn btn-success" id="btnAccept">Aceptar</button>--}}
-                    {{--<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-
-        {{--</div>--}}
-    {{--</div>--}}
-
-    {{-- Fin modal --}}
-
-
-    <!-- Modal -->
     <div class="modal fade" id="modalDetails" role="dialog">
         <div class="modal-dialog">
 
@@ -362,8 +305,6 @@
                         </template>
                         <tbody id="table-details">
 
-
-
                         </tbody>
                     </table>
                 </div>
@@ -374,7 +315,6 @@
 
         </div>
     </div>
-
     {{-- Fin modal --}}
 @endsection
 

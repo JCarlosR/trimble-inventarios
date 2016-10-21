@@ -111,7 +111,7 @@
                                     <div class="form-group">
                                         <br>
                                         <button id="save" data-url="{{ url('/salidas/cliente') }}" class="btn btn-success">Guardar</button>
-                                        <button id="cancel" data-url="{{ url('/salidas/cliente') }}" class="btn btn-danger">Cancelar</button>
+                                        <a href="{{ url('/cajachica/listar') }}" class="btn btn-danger">Cancelar</a>
                                     </div>
                                 </div>
                             </form>
