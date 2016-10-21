@@ -16,13 +16,14 @@ class InvoiceController extends Controller
 {
     public function index()
     {
+
     	$date = new Carbon();
     	$month = $date->month;
     	$today = $date->format('Y-m-d');
     	$yesterday = $date->subDays(1)->format('Y-m-d');
-    	
+
     	$outputs = Output::whereDate('invoice_date','=',$today)->where('income_tax_date',null)->orWhere('general_sales_tax_date',null)->paginate(4);
-    	
+
     	return view('facturas.index')->with(compact('outputs','today','yesterday','month'));
     }
 
@@ -92,15 +93,11 @@ class InvoiceController extends Controller
 		return view('facturas.history')->with(compact('outputs','today','yesterday','month'));
 	}
 
-	public function mes( $mes )
-	{
 
-	}
 
-	public function fechas( $inicio, $fin )
-	{
 
-	}
+
+
 
 	public function verify()
 	{
@@ -113,6 +110,14 @@ class InvoiceController extends Controller
 		if( count($outputs)==0 )
 			return response()->json(['error'=>true]);
 		return response()->json(['error'=>false]);
+	}
+
+
+	public function invoices_excel()
+	{
+		$date = new Carbon();
+		$month = $date->month;
+		return view('facturas.excel')->with(compact('month'));
 	}
 
 	public function excel()
