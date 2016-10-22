@@ -26,6 +26,7 @@
                         <br>
                         <form id="form" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
                             {{ csrf_field() }}
+
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -45,6 +46,7 @@
 
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label class="control-label col-md-3" for="sale_date">Fecha:</label>
@@ -60,7 +62,6 @@
                                             <input id="cliente" name="cliente" class="typeahead form-control" type="text">
                                         </div>
                                     </div>
-
                                 </div>
 
                                 <div class="row">
@@ -86,14 +87,11 @@
                                             <input type="text" name="provincia" id="provincia" class="form-control col-md-8">
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
 
                             <div class="form-group">
                                 <div class="row">
-
                                     <div class="col-md-6">
                                         <label class="control-label col-md-3" for="producto">Producto:
                                         </label>
@@ -127,19 +125,17 @@
                                 </div>
                             </template>
 
+                            {{-- Series modal --}}
                             <div class="modal fade" id="modalSeries" role="dialog">
                                 <div class="modal-dialog modal-sm">
 
-                                    <!-- Modal content-->
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             <h4 class="modal-title">Ingrese las series</h4>
                                         </div>
                                         <div class="modal-body" id="bodySeries">
-
-
-
+                                            {{-- Load with javascript after ajax requests --}}
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-success" id="btnAccept">Aceptar</button>
@@ -161,7 +157,8 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Lista</label>
                             </div>
-                            <div class="form-group">
+
+                            <div class="row">
                                 <div class="col-md-8 col-md-offset-2">
                                     <table class="table table-hover table-condensed">
                                         <thead>
@@ -213,13 +210,12 @@
                                             </tr>
                                         </template>
                                         <tbody id="table-items">
-
-
+                                            {{-- Load with javascript --}}
                                         </tbody>
                                     </table>
                                 </div>
-
                             </div>
+
                             <div class="row">
                                 <div class="col-md-6 col-md-offset-3">
                                     <div class="form-group">

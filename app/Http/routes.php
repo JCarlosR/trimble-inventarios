@@ -287,4 +287,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/pagos/search/{invoice}', 'PaymentController@search');
     Route::post('/pagos/save', 'PaymentController@store');
     
+    // CASO DE PRUEBA
+    Route::get('/factura/{id}', 'OutputController@facturita');
+    
 });

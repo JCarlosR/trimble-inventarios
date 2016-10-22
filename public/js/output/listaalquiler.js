@@ -15,9 +15,21 @@ $(document).on('ready', function (){
     $('[data-detraction]').on('click', showDetractionModal);
     $formDetraction = $('#formDetraction');
     $formDetraction.on('submit', submitDetraction);
+
+    $('[data-invoice]').on('click', verInvoice);
 });
 
 var $modalDetraction, $formDetraction;
+
+function verInvoice() {
+
+    var ruta = $(this).data('url');
+    var invoice = $(this).data('invoice');
+    var route = ruta+"/"+invoice;
+    console.log(ruta);
+    window.open(route, '_blank');
+}
+
 function showDetractionModal() {
     var id = $(this).data('detraction');
     $modalDetraction.find('[name="id"]').val(id);

@@ -8,7 +8,7 @@ class OutputDetail extends Model
 {
 
     protected $fillable = [
-        'output_id', 'item_id', 'price'
+        'output_id', 'item_id', 'price', 'originalprice'
     ];
 
     protected $appends = ['returned'];

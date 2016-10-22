@@ -23,6 +23,7 @@ class CreateOutputDetailsTable extends Migration
             $table->foreign('item_id')->references('id')->on('items');
 
             $table->decimal('price', 9,2);
+            $table->decimal('originalprice', 9,2);
 
             $table->timestamps();
         });

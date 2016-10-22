@@ -13,6 +13,7 @@ use App\OutputPackageDetail;
 use App\Package;
 use App\Product;
 use Carbon\Carbon;
+use DateTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -44,6 +45,7 @@ class OutputController extends Controller
         $moneda = $request->get('moneda');
         $cliente = $request->get('cliente');
         $type = $request->get('tipo');
+        $type_doc = $request->get('documento');
         $igv = $request->get('igv');
         $city = $request->get('city');
         $total = $request->get('total');
@@ -78,6 +80,7 @@ class OutputController extends Controller
                 'customer_id' => $customerId,
                 'user_id' => Auth::user()->id,
                 'type' => $type,
+                'type_doc' => $type_doc,
                 'igv' => $igv,
                 'total' => $total,
                 'shipping' => $envio,
@@ -104,7 +107,8 @@ class OutputController extends Controller
                     OutputDetail::create([
                         'output_id' => $output->id,
                         'item_id' => $realItem->id,
-                        'price' => $item->price
+                        'price' => $item->price,
+                        'originalprice' => $item->originalprice
                     ]);
                 } else {
                     $realpackage = Package::find($item->id);
@@ -121,7 +125,8 @@ class OutputController extends Controller
                     $outputPackage = OutputPackage::create([
                         'output_id' => $output->id,
                         'package_id' => $realpackage->id,
-                        'price' => $item->price
+                        'price' => $item->price,
+                        'originalprice' => $item->originalprice
                     ]);
 
                     $itemsPackageNotAvailble = Item::where('package_id', $realpackage->id)->where('state', '<>', 'available')->get();
@@ -146,12 +151,70 @@ class OutputController extends Controller
             }
 
             DB::commit();
-            $total = 0;
-            foreach ($items as $item)
-            {
-                $total = $total+$item->price;
+            $subtotal = 0;
+            $dt = Carbon::parse($output->created_at);
+            setlocale(LC_TIME, 'en');
+            $nameDay = $dt->formatLocalized('%A');
+            $day = $dt->formatLocalized('%d');
+            $nameMonth = $dt->formatLocalized('%B');
+            $year = $dt->formatLocalized('%Y');
+            foreach ( $output->details as $outputDetail ){
+                $subtotal = $subtotal + $outputDetail->price;
             }
-            $vista =  view('facturas.pdfFacturas', compact('total', 'items', 'cliente', 'type', 'observacion'))->render();
+            foreach ( $output->packages as $outputPackage ){
+                $subtotal = $subtotal + $outputPackage->price;
+            }
+            $nombreDia = "";
+            switch ($nameDay) {
+                case "Monday":
+                    $nombreDia = "Lunes"; break;
+                case "Tuesday":
+                    $nombreDia = "Martes";break;
+                case "Wednesday":
+                    $nombreDia = "Miércoles"; break;
+                case "Thursday":
+                    $nombreDia = "Jueves"; break;
+                case "Friday":
+                    $nombreDia = "Viernes";break;
+                case "Saturday":
+                    $nombreDia = "Sábado"; break;
+                case "Sunday":
+                    $nombreDia = "Domingo"; break;
+            }
+
+            $nombreMes = "";
+            switch ($nameMonth) {
+                case "January":
+                    $nombreMes = "Enero"; break;
+                case "February":
+                    $nombreMes = "Febrero";break;
+                case "March":
+                    $nombreMes = "Marzo"; break;
+                case "April":
+                    $nombreMes = "Abril"; break;
+                case "May":
+                    $nombreMes = "Mayo";break;
+                case "June":
+                    $nombreMes = "Junio"; break;
+                case "July":
+                    $nombreMes = "Julio"; break;
+                case "August":
+                    $nombreMes = "Agosto"; break;
+                case "September":
+                    $nombreMes = "Setiembre"; break;
+                case "October":
+                    $nombreMes = "Octubre";break;
+                case "November":
+                    $nombreMes = "Noviembre"; break;
+                case "December":
+                    $nombreMes = "Diciembre"; break;
+            }
+
+            $type_doc = $output->type_doc=="F" ? 'FACTURA' : 'BOLETA';
+            $reason = $output->reason=="sale" ? 'ENVÍO' : 'MOVILIDAD';
+            //dd($output->type_doc);
+            $date = $nombreDia." ".$day." de ".$nombreMes." del ".$year;
+            $vista =  view('facturas.pdfFacturas', compact('output', 'date', 'subtotal', 'type_doc', 'reason'))->render();
             $dompdf = app('dompdf.wrapper');
             $dompdf->loadHTML($vista);
             $pdf = $dompdf->output();
@@ -523,5 +586,75 @@ class OutputController extends Controller
         $urlInvoice = $_SERVER['DOCUMENT_ROOT']."/trimble-inventarios/public/facturas/".$invoice.".pdf";
         $pdf->stream($urlInvoice, array("Attachment" => false));
         exit(0);
+    }
+    
+    public function facturita($id){
+        $subtotal = 0;
+        $output = Output::find($id);
+        $dt = Carbon::parse($output->created_at);
+        setlocale(LC_TIME, 'en');
+        $nameDay = $dt->formatLocalized('%A');
+        $day = $dt->formatLocalized('%d');
+        $nameMonth = $dt->formatLocalized('%B');
+        $year = $dt->formatLocalized('%Y');
+        foreach ( $output->details as $outputDetail ){
+            $subtotal = $subtotal + $outputDetail->price;
+        }
+        foreach ( $output->packages as $outputPackage ){
+            $subtotal = $subtotal + $outputPackage->price;
+        }
+        $nombreDia = "";
+        switch ($nameDay) {
+            case "Monday":
+                $nombreDia = "Lunes"; break;
+            case "Tuesday":
+                $nombreDia = "Martes";break;
+            case "Wednesday":
+                $nombreDia = "Miércoles"; break;
+            case "Thursday":
+                $nombreDia = "Jueves"; break;
+            case "Friday":
+                $nombreDia = "Viernes";break;
+            case "Saturday":
+                $nombreDia = "Sábado"; break;
+            case "Sunday":
+                $nombreDia = "Domingo"; break;
+        }
+
+        $nombreMes = "";
+        switch ($nameMonth) {
+            case "January":
+                $nombreMes = "Enero"; break;
+            case "February":
+                $nombreMes = "Febrero";break;
+            case "March":
+                $nombreMes = "Marzo"; break;
+            case "April":
+                $nombreMes = "Abril"; break;
+            case "May":
+                $nombreMes = "Mayo";break;
+            case "June":
+                $nombreMes = "Junio"; break;
+            case "July":
+                $nombreMes = "Julio"; break;
+            case "August":
+                $nombreMes = "Agosto"; break;
+            case "September":
+                $nombreMes = "Setiembre"; break;
+            case "October":
+                $nombreMes = "Octubre";break;
+            case "November":
+                $nombreMes = "Noviembre"; break;
+            case "December":
+                $nombreMes = "Diciembre"; break;
+        }
+        $type_doc = $output->type_doc=="F" ? 'FACTURA' : 'BOLETA';
+        $reason = $output->reason=="sale" ? 'ENVÍO' : 'MOVILIDAD';
+
+
+        $date = $nombreDia." ".$day." de ".$nombreMes." del ".$year;
+        //dd($date);
+        return view('facturas.pdfFacturas')->with(compact('output', 'date', 'subtotal', 'type_doc', 'reason'));
+
     }
 }

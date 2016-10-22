@@ -247,7 +247,7 @@
                                 <div class="col-md-6 col-md-offset-3">
                                     <div class="form-group">
 
-                                        <label class="control-label col-md-3 col-xs-12" for="envio">Costo de envío:
+                                        <label class="control-label col-md-3 col-xs-12" for="envio">Costo de movilidad:
                                         </label>
                                         <div class="col-md-4">
                                             <input type="number" min="1" step="1" id="costenvio" class="form-control" value="0">
