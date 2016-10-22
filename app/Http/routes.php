@@ -49,9 +49,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('listar-facturas-declarar-ir','InvoiceController@ir');
     Route::post('listar-facturas-declarar-igv','InvoiceController@igv');
     Route::get('listar-facturas-declarar-historial','InvoiceController@history');
-    Route::get('listar-facturas-declarar/{mes}','InvoiceController@mes');
-    Route::get('listar-facturas-declarar/{inicio}/{fin}','InvoiceController@fechas');
+    Route::get('listar-facturas-declarar/{mes}','InvoiceController@mes_view');
+    Route::get('listar-facturas-declarar/{inicio}/{fin}','InvoiceController@fecha_view');
 
+    // Invoice - history
+    Route::get('listar-facturas-declarar-historial/{mes}','InvoiceController@mes_history');
+    Route::get('listar-facturas-declarar-historial/{inicio}/{fin}','InvoiceController@fecha_history');
+
+    // Invoices excel
     Route::get('listar-facturas-excel','InvoiceController@invoices_excel');
 
     Route::get('facturas-annio/{year}/{pay}/{wait}','InvoiceController@verify_invoice_year');

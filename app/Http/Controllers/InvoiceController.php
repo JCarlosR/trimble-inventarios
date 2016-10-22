@@ -14,15 +14,27 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class InvoiceController extends Controller
 {
+	//Invoices to declare
     public function index()
     {
+		$date = new Carbon();
+		$month = $date->month;
+		$year = $date->year;
+		$today = $date->format('Y-m-d');
+		$yesterday = $date->subDays(1)->format('Y-m-d');
 
-    	$date = new Carbon();
-    	$month = $date->month;
-    	$today = $date->format('Y-m-d');
-    	$yesterday = $date->subDays(1)->format('Y-m-d');
+		$outputs_collection = collect();
+		$outputs = Output::where( DB::raw('YEAR(invoice_date)'), '=', $year )->where( DB::raw('MONTH(invoice_date)'), '=', $month )->
+						   where('general_sales_tax_date',null)->get();
+		foreach ( $outputs as $output)
+			$outputs_collection->push($output);
 
-    	$outputs = Output::whereDate('invoice_date','=',$today)->where('income_tax_date',null)->orWhere('general_sales_tax_date',null)->paginate(4);
+		$outputs = Output::where( DB::raw('YEAR(invoice_date)'), '=', $year )->where( DB::raw('MONTH(invoice_date)'), '=', $month )->
+						   where('income_tax_date',null)->get();
+		foreach ( $outputs as $output)
+			$outputs_collection->push($output);
+
+		$outputs = $outputs_collection->unique('id');
 
     	return view('facturas.index')->with(compact('outputs','today','yesterday','month'));
     }
@@ -48,7 +60,6 @@ class InvoiceController extends Controller
 
 		return response()->json(['error'=>false,'message'=>'Impuestos a la Renta, declarados correctamente']);
 	}
-
 
 	public function igv( Request $request)
 	{
@@ -80,17 +91,88 @@ class InvoiceController extends Controller
 		return	false;
 	}
 
+	//Filtering data in invoices to declare
+	public function mes_view( $mes )
+	{
+		$date = new Carbon();
+		$year = $date->year;
+		$outputs_collection = collect();
+		$outputs = Output::where( DB::raw('YEAR(invoice_date)'), '=', $year )->where( DB::raw('MONTH(invoice_date)'), '=', $mes )->
+					       where('general_sales_tax_date',null)->get();
+		foreach ( $outputs as $output)
+			$outputs_collection->push($output);
 
+		$outputs = Output::where( DB::raw('YEAR(invoice_date)'), '=', $year )->where( DB::raw('MONTH(invoice_date)'), '=', $mes )->
+						   where('income_tax_date',null)->get();
+		foreach ( $outputs as $output)
+			$outputs_collection->push($output);
+
+		$outputs = $outputs_collection->unique('id');
+
+		if( count($outputs)==0 )
+			return response()->json(['error'=>true,'message'=>'No existen datos']);
+
+		return response()->json($outputs);
+	}
+
+	public function fecha_view( $inicio, $fin )
+	{
+		$outputs_collection = collect();
+		$outputs = Output::whereDate('invoice_date','>=',$inicio)->whereDate('invoice_date','<=',$fin)->
+						   where('general_sales_tax_date',null)->get();
+		foreach ( $outputs as $output)
+			$outputs_collection->push($output);
+
+		$outputs = Output::whereDate('invoice_date','>=',$inicio)->whereDate('invoice_date','<=',$fin)->
+						   where('income_tax_date',null)->get();
+		foreach ( $outputs as $output)
+			$outputs_collection->push($output);
+
+		$outputs = $outputs_collection->unique('id');
+
+		if( count($outputs)==0 )
+			return response()->json(['error'=>true,'message'=>'No existen datos']);
+
+		return response()->json($outputs);
+	}
+
+	// Invoices made a history
 	public function history()
 	{
 		$date = new Carbon();
 		$month = $date->month;
+		$year = $date->year;
 		$today = $date->format('Y-m-d');
 		$yesterday = $date->subDays(1)->format('Y-m-d');
-
-		$outputs = Output::whereDate('invoice_date','=',$today)->where('income_tax_date','!=',null)->where('general_sales_tax_date','!=',null)->paginate(4);
+		$outputs = Output::where( DB::raw('YEAR(invoice_date)'), '=', $year )->where( DB::raw('MONTH(invoice_date)'), '=', $month )->
+						   where('income_tax_date','!=',null)->where('general_sales_tax_date','!=',null)->get();
 
 		return view('facturas.history')->with(compact('outputs','today','yesterday','month'));
+	}
+
+	public function mes_history( $mes )
+	{
+		$date = new Carbon();
+		$year = $date->year;
+		$outputs = Output::where( DB::raw('YEAR(invoice_date)'), '=', $year )->where( DB::raw('MONTH(invoice_date)'), '=', $mes )->
+				           where('income_tax_date','!=',null)->where('general_sales_tax_date','!=',null)->get();
+
+		if( count($outputs)==0 )
+			return response()->json(['error'=>true,'message'=>'No existen datos']);
+
+		return response()->json($outputs);
+	}
+
+	public function fecha_history( $inicio, $fin )
+	{
+		$outputs_collection = collect();
+		$outputs = Output::whereDate('invoice_date','>=',$inicio)->whereDate('invoice_date','<=',$fin)->
+		                   where('income_tax_date','!=',null)->where('general_sales_tax_date','!=',null)->get();
+
+		if( count($outputs)==0 )
+			return response()->json(['error'=>true,'message'=>'No existen datos']);
+
+		return response()->json($outputs);
 	}
 
 
@@ -101,7 +183,7 @@ class InvoiceController extends Controller
 		$month = $date->month;
 		$year = $date->year;
 		$end = $date->format('Y-m-d');
-		$start = $date->subDays(7);
+		$start = $date->subDays(1);
 		$start = $start->format('Y-m-d');
 
 		return view('facturas.excel')->with(compact('month','year','start','end'));
@@ -271,16 +353,20 @@ class InvoiceController extends Controller
 						$detraction = $total*0.10;
 						$net_money  = $total*0.90;
 						$detraction_date = $output->detraction->detraction_date;
+						$date = new Carbon($detraction_date);
+						$detraction_date = $date->format('d-m-Y');
 					}
 
 					if( $output->income_tax_date != null ) {
 						$income_tax = $total*0.015;
-						$income_tax_date = $output->income_tax_date;
+						$date = new Carbon($output->income_tax_date);
+						$income_tax_date = $date->format('d-m-Y');
 					}
 
 					if(  $output->general_sales_tax_date != null ) {
 						$general_sales_tax = $igv;
-						$general_sales_tax_date = $output->general_sales_tax_date;
+						$date = new Carbon($output->general_sales_tax_date);
+						$general_sales_tax_date = $date->format('d-m-Y');
 					}
 
 					$disponible =  $total - $detraction - $income_tax - $general_sales_tax;
@@ -296,16 +382,22 @@ class InvoiceController extends Controller
 
 					if( $output->state == 0 ) {
 						$payment = Payments::where('invoice',$output->invoice)->orderBy('created_at', 'desc')->first();
-						if( count($payment) !=0 )
-							$invoice_state_date = $payment->date;
+						if( count($payment) !=0 ){
+							$date = new Carbon($payment->date);
+							$invoice_state_date = $date->format('d-m-Y');
+						}
 					}
+
+					$date = new Carbon($output->invoice_date);
+					$invoice_date = $date->format('d-m-Y');
 
 					$i+=1;
 					$invoices [] = [$spaces,$i,$output->customers->name,$output->invoice,
-							($output->type_doc=='F')?'Factura':'Boleta',$output->invoice_date,$subTotal,$igv,
+							($output->type_doc=='F')?'Factura':'Boleta',$invoice_date,$subTotal,$igv,
 							$total,$detraction,$detraction_date,$income_tax,$income_tax_date,
 							$general_sales_tax,$general_sales_tax_date,$net_money,
-							$invoice_state_date ,$disponible, $invoice_state_date ,($output->state==0)?'PAGADA':'PENDIENTE'
+							$invoice_state_date ,$disponible, $invoice_state_date ,
+							($output->state==0)?'PAGADA':'PENDIENTE'
 					];
 				}
 				$i=4;
@@ -497,17 +589,20 @@ class InvoiceController extends Controller
 					if(  $total>=700 ) {
 						$detraction = $total*0.10;
 						$net_money  = $total*0.90;
-						$detraction_date = $output->detraction->detraction_date;
+						$date = new Carbon($output->detraction->detraction_date);
+						$detraction_date = $date->format('d-m-Y');
 					}
 
 					if( $output->income_tax_date != null ) {
 						$income_tax = $total*0.015;
-						$income_tax_date = $output->income_tax_date;
+						$date = new Carbon( $output->income_tax_date);
+						$income_tax_date = $date->format('d-m-Y');
 					}
 
 					if(  $output->general_sales_tax_date != null ) {
 						$general_sales_tax = $igv;
-						$general_sales_tax_date = $output->general_sales_tax_date;
+						$date = new Carbon($output->general_sales_tax_date);
+						$general_sales_tax_date = $date->format('d-m-Y');
 					}
 
 					$disponible =  $total - $detraction - $income_tax - $general_sales_tax;
@@ -523,13 +618,17 @@ class InvoiceController extends Controller
 
 					if( $output->state == 0 ) {
 						$payment = Payments::where('invoice',$output->invoice)->orderBy('created_at', 'desc')->first();
-						if( count($payment) !=0 )
-							$invoice_state_date = $payment->date;
+						if( count($payment) !=0 ){
+							$date = new Carbon($payment->date);
+							$invoice_state_date = $date->format('d-m-Y');
+						}
 					}
+					$date = new Carbon($output->invoice_date);
+					$invoice_date = $date->format('d-m-Y');
 
 					$i+=1;
 					$invoices [] = [$spaces,$i,$output->customers->name,$output->invoice,
-							($output->type_doc=='F')?'Factura':'Boleta',$output->invoice_date,$subTotal,$igv,
+							($output->type_doc=='F')?'Factura':'Boleta',$invoice_date,$subTotal,$igv,
 							$total,$detraction,$detraction_date,$income_tax,$income_tax_date,
 							$general_sales_tax,$general_sales_tax_date,$net_money,
 							$invoice_state_date ,$disponible, $invoice_state_date ,($output->state==0)?'PAGADA':'PENDIENTE'
@@ -725,17 +824,20 @@ class InvoiceController extends Controller
 					if(  $total>=700 ) {
 						$detraction = $total*0.10;
 						$net_money  = $total*0.90;
-						$detraction_date = $output->detraction->detraction_date;
+						$date = new Carbon($output->detraction->detraction_date);
+						$detraction_date = $date->format('d-m-Y');
 					}
 
 					if( $output->income_tax_date != null ) {
 						$income_tax = $total*0.015;
-						$income_tax_date = $output->income_tax_date;
+						$date = new Carbon($output->income_tax_date);
+						$income_tax_date = $date->format('d-m-Y');
 					}
 
 					if(  $output->general_sales_tax_date != null ) {
 						$general_sales_tax = $igv;
-						$general_sales_tax_date = $output->general_sales_tax_date;
+						$date = new Carbon($output->general_sales_tax_date);
+						$general_sales_tax_date = $date->format('d-m-Y');
 					}
 
 					$disponible =  $total - $detraction - $income_tax - $general_sales_tax;
@@ -751,13 +853,18 @@ class InvoiceController extends Controller
 
 					if( $output->state == 0 ) {
 						$payment = Payments::where('invoice',$output->invoice)->orderBy('created_at', 'desc')->first();
-						if( count($payment) !=0 )
-							$invoice_state_date = $payment->date;
+						if( count($payment) !=0 ){
+							$date = new Carbon($payment->date);
+							$invoice_state_date = $date->format('d-m-Y');
+						}
 					}
+
+					$date = new Carbon($output->invoice_date);
+					$invoice_date = $date->format('d-m-Y');
 
 					$i+=1;
 					$invoices [] = [$spaces,$i,$output->customers->name,$output->invoice,
-							($output->type_doc=='F')?'Factura':'Boleta',$output->invoice_date,$subTotal,$igv,
+							($output->type_doc=='F')?'Factura':'Boleta',$invoice_date,$subTotal,$igv,
 							$total,$detraction,$detraction_date,$income_tax,$income_tax_date,
 							$general_sales_tax,$general_sales_tax_date,$net_money,
 							$invoice_state_date ,$disponible, $invoice_state_date ,($output->state==0)?'PAGADA':'PENDIENTE'

@@ -86,7 +86,7 @@ function invoices_date()
     var _start = new Date(start); var _end = new Date(end);
 
     if( _start.getTime() > _end.getTime()   ) {
-        alert('La fecha de inicio debe ser menor a la fecha final');
+        alert('La fecha de inicio no debe ser mayor a la fecha final');
         return;
     }
 
