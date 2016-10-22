@@ -11,6 +11,9 @@ var selectedProduct;
 var checkeado = false;
 
 $(document).on('ready', function () {
+
+    // If the user change the currency, alert him !
+    $('input[name=moneda]').on('change', onChangeCurrency);
     
     $('#product').on('blur', handleBlurProduct);
     $('#btnAdd').on('click', addRow);
@@ -52,6 +55,14 @@ $(document).on('ready', function () {
 
     });
 });
+
+function onChangeCurrency() {
+    var htmlAlertCurrency = '<div class="alert alert-success">' +
+        '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+        '<p>Por favor tenga en cuenta que el tipo de moneda hace referencia a toda la venta, y significa que todos los productos y paquetes están expresados en esta moneda, al igual que el costo de envío.</p>' +
+        '</div>';
+    $('#form').before(htmlAlertCurrency);
+}
 
 function envioIGV() {
     var costoEnvio = $('#costenvio').val();
