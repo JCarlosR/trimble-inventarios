@@ -53,8 +53,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('listar-facturas-declarar/{inicio}/{fin}','InvoiceController@fechas');
 
     Route::get('listar-facturas-excel','InvoiceController@invoices_excel');
-    Route::get('datos-excel','InvoiceController@verify');
-    Route::get('exportar-datos-excel-facturas','InvoiceController@excel');
+
+    Route::get('facturas-annio/{year}/{pay}/{wait}','InvoiceController@verify_invoice_year');
+    Route::get('facturas-mes/{month}/{pay}/{wait}','InvoiceController@verify_invoice_month');
+    Route::get('facturas-fecha/{start}/{end}/{pay}/{wait}','InvoiceController@verify_invoice_date');
+
+    Route::get('facturas-annio-excel/{year}/{pay}/{wait}','InvoiceController@invoice_year');
+    Route::get('facturas-mes-excel/{month}/{pay}/{wait}','InvoiceController@invoice_month');
+    Route::get('facturas-fecha-excel/{start}/{end}/{pay}/{wait}','InvoiceController@invoice_date');
 
     // Outputs detraction
     Route::get('/salida/detraction/{id}', 'DetractionController@getDetraction');

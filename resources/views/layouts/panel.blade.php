@@ -125,7 +125,7 @@
 
                             <li><a href="{{ url('/cajachica/listar') }}"><i class="fa fa-institution"></i> Caja chica</a>
                             </li>
-                            <li><a><i class="fa fa-bar-chart-o"></i> Facturas <span class="fa fa-chevron-down"></span></a>
+                            <li><a><i class="fa fa-bar-chart-o"></i> Documentos <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="{{url('listar-facturas-declarar')}}"><i class="fa fa-book"></i> Declaración</a></li>
                                     <li><a href="{{ url('listar-facturas-excel') }}"><i class="fa fa-download"></i> Reportes excel</a></li>
