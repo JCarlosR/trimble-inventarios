@@ -23,6 +23,7 @@ class CreateOutputPackagesTable extends Migration
             $table->foreign('package_id')->references('id')->on('packages');
 
             $table->decimal('price', 9,2);
+            $table->decimal('originalprice', 9,2);
 
             $table->timestamps();
         });

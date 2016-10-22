@@ -17,30 +17,28 @@
     <![endif]-->
 
     <style>
-        .limitar {
-            max-width: 100%;
 
-        }
         body {font-family: Arial, Helvetica, sans-serif;}
 
         table {
             font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-            font-size: 12px;
-            margin: 22px;
-            width: 600px; text-align: left;
+            font-size: 10px;
+
+            width: 100%;
+            text-align: left;
             border-collapse: collapse;
         }
 
         th {font-size: 13px;
             font-weight: normal;
-            padding: 8px;
+            padding: 4px;
             background: #b9c9fe;
             border-top: 4px solid #aabcfe;
             border-bottom: 1px solid #fff;
             color: #039;
         }
 
-        td {padding: 8px;
+        td {padding: 4px;
             background: #e8edff;
             border-bottom: 1px solid #fff;
             color: #669;
@@ -48,44 +46,170 @@
         }
 
         tr:hover td { background: #d0dafd; color: #339; }
+
+        .contenido{
+            position: relative;
+            width: 700px;
+            height: 700px;
+            border-color: #0f0f0f;
+            border-style: solid;
+        }
+        .cabecera{
+            width: inherit;
+            height: 210px;
+
+        }
+        .detalle{
+            width: inherit;
+            height: 490px;
+        }
+        .limitar {
+            height: 105px;
+            width: 105px;
+        }
+        .sinpadding{
+            font-size: 10px !important;
+            padding-top: 0;
+            margin-top: 0.4em;
+            margin-left: 1em;
+            font-weight: normal!important;
+
+        }
     </style>
 </head>
 <body>
-    <div class="row">
-        <img class="limitar" src="{{ asset('images/logo.jpg') }}" height="200" width="400"/>
-        <header>
-            <h2>TRIMBLE PERU SAC</h2>
-            <h3>Factura del cliente {{ $cliente }} </h3>
-        </header>
-    </div>
-    <div class="row">
 
-        <table>
-            <thead>
-            <tr>
-                <th>PRODUCTO</th>
-                <th>SERIE</th>
-                <th>CANTIDAD</th>
-                <th>SUBTOTAL Inc. IGV</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($items as $item)
+    <div class="contenido">
+
+        <div class="cabecera">
+            <table>
                 <tr>
-                    <td>{{ $item->nombre }}
-                    <td>{{ $item->series }}</td>
-                    <td> {{ 1 }} </td>
-                    <td>{{ $item->price }}</td>
+                    <td rowspan="3">
+                        <img class="limitar" src="{{ asset('images/logo.jpg') }}"/>
+                    </td>
+                    <td>
+                        <h3 class="sinpadding"><strong>RUC:</strong> <span> 12345678909 </span></h3>
+                    </td>
                 </tr>
-            @endforeach
-            <tr>
-                <td>{{ " " }}</td>
-                <td>{{ " " }}</td>
-                <td>TOTAL</td>
-                <td>{{ $total }}</td>
-            </tr>
-            </tbody>
-        </table>
+                <tr>
+                    <td>
+                        <h3 class="sinpadding"><span><strong>DOCUMENTO:</strong>  {{ $type_doc }}   </span></h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h3 class="sinpadding"><strong>NUMERO:</strong> <span> {{ $output->invoice }} </span></h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h3 class="sinpadding"><strong>CLIENTE:</strong> <span> {{ $output->customers->name }} </span></h3>
+                    </td>
+                    <td>
+                        <h3 class="sinpadding"><span><strong>FECHA:</strong> Lima, {{ $date }} </span></h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h3 class="sinpadding"><span><strong>DIRECCIÓN:</strong> {{ $output->customers->address }} </span></h3>
+                    </td>
+                    <td>
+                        <h3 class="sinpadding"><strong>DOC IDENTIDAD CLIENTE:</strong> <span> {{ $output->customers->document }} </span></h3>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="detalle">
+
+            <table>
+                <thead>
+                <tr>
+                    <th>CANTIDAD</th>
+                    <th>PRODUCTO</th>
+                    <th>SERIE</th>
+                    <th>PRECIO</th>
+                    <th>IGV</th>
+                    <th>SUBTOTAL</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                @foreach($output->details as $outputDetail)
+                <tr>
+                    <td>{{ 1 }}</td>
+                    <td>{{ $outputDetail->item->product->name }}</td>
+                    <td>{{ $outputDetail->item->series }}</td>
+                    <td>{{ $outputDetail->originalprice }}</td>
+                    <td>{{ $outputDetail->price - $outputDetail->originalprice }}</td>
+                    <td>{{ $outputDetail->price }}</td>
+                </tr>
+
+                @endforeach
+                @foreach($output->packages as $outputPackage)
+                    <tr>
+                        <td>1</td>
+                        <td>{{ $outputPackage->package->name }}</td>
+                        <td>{{ $outputPackage->package->code }}</td>
+                        <td>{{ $outputPackage->originalprice }}</td>
+                        <td>{{ $outputPackage->price - $outputPackage->originalprice }}</td>
+                        <td>{{ $outputPackage->price }}</td>
+                    </tr>
+
+                @endforeach
+                <tr>
+                    <td>{{ " " }}</td>
+                    <td>{{ " " }}</td>
+                    <td>{{ " " }}</td>
+                    <td>{{ " " }}</td>
+                    <td>{{ " " }}</td>
+                    <td>{{ " " }}</td>
+                </tr>
+                <tr>
+                    <td>{{ " " }}</td>
+                    <td>{{ " " }}</td>
+                    <td>{{ " " }}</td>
+                    <td>{{ " " }}</td>
+                    <td>{{ " " }}</td>
+                    <td>{{ " " }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ " " }}</td>
+                    <td>{{ " " }}</td>
+                    <td>{{ " " }}</td>
+                    <td>{{ " " }}</td>
+                    <td>SUBTOTAL</td>
+                    <td>{{ $subtotal }}</td>
+                </tr>
+                <tr>
+                    <td>{{ " " }}</td>
+                    <td>{{ " " }}</td>
+                    <td>{{ " " }}</td>
+                    <td>{{ " " }}</td>
+                    <td>{{ $reason }}</td>
+                    <td>{{ $output->shipping }}</td>
+                </tr>
+                <tr>
+                    <td>{{ " " }}</td>
+                    <td>{{ " " }}</td>
+                    <td>{{ " " }}</td>
+                    <td>{{ " " }}</td>
+                    <td>IGV {{ $reason }}</td>
+                    <td>{{ $output->total-$output->shipping-$subtotal}}</td>
+                </tr>
+                <tr>
+                    <td>{{ " " }}</td>
+                    <td>{{ " " }}</td>
+                    <td>{{ " " }}</td>
+                    <td>{{ " " }}</td>
+                    <td>TOTAL PAGAR</td>
+                    <td>{{ $output->total }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
 
     </div>
 

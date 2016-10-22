@@ -11,6 +11,7 @@ use App\OutputPackage;
 use App\OutputPackageDetail;
 use App\Package;
 use App\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -32,7 +33,7 @@ class RentalController extends Controller
         $fechaAlquiler = $request->get('fechaAlquiler');
         $fechaRetorno = $request->get('fechaRetorno');
         $observacion = $request->get('observacion');
-
+        $type_doc = $request->get('documento');
         $invoiceNumberRepeated = Output::where('invoice', $invoiceNumber)->count() > 0;
         if($invoiceNumberRepeated)
         {
@@ -70,6 +71,7 @@ class RentalController extends Controller
                 'reason' => 'rental',
                 'igv' => $igv,
                 'total' => $total,
+                'type_doc' => $type_doc,
                 'shipping' => $envio,
                 'state' => 1,
                 'comment' => $observacion,
@@ -93,7 +95,8 @@ class RentalController extends Controller
                     OutputDetail::create([
                         'output_id' => $output->id,
                         'item_id' => $realItem->id,
-                        'price' => $item->price
+                        'price' => $item->price,
+                        'originalprice' => $item->originalprice
                     ]);
                 } else {
                     $realpackage = Package::find($item->id);
@@ -111,7 +114,8 @@ class RentalController extends Controller
                     $outputPackage = OutputPackage::create([
                         'output_id' => $output->id,
                         'package_id' => $realpackage->id,
-                        'price' => $item->price
+                        'price' => $item->price,
+                        'originalprice' => $item->originalprice
                     ]);
 
                     $itemsPackageNotAvailble = Item::where('package_id', $realpackage->id)->where('state', '<>', 'available')->get();
@@ -125,7 +129,8 @@ class RentalController extends Controller
                         OutputPackageDetail::create([
                             'output_package_id' => $outputPackage->id,
                             'item_id' => $itemPaq->id,
-                            'price' => $itemPaq->price
+                            'price' => $itemPaq->price,
+
                         ]);
                         $itemPaq->state = 'rented';
                         $itemPaq->save();
@@ -136,6 +141,78 @@ class RentalController extends Controller
             }
 
             DB::commit();
+
+            $subtotal = 0;
+            $dt = Carbon::parse($output->created_at);
+            setlocale(LC_TIME, 'en');
+            $nameDay = $dt->formatLocalized('%A');
+            $day = $dt->formatLocalized('%d');
+            $nameMonth = $dt->formatLocalized('%B');
+            $year = $dt->formatLocalized('%Y');
+            foreach ( $output->details as $outputDetail ){
+                $subtotal = $subtotal + $outputDetail->price;
+            }
+            foreach ( $output->packages as $outputPackage ){
+                $subtotal = $subtotal + $outputPackage->price;
+            }
+            $nombreDia = "";
+            switch ($nameDay) {
+                case "Monday":
+                    $nombreDia = "Lunes"; break;
+                case "Tuesday":
+                    $nombreDia = "Martes";break;
+                case "Wednesday":
+                    $nombreDia = "Miércoles"; break;
+                case "Thursday":
+                    $nombreDia = "Jueves"; break;
+                case "Friday":
+                    $nombreDia = "Viernes";break;
+                case "Saturday":
+                    $nombreDia = "Sábado"; break;
+                case "Sunday":
+                    $nombreDia = "Domingo"; break;
+            }
+
+            $nombreMes = "";
+            switch ($nameMonth) {
+                case "January":
+                    $nombreMes = "Enero"; break;
+                case "February":
+                    $nombreMes = "Febrero";break;
+                case "March":
+                    $nombreMes = "Marzo"; break;
+                case "April":
+                    $nombreMes = "Abril"; break;
+                case "May":
+                    $nombreMes = "Mayo";break;
+                case "June":
+                    $nombreMes = "Junio"; break;
+                case "July":
+                    $nombreMes = "Julio"; break;
+                case "August":
+                    $nombreMes = "Agosto"; break;
+                case "September":
+                    $nombreMes = "Setiembre"; break;
+                case "October":
+                    $nombreMes = "Octubre";break;
+                case "November":
+                    $nombreMes = "Noviembre"; break;
+                case "December":
+                    $nombreMes = "Diciembre"; break;
+            }
+
+            $type_doc = $output->type_doc=="F" ? 'FACTURA' : 'BOLETA';
+            $reason = $output->reason=="sale" ? 'ENVÍO' : 'MOVILIDAD';
+            //dd($output->type_doc);
+            $date = $nombreDia." ".$day." de ".$nombreMes." del ".$year;
+            $vista =  view('facturas.pdfFacturas', compact('output', 'date', 'subtotal', 'type_doc', 'reason'))->render();
+            $dompdf = app('dompdf.wrapper');
+            $dompdf->loadHTML($vista);
+            $pdf = $dompdf->output();
+            $pdf_name = $invoiceNumber;
+            $file_location = $_SERVER['DOCUMENT_ROOT']."/trimble-inventarios/public/facturas/".$pdf_name.".pdf";
+            file_put_contents($file_location,$pdf);
+            
             return response()->json(['error' => false]);
             // all good
         } catch (\Exception $e) {

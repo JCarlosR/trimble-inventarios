@@ -9,7 +9,17 @@ $(document).on('ready', function (){
     $('[data-detraction]').on('click', showDetractionModal);
     $formDetraction = $('#formDetraction');
     $formDetraction.on('submit', submitDetraction);
+
+    $('[data-invoice]').on('click', verInvoice);
 });
+
+function verInvoice() {
+    var ruta = $(this).data('url');
+    var invoice = $(this).data('invoice');
+    var route = ruta+"/"+invoice;
+    console.log(ruta);
+    window.open(route, '_blank');
+}
 
 var $modalDetraction, $formDetraction;
 function showDetractionModal() {
