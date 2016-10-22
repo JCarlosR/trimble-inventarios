@@ -26,6 +26,7 @@ class RentalController extends Controller
         $invoiceNumber = $request->get('invoice');
         $igv = $request->get('igv');
         $total = $request->get('total');
+        $envio = $request->get('envio');
         $cliente = $request->get('cliente');
         $destination = $request->get('destination');
         $fechaAlquiler = $request->get('fechaAlquiler');
@@ -69,7 +70,8 @@ class RentalController extends Controller
                 'reason' => 'rental',
                 'igv' => $igv,
                 'total' => $total,
-                'state' => 0,
+                'shipping' => $envio,
+                'state' => 1,
                 'comment' => $observacion,
                 'fechaAlquiler' => $fechaAlquiler,
                 'fechaRetorno' => $fechaRetorno

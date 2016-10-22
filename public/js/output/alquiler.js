@@ -16,9 +16,9 @@ $(document).on('ready', function () {
     $(document).on('click', '[data-delete]', deleteItem);
     $(document).on('click', '[data-look]', lookDetails);
     $('#btnAccept').on('click', addItemsSeries);
-    
     $('#form').on('submit', registerRental);
     $(document).on('click', '[data-igvserie]', updateSubtotal);
+    $('#envioigv').on('click', envioIGV);
 
     var url_products ='../productos/names';
     var url_packages = '../paquetes/disponibles';
@@ -52,28 +52,45 @@ $(document).on('ready', function () {
 
 });
 
+function envioIGV() {
+    var costoEnvio = $('#costenvio').val();
+    console.log(costoEnvio);
+    var addIgv = 0;
+    if( $(this).is(':checked'))
+    {
+        addIgv = Math.round((parseFloat(costoEnvio)*0.18)*100)/100;
+        console.log('AddIGV:  '+addIgv);
+        igv += Math.round(addIgv*100)/100;
+    }else{
+        addIgv = Math.round((parseFloat(costoEnvio)*0.18)*100)/100;
+        igv -= Math.round(addIgv*100)/100;
+    }
+    updateTotal();
+}
+
 function updateSubtotal() {
     var serie = $(this).data('igvserie');
     var price;
-    var precio = $(this).parent().next().text();
+    var precio = $(this).parent().next().next().text();
     if( $(this).is(':checked'))
     {
         // precio = $(this).parent().prev().text();
-        price = precio*1.18;
-        $(this).parent().next().html(price);
+        price = Math.round((precio*1.18)*100)/100;
+        $(this).parent().next().html( Math.round((precio*0.18)*100)/100 );
         for (var i = 0; i<items.length; ++i)
             if (items[i].series == serie)
                 items[i].price = price;
-        igv += price-precio;
+        igv += (Math.round(price*100)/100)-(Math.round(precio*100)/100);
         console.log("IGV: "+igv);
         updateTotal();
     }else{
-        price = precio*100/118;
-        $(this).parent().next().html(price);
+        price = Math.round((precio*100/118)*100)/100;
+        $(this).parent().next().html(Math.round(0)/100);
+        $(this).parent().next().next().html(price);
         for (var i = 0; i<items.length; ++i)
             if (items[i].series == serie)
                 items[i].price = price;
-        igv -= precio-price;
+        igv -= (Math.round(precio*100)/100)-(Math.round(price*100)/100);
         console.log("IGV: "+igv);
         updateTotal();
     }
@@ -92,7 +109,12 @@ function prevMonth(date_string) {
 
 function registerRental() {
     event.preventDefault();
-
+    var totalguardar = $('#total').val();
+    var costoEnvio = $('#costenvio').val();
+    var totalIgv = $('#igv').val();
+    var type_doc = $('input:radio[name=documento]:checked').val();
+    console.log(costoEnvio);
+    
     // Validate invoice number
     var invoice = $('#invoice').val();
     if (! invoice) {
@@ -109,9 +131,11 @@ function registerRental() {
     var _token = $(this).find('[name=_token]');
     var data = $(this).serializeArray();
     var url_alquiler = '../alquiler/registrar';
-
     data.push({name: 'items', value: JSON.stringify(items)});
-    data.push({name: 'igv', value: Math.round(igv*100)/100});
+    data.push({name: 'igv', value: Math.round(totalIgv*100)/100});
+    data.push({name: 'total', value: Math.round(totalguardar*100)/100});
+    data.push({name: 'envio', value: Math.round(costoEnvio*100)/100});
+    data.push({name: 'type_doc', value: type_doc});
 
     $.ajax({
         url: url_alquiler,
@@ -331,11 +355,18 @@ function itemDelete(id, series, precio) {
 }
 
 function updateTotal() {
+    var costoEnvio = $('#costenvio').val();
     var total = 0;
     for (var i=0; i<items.length; ++i)
         total += items[i].price * items[i].quantity;
+    if( $('#envioigv').is(':checked')) {
+        total += Math.round((costoEnvio * 1.18) * 100) / 100;
+    }else {
+        total += Math.round(costoEnvio*100)/100
+    }
+    console.log(Math.round((costoEnvio*100/118)*100)/100);
     $('#igv').val(Math.round(igv*100)/100);
-    $('#total').val(total);
+    $('#total').val(Math.round(total*100)/100);
 }
 
 // Funciones relacionadas al template HTML5

@@ -89,21 +89,29 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label class="control-label col-md-3" for="fecha">Nro de factura:</label>
-
+                                        <label class="control-label col-md-3" for="invoice">
+                                            Nro. de documento:
+                                        </label>
                                         <div class="input-group col-md-9">
-                                            <input type="text" name="invoice" id="invoice" class="form-control">
+                                            <input id="invoice" name="invoice" class="form-control" type="text">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="control-label col-md-3" for="fecha">Fecha factura:</label>
-                                        <div class="input-group col-md-9">
-                                            <input type="date" name="invoice_date" id="invoice_date" class="form-control" value="{{ $currentDate }}">
+                                        <label class="control-label col-md-4" for="type">Tipo de Documento:</label>
+                                        <div class="input-group col-md-8">
+                                            <input type="radio" name="documento" value="F" checked> Factura
+                                            <input type="radio" name="documento" value="B"> Boleta
                                         </div>
+
                                     </div>
                                 </div>
-
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="control-label col-md-3" for="sale_date">Fecha:</label>
+                                        <div class="input-group col-md-9">
+                                            <input type="date" class="form-control" name="invoice_date" id="invoice_date" value="{{ date('Y-m-d') }}">
+                                        </div>
+                                    </div>
                                     <div class="col-md-6">
                                         <label class="control-label col-md-3" for="cliente">
                                             Cliente:
@@ -113,6 +121,8 @@
                                         </div>
                                     </div>
 
+                                </div>
+                                <div class="row">
                                     <div class="col-md-6">
                                         <label class="control-label col-md-3" for="destination">Destino:</label>
 
@@ -121,7 +131,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label class="control-label col-md-3" for="fecha">Fecha alquiler:</label>
@@ -138,12 +147,10 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
 
                             <div class="form-group">
                                 <div class="row">
-
                                     <div class="col-md-6">
                                         <label class="control-label col-md-3" for="producto">Producto:
                                         </label>
@@ -177,6 +184,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Lista</label>
                             </div>
+
                             <div class="form-group">
                                 <div class="col-md-10 col-md-offset-1">
                                     <table class="table table-hover table-condensed">
@@ -188,6 +196,7 @@
                                             <th>Cantidad</th>
                                             <th>Precio</th>
                                             <th>IGV</th>
+                                            <th>Monto IGV</th>
                                             <th>Subtotal</th>
                                             <th>Acción</th>
                                         </tr>
@@ -202,6 +211,7 @@
                                                 <td>
                                                     <input type="checkbox" data-igvserie>
                                                 </td>
+                                                <td data-igvmonto>1</td>
                                                 <td data-sub>1</td>
                                                 <td>
                                                     <button data-delete type="button" class="btn btn-danger">Quitar</button>
@@ -218,6 +228,7 @@
                                                 <td>
                                                     <input type="checkbox" data-igvserie>
                                                 </td>
+                                                <td data-igvmonto>1</td>
                                                 <td data-sub>1</td>
                                                 <td>
                                                     <button data-look type="button" class="btn btn-primary">Ver</button>
@@ -234,6 +245,15 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6 col-md-offset-3">
+                                    <div class="form-group">
+
+                                        <label class="control-label col-md-3 col-xs-12" for="envio">Costo de envío:
+                                        </label>
+                                        <div class="col-md-4">
+                                            <input type="number" min="1" step="1" id="costenvio" class="form-control" value="0">
+                                        </div>
+                                        IGV: <input type="checkbox" id="envioigv" >
+                                    </div>
 
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-xs-12" for="total">Igv:
