@@ -21,16 +21,16 @@ var InvoiceTableRow = React.createClass({
         return (
             <tr>
                 <td>{this.props.output.invoice}</td>
+                <td>{this.props.output.type_doc}</td>
                 <td>{this.props.output.invoice_date}</td>
                 <td>
-                    <button type="button" className="btn btn-danger" onClick={this.handleTakedOutPanel}><i className="fa fa-pencil"></i></button>
+                    <button type="button" className="btn btn-danger" data-invoice={this.props.invoice}>
+                        <i className="fa fa-pencil"></i> Quitar
+                    </button>
                 </td>
             </tr>
         );
     },
-    handleTakedOutPanel: function() {
-        this.props.handleTakedOutPanel(this.props.output.invoice);
-    }
 });
 
 var TablePagination = React.createClass({
@@ -74,13 +74,15 @@ var InvoicesTable = React.createClass({
     render: function() {
         var rows = [];
         this.props.outputs.forEach(function(output) {
-            rows.push(<InvoiceTableRow key={output.invoice} user={output.invoice} handleTakeOutPanel={this.props.handleTakeOutPanel} />);
+            rows.push(<InvoiceTableRow key={output.invoice} invoice={output.invoice}
+                                       type_doc={output.type_doc} invoice_date={output.invoice_date} />);
         }.bind(this));
         return (
             <table className="table table-condensed table-hover">
                 <thead>
                 <tr>
-                    <th>Factura</th>
+                    <th>Documento</th>
+                    <th>Tipo documento</th>
                     <th>Fecha de emisión</th>
                     <th>Acción</th>
                 </tr>
@@ -91,11 +93,10 @@ var InvoicesTable = React.createClass({
     }
 });
 
-var InvoicePanel = React.createClass({
+var InvoicePanel  = React.createClass({
     getInitialState: function() {
         return {
             outputs: [],
-            takedOut:[],
             search:""
         };
     },
@@ -107,28 +108,18 @@ var InvoicePanel = React.createClass({
                                  onSearchChanged={this.onSearchChanged}
                                  onClearSearch={this.onClearSearch} />
                     <InvoicesTable outputs={this.state.outputs}
-                                handleEditClickPanel={this.handleTakedOutPanel} />
+                                   search={this.state.search} />
+
                     <TablePagination
                         current_page={this.state.current_page}
                         last_page={this.state.last_page}
                         handlePageChange={this.handlePageChange} />
                 </div>
-
-                <div className="col-md-4">
-                    <UsersForm
-                        user={this.state.editingUser}
-                        message={this.state.message}
-                        handleChange={this.handleChange}
-                        handleSubmitClick={this.handleSubmitClick}
-                        handleCancelClick={this.handleCancelClick}
-                        handleDeleteClick={this.handleDeleteClick}
-                    />
-                </div>
             </div>
         );
     },
     componentDidMount: function() {
-        this.reloadUsers('');
+        this.reloadInvoices('');
     },
 
     // Non-ajax object methods
@@ -140,14 +131,14 @@ var InvoicePanel = React.createClass({
             search: query
         });
         this.promise = setTimeout(function () {
-            this.reloadUsers(query);
+            this.reloadInvoices(query);
         }.bind(this), 200);
     },
     onClearSearch: function() {
         this.setState({
             search: ''
         });
-        this.reloadUsers('');
+        this.reloadInvoices('');
     },
     handleEditClickPanel: function(id) {
         var user = $.extend({}, this.state.users.filter(function(x) {
@@ -179,11 +170,11 @@ var InvoicePanel = React.createClass({
 
     // The most OP function XD
     handlePageChange: function(page) {
-        this.reloadUsers(this.state.search, page);
+        this.reloadInvoices(this.state.search, page);
     },
 
     // Ajax object methods
-    reloadUsers: function(query, page) {
+    reloadInvoices: function(query, page) {
         var url_request = this.props.url+'?search='+query;
         if (page) {
             url_request += '&page='+page;
@@ -195,7 +186,7 @@ var InvoicePanel = React.createClass({
             cache: false,
             success: function(data) {
                 this.setState({
-                    users: data.data,
+                    outputs: data.data,
                     current_page: data.current_page,
                     last_page: data.last_page
                 });
@@ -207,87 +198,10 @@ var InvoicePanel = React.createClass({
                 });
             }.bind(this)
         });
-    },
-    handleSubmitClick: function(e) {
-        e.preventDefault();
-        if(this.state.editingUser.id) {
-            $.ajax({
-                url: this.props.url+'/'+this.state.editingUser.id,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                },
-                dataType: 'json',
-                method: 'PUT',
-                data: this.state.editingUser,
-                cache: false,
-                success: function(data) {
-                    this.setState({
-                        message: "Successfully updated user!"
-                    });
-                    this.reloadUsers('');
-                }.bind(this),
-                error: function(xhr, status, err) {
-                    console.error(this.props.url, status, err.toString());
-                    this.setState({
-                        message: err.toString()
-                    });
-                }.bind(this)
-            });
-        } else {
-            $.ajax({
-                url: this.props.url,
-                dataType: 'json',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                },
-                method: 'POST',
-                data: this.state.editingUser,
-                cache: false,
-                success: function(data) {
-                    this.setState({
-                        message: "Successfully added user!"
-                    });
-                    this.reloadUsers('');
-                }.bind(this),
-                error: function(xhr, status, err) {
-                    console.error(this.props.url, status, err.toString());
-                    this.setState({
-                        message: err.toString()
-                    });
-                }.bind(this)
-            });
-        }
-        this.setState({
-            editingUser: {}
-        });
-    },
-    handleDeleteClick: function(e) {
-        e.preventDefault();
-        $.ajax({
-            url: this.props.url+this.state.editingUser.id,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            },
-            method: 'DELETE',
-            cache: false,
-            success: function(data) {
-                this.setState({
-                    message: "Successfully deleted user!",
-                    editingBook: {}
-                });
-                this.reloadUsers('');
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-                this.setState({
-                    message: err.toString()
-                });
-            }.bind(this)
-        });
-    },
+    }
 });
 
 ReactDOM.render(
-    <UsersPanel url={location.href} />,
-    document.getElementById('container')
+    <InvoicePanel url={location.href} />,
+    document.getElementById('react')
 );

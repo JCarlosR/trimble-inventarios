@@ -83,7 +83,6 @@
 		<a href="{{ url('listar-facturas-declarar') }}" class="btn btn-danger">
 			<i class="fa fa-backward"></i> Volver
 		</a>
-		<button type="button" id="excel_outputs"  class="btn btn-success"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Exportar excel</button>
 	</div>
 
 @endsection
