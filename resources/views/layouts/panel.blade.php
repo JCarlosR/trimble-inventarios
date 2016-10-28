@@ -81,7 +81,7 @@
                                 </ul>
                             </li>
 
-                            <li><a><i class="fa fa-edit"></i> Productos y paquetes <span class="fa fa-chevron-down"></span></a>
+                            <li><a><i class="fa fa-edit"></i> Productos y Paquetes <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a>Productos<span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
@@ -96,10 +96,10 @@
                                 </ul>
                             </li>
 
-                            <li><a><i class="fa fa-random"></i> Ubicaciones <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="{{ url('/local') }}">Locales</a></li>
-                                </ul>
+                            <li>
+                                <a href="{{ url('/local') }}">
+                                    <i class="fa fa-random"></i> Ubicaciones
+                                </a>
                             </li>
 
                             <li><a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
@@ -123,8 +123,12 @@
                             </li>
                             @endif
 
-                            <li><a href="{{ url('/cajachica/listar') }}"><i class="fa fa-institution"></i> Caja chica</a>
+                            <li>
+                                <a href="{{ url('/cajachica/listar') }}">
+                                    <i class="fa fa-institution"></i> Caja chica
+                                </a>
                             </li>
+
                             <li><a><i class="fa fa-bar-chart-o"></i> Facturas <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="{{url('listar-facturas-declarar')}}"><i class="fa fa-book"></i> Declaración</a></li>
