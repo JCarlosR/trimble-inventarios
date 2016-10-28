@@ -1,6 +1,6 @@
 @extends('layouts.panel')
 
-@section('title', 'Facturas')
+@section('title', 'Documentos')
 
 @section('content')
 	<div class="row">
@@ -27,22 +27,22 @@
 			<div class="col-md-3">
 				<div class="form-group">
 					Fecha inicio
-					<input type="date" class="form-control" value={{ $yesterday }}>
+					<input type="date" id="inicio" class="form-control" value={{ $yesterday }}>
 				</div>
 			</div>
 
 			<div class="col-md-3">
 				<div class="form-group">
 					Fecha fin
-					<input type="date" class="form-control" value={{ $today }}>
+					<input type="date" id="fin" class="form-control" value={{ $today }}>
 				</div>
 			</div>
 
 			<div class="col-md-3">
 				<div class="form-group">
 					Listado de facturas según: <br>
-					<button type="button" class="btn btn-info "><i class="fa fa-dashboard"></i> Mes</button>
-					<button type="button" class="btn btn-warning "><i class="fa fa-dashboard"></i> Fechas</button>
+					<button type="button" id="filter_month" class="btn btn-info "><i class="fa fa-dashboard"></i> Mes</button>
+					<button type="button" id="filter_date" class="btn btn-warning "><i class="fa fa-dashboard"></i> Fechas</button>
 				</div>
 			</div>
 		</div>
@@ -53,7 +53,7 @@
 	        <div class="x_panel">
 	            <div class="x_content table-responsive">
 					<input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}" />
-	                <table class="table table-striped">
+	                <table class="table table-striped" id="data">
 	                    <thead>
 	                    <tr>
 	                        <th>Documento</th>
@@ -70,16 +70,16 @@
 	                            <td>{{ $output->invoice_date }}</td>
 	                            <td>
 									@if(  $output->income_tax_date== null && $output->general_sales_tax_date == null)
-										<button type="submit" class="btn btn-danger" data-invoice="{{ $output->invoice}}">
+										<button type="button" class="btn btn-danger" data-invoice="{{ $output->invoice}}">
 											<i class="fa fa-trash"></i> Quitar
 										</button>
 									@else
 										@if( $output->income_tax_date != null  )
 											<button class="btn btn-primary ">IR</button>
 										@endif
-											@if( $output->general_sales_tax_date != null  )
-												<button class="btn btn-success ">SUNAT</button>
-											@endif
+										@if( $output->general_sales_tax_date != null  )
+											<button class="btn btn-success ">SUNAT</button>
+										@endif
 									@endif
 
 	                            </td>
@@ -87,7 +87,7 @@
 	                        @endforeach
 	                    </tbody>
 	                </table>
-	              {!! $outputs->render() !!}
+
 	            </div>
 	        </div>
 		</div>
@@ -143,5 +143,6 @@
 	</div>
 @endsection
 @section('scripts')
+	<script src="{{ asset('js/pager.js') }}"></script>
 	<script src="{{ asset('js/invoice/index.js') }}"></script>
 @endsection

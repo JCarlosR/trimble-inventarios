@@ -1,6 +1,6 @@
 @extends('layouts.panel')
 
-@section('title', 'Historial de facturas')
+@section('title', 'Historial de documentos')
 
 @section('content')
 	<div class="row">
@@ -27,22 +27,22 @@
 			<div class="col-md-3">
 				<div class="form-group">
 					Fecha inicio
-					<input type="date" class="form-control" value={{ $yesterday }}>
+					<input type="date" id="inicio" class="form-control" value={{ $yesterday }}>
 				</div>
 			</div>
 
 			<div class="col-md-3">
 				<div class="form-group">
 					Fecha fin
-					<input type="date" class="form-control" value={{ $today }}>
+					<input type="date" id="fin" class="form-control" value={{ $today }}>
 				</div>
 			</div>
 
 			<div class="col-md-3">
 				<div class="form-group">
 					Listado de facturas según: <br>
-					<button type="button" class="btn btn-info "><i class="fa fa-dashboard"></i> Mes</button>
-					<button type="button" class="btn btn-warning "><i class="fa fa-dashboard"></i> Fechas</button>
+					<button type="button"  id="filter_month" class="btn btn-info "><i class="fa fa-dashboard"></i> Mes</button>
+					<button type="button"  id="filter_date" class="btn btn-warning "><i class="fa fa-dashboard"></i> Fechas</button>
 				</div>
 			</div>
 		</div>
@@ -52,7 +52,7 @@
 		<div class="col-md-10 col-md-offset-1">
 	        <div class="x_panel">
 	            <div class="x_content table-responsive">
-	                <table class="table table-hover">
+	                <table class="table table-hover" id="data">
 	                    <thead>
 	                    <tr>
 	                        <th>Documento</th>
@@ -62,7 +62,7 @@
 							<th>Fecha declaración IGV</th>
 	                    </tr>
 	                    </thead>
-	                    <tbody>
+	                    <tbody id="invoices">
 	                    	@foreach( $outputs as $output )
 	                        <tr>
 	                            <td>{{ $output->invoice }} </td>
@@ -74,7 +74,6 @@
 	                        @endforeach
 	                    </tbody>
 	                </table>
-	              {!! $outputs->render() !!}
 	            </div>
 	        </div>
 		</div>
@@ -88,5 +87,6 @@
 @endsection
 
 @section('scripts')
-	<script src=" {{ asset('js/invoice/excel.js') }} "></script>
+	<script src="{{ asset('js/pager.js') }}"></script>
+	<script src=" {{ asset('js/invoice/history.js') }} "></script>
 @endsection

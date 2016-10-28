@@ -49,12 +49,23 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('listar-facturas-declarar-ir','InvoiceController@ir');
     Route::post('listar-facturas-declarar-igv','InvoiceController@igv');
     Route::get('listar-facturas-declarar-historial','InvoiceController@history');
-    Route::get('listar-facturas-declarar/{mes}','InvoiceController@mes');
-    Route::get('listar-facturas-declarar/{inicio}/{fin}','InvoiceController@fechas');
+    Route::get('listar-facturas-declarar/{mes}','InvoiceController@mes_view');
+    Route::get('listar-facturas-declarar/{inicio}/{fin}','InvoiceController@fecha_view');
 
+    // Invoice - history
+    Route::get('listar-facturas-declarar-historial/{mes}','InvoiceController@mes_history');
+    Route::get('listar-facturas-declarar-historial/{inicio}/{fin}','InvoiceController@fecha_history');
+
+    // Invoices excel
     Route::get('listar-facturas-excel','InvoiceController@invoices_excel');
-    Route::get('datos-excel','InvoiceController@verify');
-    Route::get('exportar-datos-excel-facturas','InvoiceController@excel');
+
+    Route::get('facturas-annio/{year}/{pay}/{wait}','InvoiceController@verify_invoice_year');
+    Route::get('facturas-mes/{month}/{pay}/{wait}','InvoiceController@verify_invoice_month');
+    Route::get('facturas-fecha/{start}/{end}/{pay}/{wait}','InvoiceController@verify_invoice_date');
+
+    Route::get('facturas-annio-excel/{year}/{pay}/{wait}','InvoiceController@invoice_year');
+    Route::get('facturas-mes-excel/{month}/{pay}/{wait}','InvoiceController@invoice_month');
+    Route::get('facturas-fecha-excel/{start}/{end}/{pay}/{wait}','InvoiceController@invoice_date');
 
     // Outputs detraction
     Route::get('/salida/detraction/{id}', 'DetractionController@getDetraction');
@@ -275,5 +286,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/pagos', 'PaymentController@index');
     Route::get('/pagos/search/{invoice}', 'PaymentController@search');
     Route::post('/pagos/save', 'PaymentController@store');
+    
+    // CASO DE PRUEBA
+    Route::get('/factura/{id}', 'OutputController@facturita');
     
 });

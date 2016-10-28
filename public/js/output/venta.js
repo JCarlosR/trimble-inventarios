@@ -11,9 +11,10 @@ var selectedProduct;
 var checkeado = false;
 
 $(document).on('ready', function () {
+
     // If the user change the currency, alert him !
     $('input[name=moneda]').on('change', onChangeCurrency);
-
+    
     $('#product').on('blur', handleBlurProduct);
     $('#btnAdd').on('click', addRow);
     $(document).on('click', '[data-delete]', deleteItem);
@@ -125,9 +126,9 @@ function registerOutput() {
     event.preventDefault();
     var totalguardar = $('#total').val();
     var costoEnvio = $('#costenvio').val();
-    console.log(costoEnvio);
     var totalIgv = $('#igv').val();
     var city = $('#provincia').val();
+    console.log(costoEnvio);
     var type_doc = $('input:radio[name=documento]:checked').val();
     
     // Validate invoice number
@@ -212,7 +213,7 @@ function addRow() {
         })
             .done(function( data ) {
                 if (data) {
-                    items.push({nombre: name, id: data.id, series: data.code, quantity: 1, price:price, type:'paq'});
+                    items.push({nombre: name, id: data.id, series: data.code, quantity: 1, price:price, originalprice:price, type:'paq'});
                     renderTemplatePackage(data.id, data.code, 1, price, price);
                     updateTotal();
                 } else {
@@ -345,7 +346,7 @@ function addItemsSeries() {
 
     if( dontRepeat(series_array) ) {
         for ( var i=0; i<series_array.length; ++i) {
-            items.push({ nombre:selectedProduct.name, id: selectedProduct.id, series: series_array[i], quantity: 1, price: selectedProduct.price, type:'prod' });
+            items.push({ nombre:selectedProduct.name, id: selectedProduct.id, series: series_array[i], quantity: 1, price: selectedProduct.price, originalprice: selectedProduct.price, type:'prod' });
             renderTemplateItem(selectedProduct.id, selectedProduct.name, series_array[i], 1, selectedProduct.price, selectedProduct.price);
         }
 

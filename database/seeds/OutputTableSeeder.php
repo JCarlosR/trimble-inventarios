@@ -16,38 +16,38 @@ class OutputsTableSeeder extends Seeder
         $carbon = new Carbon();
 
         Output::create([
-            'customer_id' => 1,
-            'invoice' => '1000001',
+            'customer_id' => 2,
             'user_id' => 2,
-            'type_doc' => 'F',
-            'invoice_date' => $carbon->now(),
+            'reason' => 'sale',
             'type' => 'L',
-            'igv' => 54.00,
-            'total' => 354.00,
+            'currency' => 'PEN',
+            'igv' => 196.85,
+            'total' => 1290.45,
             'shipping' => 100.00,
             'state' => 1,
-            'currency' => 'PEN',
-            'comment' => 'Venta de prueba',
-            'reason' => 'sale'
+            'invoice' => '000098',
+            'type_doc' => 'F',
+            'invoice_date' => $carbon->now(),
         ]);
 
         Output::create([
-            'customer_id' => 1,
-            'invoice' => '1000002',
-            'type_doc' => 'F',
+            'customer_id' => 2,
             'user_id' => 2,
-            'invoice_date' => $carbon->now(),
-            'type' => 'L',
-            'currency' => 'USD',
-            'igv' => 72.00,
-            'total' => 472.00,
-            'shipping' => 100.00,
-            'comment' => 'Alquiler de prueba',
             'reason' => 'rental',
-            'fechaAlquiler' => $carbon->now(),
+            'type' => 'L',
+            'currency' => 'PEN',
+            'igv' => 127.80,
+            'total' => 837.80,
+            'shipping' => 150.00,
             'state' => 1,
+            'invoice' => '000025',
+            'type_doc' => 'F',
+            'invoice_date' => $carbon->now(),
+            'fechaAlquiler' => $carbon->now(),
             'fechaRetorno' => $carbon->now()->addDays(5),
-            'destination' => 'Cajamarca'
+            'destination' => 'Cajamarca',
+            'comment' => 'Alquiler de prueba'
+
         ]);
     }
 

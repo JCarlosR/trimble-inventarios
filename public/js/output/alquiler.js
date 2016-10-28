@@ -72,15 +72,24 @@ function updateSubtotal() {
     var serie = $(this).data('igvserie');
     var price;
     var precio = $(this).parent().next().next().text();
+    console.log(precio);
     if( $(this).is(':checked'))
     {
         // precio = $(this).parent().prev().text();
         price = Math.round((precio*1.18)*100)/100;
         $(this).parent().next().html( Math.round((precio*0.18)*100)/100 );
-        for (var i = 0; i<items.length; ++i)
-            if (items[i].series == serie)
+        $(this).parent().next().next().html(price);
+        console.log("Precio cambiado"+price);
+        for (var i = 0; i<items.length; ++i) {
+            console.log('Entre');
+            if (items[i].series == serie) {
+                console.log('Entre if');
                 items[i].price = price;
+                console.log("Item "+items[i]);
+            }
+        }
         igv += (Math.round(price*100)/100)-(Math.round(precio*100)/100);
+        //igv += (price)
         console.log("IGV: "+igv);
         updateTotal();
     }else{
@@ -136,7 +145,7 @@ function registerRental() {
     data.push({name: 'total', value: Math.round(totalguardar*100)/100});
     data.push({name: 'envio', value: Math.round(costoEnvio*100)/100});
     data.push({name: 'type_doc', value: type_doc});
-
+    console.log(data);
     $.ajax({
         url: url_alquiler,
         data: data, 
@@ -200,8 +209,8 @@ function addRow() {
             })
             .done(function( data ) {
                 if (data) {
-                    items.push({id: data.id, series: data.code, quantity: 1, price:price, type:'paq'})
-                    renderTemplatePackage(data.id, data.code, 1, price, price)
+                    items.push({id: data.id, series: data.code, quantity: 1, price:price, originalprice:price, type:'paq'})
+                    renderTemplatePackage(data.id, data.code, 1, price, price);
                     updateTotal();
                 } else {
                     alert('Paquete no existe');
@@ -306,7 +315,7 @@ function addItemsSeries() {
 
     if( dontRepeat(series_array) ) {
         for ( var i=0; i<series_array.length; ++i) {
-            items.push({ id: selectedProduct.id, series: series_array[i], quantity: 1, price: selectedProduct.price, type:'prod' });
+            items.push({ id: selectedProduct.id, series: series_array[i], quantity: 1, price: selectedProduct.price, originalprice:selectedProduct.price, type:'prod' });
             renderTemplateItem(selectedProduct.id, selectedProduct.name, series_array[i], 1, selectedProduct.price, selectedProduct.price);
         }
 
@@ -382,6 +391,7 @@ function renderTemplatePackage(id, code, quantity, price, sub) {
     clone.querySelector("[data-series]").innerHTML = code;
     clone.querySelector("[data-quantity]").innerHTML = quantity;
     clone.querySelector("[data-price]").innerHTML = price;
+    clone.querySelector("[data-igvserie]").setAttribute('data-igvserie', code);
     clone.querySelector("[data-sub]").innerHTML = sub;
     clone.querySelector("[data-look]").setAttribute('data-look', id);
     clone.querySelector("[data-delete]").setAttribute('data-delete', id);
@@ -406,6 +416,7 @@ function renderTemplateItem(id, name, series, quantity, price, sub) {
     clone.querySelector("[data-series]").innerHTML = series;
     clone.querySelector("[data-quantity]").innerHTML = quantity;
     clone.querySelector("[data-price]").innerHTML = price;
+    clone.querySelector("[data-igvserie]").setAttribute('data-igvserie', series);
     clone.querySelector("[data-sub]").innerHTML = sub;
 
     clone.querySelector("[data-delete]").setAttribute('data-delete', id);

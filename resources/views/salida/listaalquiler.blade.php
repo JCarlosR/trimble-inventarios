@@ -111,7 +111,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-8 col-md-offset-2 col-sm-12">
+                            <div class="col-md-9 col-md-offset-1 col-sm-12">
                                 <table class="table table-hover" id="outputsTable">
                                     <thead>
                                     <tr>
@@ -141,6 +141,9 @@
                                                 </button>
                                                 <button type="button" class="btn btn-warning btn-sm" data-detraction="{{ $output->id }}" title="Detracción">
                                                     <i class="fa fa-bolt"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-success btn-sm" data-url="{{ url('factura') }}" data-invoice="{{ $output->id }}" title="Ver Factura">
+                                                    <i class="fa fa-eye"></i>
                                                 </button>
                                                 <button type="button" class="btn btn-danger btn-sm" data-anular="{{ $output->id }}">
                                                     <i class="fa fa-trash"></i>

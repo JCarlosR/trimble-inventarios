@@ -16,25 +16,29 @@ class OutputDetailsTableSeeder extends Seeder
         // Sale example
         OutputDetail::create([
             'output_id' => 1,
-            'item_id' => 1,
-            'price' => 15.2
+            'item_id' => 18,
+            'price' => 464.45,
+            'originalprice' => 393.60
         ]);
-        OutputDetail::create([
+        OutputPackage::create([
             'output_id' => 1,
-            'item_id' => 2,
-            'price' => 20
+            'package_id' => 3,
+            'price' => 708.00,
+            'originalprice' => 600.00
         ]);
 
         // Rental example
         OutputDetail::create([
             'output_id' => 2,
-            'item_id' => 3,
-            'price' => 20
+            'item_id' => 6,
+            'price' => 141.60,
+            'originalprice' => 120.00
         ]);
         OutputPackage::create([
             'output_id' => 2,
-            'package_id' => 2,
-            'price' => 80
+            'package_id' => 1,
+            'price' => 519.20,
+            'originalprice' => 440.00
         ]);
     }
 
