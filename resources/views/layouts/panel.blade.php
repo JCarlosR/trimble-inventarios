@@ -50,6 +50,7 @@
                         <ul class="nav side-menu">
                             <li><a><i class="fa fa-cubes"></i> Ingresos <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
+                                    <li><a href="{{ url('/ingreso/listar/orden_compra') }}">Orden de Compra</a></li>
                                     <li><a href="{{ url('/ingreso/listar/compra') }}">Compra</a></li>
                                     <li><a href="{{ url('/ingreso/listar/retorno') }}">Retorno</a></li>
                                     <li><a href="{{ url('/ingreso/listar/reutilizacion') }}">Reutilización</a></li>
