@@ -20,10 +20,35 @@ use App\Http\Requests;
 class PurchaseOrderController extends Controller
 {
 
-    public function index()
+    public function index( $order ='optional' )
     {
-        return view('purchase_order.index');
+        $order = ($order == 'z') ? '' : $order;
+        if ($order == 'optional') {
+            $carbon = new Carbon();
+            $inicio = $carbon->now()->subDays(7);
+            $fin = $carbon->now();
+
+            $fin = $fin->format('Y-m-d');
+            $inicio = $inicio->format('Y-m-d');
+
+            return view('purchase_order.index')->with(compact('inicio','fin'));
+        }
+       else {
+           $orders = PurchaseOrder::where('invoice', 'like', '%' . $order . '%')->with('provider')->get();
+           return $orders;
+       }
     }
+
+    public function details($order)
+    {
+        return PurchaseOrderDetails::where('purchase_order_id',$order)->with('product')->get();
+    }
+
+    public function dates( $start, $end )
+    {
+        return PurchaseOrder::whereDate('invoice_date','>=',$start)->whereDate('invoice_date','<=',$end)->with('provider')->get();
+    }
+
 
     public function create()
     {

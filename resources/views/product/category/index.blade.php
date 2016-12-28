@@ -8,6 +8,13 @@
         {
             margin-top:11px;
         }
+        .no-resize
+        {
+            resize: none;
+        }
+        .inside:focus{
+            border: 1px solid #0097cf;
+        }
     </style>
 @endsection
 
@@ -103,7 +110,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="description">Nueva descripción</label>
-                                <textarea class="form-control" name="description"></textarea>
+                                <textarea class="form-control no-resize inside" name="description"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -119,7 +126,7 @@
             </div>
         </div>
 
-        <div id="modalEliminar" class="modal fade in">
+        <div id="modalEliminar" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">

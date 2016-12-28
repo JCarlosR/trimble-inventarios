@@ -12,6 +12,15 @@
     </div>
 @endsection
 
+@section('styles')
+    <style>
+        .date
+        {
+            margin-top: 24px;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -36,46 +45,75 @@
 
                     <div class="clearfix"></div>
                 </div>
-                <div class="input-group">
-                    <a href="{{ url('/ingreso/orden_compra') }}" class="btn btn-success"><i class="fa fa-plus-square-o"></i>  Nueva orden</a>
+
+                <div class="row">
+                    <a href="{{ url('/ingreso/orden_compra') }}" class="btn btn-success pull-left"><i class="fa fa-plus-square-o"></i>  Nueva orden</a>
+                    <a href="{{ url('#') }}" class="btn btn-dark pull-right" type="button"><i class="fa fa-lock"></i> Restablecer orden</a>
                 </div>
+                <br>
 
                 <div class="x_content">
 
                     <div class="row">
                         <div class="form-group">
-                            <div class="col-md-10 col-md-offset-1 col-sm-12">
-                                <div class="form-inline col-md-8">
-                                    <div class="col-md-8 input-group margen">
-                                        <span class="input-group-addon">Código de Órden</span>
-                                        <input type="text" id="search" class="form-control" placeholder="Búsqueda personalizada ...">
+                            <div class="col-sm-12">
+                                <div class="form-inline col-md-5 date">
+                                    <div class="col-md-10 input-group margen">
+                                        <span class="input-group-addon"> <span class="glyphicon glyphicon-search"></span> </span>
+                                        <input type="text" id="search" class="form-control" placeholder="Documento ...">
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-7">
+                                    <div class="col-md-4">
+                                        <label for="">Desde:</label>
+                                        <input type="date" id="start" value="{{$inicio}}" class="form-control">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="">Hasta:</label>
+                                        <input type="date" id="end" value="{{$fin}}" class="form-control">
+                                    </div>
+                                    <div class="col-md-4 date">
+                                        <button class="btn btn-primary form-control" id="filter">Filtrar</button>
                                     </div>
 
                                 </div>
-                                <div class="col-md-4">
-                                    <a href="{{ url('#') }}" class="btn btn-dark" type="button"><i class="fa fa-lock"></i> Restablecer orden</a>
-                                </div>
-                                <table  class="table table-condensed table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Nombre/Raz. Soc.</th>
-                                            <th>Doc. Identidad</th>
-                                            <th>Direccion</th>
-                                            <th>Denominación</th>
-                                            <th>Teléfono</th>
-                                            <th>Tipo</th>
-                                            <th>Acción</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="table">
-
-                                    </tbody>
-                                </table>
-
                             </div>
                         </div>
                     </div>
 
+                    <table  class="table table-condensed table-hover" id="data">
+                        <thead>
+                            <tr>
+                                <th>Nombre/Raz. Soc.</th>
+                                <th>Moneda</th>
+                                <th>IGV</th>
+                                <th>Total</th>
+                                <th>Envío</th>
+                                <th>Documento</th>
+                                <th>Tipo</th>
+                                <th>Fecha emisión</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders">
+
+                        </tbody>
+                    </table>
+
+                    <table  class="table table-condensed table-hover" id="data">
+                        <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>IGV</th>
+                            <th>SubTotal</th>
+                        </tr>
+                        </thead>
+                        <tbody id="details">
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -85,6 +123,6 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/customer/customer-index.js')}}"></script>
-    <script src="{{ asset('js/customer/search.js') }}"></script>
+    <script src="{{ asset('js/pager.js')}}"></script>
+    <script src="{{ asset('js/purchase-order/index.js')}}"></script>
 @endsection

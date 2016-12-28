@@ -1,7 +1,7 @@
 function paginate()
 {
     $('#data').after('<div class="pagination"><ul id="nav" class="pagination"><li class="disabled"><span><<</span></li></ul></div>');
-    var rowsShown = 4;
+    var rowsShown = 2;
     var rowsTotal = $('#data tbody tr').length;
     var numPages = rowsTotal/rowsShown;
     for(i = 0;i < numPages;i++) {
