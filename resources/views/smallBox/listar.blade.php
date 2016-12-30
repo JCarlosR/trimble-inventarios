@@ -76,6 +76,7 @@
                                 <i class="fa fa-plus-square-o"></i> Nuevo Concepto
                             </a>
                         </div>
+                        @if(isset($assignmes))
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-md-12">
@@ -135,6 +136,7 @@
 
                             </div>
                         </div>
+                        @endif
                         <br>
                     </div>
                 </div>

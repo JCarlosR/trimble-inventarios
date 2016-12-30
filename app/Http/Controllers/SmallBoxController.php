@@ -39,11 +39,13 @@ class SmallBoxController extends Controller
         $month = $date->month;
         $date = $date->format('Y-m-d');
         $assignmes = SmallBox::whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->where('type','=','assign')->first();
-        $nextassign = SmallBox::where('type','=','assign')->where('id','>',$assignmes->id)->first();
-        if($nextassign)
-            $conceptos = SmallBox::where('id','>',$assignmes->id)->where('id','<',$nextassign->id)->where('type','<>','assign')->get();
-        else
-            $conceptos = SmallBox::where('id','>',$assignmes->id)->where('type','<>','assign')->get();
+        if($assignmes) {
+            $nextassign = SmallBox::where('type', '=', 'assign')->where('id', '>', $assignmes->id)->first();
+            if ($nextassign)
+                $conceptos = SmallBox::where('id', '>', $assignmes->id)->where('id', '<', $nextassign->id)->where('type', '<>', 'assign')->get();
+            else
+                $conceptos = SmallBox::where('id', '>', $assignmes->id)->where('type', '<>', 'assign')->get();
+        }
         return view('smallBox.listar')->with(compact('date','conceptos','assignmes'));
     }
 
