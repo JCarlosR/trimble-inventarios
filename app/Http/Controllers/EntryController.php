@@ -106,7 +106,6 @@ class EntryController extends Controller
             'comment' => $observacion
         ]);
 
-
         foreach($items as $item)
         {
             // Create Entry Details
@@ -131,7 +130,9 @@ class EntryController extends Controller
                 ]);
         }
 
-        // Update Stock product
+        // Update stock (?)
+        // For the moment we have no a field for this
+        // We just count the existing items
 
         return response()->json(['error' => false]);
     }
@@ -166,7 +167,6 @@ class EntryController extends Controller
             'comment' => $observacion
         ]);
 
-
         foreach($items as $item)
         {
             // Create Entry Details
@@ -191,7 +191,9 @@ class EntryController extends Controller
                 ]);
         }
 
-        // Update Stock product
+        // Update stock (?)
+        // For the moment we have no a field for this
+        // We just count the existing items
 
         return response()->json(['error' => false]);
 
