@@ -23,6 +23,7 @@ function search()
             method: 'GET'
         })
         .done(function( orders ) {
+            $('#details').html('');
             $('#orders').html('');
             $.each(orders,function(key,order){
                 var document = (order.type_doc=='F')?'Factura':'Boleta';
@@ -88,6 +89,7 @@ function filter()
             method: 'GET'
         })
         .done(function( orders ) {
+            $('#details').html('');
             $('#orders').html('');
             $.each(orders,function(key,order){
                 var document = (order.type_doc=='F')?'Factura':'Boleta';
