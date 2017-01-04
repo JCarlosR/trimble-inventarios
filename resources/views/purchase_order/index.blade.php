@@ -100,7 +100,7 @@
                         </tbody>
                     </table>
 
-                    <table  class="table table-condensed table-hover" id="data">
+                    <table  class="table table-condensed table-hover">
                         <thead>
                         <tr>
                             <th>Producto</th>
