@@ -282,18 +282,21 @@ Route::group(['middleware' => 'auth'], function () {
     // PDF - Small box
     Route::get('/pdf/caja-chica', 'SmallBoxController@pdf');
 
-    // Pagos
+    // Payments
     Route::get('/pagos', 'PaymentController@index');
     Route::get('/pagos/search/{invoice}', 'PaymentController@search');
     Route::post('/pagos/save', 'PaymentController@store');
     
-    // CASO DE PRUEBA
+    // CASO DE PRUEBA (???)
     Route::get('/factura/{id}', 'OutputController@facturita');
 
-    // Purchase Order
+    // Purchase orders
     Route::get('/ingreso/listar/orden_compra/{order?}', 'PurchaseOrderController@index');
     Route::get('/ingreso/listar/orden_compra/detalles/{order}', 'PurchaseOrderController@details');
     Route::get('/ingreso/listar/orden_compra/fechas/{start}/{end}', 'PurchaseOrderController@dates');
+
+    // Entries based on purchase orders
+    Route::get('/ingreso/listar/almacen/{purchase_order_id}', 'EntryByOrderController@create');
 
     Route::get('/ingreso/orden_compra', 'PurchaseOrderController@create');
     Route::post('/ingreso/purchase', 'PurchaseOrderController@store');

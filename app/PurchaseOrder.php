@@ -12,13 +12,24 @@ class PurchaseOrder extends Model
         'shipping', 'type_doc', 'currency', 'active'
     ];
 
+
+    // relationships
+
     public function details()
     {
-        return $this->hasMany('App\PurchaseOrderDetails');
+        return $this->hasMany('App\PurchaseOrderDetail');
     }
 
     public function provider()
     {
         return $this->belongsTo('App\Provider', 'provider_id');
+    }
+
+
+    // scopes
+
+    public function scopePending($query)
+    {
+        return $query->where('attended', false);
     }
 }

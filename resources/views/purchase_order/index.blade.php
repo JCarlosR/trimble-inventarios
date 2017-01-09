@@ -14,8 +14,7 @@
 
 @section('styles')
     <style>
-        .date
-        {
+        .date {
             margin-top: 24px;
         }
     </style>
@@ -67,11 +66,11 @@
                                 <div class="form-group col-md-7">
                                     <div class="col-md-4">
                                         <label for="">Desde:</label>
-                                        <input type="date" id="start" value="{{$inicio}}" class="form-control">
+                                        <input type="date" id="start" value="{{ $inicio }}" class="form-control">
                                     </div>
                                     <div class="col-md-4">
                                         <label for="">Hasta:</label>
-                                        <input type="date" id="end" value="{{$fin}}" class="form-control">
+                                        <input type="date" id="end" value="{{ $fin }}" class="form-control">
                                     </div>
                                     <div class="col-md-4 date">
                                         <button class="btn btn-primary form-control" id="filter">Filtrar</button>
@@ -93,6 +92,7 @@
                                 <th>Documento</th>
                                 <th>Tipo</th>
                                 <th>Fecha emisión</th>
+                                <th>Opciones</th>
                             </tr>
                         </thead>
                         <tbody id="orders">

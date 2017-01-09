@@ -61,7 +61,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Ingreso por compras</h2>
+                    <h2>Ingreso a almacén</h2>
 
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
@@ -73,7 +73,7 @@
                     <div class="x_content">
                         <br>
                         <div class="input-group">
-                            <a id="NvoIngreso" class="btn btn-success" href="{{ url('/ingreso/compra') }}"><i class="fa fa-plus-square-o"></i>  Nueva compra</a>
+                            <a id="NvoIngreso" class="btn btn-success" href="{{ url('/ingreso/compra') }}"><i class="fa fa-plus-square-o"></i>  Nuevo ingreso a almacén</a>
                         </div>
                         <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
 
@@ -106,8 +106,8 @@
 
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-2 col-md-offset-5" >
-                                        <button data-href="{{ url('/ingreso/listar/compra/{proveedor}/{inicio}/{fin}') }}" type="button" class="btn btn-primary btn-block" id="btnShowEntries">Buscar compras</button>
+                                    <div class="col-md-4 col-md-offset-4" >
+                                        <button data-href="{{ url('/ingreso/listar/compra/{proveedor}/{inicio}/{fin}') }}" type="button" class="btn btn-primary btn-block" id="btnShowEntries">Buscar ingresos a almacén</button>
                                     </div>
                                 </div>
                             </div>
