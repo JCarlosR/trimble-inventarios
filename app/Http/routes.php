@@ -289,5 +289,13 @@ Route::group(['middleware' => 'auth'], function () {
     
     // CASO DE PRUEBA
     Route::get('/factura/{id}', 'OutputController@facturita');
+
+    // Purchase Order
+    Route::get('/ingreso/listar/orden_compra/{order?}', 'PurchaseOrderController@index');
+    Route::get('/ingreso/listar/orden_compra/detalles/{order}', 'PurchaseOrderController@details');
+    Route::get('/ingreso/listar/orden_compra/fechas/{start}/{end}', 'PurchaseOrderController@dates');
+
+    Route::get('/ingreso/orden_compra', 'PurchaseOrderController@create');
+    Route::post('/ingreso/purchase', 'PurchaseOrderController@store');
     
 });
