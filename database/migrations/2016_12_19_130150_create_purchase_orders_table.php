@@ -15,7 +15,7 @@ class CreatePurchaseOrdersTable extends Migration
         Schema::create('purchase_orders', function (Blueprint $table) {
             $table->increments('id');
 
-            // Customer
+            // Provider
             $table->integer('provider_id')->unsigned()->nullable();
             $table->foreign('provider_id')->references('id')->on('providers');
 
@@ -31,7 +31,7 @@ class CreatePurchaseOrdersTable extends Migration
             $table->decimal('igv', 9,2);
             $table->decimal('total', 9,2);
             $table->decimal('shipping', 9,2);
-            $table->integer('state')->unsigned();//1:pendiente; 0: completa
+            $table->integer('state')->unsigned(); // 1: Pending | 0: Complete
 
             // Invoice data
             $table->string('invoice'); // number

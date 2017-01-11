@@ -10,6 +10,7 @@ use App\Item;
 use App\Output;
 use App\Product;
 use App\Provider;
+use App\PurchaseOrder;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
@@ -33,13 +34,14 @@ class EntryController extends Controller
     {
         $providers = Provider::select('name')->lists('name')->toJson();
         $entries = Entry::whereNotNull('provider_id')->where('active', true)->get();
+
         $carbon = new Carbon();
         $datefin = $carbon->now();
         $dateinicio = $carbon->now()->subDays(7);
         $datefin = $datefin->format('Y-m-d');
         $dateinicio = $dateinicio->format('Y-m-d');
-       // dd($datefin);
-        return view('ingreso.listacompra')->with(compact(['entries', 'providers', 'datefin', 'dateinicio']));
+
+        return view('ingreso.listacompra')->with(compact('entries', 'providers', 'datefin', 'dateinicio'));
     }
 
     public function getComprasFiltro($proveedor, $inicio, $fin)
@@ -140,7 +142,6 @@ class EntryController extends Controller
     public function postRegistroCompra(Request $request)
     {
         $items = json_decode($request->get('items'));
-        //dd($items);
 
         $proveedor = $request->get('proveedor');
         $tipo = $request->get('tipo');
@@ -159,7 +160,6 @@ class EntryController extends Controller
         }
 
         // Create Entry Header
-
         $providerId = $provider->id;
         $entry = Entry::create([
             'provider_id' => $providerId,
@@ -169,7 +169,7 @@ class EntryController extends Controller
 
         foreach($items as $item)
         {
-            // Create Entry Details
+            // Entry details
             EntryDetail::create([
                 'entry_id' => $entry->id,
                 'product_id' => $item->id,
@@ -195,8 +195,17 @@ class EntryController extends Controller
         // For the moment we have no a field for this
         // We just count the existing items
 
-        return response()->json(['error' => false]);
+        $purchase_order_id = $request->get('purchase_order_id');
+        if ($purchase_order_id) {
+            $purchase_order = PurchaseOrder::find($purchase_order_id);
+            $purchase_order->attended = true;
+            $purchase_order->save();
 
+            $entry->purchase_order_id = $purchase_order_id;
+            $entry->save();
+        }
+
+        return response()->json(['error' => false]);
     }
 
     public function delete( Request $request )

@@ -1,11 +1,32 @@
 // Global variables
 let items = [];
+let purchase_order_id;
+
+// Path to search one product by name
+let product_search_url;
+// Available locations
+let locations_url;
+// Post to register entry
+let new_entry_url;
+
+// Variables to render
+let $bodySeries;
+let $lastBtnAddClicked;
 
 // Temporary variables
-var selectedProduct;
+let selectedProduct;
 
 $(document).on('ready', function () {
-    $('#btnAdd').on('click', addItem);
+    // Get absolute paths from HTML
+    purchase_order_id = location.href.substr(location.href.lastIndexOf('/')+1);
+    product_search_url = $('meta[name="product_search_url"]').attr('content');
+    locations_url = $('meta[name="package_locations_url"]').attr('content');
+    new_entry_url = $('meta[name="new_entry_url"]').attr('content');
+
+    // Get references
+    $bodySeries = $('#bodySeries');
+
+    $(document).on('click', '[data-add]', addItem);
     $(document).on('click', '[data-delete]', deleteItem);
     $('#btnAccept').on('click', addItemsSeries);
     $('#form').on('submit', registerEntry);
@@ -16,9 +37,10 @@ function registerEntry() {
 
     const _token = $(this).find('[name=_token]');
     let data = $(this).serializeArray();
-    data.push({name: 'items', value: JSON.stringify(items)});
+    data.push({ name: 'items', value: JSON.stringify(items) });
+    data.push({ name: 'purchase_order_id', value: purchase_order_id });
     $.ajax({
-        url: 'compra',
+        url: new_entry_url,
         data: data,
         method: 'POST',
         headers: { 'X-CSRF-TOKEN': _token }
@@ -30,106 +52,115 @@ function registerEntry() {
             alert('Compra registrada correctamente.');
             location.reload();
         }
-
     });
 }
 
 function addItem() {
-    // Validate the product name
-    var name = $('#producto').val();
-    if (!name) return;
+    $lastBtnAddClicked = $(this);
 
-    // Validate quantity products
-    var _quantity = $('#cantidad').val();
-    var quantity = parseInt(_quantity);
+    const $tr = $(this).parents('tr');
+    let $td = $tr.find('td').first();
+
+    // Product name
+    const product_name = $td.text();
+    if (!product_name) return;
+
+    // Quantity
+    $td = $td.next();
+    const _quantity = $td.text();
+    const quantity = parseInt(_quantity);
     if (!quantity || quantity < 1)
         return;
 
-    // Validate price products
-    var _price = $('#precio').val();
-    var price = parseFloat(_price);
+    // Price
+    $td = $td.next();
+    let _price = $td.text();
+    let price = parseFloat(_price);
     if (!price || price <= 0)
         return;
 
+    // alert(product_name);
+    // alert(quantity);
+    // alert(price);
+
+    // Validate product name in backend
+    let url_path = product_search_url;
+    url_path = url_path.replace('{name}', product_name);
     $.ajax({
-        url: '../producto/buscar/' + name
-    })
-    .done(function( data ) {
+        url: url_path
+    }).done(function(data) {
         if (data) {
-            $('#bodySeries').html('');
-            for (var i = 0; i<quantity; ++i) {
+            $bodySeries.html('');
+            for (let i = 0; i<quantity; ++i) {
                 renderTemplateSeries();
             }
+
             // Temporary variables
-            selectedProduct = { id: data.id, name: name, price: price };
-            
+            selectedProduct = { id: data.id, name: product_name, price: price };
+
             loadAutoCompleteLocations();
-            
             $('#modalSeries').modal('show');
         } else {
-            alert('Producto no existe');
+            alert('Producto no encontrado en la base de datos');
         }
     });
 }
 
 function loadAutoCompleteLocations() {
-    console.log("Entre ubicacion");
     $.ajax({
-        url: '../paquete/ubicaciones'
-
-    })
-        .done(function(datos){
-            console.log(datos);
-            $('[data-location]').typeahead(
-                {
-                    hint: true,
-                    highlight: true,
-                    minLength: 1
-                },
-                {
-                    name: 'locations',
-                    source: substringMatcher(datos)
-                }
-            );
-        });
+        url: locations_url
+    }).done(function (location_data) {
+        console.log(location_data);
+        $('[data-location]').typeahead(
+            {
+                hint: true,
+                highlight: true,
+                minLength: 1
+            },
+            {
+                name: 'locations',
+                source: substringMatcher(location_data)
+            }
+        );
+    });
 }
 
 function addItemsSeries() {
-    var locations_array = [];
-    $('#bodySeries').find('[data-location]').each(function (i, element) {
-        var locations = $(element).val();
+    let locations_array = [];
+    $bodySeries.find('[data-location]').each(function (i, element) {
+        let locations = $(element).val();
         if(locations != "")
             locations_array.push(locations);
     });
     
-    var series_array = [];
-    $('#bodySeries').find('[data-serie]').each(function (i, element) {
-        var series = $(element).val();
+    let series_array = [];
+    $bodySeries.find('[data-serie]').each(function (i, element) {
+        let series = $(element).val();
         if(series != "")
             series_array.push(series);
     });
 
     if( dontRepeat(series_array) ) {
-        for ( var i=0; i<series_array.length; ++i) {
+        for (let i=0; i<series_array.length; ++i) {
             items.push({ id: selectedProduct.id, series: series_array[i], location: locations_array[i], quantity: 1, price: selectedProduct.price });
             renderTemplateItem(selectedProduct.id, selectedProduct.name, series_array[i], locations_array[i], 1, selectedProduct.price, selectedProduct.price);
         }
 
         updateTotal();
         $('#modalSeries').modal('hide');
-
+        $lastBtnAddClicked.prop('disabled', true);
     } else {
         alert('Existen series repetidas.');
     }
 }
 
 function dontRepeat(series_array) {
-    var series_total = series_array.slice(0);
-    for (var i = 0; i<items.length; ++i)
+    let series_total = series_array.slice(0);
+    for (let i = 0; i<items.length; ++i)
         series_total.push(items[i].series);
     console.log(series_total);
-    for (var i = 0; i<series_array.length; ++i) {
-        for (var j = i+1; j<series_total.length; ++j)
+    for (let i = 0; i<series_array.length; ++i) {
+        for (let j = i+1; j<series_total.length; ++j)
             if (series_array[i] == series_total[j])
                 return false;
     }
@@ -162,16 +193,15 @@ function updateTotal() {
 }
 
 
-// Funciones relacionadas al template HTML5
+// Render HTML5 template functions
 function activateTemplate(id) {
-    var t = document.querySelector(id);
+    let t = document.querySelector(id);
     return document.importNode(t.content, true);
-};
+}
 
 function renderTemplateItem(id, name, series, location, quantity, price, sub) {
 
-    var clone = activateTemplate('#template-item');
-
+    let clone = activateTemplate('#template-item');
     clone.querySelector("[data-name]").innerHTML = name;
     clone.querySelector("[data-series]").innerHTML = series;
     clone.querySelector("[data-ubication]").innerHTML = location;
@@ -185,9 +215,6 @@ function renderTemplateItem(id, name, series, location, quantity, price, sub) {
 }
 
 function renderTemplateSeries() {
-
-    var clone = activateTemplate('#template-series');
-
-
-    $('#bodySeries').append(clone);
+    const clone = activateTemplate('#template-series');
+    $bodySeries.append(clone);
 }

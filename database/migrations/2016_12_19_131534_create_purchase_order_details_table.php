@@ -15,7 +15,7 @@ class CreatePurchaseOrderDetailsTable extends Migration
         Schema::create('purchase_order_details', function (Blueprint $table) {
             $table->increments('id');
 
-            // Purchase Order header
+            // Purchase order header
             $table->integer('purchase_order_id')->unsigned();
             $table->foreign('purchase_order_id')->references('id')->on('purchase_orders');
 

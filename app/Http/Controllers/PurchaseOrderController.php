@@ -9,7 +9,7 @@ use App\Output;
 use App\Product;
 use App\Provider;
 use App\PurchaseOrder;
-use App\PurchaseOrderDetails;
+use App\PurchaseOrderDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,7 +41,7 @@ class PurchaseOrderController extends Controller
 
     public function details($order)
     {
-        return PurchaseOrderDetails::where('purchase_order_id',$order)->with('product')->get();
+        return PurchaseOrderDetail::where('purchase_order_id',$order)->with('product')->get();
     }
 
     public function dates( $start, $end )
@@ -169,7 +169,7 @@ class PurchaseOrderController extends Controller
 
                     $igv = $item->subtotal - ($item->quantity * $item->originalprice);
 
-                    PurchaseOrderDetails::create([
+                    PurchaseOrderDetail::create([
                         'purchase_order_id' => $purchaseOrder->id,
                         'product_id' => $item->id,
                         'quantity' => $item->quantity,
