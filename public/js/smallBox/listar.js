@@ -24,6 +24,7 @@ function updateConcept()
     $('#idModal').val(id);
     $('#conceptModal').val(concepto);
     $('#amountModal').val(monto);
+    $('#amountModal2').val(monto);
     $('#typeConcept').val(tipo);
     $('#modalConcept').modal('show');
 }

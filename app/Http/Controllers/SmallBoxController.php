@@ -391,6 +391,9 @@ class SmallBoxController extends Controller
         $id = $request->get('id');
         $concept = $request->get('concepto');
         $amount = $request->get('monto');
+        $type = $request->get('tipo');
+
+        $lastamount = $request->get('monto_actual');
 
         if($id == null OR $id == "")
             return response()->json(['error' => true, 'message' => 'Ha ocurrido un error inesperado. Actualice y vuelva a intentar.']);
@@ -398,6 +401,18 @@ class SmallBoxController extends Controller
             return response()->json(['error' => true, 'message' => 'Es necesario ingresar el concepto a la caja chica']);
         if ($amount == null OR $amount == "")
             return response()->json(['error' => true, 'message' => 'Es necesario ingresar el importe del concepto a la caja chica']);
+
+        $lastBalance = SmallBoxBalance::orderBy('updated_at', 'desc')->first();
+        if($type == 'output') {
+            if ($lastBalance->balance + $lastamount < $amount)
+                return response()->json(['error' => true, 'message' => 'No hay suficiente saldo en caja. Debe hacer un ingreso']);
+            $newBalance = $lastBalance->balance - ($amount-$lastamount);
+        }
+        else
+            $newBalance = $lastBalance->balance + ($amount-$lastamount);
+
+        $lastBalance->balance = $newBalance;
+        $lastBalance->save();
 
         $box = SmallBox::find( $id );
         $box->concept = $concept;

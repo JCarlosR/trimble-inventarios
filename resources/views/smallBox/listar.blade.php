@@ -169,10 +169,11 @@
                         <div class="form-group">
                             <label for="serie">Monto:</label>
                             <input type="number" class="form-control" id="amountModal" name="monto">
+                            <input type="number" class="form-control" id="amountModal2" name="monto_actual" style="visibility: hidden;display:none">
                         </div>
                         <div class="form-group">
                             <label for="serie">Tipo:</label>
-                            <select id="typeConcept" class="form-control" disabled>
+                            <select id="typeConcept" class="form-control" name="tipo">
                                 <option value="input">Ingreso</option>
                                 <option value="output">Salida</option>
                             </select>
